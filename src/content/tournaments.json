@@ -1,0 +1,777 @@
+[
+  {
+    "id": 2,
+    "title": "Super Smash Bros Ultimate Singles",
+    "description": "This is the description for your Singles event.",
+    "registration_cap": 100,
+    "registration_cutoff": "2020-12-19T20:00:00.000Z",
+    "tournament_start_time": "2020-12-19T21:00:00.000Z",
+    "special_rules": "Any special rules.",
+    "event": {
+      "id": 2,
+      "title": "Weekly In-Person Ultimate Singles",
+      "slug": "/weekly-in-person-ultimate-singles",
+      "description": "This is your weekly singles event.",
+      "is_online": false,
+      "is_offline": true,
+      "starts_at": "2020-12-19T20:00:00.000Z",
+      "ends_at": "2020-12-20T02:00:00.000Z",
+      "series_item": 2,
+      "sign_up_link": "https://link.to/your/event",
+      "checkin_instructions": "Any special checkin instructions.",
+      "stream_rules": "Any special stream rules.",
+      "venue": 2,
+      "cadence": "weekly",
+      "created_at": "2020-12-16T20:19:06.445Z",
+      "updated_at": "2020-12-21T09:19:36.263Z",
+      "header": {
+        "id": 290,
+        "name": "ultimate-weekly-singles.jpg",
+        "alternativeText": "",
+        "caption": "",
+        "width": 1920,
+        "height": 1080,
+        "formats": {
+          "large": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/large_ultimate_weekly_singles_149ac4d50d/large_ultimate_weekly_singles_149ac4d50d.jpg",
+            "hash": "large_ultimate_weekly_singles_149ac4d50d",
+            "mime": "image/jpeg",
+            "name": "large_ultimate-weekly-singles.jpg",
+            "path": null,
+            "size": 101.04,
+            "width": 1000,
+            "height": 563
+          },
+          "small": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/small_ultimate_weekly_singles_149ac4d50d/small_ultimate_weekly_singles_149ac4d50d.jpg",
+            "hash": "small_ultimate_weekly_singles_149ac4d50d",
+            "mime": "image/jpeg",
+            "name": "small_ultimate-weekly-singles.jpg",
+            "path": null,
+            "size": 32.17,
+            "width": 500,
+            "height": 281
+          },
+          "medium": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/medium_ultimate_weekly_singles_149ac4d50d/medium_ultimate_weekly_singles_149ac4d50d.jpg",
+            "hash": "medium_ultimate_weekly_singles_149ac4d50d",
+            "mime": "image/jpeg",
+            "name": "medium_ultimate-weekly-singles.jpg",
+            "path": null,
+            "size": 61.63,
+            "width": 750,
+            "height": 422
+          },
+          "thumbnail": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_ultimate_weekly_singles_149ac4d50d/thumbnail_ultimate_weekly_singles_149ac4d50d.jpg",
+            "hash": "thumbnail_ultimate_weekly_singles_149ac4d50d",
+            "mime": "image/jpeg",
+            "name": "thumbnail_ultimate-weekly-singles.jpg",
+            "path": null,
+            "size": 9.86,
+            "width": 245,
+            "height": 138
+          }
+        },
+        "hash": "ultimate_weekly_singles_149ac4d50d",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "size": 276.82,
+        "url": "https://storage.googleapis.com/adj-cms-default/ultimate_weekly_singles_149ac4d50d/ultimate_weekly_singles_149ac4d50d.jpg",
+        "previewUrl": null,
+        "provider": "google-cloud-storage",
+        "provider_metadata": null,
+        "created_at": "2020-12-16T20:19:06.417Z",
+        "updated_at": "2020-12-16T20:19:06.417Z"
+      },
+      "card": {
+        "id": 290,
+        "name": "ultimate-weekly-singles.jpg",
+        "alternativeText": "",
+        "caption": "",
+        "width": 1920,
+        "height": 1080,
+        "formats": {
+          "large": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/large_ultimate_weekly_singles_149ac4d50d/large_ultimate_weekly_singles_149ac4d50d.jpg",
+            "hash": "large_ultimate_weekly_singles_149ac4d50d",
+            "mime": "image/jpeg",
+            "name": "large_ultimate-weekly-singles.jpg",
+            "path": null,
+            "size": 101.04,
+            "width": 1000,
+            "height": 563
+          },
+          "small": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/small_ultimate_weekly_singles_149ac4d50d/small_ultimate_weekly_singles_149ac4d50d.jpg",
+            "hash": "small_ultimate_weekly_singles_149ac4d50d",
+            "mime": "image/jpeg",
+            "name": "small_ultimate-weekly-singles.jpg",
+            "path": null,
+            "size": 32.17,
+            "width": 500,
+            "height": 281
+          },
+          "medium": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/medium_ultimate_weekly_singles_149ac4d50d/medium_ultimate_weekly_singles_149ac4d50d.jpg",
+            "hash": "medium_ultimate_weekly_singles_149ac4d50d",
+            "mime": "image/jpeg",
+            "name": "medium_ultimate-weekly-singles.jpg",
+            "path": null,
+            "size": 61.63,
+            "width": 750,
+            "height": 422
+          },
+          "thumbnail": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_ultimate_weekly_singles_149ac4d50d/thumbnail_ultimate_weekly_singles_149ac4d50d.jpg",
+            "hash": "thumbnail_ultimate_weekly_singles_149ac4d50d",
+            "mime": "image/jpeg",
+            "name": "thumbnail_ultimate-weekly-singles.jpg",
+            "path": null,
+            "size": 9.86,
+            "width": 245,
+            "height": 138
+          }
+        },
+        "hash": "ultimate_weekly_singles_149ac4d50d",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "size": 276.82,
+        "url": "https://storage.googleapis.com/adj-cms-default/ultimate_weekly_singles_149ac4d50d/ultimate_weekly_singles_149ac4d50d.jpg",
+        "previewUrl": null,
+        "provider": "google-cloud-storage",
+        "provider_metadata": null,
+        "created_at": "2020-12-16T20:19:06.417Z",
+        "updated_at": "2020-12-16T20:19:06.417Z"
+      }
+    },
+    "fee": "0",
+    "matcherino_code": "BEACONS",
+    "matcherino_coupon_amount": "1.00",
+    "game": {
+      "id": 108,
+      "title": "Super Smash Bros. Ultimate",
+      "slug": "/games/super-smash-bros-ultimate",
+      "description": "Legendary game worlds and fighters collide in the ultimate showdown—a new entry in the Super Smash Bros. series for the Nintendo Switch system! New fighters, like Inkling from the Splatoon series and Ridley from the Metroid series, make their Super Smash Bros. series debut alongside every Super Smash Bros. fighter in the series…EVER! Faster combat, new items, new attacks, new defensive options, and more will keep the battle raging whether you’re at home or on the go.",
+      "enabled": true,
+      "header": {
+        "id": 210,
+        "name": "j0izprggutart2oqbhkh.jpg",
+        "alternativeText": "Super Smash Bros. Ultimate",
+        "caption": "Super Smash Bros. Ultimate",
+        "width": 1820,
+        "height": 337,
+        "formats": {
+          "large": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/large_j0izprggutart2oqbhkh_5f6406ce05/large_j0izprggutart2oqbhkh_5f6406ce05.jpg",
+            "hash": "large_j0izprggutart2oqbhkh_5f6406ce05",
+            "mime": "image",
+            "name": "large_j0izprggutart2oqbhkh.jpg",
+            "path": null,
+            "size": 76.94,
+            "width": 1000,
+            "height": 185
+          },
+          "small": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/small_j0izprggutart2oqbhkh_5f6406ce05/small_j0izprggutart2oqbhkh_5f6406ce05.jpg",
+            "hash": "small_j0izprggutart2oqbhkh_5f6406ce05",
+            "mime": "image",
+            "name": "small_j0izprggutart2oqbhkh.jpg",
+            "path": null,
+            "size": 22.39,
+            "width": 500,
+            "height": 93
+          },
+          "medium": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/medium_j0izprggutart2oqbhkh_5f6406ce05/medium_j0izprggutart2oqbhkh_5f6406ce05.jpg",
+            "hash": "medium_j0izprggutart2oqbhkh_5f6406ce05",
+            "mime": "image",
+            "name": "medium_j0izprggutart2oqbhkh.jpg",
+            "path": null,
+            "size": 45.63,
+            "width": 750,
+            "height": 139
+          },
+          "thumbnail": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_j0izprggutart2oqbhkh_5f6406ce05/thumbnail_j0izprggutart2oqbhkh_5f6406ce05.jpg",
+            "hash": "thumbnail_j0izprggutart2oqbhkh_5f6406ce05",
+            "mime": "image",
+            "name": "thumbnail_j0izprggutart2oqbhkh.jpg",
+            "path": null,
+            "size": 6.1,
+            "width": 245,
+            "height": 45
+          }
+        },
+        "hash": "j0izprggutart2oqbhkh_5f6406ce05",
+        "ext": ".jpg",
+        "mime": "image",
+        "size": 208.42,
+        "url": "https://storage.googleapis.com/adj-cms-default/j0izprggutart2oqbhkh_5f6406ce05/j0izprggutart2oqbhkh_5f6406ce05.jpg",
+        "previewUrl": null,
+        "provider": "google-cloud-storage",
+        "provider_metadata": null,
+        "created_at": "2020-12-16T19:23:27.827Z",
+        "updated_at": "2020-12-16T19:23:27.827Z"
+      },
+      "cover": {
+        "id": 211,
+        "name": "co2255.jpg",
+        "alternativeText": "Super Smash Bros. Ultimate",
+        "caption": "Super Smash Bros. Ultimate",
+        "width": 810,
+        "height": 1080,
+        "formats": {
+          "large": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/large_co2255_8c3c3ff2c1/large_co2255_8c3c3ff2c1.jpg",
+            "hash": "large_co2255_8c3c3ff2c1",
+            "mime": "image",
+            "name": "large_co2255.jpg",
+            "path": null,
+            "size": 198.32,
+            "width": 750,
+            "height": 1000
+          },
+          "small": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/small_co2255_8c3c3ff2c1/small_co2255_8c3c3ff2c1.jpg",
+            "hash": "small_co2255_8c3c3ff2c1",
+            "mime": "image",
+            "name": "small_co2255.jpg",
+            "path": null,
+            "size": 64.18,
+            "width": 375,
+            "height": 500
+          },
+          "medium": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/medium_co2255_8c3c3ff2c1/medium_co2255_8c3c3ff2c1.jpg",
+            "hash": "medium_co2255_8c3c3ff2c1",
+            "mime": "image",
+            "name": "medium_co2255.jpg",
+            "path": null,
+            "size": 127.71,
+            "width": 563,
+            "height": 750
+          },
+          "thumbnail": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_co2255_8c3c3ff2c1/thumbnail_co2255_8c3c3ff2c1.jpg",
+            "hash": "thumbnail_co2255_8c3c3ff2c1",
+            "mime": "image",
+            "name": "thumbnail_co2255.jpg",
+            "path": null,
+            "size": 9.04,
+            "width": 117,
+            "height": 156
+          }
+        },
+        "hash": "co2255_8c3c3ff2c1",
+        "ext": ".jpg",
+        "mime": "image",
+        "size": 214.24,
+        "url": "https://storage.googleapis.com/adj-cms-default/co2255_8c3c3ff2c1/co2255_8c3c3ff2c1.jpg",
+        "previewUrl": null,
+        "provider": "google-cloud-storage",
+        "provider_metadata": null,
+        "created_at": "2020-12-16T19:23:27.847Z",
+        "updated_at": "2020-12-16T19:23:27.847Z"
+      }
+    },
+    "created_at": "2020-12-16T20:19:05.990Z",
+    "updated_at": "2020-12-21T09:19:36.258Z",
+    "header": {
+      "id": 284,
+      "name": "co2255.jpg",
+      "alternativeText": "Super Smash Bros. Ultimate",
+      "caption": "Super Smash Bros. Ultimate",
+      "width": 810,
+      "height": 1080,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://storage.googleapis.com/adj-cms-default/large_co2255_8c3c3ff2c1/large_co2255_8c3c3ff2c1.jpg",
+          "hash": "large_co2255_8c3c3ff2c1",
+          "mime": "image",
+          "name": "large_co2255.jpg",
+          "path": null,
+          "size": 198.32,
+          "width": 750,
+          "height": 1000
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://storage.googleapis.com/adj-cms-default/small_co2255_8c3c3ff2c1/small_co2255_8c3c3ff2c1.jpg",
+          "hash": "small_co2255_8c3c3ff2c1",
+          "mime": "image",
+          "name": "small_co2255.jpg",
+          "path": null,
+          "size": 64.18,
+          "width": 375,
+          "height": 500
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://storage.googleapis.com/adj-cms-default/medium_co2255_8c3c3ff2c1/medium_co2255_8c3c3ff2c1.jpg",
+          "hash": "medium_co2255_8c3c3ff2c1",
+          "mime": "image",
+          "name": "medium_co2255.jpg",
+          "path": null,
+          "size": 127.71,
+          "width": 563,
+          "height": 750
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_co2255_8c3c3ff2c1/thumbnail_co2255_8c3c3ff2c1.jpg",
+          "hash": "thumbnail_co2255_8c3c3ff2c1",
+          "mime": "image",
+          "name": "thumbnail_co2255.jpg",
+          "path": null,
+          "size": 9.04,
+          "width": 117,
+          "height": 156
+        }
+      },
+      "hash": "co2255_8c3c3ff2c1",
+      "ext": ".jpg",
+      "mime": "image",
+      "size": 214.24,
+      "url": "https://storage.googleapis.com/adj-cms-default/co2255_8c3c3ff2c1/co2255_8c3c3ff2c1.jpg",
+      "previewUrl": null,
+      "provider": "google-cloud-storage",
+      "provider_metadata": null,
+      "created_at": "2020-12-16T20:19:05.965Z",
+      "updated_at": "2020-12-16T20:19:05.965Z"
+    },
+    "platforms": [],
+    "geo_regions": [
+      {
+        "id": 1,
+        "name": "Los Angeles",
+        "type": "City",
+        "created_at": "2020-12-16T20:19:05.531Z",
+        "updated_at": "2020-12-16T20:19:05.531Z"
+      },
+      {
+        "id": 2,
+        "name": "California",
+        "type": "State",
+        "created_at": "2020-12-16T20:19:05.554Z",
+        "updated_at": "2020-12-16T20:19:05.554Z"
+      },
+      {
+        "id": 3,
+        "name": "United States",
+        "type": "Country",
+        "created_at": "2020-12-16T20:19:05.570Z",
+        "updated_at": "2020-12-16T20:19:05.570Z"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Valorant Tournament",
+    "description": "This is the description for the tournament.",
+    "registration_cap": 100,
+    "registration_cutoff": "2020-12-18T20:00:00.000Z",
+    "tournament_start_time": "2020-12-18T21:00:00.000Z",
+    "special_rules": "Any special rules that you have.",
+    "event": {
+      "id": 1,
+      "title": "Weekly Online Valorant Rumble",
+      "slug": "/weekly-online-valorant-rumble",
+      "description": "This is the weekly VALORANT Rumble description!",
+      "is_online": true,
+      "is_offline": false,
+      "starts_at": "2020-12-18T20:00:00.000Z",
+      "ends_at": "2020-12-19T04:00:00.000Z",
+      "series_item": 1,
+      "sign_up_link": "https://link.to/your/event",
+      "checkin_instructions": "Any special checkin instructions.",
+      "stream_rules": "Any special stream rules.",
+      "venue": 1,
+      "cadence": "weekly",
+      "created_at": "2020-12-16T20:19:06.319Z",
+      "updated_at": "2020-12-21T09:19:44.868Z",
+      "header": {
+        "id": 289,
+        "name": "ar6o6.jpg",
+        "alternativeText": "VALORANT",
+        "caption": "VALORANT",
+        "width": 1820,
+        "height": 1024,
+        "formats": {
+          "large": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/large_ar6o6_cf35ba95d9/large_ar6o6_cf35ba95d9.jpg",
+            "hash": "large_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "large_ar6o6.jpg",
+            "path": null,
+            "size": 52.52,
+            "width": 1000,
+            "height": 563
+          },
+          "small": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/small_ar6o6_cf35ba95d9/small_ar6o6_cf35ba95d9.jpg",
+            "hash": "small_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "small_ar6o6.jpg",
+            "path": null,
+            "size": 17.83,
+            "width": 500,
+            "height": 281
+          },
+          "medium": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/medium_ar6o6_cf35ba95d9/medium_ar6o6_cf35ba95d9.jpg",
+            "hash": "medium_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "medium_ar6o6.jpg",
+            "path": null,
+            "size": 33.06,
+            "width": 750,
+            "height": 422
+          },
+          "thumbnail": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_ar6o6_cf35ba95d9/thumbnail_ar6o6_cf35ba95d9.jpg",
+            "hash": "thumbnail_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "thumbnail_ar6o6.jpg",
+            "path": null,
+            "size": 5.99,
+            "width": 245,
+            "height": 138
+          }
+        },
+        "hash": "ar6o6_cf35ba95d9",
+        "ext": ".jpg",
+        "mime": "image",
+        "size": 120.37,
+        "url": "https://storage.googleapis.com/adj-cms-default/ar6o6_cf35ba95d9/ar6o6_cf35ba95d9.jpg",
+        "previewUrl": null,
+        "provider": "google-cloud-storage",
+        "provider_metadata": null,
+        "created_at": "2020-12-16T20:19:06.296Z",
+        "updated_at": "2020-12-16T20:19:06.296Z"
+      },
+      "card": {
+        "id": 283,
+        "name": "ar6o6.jpg",
+        "alternativeText": "VALORANT",
+        "caption": "VALORANT",
+        "width": 1820,
+        "height": 1024,
+        "formats": {
+          "large": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/large_ar6o6_cf35ba95d9/large_ar6o6_cf35ba95d9.jpg",
+            "hash": "large_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "large_ar6o6.jpg",
+            "path": null,
+            "size": 52.52,
+            "width": 1000,
+            "height": 563
+          },
+          "small": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/small_ar6o6_cf35ba95d9/small_ar6o6_cf35ba95d9.jpg",
+            "hash": "small_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "small_ar6o6.jpg",
+            "path": null,
+            "size": 17.83,
+            "width": 500,
+            "height": 281
+          },
+          "medium": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/medium_ar6o6_cf35ba95d9/medium_ar6o6_cf35ba95d9.jpg",
+            "hash": "medium_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "medium_ar6o6.jpg",
+            "path": null,
+            "size": 33.06,
+            "width": 750,
+            "height": 422
+          },
+          "thumbnail": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_ar6o6_cf35ba95d9/thumbnail_ar6o6_cf35ba95d9.jpg",
+            "hash": "thumbnail_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "thumbnail_ar6o6.jpg",
+            "path": null,
+            "size": 5.99,
+            "width": 245,
+            "height": 138
+          }
+        },
+        "hash": "ar6o6_cf35ba95d9",
+        "ext": ".jpg",
+        "mime": "image",
+        "size": 120.37,
+        "url": "https://storage.googleapis.com/adj-cms-default/ar6o6_cf35ba95d9/ar6o6_cf35ba95d9.jpg",
+        "previewUrl": null,
+        "provider": "google-cloud-storage",
+        "provider_metadata": null,
+        "created_at": "2020-12-16T20:19:05.867Z",
+        "updated_at": "2020-12-16T20:19:05.867Z"
+      }
+    },
+    "fee": "0",
+    "matcherino_code": "BEACONS",
+    "matcherino_coupon_amount": "1.00",
+    "game": {
+      "id": 132,
+      "title": "VALORANT",
+      "slug": "/games/valorant",
+      "description": "Imagine this: tactical shooter meets hypernatural powers. Everyone’s got guns and a unique set of abilities, so how do you beat someone with the speed of wind? Use your own moves to outplay them and beat them to the shot. VALORANT is a game for bold strategists who dare to make the unexpected play, because if it wins, it works.",
+      "enabled": true,
+      "header": {
+        "id": 254,
+        "name": "ar6o6.jpg",
+        "alternativeText": "VALORANT",
+        "caption": "VALORANT",
+        "width": 1820,
+        "height": 1024,
+        "formats": {
+          "large": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/large_ar6o6_cf35ba95d9/large_ar6o6_cf35ba95d9.jpg",
+            "hash": "large_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "large_ar6o6.jpg",
+            "path": null,
+            "size": 52.52,
+            "width": 1000,
+            "height": 563
+          },
+          "small": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/small_ar6o6_cf35ba95d9/small_ar6o6_cf35ba95d9.jpg",
+            "hash": "small_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "small_ar6o6.jpg",
+            "path": null,
+            "size": 17.83,
+            "width": 500,
+            "height": 281
+          },
+          "medium": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/medium_ar6o6_cf35ba95d9/medium_ar6o6_cf35ba95d9.jpg",
+            "hash": "medium_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "medium_ar6o6.jpg",
+            "path": null,
+            "size": 33.06,
+            "width": 750,
+            "height": 422
+          },
+          "thumbnail": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_ar6o6_cf35ba95d9/thumbnail_ar6o6_cf35ba95d9.jpg",
+            "hash": "thumbnail_ar6o6_cf35ba95d9",
+            "mime": "image",
+            "name": "thumbnail_ar6o6.jpg",
+            "path": null,
+            "size": 5.99,
+            "width": 245,
+            "height": 138
+          }
+        },
+        "hash": "ar6o6_cf35ba95d9",
+        "ext": ".jpg",
+        "mime": "image",
+        "size": 120.37,
+        "url": "https://storage.googleapis.com/adj-cms-default/ar6o6_cf35ba95d9/ar6o6_cf35ba95d9.jpg",
+        "previewUrl": null,
+        "provider": "google-cloud-storage",
+        "provider_metadata": null,
+        "created_at": "2020-12-16T19:23:29.918Z",
+        "updated_at": "2020-12-16T19:23:29.918Z"
+      },
+      "cover": {
+        "id": 255,
+        "name": "co2gpr.jpg",
+        "alternativeText": "VALORANT",
+        "caption": "VALORANT",
+        "width": 810,
+        "height": 1080,
+        "formats": {
+          "large": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/large_co2gpr_bab93d1bd2/large_co2gpr_bab93d1bd2.jpg",
+            "hash": "large_co2gpr_bab93d1bd2",
+            "mime": "image",
+            "name": "large_co2gpr.jpg",
+            "path": null,
+            "size": 91.22,
+            "width": 750,
+            "height": 1000
+          },
+          "small": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/small_co2gpr_bab93d1bd2/small_co2gpr_bab93d1bd2.jpg",
+            "hash": "small_co2gpr_bab93d1bd2",
+            "mime": "image",
+            "name": "small_co2gpr.jpg",
+            "path": null,
+            "size": 32.7,
+            "width": 375,
+            "height": 500
+          },
+          "medium": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/medium_co2gpr_bab93d1bd2/medium_co2gpr_bab93d1bd2.jpg",
+            "hash": "medium_co2gpr_bab93d1bd2",
+            "mime": "image",
+            "name": "medium_co2gpr.jpg",
+            "path": null,
+            "size": 60.06,
+            "width": 563,
+            "height": 750
+          },
+          "thumbnail": {
+            "ext": ".jpg",
+            "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_co2gpr_bab93d1bd2/thumbnail_co2gpr_bab93d1bd2.jpg",
+            "hash": "thumbnail_co2gpr_bab93d1bd2",
+            "mime": "image",
+            "name": "thumbnail_co2gpr.jpg",
+            "path": null,
+            "size": 5.91,
+            "width": 117,
+            "height": 156
+          }
+        },
+        "hash": "co2gpr_bab93d1bd2",
+        "ext": ".jpg",
+        "mime": "image",
+        "size": 97.72,
+        "url": "https://storage.googleapis.com/adj-cms-default/co2gpr_bab93d1bd2/co2gpr_bab93d1bd2.jpg",
+        "previewUrl": null,
+        "provider": "google-cloud-storage",
+        "provider_metadata": null,
+        "created_at": "2020-12-16T19:23:29.943Z",
+        "updated_at": "2020-12-16T19:23:29.943Z"
+      }
+    },
+    "created_at": "2020-12-16T20:19:05.896Z",
+    "updated_at": "2020-12-21T11:10:17.562Z",
+    "header": {
+      "id": 255,
+      "name": "co2gpr.jpg",
+      "alternativeText": "VALORANT",
+      "caption": "VALORANT",
+      "width": 810,
+      "height": 1080,
+      "formats": {
+        "large": {
+          "ext": ".jpg",
+          "url": "https://storage.googleapis.com/adj-cms-default/large_co2gpr_bab93d1bd2/large_co2gpr_bab93d1bd2.jpg",
+          "hash": "large_co2gpr_bab93d1bd2",
+          "mime": "image",
+          "name": "large_co2gpr.jpg",
+          "path": null,
+          "size": 91.22,
+          "width": 750,
+          "height": 1000
+        },
+        "small": {
+          "ext": ".jpg",
+          "url": "https://storage.googleapis.com/adj-cms-default/small_co2gpr_bab93d1bd2/small_co2gpr_bab93d1bd2.jpg",
+          "hash": "small_co2gpr_bab93d1bd2",
+          "mime": "image",
+          "name": "small_co2gpr.jpg",
+          "path": null,
+          "size": 32.7,
+          "width": 375,
+          "height": 500
+        },
+        "medium": {
+          "ext": ".jpg",
+          "url": "https://storage.googleapis.com/adj-cms-default/medium_co2gpr_bab93d1bd2/medium_co2gpr_bab93d1bd2.jpg",
+          "hash": "medium_co2gpr_bab93d1bd2",
+          "mime": "image",
+          "name": "medium_co2gpr.jpg",
+          "path": null,
+          "size": 60.06,
+          "width": 563,
+          "height": 750
+        },
+        "thumbnail": {
+          "ext": ".jpg",
+          "url": "https://storage.googleapis.com/adj-cms-default/thumbnail_co2gpr_bab93d1bd2/thumbnail_co2gpr_bab93d1bd2.jpg",
+          "hash": "thumbnail_co2gpr_bab93d1bd2",
+          "mime": "image",
+          "name": "thumbnail_co2gpr.jpg",
+          "path": null,
+          "size": 5.91,
+          "width": 117,
+          "height": 156
+        }
+      },
+      "hash": "co2gpr_bab93d1bd2",
+      "ext": ".jpg",
+      "mime": "image",
+      "size": 97.72,
+      "url": "https://storage.googleapis.com/adj-cms-default/co2gpr_bab93d1bd2/co2gpr_bab93d1bd2.jpg",
+      "previewUrl": null,
+      "provider": "google-cloud-storage",
+      "provider_metadata": null,
+      "created_at": "2020-12-16T19:23:29.943Z",
+      "updated_at": "2020-12-16T19:23:29.943Z"
+    },
+    "platforms": [
+      {
+        "id": 1,
+        "name": "PC (Windows 10)",
+        "description": "Windows 10 (codenamed Threshold) is an operating system developed by Microsoft as part of the Windows NT family of operating systems. To encourage its adoption, Microsoft announced that during its first year of availability, Windows 10 would be made available free of charge to users of genuine copies of eligible editions of Windows 7 or Windows 8.1.\n\nWindows 10 introduces what Microsoft described as a \"universal\" application architecture; expanding on Metro-style apps, these apps can be designed to run across multiple Microsoft product families with nearly identical code—including PCs, tablets, smartphones, embedded systems, Xbox One, Surface Hub and HoloLens. Windows 10's user interface was revised to handle transitions between a mouse-oriented interface and a touchscreen-optimized interface based on available input devices—particularly on laplets; both interfaces include an updated Start menu that comprises a design similar to Windows 7 with 8's tiles. Windows 10 also introduces Task View, a virtual desktop system, the Microsoft Edge web browser and other new or updated applications, integrated support for fingerprint and face recognition login, new security features for enterprise environments, DirectX 12 and WDDM 2.0 to improve the operating system's graphics capabilities for games.",
+        "url": "https://www.microsoft.com/windows",
+        "created_at": "2020-12-16T19:23:30.820Z",
+        "updated_at": "2020-12-16T19:23:30.820Z"
+      }
+    ],
+    "geo_regions": [
+      {
+        "id": 1,
+        "name": "Los Angeles",
+        "type": "City",
+        "created_at": "2020-12-16T20:19:05.531Z",
+        "updated_at": "2020-12-16T20:19:05.531Z"
+      },
+      {
+        "id": 2,
+        "name": "California",
+        "type": "State",
+        "created_at": "2020-12-16T20:19:05.554Z",
+        "updated_at": "2020-12-16T20:19:05.554Z"
+      },
+      {
+        "id": 3,
+        "name": "United States",
+        "type": "Country",
+        "created_at": "2020-12-16T20:19:05.570Z",
+        "updated_at": "2020-12-16T20:19:05.570Z"
+      }
+    ]
+  }
+]

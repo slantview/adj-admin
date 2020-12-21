@@ -1,0 +1,25 @@
+// Core
+body {
+    margin: 0;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+@import "widgets/helpers-utilities/scss/functions";
+
+@import "widgets/helpers-utilities/scss/variables";
+@import "core/variables";
+
+@import "widgets/helpers-utilities/scss/mixins";
+@import "core/mixins";
+
+// Utilities
+
+@import "core/utilities/helpers";
+@import "core/utilities/background";
+// @import "core/utilities/demo";
+@import "core/utilities/material-ui";
+
+// Bootstrap base
+
+@import "widgets/helpers-utilities/base";
