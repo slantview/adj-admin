@@ -53,7 +53,7 @@ const HeaderUserbox = () => {
 
 				<div className=" d-xl-block pr-2">
 					<div className="font-weight-bold pt-2 text-primary text-uppercase line-height-1">
-						{user.displayName}STEVE RUDE
+						{user.displayName ? user.displayName : "Beacons User"}
 					</div>
 					<span className="text-black-50 font-size-xs">{user.email}</span>
 				</div>
