@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import MuiTheme from '../../theme';
 import '../../assets/base.scss';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Loading from '../../components/Loading';
-import { withAuthenticationRequired } from "@auth0/auth0-react";
+import { UserContext } from '../../providers/UserProvider';
+import { useHistory } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import useStyles from '../../theme/useStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -263,6 +264,14 @@ library.add(
 
 const Layout = ({ children }) => {
 	const classes = useStyles();
+	const user = useContext(UserContext);
+	const history = useHistory();
+
+	if (!user) {
+		history.push('/login');
+		return (<Loading />);
+	}
+
 	return (
 		<ThemeProvider theme={MuiTheme}>
 			<div className={classes.root}>
@@ -278,6 +287,4 @@ const Layout = ({ children }) => {
   	)
 }
   
-export default withAuthenticationRequired(Layout, {
-  onRedirecting: () => <Loading />,
-});
+export default Layout;

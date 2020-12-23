@@ -16,10 +16,15 @@ import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import Pagination from '@material-ui/lab/Pagination';
 import { Link } from 'react-router-dom';
 import EventsTableRow from '../../components/EventsTableRow';
-
-import data from '../../content/events.json';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_EVENTS } from '../../queries/events';
+import Loading from '../../components/Loading';
 
 export default function EventsListPage() {
+	const { loading, errors, data } = useQuery(GET_ALL_EVENTS);
+	const eventData = loading ? [] : data.events;
+	const [isLoading, setLoading] = React.useState(loading);
+
 	const [entries, setEntries] = React.useState(5);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
@@ -29,20 +34,31 @@ export default function EventsListPage() {
 		setPage(page);
 	};
 	const [search, setSearch] = React.useState(null);
-	const [events, setEvents] = React.useState(data);
+	const [events, setEvents] = React.useState(eventData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
-			setEvents(data);
+			setEvents(eventData);
 			setSearch(null);
 		} else {
 			setSearch(e.target.value);
-			const newData = data.filter(d => {
+			const newData = eventData.filter(d => {
 				return (d.title && d.title.toLowerCase().includes(e.target.value.toLowerCase())) || 
 					(d.description && d.description.toLowerCase().includes(e.target.value));
 			})
 			setEvents(newData);
 		}
 	};
+
+	React.useEffect(() => {
+		if (isLoading && !loading) {
+			setLoading(loading);
+			setEvents(eventData);
+		}
+	});
+
+	if (loading) {
+		return (<Loading />);
+	}
 
 	return (
 		<>

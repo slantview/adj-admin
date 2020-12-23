@@ -1,34 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import LoginButton from '../LoginButton';
-import { useAuth0 } from "@auth0/auth0-react";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import HeaderUserbox from '../HeaderUserbox';
+import { UserContext } from '../../providers/UserProvider';
 import { Badge, Grid, Menu, MenuItem, IconButton } from '@material-ui/core';
 
 const TopMenu = () => {
-    const { isAuthenticated } = useAuth0();
+    const user = useContext(UserContext);
 
     return (
         <Grid container direction="row" justify="flex-end">
-            <Grid item lg={10}>
+            <Grid item lg={9}>
                 &nbsp;
             </Grid>
-            <Grid item lg={2}>
+            <Grid item lg={3}>
                 <Menu>
                     <MenuItem>
                         <IconButton aria-label="show 11 new notifications" color="inherit">
-                        <Badge badgeContent={11} color="secondary">
-                            <NotificationsIcon />
+                        <Badge badgeContent={11} color="primary">
+                            <NotificationsIcon color="first" />
                         </Badge>
                         </IconButton>
                         <p>Notifications</p>
                     </MenuItem>
                 </Menu>
-           
-                { !isAuthenticated &&
-                    <LoginButton />
-                }
-                { isAuthenticated &&
+                
+                { user &&
                     <HeaderUserbox />
                 }
             </Grid>

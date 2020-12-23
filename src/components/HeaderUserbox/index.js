@@ -1,80 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Typography,
-  Badge,
   Menu,
   Button,
   List,
   ListItem,
-  Tooltip,
-  Divider
 } from '@material-ui/core';
-import avatar7 from '../../assets/images/avatars/avatar7.jpg';
-import { withStyles } from '@material-ui/core/styles';
-import { useAuth0 } from "@auth0/auth0-react";
-
-const StyledBadge = withStyles({
-  badge: {
-    backgroundColor: 'var(--success)',
-    color: 'var(--success)',
-    boxShadow: '0 0 0 2px #fff',
-    '&::after': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: '$ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
-      content: '""'
-    }
-  },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
-      opacity: 1
-    },
-    '100%': {
-      transform: 'scale(2.4)',
-      opacity: 0
-    }
-  }
-})(Badge);
+import { UserContext } from "../../providers/UserProvider";
+import { auth } from '../../utils/firebase';
+import PersonIcon from '@material-ui/icons/Person';
 
 const HeaderUserbox = () => {
-	const { user, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
-	const [userMetadata, setUserMetadata] = useState(null);
-
-	useEffect(() => {
-		const getUserMetadata = async () => {
-		  const domain = "beacons.us.auth0.com";
-	  
-			try {
-				const accessToken = await getAccessTokenSilently({
-					audience: `https://${domain}/api/v2/`,
-					scope: "read:current_user",
-				});
-		
-				const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-		
-				const metadataResponse = await fetch(userDetailsByIdUrl, {
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				});
-		
-				const { user_metadata } = await metadataResponse.json();
-		
-				setUserMetadata(user_metadata);
-			} catch (e) {
-				console.log(e.message);
-			}
-		};
-	  
-		getUserMetadata();
-	}, []);
+	const user = useContext(UserContext);
+	console.log(user);
 
 	const [anchorEl, setAnchorEl] = useState(false);
 	const handleClick = (event) => {
@@ -84,24 +23,41 @@ const HeaderUserbox = () => {
 		setAnchorEl(null);
 	};
 
+	const logout = () => {
+		auth.signOut()
+			.then(() => {
+				console.log("Logged out.")
+			})
+			.catch(e => {
+				console.error('Error signing out: ', e);
+			})
+	}
+
 	return (
 		<>
 			<Button
 				variant="text"
 				onClick={handleClick}
-				className="ml-2 btn-transition-none text-left p-0 bg-transparent align-items-center"
-				disableRipple>
+				className="mr-5 btn-transition-none text-left p-0 bg-transparent align-items-center"
+				disableRipple
+				style={{width: "250px"}}>
 				<div className="d-block p-0 avatar-icon-wrapper">
 					<div className="avatar-icon rounded-lg">
-						<img src={user.picture} alt={user.name} height={60} />
+						{ user.photoURL ? (
+							<img src={user.photoURL} alt={user.displayName} height={60} />
+						) : (
+							<PersonIcon color="primary" fontSize="large" />
+						)}
 					</div>
 				</div>
 
-				<div className="d-none d-xl-block pl-2">
-					<div className="font-weight-bold pt-2 text-primary text-uppercase line-height-1">{userMetadata ? userMetadata.full_name : user.nickname}</div>
-          			<span className="text-black-50">{user.email}</span>
+				<div className=" d-xl-block pr-2">
+					<div className="font-weight-bold pt-2 text-primary text-uppercase line-height-1">
+						{user.displayName}STEVE RUDE
+					</div>
+					<span className="text-black-50 font-size-xs">{user.email}</span>
 				</div>
-					<span className="pl-1 pl-xl-3">
+					<span className="pl-1 pr-xl-3">
 						<FontAwesomeIcon icon={['fas', 'angle-down']} className="opacity-5" />
 					</span>
 			</Button>
