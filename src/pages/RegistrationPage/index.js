@@ -1,24 +1,35 @@
-import { Container } from '@material-ui/core';
 import React, { useState } from 'react';
-import Loading from '../../components/Loading';
 import RegisterPage1 from '../../components/RegisterPage1';
 import RegistrationStepper from '../../containers/RegistrationStepper';
+import { registerUser } from '../../utils/api';
+import _ from 'lodash';
 
-export default function Login() {
-	const [profile, setProfile] = useState({});
+export default function Register() {
 	const [page, setPage] = useState(1);
-	const submit = () => {
-		setPage(page+1);
+
+	const submit = (values, { setErrors }) => {
+		return registerUser(values)
+			.then(async response => {
+				const userData = await response.json();
+				if (response.ok) {
+					setPage(page+1);
+					return true;
+				} else {
+					setErrors({api: _.get(userData, ["error"])});
+					return false;
+				}
+			})
+			.catch(e => {
+				setErrors({api: _.get(e, ["error"])});
+				return false;
+			});
 	}
-	const handleChange = (e) => {
-		profile[e.target.name] = e.target.value;
-		setProfile(profile);
-		console.log(profile);
-	}
+
+
 	return (
 		<>
 			{ page === 1 &&
-				<RegisterPage1 profile={profile} handleChange={handleChange} submit={submit} />
+				<RegisterPage1 submit={submit} />
 			}
 			{ page === 2 &&
 				<RegistrationStepper />	

@@ -136,6 +136,7 @@ const Step2 = () => {
 						multiline
 						rows={3}
 						variant="outlined"
+						size="small"
 					/>
 				</Grid>
 				<Grid item md={6}>
@@ -144,6 +145,7 @@ const Step2 = () => {
 						label="Website"
 						fullWidth
 						variant="outlined"
+						size="small"
 					/>
 				</Grid>
 				<Grid item md={6}>
@@ -152,6 +154,7 @@ const Step2 = () => {
 						fullWidth
 						label="Facebook"
 						variant="outlined"
+						size="small"
 					/>
 				</Grid>
 				<Grid item md={6}>
@@ -160,6 +163,7 @@ const Step2 = () => {
 						label="Twitch"
 						fullWidth
 						variant="outlined"
+						size="small"
 					/>
 				</Grid>
 				<Grid item md={6}>
@@ -168,6 +172,7 @@ const Step2 = () => {
 						fullWidth
 						label="Discord Server"
 						variant="outlined"
+						size="small"
 					/>
 				</Grid>
 				<Grid item md={6}>
@@ -176,6 +181,7 @@ const Step2 = () => {
 						label="Instagram"
 						fullWidth
 						variant="outlined"
+						size="small"
 					/>
 				</Grid>
 				<Grid item md={6}>
@@ -184,6 +190,7 @@ const Step2 = () => {
 						fullWidth
 						label="Twitter"
 						variant="outlined"
+						size="small"
 					/>
 				</Grid>
 				<Grid item md={6}>
@@ -192,6 +199,7 @@ const Step2 = () => {
 						label="Youtube"
 						fullWidth
 						variant="outlined"
+						size="small"
 					/>
 				</Grid>
 				<Grid item md={6}>
@@ -200,6 +208,7 @@ const Step2 = () => {
 						fullWidth
 						label="Patreon"
 						variant="outlined"
+						size="small"
 					/>
 				</Grid>
 			</Grid>
@@ -312,12 +321,12 @@ export default function LivePreviewExample() {
 	};
 
 	return (
-    	<div className="hero-wrapper w-100 bg-composed-wrapper min-vh-lg-100" style={{minHeight: "100vh"}}>
+    	<div className="hero-wrapper mt-0 w-100 bg-composed-wrapper min-vh-lg-100" style={{minHeight: "100vh"}}>
 			<div className="flex-grow-1 w-100 d-flex align-items-center">
 				<div className="bg-composed-wrapper--image opacity-8" style={{ backgroundImage: 'url(' + hero + ')' }} />
 				<div className="bg-composed-wrapper--bg bg-white opacity-6" />
 				<div className="bg-composed-wrapper--bg bg-beacons opacity-6" />
-			<div className="bg-composed-wrapper--content text-center p-5">
+			<div className="bg-composed-wrapper--content text-center px-5">
 				<div className="text-center">
 					<div className="my-4">
 						<img alt="beacons.gg" src={logo} height={60} />

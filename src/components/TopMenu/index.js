@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import LoginButton from '../LoginButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import HeaderUserbox from '../HeaderUserbox';
 import { UserContext } from '../../providers/UserProvider';
@@ -24,7 +23,7 @@ const TopMenu = () => {
                         <p>Notifications</p>
                     </MenuItem>
                 </Menu>
-                
+
                 { user &&
                     <HeaderUserbox />
                 }

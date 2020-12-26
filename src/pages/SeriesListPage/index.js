@@ -19,10 +19,11 @@ import SeriesTableRow from '../../components/SeriesTableRow';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_SERIES } from '../../queries/series';
 import Loading from '../../components/Loading';
+import Error from '../../components/Error';
 
 export default function SeriesListPage() {
-	const { loading, errors, data } = useQuery(GET_ALL_SERIES);
-	const seriesData = loading ? [] : data.seriesItems;
+	const { loading, error, data } = useQuery(GET_ALL_SERIES);
+	const seriesData = loading || error ? [] : data ? data.seriesItems : [];
 	const [isLoading, setLoading] = React.useState(loading);
 
 	const [entries, setEntries] = React.useState(5);
@@ -60,6 +61,10 @@ export default function SeriesListPage() {
 
 	if (loading) {
 		return (<Loading />);
+	}
+
+	if (error) {
+		return (<Error message={error.message} />)
 	}
 
 	return (

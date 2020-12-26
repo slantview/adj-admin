@@ -16,10 +16,16 @@ import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import Pagination from '@material-ui/lab/Pagination';
 import { Link } from 'react-router-dom';
 import TournamentsTableRow from '../../components/TournamentsTableRow';
-
-import data from '../../content/tournaments.json';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_TOURNAMENTS } from '../../queries/tournaments';
+import Loading from '../../components/Loading';
+import Error from '../../components/Error';
 
 export default function TournamentsListPage() {
+	const { loading, error, data } = useQuery(GET_ALL_TOURNAMENTS);
+	const tournamentData = loading || error ? [] : data.tournaments;
+	const [isLoading, setLoading] = React.useState(loading);
+
 	const [entries, setEntries] = React.useState(5);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
@@ -29,19 +35,34 @@ export default function TournamentsListPage() {
 		setPage(page);
 	};
 	const [search, setSearch] = React.useState(null);
-	const [tournaments, setTournaments] = React.useState(data);
+	const [tournaments, setTournaments] = React.useState(tournamentData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
-			setTournaments(data);
+			setTournaments(tournamentData);
 			setSearch(null);
 		} else {
 			setSearch(e.target.value);
-			const newData = data.filter(g => {
+			const newData = tournamentData.filter(g => {
 				return g.title.toLowerCase().includes(e.target.value.toLowerCase()) || g.description.toLowerCase().includes(e.target.value);
 			})
 			setTournaments(newData);
 		}
 	};
+
+	React.useEffect(() => {
+		if (isLoading && !loading) {
+			setLoading(loading);
+			setTournaments(tournamentData);
+		}
+	});
+
+	if (loading) {
+		return (<Loading />);
+	}
+
+	if (error) {
+		return (<Error message={error.message} />)
+	}
 
 	return (
 		<>
@@ -99,7 +120,7 @@ export default function TournamentsListPage() {
 					</Table>
 					<div className="divider mb-3" />
 					<div className="card-footer py-3 d-flex justify-content-between">
-						<Collapse in={data.length > entries}>
+						<Collapse in={tournaments.length > entries}>
 							<Pagination
 								className="pagination-second"
 								variant="outlined"

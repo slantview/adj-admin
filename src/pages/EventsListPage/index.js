@@ -19,10 +19,11 @@ import EventsTableRow from '../../components/EventsTableRow';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_EVENTS } from '../../queries/events';
 import Loading from '../../components/Loading';
+import Error from '../../components/Error';
 
 export default function EventsListPage() {
-	const { loading, errors, data } = useQuery(GET_ALL_EVENTS);
-	const eventData = loading ? [] : data.events;
+	const { loading, error, data } = useQuery(GET_ALL_EVENTS);
+	const eventData = loading || error ? [] : data ? data.events : [];
 	const [isLoading, setLoading] = React.useState(loading);
 
 	const [entries, setEntries] = React.useState(5);
@@ -58,6 +59,10 @@ export default function EventsListPage() {
 
 	if (loading) {
 		return (<Loading />);
+	}
+
+	if (error) {
+		return (<Error message={error.message} />)
 	}
 
 	return (
@@ -117,7 +122,7 @@ export default function EventsListPage() {
 					</Table>
 					<div className="divider mb-3" />
 					<div className="card-footer py-3 d-flex justify-content-between">
-						<Collapse in={data.length > entries}>
+						<Collapse in={events.length > entries}>
 							<Pagination
 								className="pagination-second"
 								variant="outlined"

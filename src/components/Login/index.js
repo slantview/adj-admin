@@ -11,11 +11,13 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../utils/firebase';
 import { useHistory } from 'react-router-dom';
 import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
+import { Alert } from '@material-ui/lab';
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import hero from '../../assets/images/hero-bg/hero-arena.jpg';
 import logo from '../../assets/images/logo.png';
 
-export default function Register() {
+export default function Login() {
 	const history = useHistory();
 
 	const [checked1, setChecked1] = useState(true);
@@ -32,11 +34,11 @@ export default function Register() {
 			.then(result => {
 				history.push('/');
 			})
-			.catch(error => {
-				setError("Error signing in with password and email!");
-				console.error("Error signing in with password and email", error);
+			.catch(e => {
+				setError(e.message);
+				console.error("Error signing in with password and email", e);
 			});
-        event.preventDefault();
+        return event.preventDefault();
 	};
 
 	const onChangeHandler = (event) => {
@@ -79,7 +81,23 @@ export default function Register() {
 											<div className="divider my-5" />
 										</div>
 										<div>
-											<div className="mb-4">
+											{ error && 
+												<div>
+													<Alert icon={false} severity="error">
+														<div className="d-flex align-items-center align-content-center">
+														<span className="font-size-lg d-block btn-icon d-40 mr-3 text-center bg-white rounded-sm text-danger">
+															<FontAwesomeIcon icon={['fas', 'times']} />
+														</span>
+														<span>
+															<strong className="d-block">Error</strong> 
+															{error}
+														</span>
+														</div>
+													</Alert>
+												</div>
+											}
+											
+											<div className="my-4">
 											<TextField
 												name="email"
 												value={email}

@@ -10,10 +10,11 @@ import {
 import { UserContext } from "../../providers/UserProvider";
 import { auth } from '../../utils/firebase';
 import PersonIcon from '@material-ui/icons/Person';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const HeaderUserbox = () => {
 	const user = useContext(UserContext);
-	console.log(user);
+	const history = useHistory();
 
 	const [anchorEl, setAnchorEl] = useState(false);
 	const handleClick = (event) => {
@@ -27,6 +28,8 @@ const HeaderUserbox = () => {
 		auth.signOut()
 			.then(() => {
 				console.log("Logged out.")
+				window.location = '/login';
+				history.push('/login');
 			})
 			.catch(e => {
 				console.error('Error signing out: ', e);

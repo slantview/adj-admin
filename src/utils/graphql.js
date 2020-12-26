@@ -5,7 +5,7 @@ import {
 } from '@apollo/client';
 
 const httpLink = new HttpLink({ 
-    uri: 'https://demo2.admin.beacons.gg/graphql'
+    uri: 'http://localhost:8081/graphql'
 });
 
 export const client = new ApolloClient({
