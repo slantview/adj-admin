@@ -49,8 +49,6 @@ const RegisterPage1Form = (props) => {
 		submitCount
 	} = props;
 
-	console.log('errors', errors);
-
 	return (
 		<Form onSubmit={handleSubmit}>
 			<div className="app-wrapper min-vh-100 bg-white">

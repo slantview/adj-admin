@@ -298,7 +298,7 @@ function getStepContent(step) {
   }
 }
 
-export default function LivePreviewExample() {
+export default function RegistrationStepper() {
 	const history = useHistory();
 
 	const [activeStep, setActiveStep] = useState(0);

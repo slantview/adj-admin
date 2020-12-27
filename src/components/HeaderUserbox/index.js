@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 const HeaderUserbox = () => {
 	const user = useContext(UserContext);
 	const history = useHistory();
-
+	console.log(user);
 	const [anchorEl, setAnchorEl] = useState(false);
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -28,8 +28,7 @@ const HeaderUserbox = () => {
 		auth.signOut()
 			.then(() => {
 				console.log("Logged out.")
-				window.location = '/login';
-				history.push('/login');
+				history.push('/login', true);
 			})
 			.catch(e => {
 				console.error('Error signing out: ', e);

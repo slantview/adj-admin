@@ -7,15 +7,27 @@ import {
   InputAdornment
 } from '@material-ui/core';
 import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
+import { Alert } from '@material-ui/lab';
+import { Link } from 'react-router-dom';
 import hero from '../../assets/images/hero-bg/hero-arena.jpg';
 import logo from '../../assets/images/logo.png';
+import { auth } from '../../utils/firebase';
 
 export default function Recover() {
-	const [checked1, setChecked1] = useState(true);
+	const [email, setEmail] = useState(null);
+	const [success, setSuccess] = useState(null);
 
-	const handleChange1 = (event) => {
-	  setChecked1(event.target.checked);
+	const handleChange = (event) => {
+		setEmail(event.target.value);
 	};
+
+	const handleSubmit = () => {
+		// handle recover email
+		auth.sendPasswordResetEmail(email);
+		setSuccess("A password reset has been sent to your email. Please check your email and log in again.")
+
+	};
+
 	return (
 		<>
 		<div className="app-wrapper min-vh-100 bg-white">
@@ -44,12 +56,36 @@ export default function Recover() {
 									Forgot your password? No worries, we're here to help!
 								</p>
 							</div>
+							{ success &&
+								<div className="mb-5 py-4">
+									<Alert icon={false} severity="success">
+										<div className="d-flex align-items-center align-content-center">
+											<span className="font-size-lg d-block btn-icon d-40 mr-3 text-center bg-white rounded-sm text-success">
+												<FontAwesomeIcon icon={['fas', 'check']} />
+											</span>
+											<span>
+												<strong className="d-block">Success</strong> 
+												{success}
+											</span>
+										</div>
+									</Alert>
+									<div className="d-flex align-items-center align-content-center">
+										<Link
+											to="/login"
+											className="text-first">
+											Sign In
+										</Link>
+									</div>
+								</div>
+							}
+							
 							<div>
 								<TextField
 									fullWidth
 									variant="outlined"
 									id="textfield-email"
 									label="Email address"
+									onChange={handleChange}
 									InputProps={{
 										startAdornment: (
 										<InputAdornment position="start">
@@ -61,7 +97,9 @@ export default function Recover() {
 							</div>
 							<div className="text-center mb-4">
 								<Button
+									type="submit"
 									fullWidth
+									onClick={handleSubmit}
 									className="text-uppercase font-weight-bold font-size-sm mt-4 btn-primary">
 									Send password
 								</Button>

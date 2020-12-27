@@ -20,6 +20,7 @@ import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import NoteIcon from '@material-ui/icons/Note';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import MapIcon from '@material-ui/icons/Map';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import useStyles from '../../theme/useStyles';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
@@ -30,7 +31,8 @@ const ListItemLink = (props) => {
 
 const Sidebar = (props) => {
     const classes = useStyles();
-    const [category, setCategory] = React.useState(null);
+    console.log(window.location.pathname)
+    const [category, setCategory] = React.useState(window.location.pathname === '/' || window.location.pathname === '' ? "dashboard" : null);
     const [page, setPage] = React.useState(null);
 
     const handleCategoryClick = (name) => {
@@ -65,6 +67,11 @@ const Sidebar = (props) => {
             <Toolbar />
             <div className={classes.drawerContainer}>
                 <List component="div" className="nav-neutral-primary nav-alt">
+                    <ListItemLink to="/" selected={isNavCategory('dashboard')} key="dashboard" onClick={() => handleCategoryClick('dashboard')}>
+                        <ListItemIcon className="text-center"><DashboardIcon /></ListItemIcon>
+                        <ListItemText primary="Dashboard">
+                    </ListItemText>
+                    </ListItemLink>
                     <ListItemLink to="/series" selected={isNavCategory('series')} key="series" onClick={() => handleCategoryClick('series')}>
                         <ListItemIcon className="text-center"><EventNoteIcon /></ListItemIcon>
                         <ListItemText primary="Series" />

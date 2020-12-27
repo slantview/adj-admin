@@ -6,10 +6,10 @@ class Homepage extends Component {
     return (
         <div>
             <div>
-                <h1>Welcome to Beacons!</h1>
+                <h1>Dashboard</h1>
             </div>
             <p>
-                To get started, create a new 
+                To get started, create a new site.
             </p>
         </div>
     );
