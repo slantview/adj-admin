@@ -13,13 +13,6 @@ class UserProvider extends Component {
         const auth = firebase.auth();
         auth.onAuthStateChanged(userAuth => {
             this.setState({ user: userAuth});
-            // If we have a user send them to dashboard, otherwise let's go to the login page.
-            const history = useHistory();
-            if (userAuth) {
-                history.push('/')
-            } else {
-                history.push('/login');
-            }
         });
     };
 

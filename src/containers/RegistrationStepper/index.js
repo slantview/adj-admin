@@ -47,7 +47,7 @@ const Step1 = () => {
 		  	<Grid container spacing={4}>
 				<Grid item md={6} lg={6} className="mt-2">
 					<Grid container spacing={3}>
-						<Grid item md={12}>
+						<Grid item md={12} lg={12}>
 							<TextField
 								fullWidth
 								name="orgName"
@@ -57,7 +57,7 @@ const Step1 = () => {
 							/>
 						</Grid>
 
-						<Grid item md={6}>
+						<Grid item md={6} lg={6}>
 							<TextField
 								name="addressLine1"
 								fullWidth
@@ -65,7 +65,7 @@ const Step1 = () => {
 								variant="outlined"
 							/>
 						</Grid>
-						<Grid item md={6}>
+						<Grid item md={6} lg={6}>
 							<TextField
 								name="addressLine2"
 								fullWidth
@@ -73,7 +73,7 @@ const Step1 = () => {
 								variant="outlined"
 							/>
 						</Grid>
-						<Grid item md={4}>
+						<Grid item md={6} lg={6}>
 							<TextField
 								name="city"
 								fullWidth
@@ -82,7 +82,7 @@ const Step1 = () => {
 								variant="outlined"
 							/>
 						</Grid>
-						<Grid item md={4}>
+						<Grid item md={6} lg={6}>
 							<TextField
 								name="state"
 								fullWidth
@@ -90,7 +90,15 @@ const Step1 = () => {
 								variant="outlined"
 							/>
 						</Grid>
-						<Grid item md={4}>
+						<Grid item md={6} lg={6}>
+							<TextField
+								name="postalCode"
+								fullWidth
+								label="Postal Code"
+								variant="outlined"
+							/>
+						</Grid>
+						<Grid item md={6} lg={6}>
 							<TextField
 								name="country"
 								fullWidth
@@ -128,7 +136,7 @@ const Step2 = () => {
 			</h5>
 			<p className="text-black-50 mb-4">Enter your social media sites.</p>
 			<Grid container spacing={2}>
-				<Grid item md={12}>
+				<Grid item md={12} lg={12}>
 					<TextField
 						name="about"
 						label="About your organization"
@@ -139,7 +147,7 @@ const Step2 = () => {
 						size="small"
 					/>
 				</Grid>
-				<Grid item md={6}>
+				<Grid item md={6} lg={6}>
 					<TextField
 						name="website"
 						label="Website"
@@ -148,7 +156,7 @@ const Step2 = () => {
 						size="small"
 					/>
 				</Grid>
-				<Grid item md={6}>
+				<Grid item md={6} lg={6}>
 					<TextField
 						name="addressLine2"
 						fullWidth
@@ -157,7 +165,7 @@ const Step2 = () => {
 						size="small"
 					/>
 				</Grid>
-				<Grid item md={6}>
+				<Grid item md={6} lg={6}>
 					<TextField
 						name="twitch"
 						label="Twitch"
@@ -166,7 +174,7 @@ const Step2 = () => {
 						size="small"
 					/>
 				</Grid>
-				<Grid item md={6}>
+				<Grid item md={6} lg={6}>
 					<TextField
 						name="discord"
 						fullWidth
@@ -175,7 +183,7 @@ const Step2 = () => {
 						size="small"
 					/>
 				</Grid>
-				<Grid item md={6}>
+				<Grid item md={6} lg={6}>
 					<TextField
 						name="instagram"
 						label="Instagram"
@@ -184,7 +192,7 @@ const Step2 = () => {
 						size="small"
 					/>
 				</Grid>
-				<Grid item md={6}>
+				<Grid item md={6} lg={6}>
 					<TextField
 						name="twitter"
 						fullWidth
@@ -193,7 +201,7 @@ const Step2 = () => {
 						size="small"
 					/>
 				</Grid>
-				<Grid item md={6}>
+				<Grid item md={6} lg={6}>
 					<TextField
 						name="youtube"
 						label="Youtube"
@@ -202,7 +210,7 @@ const Step2 = () => {
 						size="small"
 					/>
 				</Grid>
-				<Grid item md={6}>
+				<Grid item md={6} lg={6}>
 					<TextField
 						name="patreon"
 						fullWidth
@@ -229,8 +237,8 @@ const Step3 = () => {
             Fill out your profile details
           </p>
           <Grid container spacing={6}>
-            <Grid item md={6}>
-				<Grid item md={12}>
+            <Grid item md={12} lg={12}>
+				<Grid item md={12} lg={12}>
 					<TextField
 						name="birthday"
 						fullWidth
@@ -238,12 +246,13 @@ const Step3 = () => {
 						variant="outlined"
 					/>
 				</Grid>
-			</Grid>
-			<Grid md={6} lg={6}>
-				<ImageUpload 
-					title="Profile Image" 
-					subtitle="Upload your image" 
-					description="The profile image should be a square." />
+				<Grid item md={12} lg={12}>
+					<ImageUpload 
+						title="Profile Image" 
+						subtitle="Upload your image" 
+						description="The profile image should be a square." />
+				</Grid>
+				
 			</Grid>
           </Grid>
         </div>

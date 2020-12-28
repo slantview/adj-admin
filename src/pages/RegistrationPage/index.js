@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import RegisterPage1 from '../../components/RegisterPage1';
 import RegistrationStepper from '../../containers/RegistrationStepper';
 import { registerUser } from '../../utils/api';
 import { auth } from '../../utils/firebase';
 import _ from 'lodash';
+import { UserContext } from '../../providers/UserProvider';
 
 export default function Register() {
 	const [page, setPage] = useState(1);
+	
+	const user = useContext(UserContext);
+	if (user && page === 1) {
+		setPage(2);
+	}
 
 	const submit = (values, { setErrors }) => {
 		return registerUser(values)
