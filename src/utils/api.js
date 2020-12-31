@@ -1,4 +1,4 @@
-const API_URL      = "http://localhost:8080";
+const API_URL      = "https://api.beacons.gg";
 const REGISTER_URL = API_URL + "/api/v1/user/register";
 const SITES_URL    = API_URL + "/api/v1/sites";
 

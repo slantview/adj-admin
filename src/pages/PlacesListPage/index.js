@@ -16,10 +16,16 @@ import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import Pagination from '@material-ui/lab/Pagination';
 import { Link } from 'react-router-dom';
 import PlacesTableRow from '../../components/PlacesTableRow';
-
-import data from '../../content/places.json';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_PLACES } from '../../queries/places';
+import Loading from '../../components/Loading';
+import Error from '../../components/Error';
 
 export default function PlacesListPage() {
+	const { loading, error, data } = useQuery(GET_ALL_PLACES);
+	const placesData = loading || error ? [] : data ? data.places : [];
+	const [isLoading, setLoading] = React.useState(loading);
+
 	const [entries, setEntries] = React.useState(5);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
@@ -29,19 +35,34 @@ export default function PlacesListPage() {
 		setPage(page);
 	};
 	const [search, setSearch] = React.useState(null);
-	const [places, setPlaces] = React.useState(data);
+	const [places, setPlaces] = React.useState(placesData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
-			setPlaces(data);
+			setPlaces(placesData);
 			setSearch(null);
 		} else {
 			setSearch(e.target.value);
-			const newData = data.filter(g => {
+			const newData = placesData.filter(g => {
 				return g.name.toLowerCase().includes(e.target.value.toLowerCase()) || g.description.toLowerCase().includes(e.target.value);
 			})
 			setPlaces(newData);
 		}
 	};
+
+	React.useEffect(() => {
+		if (isLoading && !loading) {
+			setLoading(loading);
+			setPlaces(placesData);
+		}
+	});
+
+	if (loading) {
+		return (<Loading />);
+	}
+
+	if (error) {
+		return (<Error message={error.message} />)
+	}
 
 	return (
 		<>

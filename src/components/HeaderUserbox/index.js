@@ -5,12 +5,17 @@ import {
   Menu,
   Button,
   List,
-  ListItem,
+  ListItem
 } from '@material-ui/core';
 import { UserContext } from "../../providers/UserProvider";
 import { auth } from '../../utils/firebase';
 import PersonIcon from '@material-ui/icons/Person';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+const ListItemLink = (props) => {
+    return <ListItem button component={Link} {...props} />;
+}
 
 const HeaderUserbox = () => {
 	const user = useContext(UserContext);
@@ -87,12 +92,12 @@ const HeaderUserbox = () => {
 						<List
 							component="div"
 							className="nav-neutral-primary text-left d-flex align-items-center flex-column px-3 pb-3">
-							<ListItem button className="d-block text-left">
+							<ListItemLink to="/user/account" onClick={handleClose} button className="d-block text-left">
 								My Account
-							</ListItem>
-							<ListItem button className="d-block text-left">
-								Profile settings
-							</ListItem>
+							</ListItemLink>
+							<ListItemLink to="/user/profile" onClick={handleClose} button className="d-block text-left">
+								Profile Settings
+							</ListItemLink>
 							<ListItem onClick={logout} button className="d-block text-left">
 								Logout
 							</ListItem>

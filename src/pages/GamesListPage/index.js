@@ -16,9 +16,16 @@ import Pagination from '@material-ui/lab/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import { Link } from 'react-router-dom';
 import GamesTableRow from '../../components/GamesTableRow';
-import data from '../../content/games.json';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_GAMES } from '../../queries/games';
+import Loading from '../../components/Loading';
+import Error from '../../components/Error';
 
 export default function GamesListPage() {
+	const { loading, error, data } = useQuery(GET_ALL_GAMES);
+	const gamesData = loading || error ? [] : data ? data.games : [];
+	const [isLoading, setLoading] = React.useState(loading);
+
 	const [entries, setEntries] = React.useState(5);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
@@ -28,19 +35,34 @@ export default function GamesListPage() {
 		setPage(page);
 	};
 	const [search, setSearch] = React.useState(null);
-	const [games, setGames] = React.useState(data);
+	const [games, setGames] = React.useState(gamesData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
 			setGames(data);
 			setSearch(null);
 		} else {
 			setSearch(e.target.value);
-			const newData = data.filter(g => {
+			const newData = gamesData.filter(g => {
 				return g.title.toLowerCase().includes(e.target.value.toLowerCase()) || g.description.toLowerCase().includes(e.target.value);
-			})
+			});
 			setGames(newData);
 		}
 	};
+
+	React.useEffect(() => {
+		if (isLoading && !loading) {
+			setLoading(loading);
+			setGames(gamesData);
+		}
+	});
+
+	if (loading) {
+		return (<Loading />);
+	}
+
+	if (error) {
+		return (<Error message={error.message} />)
+	}
 
 	return (
 		<>

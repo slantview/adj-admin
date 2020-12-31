@@ -27,6 +27,8 @@ import GamesAddPage from './pages/GamesAddPage';
 import PlacesListPage from './pages/PlacesListPage';
 import PlacesAddPage from './pages/PlacesAddPage';
 import RecoverPage from './pages/RecoverPage';
+import MyAccountPage from './pages/MyAccountPage';
+import ProfileSettings from './pages/ProfileSettings';
 
 ReactDOM.render(
 	<UserProvider>
@@ -61,6 +63,9 @@ ReactDOM.render(
 								{/* Places Pages */}
 								<Route exact path="/places"><PlacesListPage /></Route>
 								<Route exact path="/places/add"><PlacesAddPage /></Route>
+								{/* Account Pages */}
+								<Route exact path="/user/account"><MyAccountPage /></Route>
+								<Route exact path="/user/profile"><ProfileSettings /></Route>
 							</Layout>
 						</ApolloProvider>
 					</Route>

@@ -11,10 +11,12 @@ const GamesTableRow = (props) => {
         title,
         subtitle,
         cover,
+        logo,
         events,
         created_at,
         updated_at
     } = props;
+    
     const createdAt = moment(created_at).format("MM/DD/YYYY");
     const updatedAt = moment(updated_at).format("MM/DD/YYYY");
 	return (
