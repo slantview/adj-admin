@@ -1,24 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import OrganizationStepper from '../../containers/OrganizationStepper';
 
-class Homepage extends Component {
-  render() {
+const Homepage = () => {
     return (
         <div>
-            <div>
-                <h1>Dashboard</h1>
-            </div>
-            <p>
-                To get started, create a new site.
-            </p>
+			<OrganizationStepper />
         </div>
     );
-  }
-}
+};
 
-export default connect(
-  state=>({
-
-  }),
-  {}
-)(Homepage)
+export default Homepage;

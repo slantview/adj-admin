@@ -13,7 +13,8 @@ const PlacesTableRow = (props) => {
         logo,
         events,
         created_at,
-        updated_at
+        updated_at,
+        published_at
     } = props;
     const createdAt = moment(created_at).format("MM/DD/YYYY");
     const updatedAt = moment(updated_at).format("MM/DD/YYYY");
@@ -53,7 +54,7 @@ const PlacesTableRow = (props) => {
                 <div className="">{updatedAt}</div>
             </td>
             <td className="text-center">
-                <span className="badge badge-success text-uppercase">Published</span>
+                <span className={"badge text-uppercase " + (published_at ? "badge-success" : "badge-first")}>{(published_at ? "Published" : "Draft")}</span>
             </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">

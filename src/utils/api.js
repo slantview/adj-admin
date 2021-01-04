@@ -11,3 +11,13 @@ export const registerUser = async (data) => {
         }
     });
 }
+
+export const createSite = async (name, data) => {
+    return fetch(SITES_URL + '/' + name, {
+        method: 'post',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}

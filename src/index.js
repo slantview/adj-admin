@@ -29,6 +29,8 @@ import PlacesAddPage from './pages/PlacesAddPage';
 import RecoverPage from './pages/RecoverPage';
 import MyAccountPage from './pages/MyAccountPage';
 import ProfileSettings from './pages/ProfileSettings';
+import LayoutNoSidebar from './containers/LayoutNoSidebar';
+import OrganizationStepper from './containers/OrganizationStepper';
 
 ReactDOM.render(
 	<UserProvider>
@@ -36,7 +38,7 @@ ReactDOM.render(
 			<Provider store={store}>
 				<Switch>
 					<Route exact path="/login"><LoginPage /></Route>
-					<Route exact path="/register"><RegistrationPage /></Route>
+					{/* <Route exact path="/register"><RegistrationPage /></Route> */}
 					<Route exact path="/recover"><RecoverPage /></Route>
 					<Route path="/">
 						<ApolloProvider client={client}>
@@ -67,6 +69,9 @@ ReactDOM.render(
 								<Route exact path="/user/account"><MyAccountPage /></Route>
 								<Route exact path="/user/profile"><ProfileSettings /></Route>
 							</Layout>
+							<LayoutNoSidebar>
+								<Route exact path="/organization/add"><OrganizationStepper /></Route>
+							</LayoutNoSidebar>
 						</ApolloProvider>
 					</Route>
 					<Redirect path="/logout" to="/login" />

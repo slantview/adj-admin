@@ -13,7 +13,8 @@ const SeriesTableRow = (props) => {
         card,
         events,
         created_at,
-        updated_at
+        updated_at,
+        published_at
     } = props;
     const tournaments = events.flatMap(e => e.tournaments);
     const createdAt = moment(created_at).format("MM/DD/YYYY");
@@ -22,15 +23,17 @@ const SeriesTableRow = (props) => {
         <tr>
             <td>
                 <div className="d-flex">
-                    <div>
-                        <Link to={"/series/"+id}>
-                            <img 
-                                src={card.formats.thumbnail.url} 
-                                width="120px" 
-                                alt={title} 
-                                className="mr-3" />
-                        </Link>
-                    </div>
+                    { card && 
+                        <div>
+                            <Link to={"/series/"+id}>
+                                <img 
+                                    src={card.formats.thumbnail.url} 
+                                    width="120px" 
+                                    alt={title} 
+                                    className="mr-3" />
+                            </Link>
+                        </div>
+                    }
                     <div>
                         <Link to={"/series/"+id}>
                             <span className="font-weight-bold text-black" title={title}>
@@ -56,7 +59,7 @@ const SeriesTableRow = (props) => {
                 <div className="">{updatedAt}</div>
             </td>
             <td className="text-center">
-                <span className="badge badge-success text-uppercase">Published</span>
+                <span className={"badge text-uppercase " + (published_at ? "badge-success" : "badge-first")}>{(published_at ? "Published" : "Draft")}</span>
             </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">

@@ -18,6 +18,7 @@ export const GET_ALL_GAMES = gql`
             }
             created_at
             updated_at
+            published_at
         }
     }
 `;

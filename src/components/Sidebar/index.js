@@ -120,10 +120,10 @@ const Sidebar = (props) => {
                             </ListItemLink>
                         </List>
                     </Collapse> */}
-                    <ListItemLink to="/games" selected={isNavCategory('games')} key="games" onClick={() => handleCategoryClick('games')}>
+                    {/* <ListItemLink to="/games" selected={isNavCategory('games')} key="games" onClick={() => handleCategoryClick('games')}>
                         <ListItemIcon className="text-center"><GamesIcon /></ListItemIcon>
                         <ListItemText primary="Games" />
-                    </ListItemLink>
+                    </ListItemLink> */}
                     {/* <Collapse in={isNavCategory('games', false)} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                             <ListItemLink to="/games/add" className={classes.nested}>

@@ -40,7 +40,13 @@ export default function Login() {
     const signInHandler = (values, { setErrors }) => {
 		auth.signInWithEmailAndPassword(values.email, values.password)
 			.then(result => {
-				history.push("/", true);
+				console.log(result);
+				if (!result.confirmed) {
+					history.push("/organization/add");
+				} else {
+					history.push("/");
+				}
+				return true;
 			})
 			.catch(e => {
 				setErrors({api: _.get(e, ["message"])});
