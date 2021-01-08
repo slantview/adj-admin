@@ -23,13 +23,15 @@ const EventsTableRow = (props) => {
             <td>
                 <div className="d-flex">
                     <div>
-                        <Link to={"/series/"+id}>
-                            <img 
-                                src={card.formats.thumbnail.url} 
-                                width="120px" 
-                                alt={title} 
-                                className="mr-3" />
-                        </Link>
+                        { card && card.formats &&
+                            <Link to={"/series/"+id}>
+                                <img 
+                                    src={card.formats.thumbnail.url} 
+                                    width="120px" 
+                                    alt={title} 
+                                    className="mr-3" />
+                            </Link>
+                        }
                     </div>
                     <div>
                         <Link to={"/series/"+id}>

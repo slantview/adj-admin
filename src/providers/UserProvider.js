@@ -1,6 +1,5 @@
 import React, { Component, createContext } from "react";
 import firebase from 'firebase/app';
-import { useHistory } from 'react-router-dom';
 
 export const UserContext = createContext({ user: null });
 

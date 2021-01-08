@@ -31,9 +31,9 @@ const ListItemLink = (props) => {
 
 const Sidebar = (props) => {
     const classes = useStyles();
-    console.log(window.location.pathname)
     const [category, setCategory] = React.useState(window.location.pathname === '/' || window.location.pathname === '' ? "dashboard" : null);
     const [page, setPage] = React.useState(null);
+    const [open, setOpen] = React.useState(props.open);
 
     const handleCategoryClick = (name) => {
         if (name === category) {
@@ -63,6 +63,7 @@ const Sidebar = (props) => {
             PaperProps={{elevation: 1}}
             elevation={1}
             anchor="left"
+            open={open}
         >
             <Toolbar />
             <div className={classes.drawerContainer}>

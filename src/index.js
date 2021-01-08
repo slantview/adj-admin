@@ -9,12 +9,10 @@ import {
 	Route,
 	Redirect
 } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/client';
-import { client } from './utils/graphql';
+import BackendProvider from './providers/BackendProvider';
 import reportWebVitals from './reportWebVitals';
 import UserProvider from './providers/UserProvider';
 import Layout from './containers/Layout';
-import RegistrationPage from './pages/RegistrationPage';
 import Homepage from './pages/Homepage';
 import SeriesListPage from './pages/SeriesListPage';
 import SeriesAddPage from './pages/SeriesAddPage';
@@ -29,56 +27,57 @@ import PlacesAddPage from './pages/PlacesAddPage';
 import RecoverPage from './pages/RecoverPage';
 import MyAccountPage from './pages/MyAccountPage';
 import ProfileSettings from './pages/ProfileSettings';
-import LayoutNoSidebar from './containers/LayoutNoSidebar';
 import OrganizationStepper from './containers/OrganizationStepper';
+import SiteProvider from './providers/SiteProvider';
 
 ReactDOM.render(
 	<UserProvider>
-		<Router>
-			<Provider store={store}>
-				<Switch>
-					<Route exact path="/login"><LoginPage /></Route>
-					{/* <Route exact path="/register"><RegistrationPage /></Route> */}
-					<Route exact path="/recover"><RecoverPage /></Route>
-					<Route path="/">
-						<ApolloProvider client={client}>
-							<Layout>
-								<Route exact path="/">
-									<Homepage />
-								</Route>
-								{/* Series Pages */}
-								<Route exact path="/series"><SeriesListPage /></Route>
-								<Route exact path="/series/add"><SeriesAddPage /></Route>
-								{/* Events Pages */}
-								<Route exact path="/events"><EventsListPage /></Route>
-								<Route exact path="/events/add"><EventsAddPage /></Route>
-								{/* <Route exact path="/events/template"><EventsTemplateListPage /></Route>
-								<Route exact path="/events/template/add"><EventsTemplateAddPage /></Route> */}
-								{/* Tournaments Pages */}
-								<Route exact path="/tournaments"><TournamentsListPage /></Route>
-								<Route exact path="/tournaments/add"><TournamentsAddPage /></Route>
-								{/* <Route exact path="/tournaments/template"><TournamentsTemplateListPage /></Route>
-								<Route exact path="/tournaments/template/add"><TournamentsTemplateAddPage /></Route> */}
-								{/* Games Pages */}
-								<Route exact path="/games"><GamesListPage /></Route>
-								<Route exact path="/games/add"><GamesAddPage /></Route>
-								{/* Places Pages */}
-								<Route exact path="/places"><PlacesListPage /></Route>
-								<Route exact path="/places/add"><PlacesAddPage /></Route>
-								{/* Account Pages */}
-								<Route exact path="/user/account"><MyAccountPage /></Route>
-								<Route exact path="/user/profile"><ProfileSettings /></Route>
-							</Layout>
-							<LayoutNoSidebar>
-								<Route exact path="/organization/add"><OrganizationStepper /></Route>
-							</LayoutNoSidebar>
-						</ApolloProvider>
-					</Route>
-					<Redirect path="/logout" to="/login" />
-					<Redirect to="/" />
-				</Switch>
-			</Provider>
-		</Router>
+		<SiteProvider>
+			<Router>
+				<Provider store={store}>
+					<Switch>
+						<Route exact path="/login"><LoginPage /></Route>
+						{/* <Route exact path="/register"><RegistrationPage /></Route> */}
+						<Route exact path="/recover"><RecoverPage /></Route>
+						<Route path="/">
+							<BackendProvider>
+								<Layout>
+									<Route exact path="/">
+										<Homepage />
+									</Route>
+									{/* Series Pages */}
+									<Route exact path="/series"><SeriesListPage /></Route>
+									<Route exact path="/series/add"><SeriesAddPage /></Route>
+									{/* Events Pages */}
+									<Route exact path="/events"><EventsListPage /></Route>
+									<Route exact path="/events/add"><EventsAddPage /></Route>
+									{/* <Route exact path="/events/template"><EventsTemplateListPage /></Route>
+									<Route exact path="/events/template/add"><EventsTemplateAddPage /></Route> */}
+									{/* Tournaments Pages */}
+									<Route exact path="/tournaments"><TournamentsListPage /></Route>
+									<Route exact path="/tournaments/add"><TournamentsAddPage /></Route>
+									{/* <Route exact path="/tournaments/template"><TournamentsTemplateListPage /></Route>
+									<Route exact path="/tournaments/template/add"><TournamentsTemplateAddPage /></Route> */}
+									{/* Games Pages */}
+									<Route exact path="/games"><GamesListPage /></Route>
+									<Route exact path="/games/add"><GamesAddPage /></Route>
+									{/* Places Pages */}
+									<Route exact path="/places"><PlacesListPage /></Route>
+									<Route exact path="/places/add"><PlacesAddPage /></Route>
+									{/* Account Pages */}
+									<Route exact path="/user/account"><MyAccountPage /></Route>
+									<Route exact path="/user/profile"><ProfileSettings /></Route>
+
+									<Route exact path="/organization/add"><OrganizationStepper /></Route>
+								</Layout>
+							</BackendProvider>
+						</Route>
+						<Redirect path="/logout" to="/login" />
+						<Redirect to="/" />
+					</Switch>
+				</Provider>
+			</Router>
+		</SiteProvider>
 	</UserProvider>
 , document.getElementById('root'));
 

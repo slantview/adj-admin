@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import Check from '@material-ui/icons/Check';
 import BusinessIcon from '@material-ui/icons/Business';
 import ChatIcon from '@material-ui/icons/Chat';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 
 const StepIcon = (props) => {
     const { active, completed } = props;
@@ -13,7 +13,7 @@ const StepIcon = (props) => {
     const icons = {
         1: <BusinessIcon />,
         2: <ChatIcon />,
-        3: <AccountBoxIcon />
+        3: <DateRangeIcon />
     };
 
 	return (

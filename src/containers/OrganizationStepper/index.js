@@ -8,8 +8,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
-import hero from '../../assets/images/hero-bg/hero-arena.jpg';
-import logo from '../../assets/images/logo.png';
 import { useHistory } from 'react-router-dom';
 import Step1 from './Step1';
 import Step2 from './Step2';
@@ -17,7 +15,7 @@ import Step3 from './Step3';
 import StepIcon from './StepIcon';
 
 const getSteps = () => {
-  	return ['Organization Info', 'Social Media', 'User Profile'];
+  	return ['Organization Info', 'Social Media', 'Events Site'];
 };
 
 const getStepContent = (step) =>  {
