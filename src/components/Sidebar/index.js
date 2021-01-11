@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
-    Collapse,
-    Divider,
     Drawer,
     List,
     ListItem,
@@ -14,14 +12,9 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import GamesIcon from '@material-ui/icons/Games';
 import PlaceIcon from '@material-ui/icons/Place';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import ViewDayIcon from '@material-ui/icons/ViewDay';
-import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
-import NoteIcon from '@material-ui/icons/Note';
-import AddLocationIcon from '@material-ui/icons/AddLocation';
-import MapIcon from '@material-ui/icons/Map';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import useStyles from '../../theme/useStyles';
+import SiteSelector from '../SiteSelector';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
@@ -65,8 +58,12 @@ const Sidebar = (props) => {
             anchor="left"
             open={open}
         >
-            <Toolbar />
             <div className={classes.drawerContainer}>
+                <div className="text-center py-2 mr-2">
+                    <SiteSelector />
+                    <span className="divider" />
+                </div>
+                
                 <List component="div" className="nav-neutral-primary nav-alt">
                     <ListItemLink to="/" selected={isNavCategory('dashboard')} key="dashboard" onClick={() => handleCategoryClick('dashboard')}>
                         <ListItemIcon className="text-center"><DashboardIcon /></ListItemIcon>

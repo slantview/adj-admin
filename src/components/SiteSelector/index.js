@@ -2,6 +2,7 @@ import { Hidden, MenuItem, Select, Collapse } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { SiteContext } from '../../providers/SiteProvider';
 import defaultLogo from '../../assets/images/logo.png';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import _ from 'lodash';
 
 const SiteSelector = () => {
@@ -18,12 +19,14 @@ const SiteSelector = () => {
     };
 
     return (
-        <div className="">
-            { console.log('logo', logo) }
+        <div className="pl-3 pr-2 w-100">
             <Collapse in={!open}>
-                <div className="text-center py-2 mr-2" style={{height: "76px"}}>
-                    <a onClick={(e) => { setOpen(!open); e.preventDefault(); }} title="Select Site">
+                <div className="text-center">
+                    <a onClick={(e) => { setOpen(!open); e.preventDefault(); }} title="Select Site" className="w-100">
                         <img alt="Select Site" src={logo} height={50} />
+                        <span  style={{height: "50px"}}>
+                            <ArrowDropDownIcon />
+                        </span>
                         <div className="app-nav-logo--text m-4" style={{display:"none"}}>
                             <b>Select Site</b>
                         </div>
@@ -44,7 +47,6 @@ const SiteSelector = () => {
                         
                 </Select>
             </Collapse>
-            
         </div>
         
     )

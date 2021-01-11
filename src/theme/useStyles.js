@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
 	appBar: {
 		zIndex: theme.zIndex.drawer + 1,
 		height: 75,
+		marginTop: 0,
+		paddingTop: 0
 		// border: "1px solid rgba(0,0,0,0.12)"
 
 	},

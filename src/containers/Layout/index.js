@@ -276,9 +276,9 @@ const Layout = ({ children }) => {
 		<ThemeProvider theme={MuiTheme}>
 			<div className={classes.root}>
 				<CssBaseline />
-				<Header className={classes.appBar} hidden={false} />
-				<Sidebar open={true}/>
+        <Sidebar open={true} />
 				<main className={classes.content}>
+          <Header className={classes.appBar} hidden={false} />
 					<Toolbar />
 					{children}
 				</main>
