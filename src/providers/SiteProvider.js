@@ -1,5 +1,5 @@
 import React, { Component, createContext, useContext } from "react";
-import { getSites } from '../utils/api';
+import { getSites, getSiteMetadata } from '../utils/api';
 import firebase from 'firebase/app';
 
 export const SiteContext = createContext({ selected: null, sites: [] });
@@ -13,7 +13,7 @@ class SiteProvider extends Component {
     };
 
     setSite = (id) => {
-        this.setState({selected: id});
+        return this.setState({selected: id});
     }
 
     componentDidMount = async () => {
@@ -28,10 +28,18 @@ class SiteProvider extends Component {
             getSites(token)
                 .then(async response => {
                     const sites = await response.json();
+                    sites.map(async (site, i) => {
+                        const response = await getSiteMetadata(site.backend_url)
+                        const orgInfo = await response.json();
+                        if (response.ok) {
+                            site.metadata = orgInfo;
+                            sites[i] = site;
+                        }
+                    });
                     this.setState({
-                        selected: this.state.selected ? this.state.selected : sites[0].id,
+                        selected: sites[0].id,
                         sites: sites,
-                    })
+                    });
                 })
                 .catch(e => {
                     console.error(e);

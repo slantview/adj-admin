@@ -20,7 +20,7 @@ const ListItemLink = (props) => {
 const HeaderUserbox = () => {
 	const user = useContext(UserContext);
 	const history = useHistory();
-	console.log(user);
+
 	const [anchorEl, setAnchorEl] = useState(false);
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);

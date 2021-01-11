@@ -23,7 +23,7 @@ export const createSite = async (name, data) => {
 }
 
 export const getSites = async (token) => {
-    return fetch(SITES_URL , {
+    return fetch(SITES_URL, {
         method: 'get',
         headers: {
             'Content-Type': 'application/json',
@@ -31,3 +31,12 @@ export const getSites = async (token) => {
         }
     });
 }
+
+export const getSiteMetadata = (url) => {
+    return fetch(url + "/organization-info", {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+};
