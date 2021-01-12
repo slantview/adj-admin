@@ -10,11 +10,15 @@ const useStyles = makeStyles((theme) => ({
 	},
 	appBar: {
 		zIndex: theme.zIndex.drawer + 1,
-		height: 75,
-		marginTop: 0,
+		height: 76,
+		margin: 0,
 		paddingTop: 0
 		// border: "1px solid rgba(0,0,0,0.12)"
 
+	},
+	body: {
+		margin: 0,
+		flexGrow: 1
 	},
 	drawer: {
 		width: drawerWidth,

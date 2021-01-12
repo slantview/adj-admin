@@ -277,11 +277,12 @@ const Layout = ({ children }) => {
 			<div className={classes.root}>
 				<CssBaseline />
         <Sidebar open={true} />
-				<main className={classes.content}>
+				<div className={classes.body}>
           <Header className={classes.appBar} hidden={false} />
-					<Toolbar />
-					{children}
-				</main>
+          <main className={classes.content}>
+            {children}
+          </main>
+				</div>
 			</div>
 		</ThemeProvider>
   	)

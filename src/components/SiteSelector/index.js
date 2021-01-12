@@ -38,8 +38,11 @@ const SiteSelector = () => {
                 <Select
                     name="site"
                     fullWidth
+                    autoFocus
+                    inputProps={{ autoFocus: true }}
                     value={siteContext.selected}
                     onChange={handleChange}
+                    onBlur={() => setOpen(false) }
                     variant="outlined">
                         { siteContext.sites.map(site => (
                             <MenuItem dense={true} className="font-size-sm" value={site.id}>{site.domain}</MenuItem>
