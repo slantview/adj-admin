@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_ALL_GAMES = gql`
     query {
-        games {
+        games(sort: "title:ASC") {
             id
             title
             description

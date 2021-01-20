@@ -108,7 +108,6 @@ export default function GamesListPage() {
 								<th>Title</th>
 								<th className="text-center">Created At</th>
 								<th className="text-center">Updated At</th>
-								<th className="text-center">Status</th>
 								<th className="text-right">Actions</th>
 							</tr>
 						</thead>

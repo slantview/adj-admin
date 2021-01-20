@@ -18,12 +18,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	body: {
 		margin: 0,
-		flexGrow: 1
+		padding: 0,
+		flex: 1
 	},
 	drawer: {
 		width: drawerWidth,
 		flexShrink: 0,
-		zIndex: 0
+		zIndex: 0,
+		backgroundColor: "#ffffff"
 	},
 	drawerPaper: {
 		paddingTop: "10px",
@@ -32,9 +34,7 @@ const useStyles = makeStyles((theme) => ({
 	drawerContainer: {
 		overflow: 'auto',
 	},
-	// toolbar: theme.mixins.toolbar,
 	content: {
-		flexGrow: 1,
 		backgroundColor: theme.palette.background.default,
 		padding: theme.spacing(3)
 	},

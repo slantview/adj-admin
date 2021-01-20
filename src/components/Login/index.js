@@ -12,9 +12,7 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../utils/firebase';
 import { useHistory } from 'react-router-dom';
 import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
-import { Alert } from '@material-ui/lab';
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import hero from '../../assets/images/hero-bg/hero-arena.jpg';
 import logo from '../../assets/images/logo.png';
 import { Form, Formik } from 'formik';
@@ -32,15 +30,15 @@ let validationSchema = Yup.object({
 export default function Login() {
 	const history = useHistory();
 	
-	const user = useContext(UserContext);
-	if (user) {
+	const userCtx = useContext(UserContext);
+	if (userCtx.user) {
 		history.push("/", true);
 	}
 
     const signInHandler = (values, { setErrors }) => {
 		auth.signInWithEmailAndPassword(values.email, values.password)
 			.then(result => {
-				console.log(result);
+				console.log('result', result);
 				if (!result.confirmed) {
 					history.push("/organization/add");
 				} else {
@@ -84,7 +82,7 @@ const LoginForm = (props) => {
 	} = props;
 
 	return (
-		<Form handleSubmit={handleSubmit}>
+		<Form onSubmit={handleSubmit}>
 			<div className="app-wrapper min-vh-100 bg-white">
 				<div className="app-main min-vh-100">
 				<div className="app-content p-0">

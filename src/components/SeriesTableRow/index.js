@@ -36,12 +36,12 @@ const SeriesTableRow = (props) => {
                     }
                     <div>
                         <Link to={"/series/"+id}>
-                            <span className="font-weight-bold text-black" title={title}>
+                            <div className="font-weight-bold text-black" title={title}>
                                 {title}
-                            </span>
-                            <span className="text-black-50 d-block">
-                                {subtitle}
-                            </span>
+                            </div>
+                            <div className="text-black-50 d-block">
+                                {/* {subtitle} */}
+                            </div>
                         </Link>
                     </div>
                 </div>

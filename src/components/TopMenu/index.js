@@ -5,7 +5,7 @@ import { UserContext } from '../../providers/UserProvider';
 import { Badge, Grid, Menu, MenuItem, IconButton } from '@material-ui/core';
 
 const TopMenu = () => {
-    const user = useContext(UserContext);
+    const userCtx = useContext(UserContext);
 
     return (
         <Grid container direction="row" justify="flex-end">
@@ -24,7 +24,7 @@ const TopMenu = () => {
                     </MenuItem>
                 </Menu>
 
-                { user &&
+                { userCtx && userCtx.user &&
                     <HeaderUserbox />
                 }
             </Grid>

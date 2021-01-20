@@ -79,6 +79,7 @@ export default function TournamentsListPage() {
 								size="small"
 								id="input-search"
 								onChange={handleSearchChange}
+								value={search}
 								InputProps={{
 									startAdornment: (
 										<InputAdornment position="start">

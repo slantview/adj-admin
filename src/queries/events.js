@@ -18,6 +18,7 @@ export const GET_ALL_EVENTS = gql`
             }
             created_at
             updated_at
+            starts_at
             published_at
         }
     }

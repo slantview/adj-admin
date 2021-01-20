@@ -18,7 +18,7 @@ const ListItemLink = (props) => {
 }
 
 const HeaderUserbox = () => {
-	const user = useContext(UserContext);
+	const userCtx = useContext(UserContext);
 	const history = useHistory();
 
 	const [anchorEl, setAnchorEl] = useState(false);
@@ -32,7 +32,7 @@ const HeaderUserbox = () => {
 	const logout = () => {
 		auth.signOut()
 			.then(() => {
-				console.log("Logged out.")
+				userCtx.logout();
 				history.push('/login', true);
 			})
 			.catch(e => {
@@ -50,8 +50,8 @@ const HeaderUserbox = () => {
 				style={{width: "250px"}}>
 				<div className="d-block p-0 avatar-icon-wrapper">
 					<div className="avatar-icon rounded-lg">
-						{ user.photoURL ? (
-							<img src={user.photoURL} alt={user.displayName} height={60} />
+						{ userCtx.user.photoURL ? (
+							<img src={userCtx.user.photoURL} alt={userCtx.user.displayName} height={60} />
 						) : (
 							<PersonIcon color="primary" fontSize="large" />
 						)}
@@ -60,9 +60,9 @@ const HeaderUserbox = () => {
 
 				<div className=" d-xl-block pr-2">
 					<div className="font-weight-bold pt-2 text-primary text-uppercase line-height-1">
-						{user.displayName ? user.displayName : "Beacons User"}
+						{userCtx.user.displayName ? userCtx.user.displayName : "Beacons User"}
 					</div>
-					<span className="text-black-50 font-size-xs">{user.email}</span>
+					<span className="text-black-50 font-size-xs">{userCtx.user.email}</span>
 				</div>
 					<span className="pl-1 pr-xl-3">
 						<FontAwesomeIcon icon={['fas', 'angle-down']} className="opacity-5" />

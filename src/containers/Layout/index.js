@@ -264,10 +264,10 @@ library.add(
 
 const Layout = ({ children }) => {
 	const classes = useStyles();
-	const user = useContext(UserContext);
+	const userCtx = useContext(UserContext);
 	const history = useHistory();
 
-	if (!user) {
+	if (!userCtx.user) {
 		history.push('/login');
 		return (<Loading />);
 	}

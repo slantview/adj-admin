@@ -51,9 +51,6 @@ const GamesTableRow = (props) => {
             <td className="text-center">
                 <div className="">{updatedAt}</div>
             </td>
-            <td className="text-center">
-                <span className={"badge text-uppercase " + (published_at ? "badge-success" : "badge-first")}>{(published_at ? "Published" : "Draft")}</span>
-            </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">
                     <Button

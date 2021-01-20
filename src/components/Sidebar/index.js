@@ -59,11 +59,10 @@ const Sidebar = (props) => {
             open={open}
         >
             <div className={classes.drawerContainer}>
-                <div className="text-center py-2 mr-2">
+                <div className="text-center py-2 ml-2 mr-2">
                     <SiteSelector />
-                    <span className="divider" />
                 </div>
-                
+                <div className="divider ml-2 mr-2" />
                 <List component="div" className="nav-neutral-primary nav-alt">
                     <ListItemLink to="/" selected={isNavCategory('dashboard')} key="dashboard" onClick={() => handleCategoryClick('dashboard')}>
                         <ListItemIcon className="text-center"><DashboardIcon /></ListItemIcon>

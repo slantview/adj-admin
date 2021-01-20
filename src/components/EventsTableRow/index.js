@@ -14,10 +14,14 @@ const EventsTableRow = (props) => {
         tournaments,
         created_at,
         updated_at,
+        starts_at,
         published_at
     } = props;
     const createdAt = moment(created_at).format("MM/DD/YYYY");
     const updatedAt = moment(updated_at).format("MM/DD/YYYY");
+    const startsAt = moment(starts_at).format("MM/DD/YYYY");
+    const isFuture = moment(starts_at).subtract(moment()) > 0;
+    console.log('isFuture', isFuture);
 	return (
         <tr>
             <td>
@@ -55,7 +59,18 @@ const EventsTableRow = (props) => {
                 <div className="">{updatedAt}</div>
             </td>
             <td className="text-center">
-                <span className={"badge text-uppercase " + (published_at ? "badge-success" : "badge-first")}>{(published_at ? "Published" : "Draft")}</span>
+                <div className="">{startsAt}</div>
+            </td>
+            <td className="text-center">
+                { published_at && isFuture &&
+                    <span className="badge text-uppercase badge-success">Published</span>
+                }
+                { !isFuture &&
+                    <span className="badge text-uppercase badge-neutral-success text-black-50">Archived</span>
+                }
+                { !published_at && isFuture &&
+                    <span className="badge text-uppercase badge-neutral-first text-first">Draft</span>
+                }
             </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">

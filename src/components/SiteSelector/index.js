@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { SiteContext } from '../../providers/SiteProvider';
 import defaultLogo from '../../assets/images/logo.png';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import _ from 'lodash';
 
 const SiteSelector = () => {
@@ -21,11 +22,16 @@ const SiteSelector = () => {
     return (
         <div className="pl-3 pr-2 w-100">
             <Collapse in={!open}>
-                <div className="text-center">
-                    <a onClick={(e) => { setOpen(!open); e.preventDefault(); }} title="Select Site" className="w-100">
+                <div className="text-center w-100">
+                    <a onClick={(e) => { setOpen(!open); e.preventDefault(); }} title="Select Site">
                         <img alt="Select Site" src={logo} height={50} />
-                        <span  style={{height: "50px"}}>
-                            <ArrowDropDownIcon />
+                        <span style={{height: "50px"}}>
+                            { open ? (
+                                <ArrowDropUpIcon />
+                            ) : (
+                                <ArrowDropDownIcon />
+                            )}
+                            
                         </span>
                         <div className="app-nav-logo--text m-4" style={{display:"none"}}>
                             <b>Select Site</b>

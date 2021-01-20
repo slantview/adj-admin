@@ -14,12 +14,21 @@ export const client = new ApolloClient({
 	cache: new InMemoryCache()
 });
 
-export const getClient = (backend) => {
-    const httpBackendLink = new HttpLink({ 
-        uri: backend
+export const getClient = (backend, token) => {
+    const httpAuthBackendLink = new HttpLink({ 
+        uri: backend,
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    });
+    const httpNoAuthBackendLink = new HttpLink({ 
+        uri: backend,
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     });
     return new ApolloClient({
-        link: httpBackendLink,
+        link: token ? httpAuthBackendLink : httpNoAuthBackendLink,
         cache: new InMemoryCache()
     });
 }
