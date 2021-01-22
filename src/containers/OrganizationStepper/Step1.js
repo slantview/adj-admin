@@ -17,7 +17,7 @@ import ImageUpload from '../../components/ImageUpload';
 const Step1 = (props) => {
     const [values, setValue] = React.useState({});
     const handleChange = (e) => {
-        console.log(e);
+        console.log(e.target.value);
         values[e.target.name] = e.target.value;
         setValue(values);
     };
@@ -103,11 +103,12 @@ const Step1 = (props) => {
                                     name="country"
                                     fullWidth
                                     label="Country"
-                                    value={values.country || ""}
+                                    defaultValue="USA"
+                                    value={values.country || "United States of America"}
                                     onChange={handleChange}
                                     variant="outlined">
-                                        <MenuItem dense={true} className="font-size-sm" value="CAN">Canada</MenuItem>
-                                        <MenuItem dense={true} className="font-size-sm" value="USA">United States of America</MenuItem>
+                                        <MenuItem dense={true} className="font-size-sm" value="CAN">CAN</MenuItem>
+                                        <MenuItem dense={true} className="font-size-sm" value="USA">USA</MenuItem>
                                         
                                 </Select>
                             </Grid>

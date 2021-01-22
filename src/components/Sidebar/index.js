@@ -1,30 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
+    Divider,
     Drawer,
     List,
     ListItem,
     ListItemIcon,
-    ListItemText,
-    Toolbar
+    ListItemText
 } from '@material-ui/core';
-import EventNoteIcon from '@material-ui/icons/EventNote';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import GamesIcon from '@material-ui/icons/Games';
-import PlaceIcon from '@material-ui/icons/Place';
-import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import EventNoteIcon from '@material-ui/icons/EventNoteTwoTone';
+import DateRangeIcon from '@material-ui/icons/DateRangeTwoTone';
+import GamesIcon from '@material-ui/icons/GamesTwoTone';
+import PlaceIcon from '@material-ui/icons/PlaceTwoTone';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsportsTwoTone';
+import DashboardIcon from '@material-ui/icons/DashboardTwoTone';
+import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
+import LanguageIcon from '@material-ui/icons/LanguageTwoTone';
+import PeopleIcon from '@material-ui/icons/PeopleTwoTone';
+import BusinessIcon from '@material-ui/icons/BusinessTwoTone';
 import useStyles from '../../theme/useStyles';
 import SiteSelector from '../SiteSelector';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import _ from 'lodash';
+import { UserContext } from '../../providers/UserProvider';
+import Userbox from '../Userbox/index';
 
 const ListItemLink = (props) => {
     return <ListItem button component={Link} {...props} />;
 }
 
 const Sidebar = (props) => {
+    const userCtx = useContext(UserContext);
     const classes = useStyles();
-    const [category, setCategory] = React.useState(window.location.pathname === '/' || window.location.pathname === '' ? "dashboard" : null);
+    const [category, setCategory] = React.useState("dashboard");
     const [page, setPage] = React.useState(null);
     const [open, setOpen] = React.useState(props.open);
 
@@ -47,111 +54,171 @@ const Sidebar = (props) => {
     }
 
     return (
-        <Drawer
-            className={classes.drawer}
-            variant="permanent"
-            classes={{
-                paper: classes.drawerPaper,
-            }}
-            PaperProps={{elevation: 1}}
-            elevation={1}
-            anchor="left"
-            open={open}
-        >
-            <div className={classes.drawerContainer}>
-                <div className="text-center py-2 ml-2 mr-2">
-                    <SiteSelector />
+        <div className="app-sidebar app-sidebar--dark app-sidebar--shadow">
+            {/* <SidebarHeader /> */}
+            <div className="app-sidebar--content">
+                <div className="sidebar-header">
+                    <div className="text-center py-3">
+                        <SiteSelector />
+                    </div>
+                    <div className="divider opacity-5" />
+                    
+                    <Userbox />
                 </div>
-                <div className="divider ml-2 mr-2" />
-                <List component="div" className="nav-neutral-primary nav-alt">
-                    <ListItemLink to="/" selected={isNavCategory('dashboard')} key="dashboard" onClick={() => handleCategoryClick('dashboard')}>
-                        <ListItemIcon className="text-center"><DashboardIcon /></ListItemIcon>
-                        <ListItemText primary="Dashboard">
-                    </ListItemText>
-                    </ListItemLink>
-                    <ListItemLink to="/series" selected={isNavCategory('series')} key="series" onClick={() => handleCategoryClick('series')}>
-                        <ListItemIcon className="text-center"><EventNoteIcon /></ListItemIcon>
-                        <ListItemText primary="Series" />
-                    </ListItemLink>
-                    {/* <Collapse in={isNavCategory('series', false)} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            <ListItemLink className={classes.nested} to="/series/add" selected={isNavPage('series-add')} onClick={() => handlePageClick('series-add')}>
-                                <ListItemIcon className="font-size-sm"><LibraryAddIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">Add Series</ListItemText>
-                            </ListItemLink>
-                            <ListItemLink to="/series" className={classes.nested} selected={isNavPage('series-view')} onClick={() => handlePageClick('series-view')}>
-                                <ListItemIcon className="font-size-sm text-center"><ViewDayIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">View Series</ListItemText>
-                            </ListItemLink>
-                        </List>
-                    </Collapse> */}
-                    <ListItemLink to="/events" selected={isNavCategory('events')} key="events" onClick={() => handleCategoryClick('events')}>
-                        <ListItemIcon className="text-center"><DateRangeIcon /></ListItemIcon>
-                        <ListItemText primary="Events" />
-                    </ListItemLink>
-                    {/* <Collapse in={isNavCategory('events', false)} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            <ListItemLink to="/events/add" className={classes.nested} selected={isNavPage('events-add')} onClick={() => handlePageClick('events-add')}>
-                                <ListItemIcon className="font-size-sm"><LibraryAddIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">Add Event</ListItemText>
-                            </ListItemLink>
-                            <ListItemLink to="/events" className={classes.nested} selected={isNavPage('events-view')} onClick={() => handlePageClick('events-view')}>
-                                <ListItemIcon className="font-size-sm"><ViewDayIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">View Events</ListItemText>
-                            </ListItemLink>
-                        </List>
-                    </Collapse> */}
-                    <ListItemLink to="/tournaments" selected={isNavCategory('tournaments')} key="tournaments" onClick={() => handleCategoryClick('tournaments')}>
-                        <ListItemIcon className="text-center"><SportsEsportsIcon /></ListItemIcon>
-                        <ListItemText primary="Tournaments" />
-                    </ListItemLink>
-                    {/* <Collapse in={isNavCategory('tournaments', false)} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            <ListItemLink to="/tournaments/add" className={classes.nested} selected={isNavPage('tournaments-add')} onClick={() => handlePageClick('tournaments-add')}>
-                                <ListItemIcon className="font-size-sm"><LibraryAddIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">Add Tournament</ListItemText>
-                            </ListItemLink>
-                            <ListItemLink to="/tournaments" className={classes.nested} selected={isNavPage('tournaments-view')} onClick={() => handlePageClick('tournaments-view')}>
-                                <ListItemIcon className="font-size-sm"><ViewDayIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">View Tournaments</ListItemText>
-                            </ListItemLink>
-                        </List>
-                    </Collapse> */}
-                    <ListItemLink to="/games" selected={isNavCategory('games')} key="games" onClick={() => handleCategoryClick('games')}>
-                        <ListItemIcon className="text-center"><GamesIcon /></ListItemIcon>
-                        <ListItemText primary="Games" />
-                    </ListItemLink>
-                    {/* <Collapse in={isNavCategory('games', false)} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            <ListItemLink to="/games/add" className={classes.nested}>
-                                <ListItemIcon className="font-size-sm"><LibraryAddIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">Add Game</ListItemText>
-                            </ListItemLink>
-                            <ListItemLink to="/games" className={classes.nested}>
-                                <ListItemIcon className="font-size-sm"><ViewDayIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">View Games</ListItemText>
-                            </ListItemLink>
-                        </List>
-                    </Collapse> */}
-                    <ListItemLink to="/places" selected={isNavCategory('places')} key="places" onClick={() => handleCategoryClick('places')}>
-                        <ListItemIcon className="text-center"><PlaceIcon /></ListItemIcon>
-                        <ListItemText primary="Places" />
-                    </ListItemLink>
-                    {/* <Collapse in={isNavCategory('places', false)} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            <ListItemLink to="/places/add" className={classes.nested}>
-                                <ListItemIcon className="font-size-sm"><AddLocationIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">Add Place</ListItemText>
-                            </ListItemLink>
-                            <ListItemLink to="/places" className={classes.nested}>
-                                <ListItemIcon className="font-size-sm"><MapIcon /></ListItemIcon>
-                                <ListItemText className="font-size-xs">View Places</ListItemText>
-                            </ListItemLink>
-                        </List>
-                    </Collapse> */}
-                </List>
+
+                <div className="sidebar-navigation nav-alt">
+                    <div class="sidebar-header opacity-5">
+                        <span>Content Admin</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <NavLink
+                                activeClassName={isNavCategory('dashboard') ? "active" : null} 
+                                key="dashboard" 
+                                onClick={() => handleCategoryClick('dashboard')}
+                                className="nav-link-simple"
+                                to="/">
+                                    <span className="sidebar-icon">
+                                        <DashboardIcon />
+                                    </span>
+                                    Dashboard
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                activeClassName={isNavCategory('series') ? "active" : null} 
+                                key="series" 
+                                onClick={() => handleCategoryClick('series')}
+                                activeClassName="active"
+                                className="nav-link-simple"
+                                to="/series">
+                                    <span className="sidebar-icon">
+                                        <EventNoteIcon />
+                                    </span>
+                                    Events
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                activeClassName={isNavCategory('games') ? "active" : null} 
+                                key="games" 
+                                onClick={() => handleCategoryClick('games')}
+                                activeClassName="active"
+                                className="nav-link-simple"
+                                to="/games">
+                                    <span className="sidebar-icon">
+                                        <GamesIcon />
+                                    </span>
+                                    Games
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                activeClassName={isNavCategory('places') ? "active" : null} 
+                                key="places" 
+                                onClick={() => handleCategoryClick('places')}
+                                activeClassName="active"
+                                className="nav-link-simple"
+                                to="/places">
+                                    <span className="sidebar-icon">
+                                        <PlaceIcon />
+                                    </span>
+                                    Places
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
+                    </ul>
+                    { userCtx.admin &&
+                        <div className="">
+                            <div className="divider opacity-5" />
+                            <div class="sidebar-header opacity-5">
+                                <span>Admin Menu</span>
+                            </div>
+                            <ul>
+                                <li>
+                                    <NavLink
+                                        activeClassName={isNavCategory('admin-dashboard') ? "active" : null} 
+                                        key="admin-dashboard" 
+                                        onClick={() => handleCategoryClick('admin-dashboard')}
+                                        className="nav-link-simple"
+                                        to="/admin/dashboard">
+                                            <span className="sidebar-icon">
+                                                <DashboardIcon />
+                                            </span>
+                                            Dashboard
+                                            <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                                <ChevronRightTwoToneIcon />
+                                            </span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        activeClassName={isNavCategory('admin-organizations') ? "active" : null} 
+                                        key="admin-organizations" 
+                                        onClick={() => handleCategoryClick('admin-organizations')}
+                                        activeClassName="active"
+                                        className="nav-link-simple"
+                                        to="/admin/organizations">
+                                            <span className="sidebar-icon">
+                                                <BusinessIcon />
+                                            </span>
+                                            Organizations
+                                            <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                                <ChevronRightTwoToneIcon />
+                                            </span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        activeClassName={isNavCategory('admin-sites') ? "active" : null} 
+                                        key="admin-sites" 
+                                        onClick={() => handleCategoryClick('admin-users')}
+                                        activeClassName="active"
+                                        className="nav-link-simple"
+                                        to="/admin/sites">
+                                            <span className="sidebar-icon">
+                                                <LanguageIcon />
+                                            </span>
+                                            Sites
+                                            <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                                <ChevronRightTwoToneIcon />
+                                            </span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        activeClassName={isNavCategory('admin-users') ? "active" : null} 
+                                        key="admin-users" 
+                                        onClick={() => handleCategoryClick('admin-users')}
+                                        activeClassName="active"
+                                        className="nav-link-simple"
+                                        to="/admin/users">
+                                            <span className="sidebar-icon">
+                                                <PeopleIcon />
+                                            </span>
+                                            Users
+                                            <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                                <ChevronRightTwoToneIcon />
+                                            </span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                </div>
             </div>
-        </Drawer>
+        </div>
     );
 }
 

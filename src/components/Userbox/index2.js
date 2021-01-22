@@ -17,10 +17,9 @@ const ListItemLink = (props) => {
     return <ListItem button component={Link} {...props} />;
 }
 
-const HeaderUserbox = () => {
+const Userbox = () => {
 	const userCtx = useContext(UserContext);
 	const history = useHistory();
-
 	const [anchorEl, setAnchorEl] = useState(false);
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -57,16 +56,21 @@ const HeaderUserbox = () => {
 						)}
 					</div>
 				</div>
-
+				
 				<div className=" d-xl-block pr-2">
 					<div className="font-weight-bold pt-2 text-primary text-uppercase line-height-1">
 						{userCtx.user.displayName ? userCtx.user.displayName : "Beacons User"}
 					</div>
 					<span className="text-black-50 font-size-xs">{userCtx.user.email}</span>
 				</div>
-					<span className="pl-1 pr-xl-3">
-						<FontAwesomeIcon icon={['fas', 'angle-down']} className="opacity-5" />
-					</span>
+				<div>
+					{ userCtx.admin &&
+						<span className="ml-1 badge badge-success font-weight-bold text-black text-uppercase">Admin</span>
+					}
+				</div>
+				<span className="pl-1 pr-xl-3">
+					<FontAwesomeIcon icon={['fas', 'angle-down']} className="opacity-5" />
+				</span>
 			</Button>
 			<Menu
 				anchorEl={anchorEl}
@@ -108,4 +112,4 @@ const HeaderUserbox = () => {
 	);
 };
 
-export default HeaderUserbox;
+export default Userbox;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
 	Table, 
@@ -9,24 +9,25 @@ import {
 	Select,
 	MenuItem,
 	TextField,
-	InputAdornment,
-	Collapse
-} from '@material-ui/core';
-import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+	Collapse,
+	InputAdornment
+ } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
+import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import { Link } from 'react-router-dom';
-import EventsTableRow from '../../components/EventsTableRow';
-import { useQuery } from '@apollo/client';
-import { GET_ALL_EVENTS } from '../../queries/events';
-import Loading from '../../components/Loading';
-import Error from '../../components/Error';
+import Loading from '../../../components/Loading';
+import Error from '../../../components/Error';
+import { getUsers } from '../../../utils/api';
+import { UserContext } from '../../../providers/UserProvider';
+import UsersListTableRow from '../../../components/UsersListTableRow';
 
-export default function EventsListPage() {
-	const { loading, error, data } = useQuery(GET_ALL_EVENTS);
-	const eventData = loading || error ? [] : data ? data.events : [];
-	const [isLoading, setLoading] = React.useState(loading);
+export default function UsersListPage() {
+    const userCtx = useContext(UserContext);
+    let usersData = [];
 
-	const [entries, setEntries] = React.useState(10);
+	const [isLoading, setLoading] = React.useState(true);
+    const [entries, setEntries] = React.useState(10);
+    
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};
@@ -35,41 +36,46 @@ export default function EventsListPage() {
 		setPage(page);
 	};
 	const [search, setSearch] = React.useState(null);
-	const [events, setEvents] = React.useState(eventData);
+	const [users, setUsers] = React.useState(usersData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
-			setEvents(eventData);
+			setUsers(usersData);
 			setSearch(null);
 		} else {
 			setSearch(e.target.value);
-			const newData = eventData.filter(d => {
-				return (d.title && d.title.toLowerCase().includes(e.target.value.toLowerCase())) || 
-					(d.description && d.description.toLowerCase().includes(e.target.value));
-			})
-			setEvents(newData);
+			const newData = usersData.filter(u => {
+                return u.first_name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+                    u.last_name.toLowerCase().includes(e.target.value.toLowerCase());
+			});
+			setUsers(newData);
 		}
-	};
+    };
 
 	React.useEffect(() => {
-		if (isLoading && !loading) {
-			setLoading(loading);
-			setEvents(eventData);
-		}
-	});
+        console.log('isLoading', isLoading)
+        if (isLoading) {
+            getUsers(userCtx.token)
+                .then(async response => {
+                    const users = await response.json();
+                    setUsers(users);
+                    setLoading(false);
+                });
+        }
+	}, [usersData, isLoading]);
 
-	if (loading) {
+	if (isLoading) {
 		return (<Loading />);
 	}
 
-	if (error) {
-		return (<Error message={error.message} />)
-	}
+	// if (error) {
+	// 	return (<Error message={error.message} />)
+	// }
 
 	return (
 		<>
 			<div>
-				<h2>Events</h2>
-				<p>Events list description.</p>
+				<h2>Users</h2>
+				<p>List all users.</p>
 			</div>
 			<Card className="card-box mb-spacing-6-x2">
 				<div className="card-header">
@@ -93,11 +99,11 @@ export default function EventsListPage() {
 
 					<div className="card-header--actions">
 						<div>
-						<Button to="/events/add" component={Link} size="small" className="btn-neutral-primary">
+						<Button to="/admin/users/add" component={Link} size="small" className="btn-neutral-primary">
 							<span className="btn-wrapper--icon">
 								<FontAwesomeIcon icon={['fas', 'plus-circle']} />
 							</span>
-							<span className="btn-wrapper--label">Add Events</span>
+							<span className="btn-wrapper--label">Add User</span>
 						</Button>
 						</div>
 					</div>
@@ -106,28 +112,27 @@ export default function EventsListPage() {
 					<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
 						<thead>
 							<tr>
-								<th>Title</th>
-								<th className="text-center">Tournaments</th>
-								<th className="text-center">Starts At</th>
-								<th className="text-center">Status</th>
+								<th>User</th>
+                                <th className="text-center">Status</th>
+                                <th className="text-center">Role</th>
 								<th className="text-right">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							{ events.map(event => (
-								<EventsTableRow {...event} />
+							{ users.slice((page-1)*entries, ((page-1)*entries)+entries).map(user => (
+								<UsersListTableRow {...user} />
 							))}
 						</tbody>
 					</Table>
 					<div className="divider mb-3" />
 					<div className="card-footer py-3 d-flex justify-content-between">
-						<Collapse in={events.length > entries}>
+						<Collapse in={users.length > entries}>
 							<Pagination
 								className="pagination-second"
 								variant="outlined"
 								page={page}
 								onChange={handlePageChange}
-								count={ Math.round((events.length/entries)) + (events.length%entries === 0 ? 0 : 1)}
+								count={ Math.round((users.length/entries)) + (users.length%entries === 0 ? 0 : 1)}
 							/>
 						</Collapse>
 						<div className="d-flex align-items-center">

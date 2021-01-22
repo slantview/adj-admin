@@ -29,6 +29,8 @@ import MyAccountPage from './pages/MyAccountPage';
 import ProfileSettings from './pages/ProfileSettings';
 import OrganizationStepper from './containers/OrganizationStepper';
 import SiteProvider from './providers/SiteProvider';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import AdminUsersListPage from './pages/Admin/UsersListPage';
 
 ReactDOM.render(
 	<UserProvider>
@@ -67,8 +69,11 @@ ReactDOM.render(
 									{/* Account Pages */}
 									<Route exact path="/user/account"><MyAccountPage /></Route>
 									<Route exact path="/user/profile"><ProfileSettings /></Route>
-
-									<Route exact path="/organization/add"><OrganizationStepper /></Route>
+									{/* Admin Pages */}
+									<Route exact path="/admin/dashboard"><AdminDashboard /></Route>
+									<Route exact path="/admin/organizations"><OrganizationStepper /></Route>
+									<Route exact path="/admin/sites"><OrganizationStepper /></Route>
+									<Route exact path="/admin/users"><AdminUsersListPage /></Route>
 								</Layout>
 							</BackendProvider>
 						</Route>

@@ -1,6 +1,7 @@
 const API_URL      = process.env.NODE_ENV === "production" ? "https://api.beacons.gg" : "http://localhost:8080";
 const REGISTER_URL = API_URL + "/api/v1/user/register";
 const SITES_URL    = API_URL + "/api/v1/sites";
+const USERS_URL    = API_URL + "/api/v1/users";
 
 export const registerUser = async (data) => {
     return fetch(REGISTER_URL, {
@@ -40,3 +41,13 @@ export const getSiteMetadata = (url) => {
         }
     });
 };
+
+export const getUsers = async (token) => {
+    return fetch(USERS_URL, {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+}

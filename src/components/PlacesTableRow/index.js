@@ -24,13 +24,15 @@ const PlacesTableRow = (props) => {
             <td>
                 <div className="d-flex">
                     <div>
-                        <Link to={"/places/"+id}>
-                            <img 
-                                src={logo.formats.thumbnail.url} 
-                                width="120px" 
-                                alt={name} 
-                                className="mr-3" />
-                        </Link>
+                        { logo && logo.formats &&
+                            <Link to={"/places/"+id}>
+                                <img 
+                                    src={logo.formats.thumbnail.url} 
+                                    width="120px" 
+                                    alt={name} 
+                                    className="mr-3" />
+                            </Link>
+                        }
                     </div>
                     <div>
                         <Link to={"/places/"+id}>

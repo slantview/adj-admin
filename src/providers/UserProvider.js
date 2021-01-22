@@ -10,13 +10,15 @@ class UserProvider extends Component {
     }
     state = {
         user: null,
-        token: null
+        token: null,
+        admin: false
     };
 
     logout = () => {
         this.setState({
             user: null,
-            token: null
+            token: null,
+            admin: false
         })
     }
 
@@ -27,7 +29,8 @@ class UserProvider extends Component {
                 return;
             }
             const token = await userAuth.getIdToken();
-            this.setState({ user: userAuth, token: token});
+            const { claims } = await userAuth.getIdTokenResult();
+            this.setState({ user: userAuth, token: token, admin: claims ? claims.admin : false});
         });
         this.setState({logout: this.logout});
     };

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import HeaderUserbox from '../HeaderUserbox';
+import Userbox from '../Userbox/index2';
 import { UserContext } from '../../providers/UserProvider';
 import { Badge, Grid, Menu, MenuItem, IconButton } from '@material-ui/core';
 
@@ -25,7 +25,7 @@ const TopMenu = () => {
                 </Menu>
 
                 { userCtx && userCtx.user &&
-                    <HeaderUserbox />
+                    <Userbox />
                 }
             </Grid>
         </Grid>

@@ -1,10 +1,10 @@
 import React from 'react';
-import OrganizationStepper from '../../containers/OrganizationStepper';
+import ContentDashboardPage from '../ContentDashboardPage';
 
 const Homepage = () => {
     return (
         <div>
-			<OrganizationStepper />
+			<ContentDashboardPage />
         </div>
     );
 };

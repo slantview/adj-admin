@@ -53,12 +53,6 @@ const SeriesTableRow = (props) => {
                 <span className="">{tournaments ? tournaments.length : 0}</span>
             </td>
             <td className="text-center">
-                <span className="">{createdAt}</span>
-            </td>
-            <td className="text-center">
-                <div className="">{updatedAt}</div>
-            </td>
-            <td className="text-center">
                 <span className={"badge text-uppercase " + (published_at ? "badge-success" : "badge-first")}>{(published_at ? "Published" : "Draft")}</span>
             </td>
             <td className="text-right">

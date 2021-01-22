@@ -274,14 +274,18 @@ const Layout = ({ children }) => {
 
 	return (
 		<ThemeProvider theme={MuiTheme}>
-			<div className={classes.root}>
-				<CssBaseline />
-        <Sidebar open={true} />
-				<div className={classes.body}>
-          <Header className={classes.appBar} hidden={false} />
-          <main className={classes.content}>
-            {children}
-          </main>
+			<div className="app-wrapper app-sidebar-fixed">
+				{/* <CssBaseline /> */}
+				<div>
+					<Sidebar open={true} />
+				</div>
+				<div className="app-main">
+					<Header hidden={true} />
+					<div className="app-content">
+						<div className="app-content--inner">
+							<div className="app-content--inner__wrapper">{children}</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</ThemeProvider>

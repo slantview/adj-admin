@@ -53,12 +53,6 @@ const EventsTableRow = (props) => {
                 <span className="">{tournaments ? tournaments.length : 0}</span>
             </td>
             <td className="text-center">
-                <span className="">{createdAt}</span>
-            </td>
-            <td className="text-center">
-                <div className="">{updatedAt}</div>
-            </td>
-            <td className="text-center">
                 <div className="">{startsAt}</div>
             </td>
             <td className="text-center">

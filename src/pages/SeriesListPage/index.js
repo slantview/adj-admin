@@ -107,24 +107,31 @@ export default function SeriesListPage() {
 					</div>
 					<CardContent className="px-0 pt-2 pb-3">
 						<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
-							<thead>
-								<tr>
-									<th>Title</th>
-									<th className="text-center">Events</th>
-									<th className="text-center">Tournaments</th>
-									<th className="text-center">Created At</th>
-									<th className="text-center">Updated At</th>
-									<th className="text-center">Status</th>
-									<th className="text-right">Actions</th>
-								</tr>
-							</thead>
+							{ series.length > 0 &&
+								<thead>
+									<tr>
+										<th>Title</th>
+										<th className="text-center">Events</th>
+										<th className="text-center">Tournaments</th>
+										<th className="text-center">Status</th>
+										<th className="text-right">Actions</th>
+									</tr>
+								</thead>
+							}
 							<tbody>
 								{ series && series.map(s => (
 									<SeriesTableRow {...s} />
 								))}
+								
 							</tbody>
 						</Table>
-						<div className="divider mb-3" />
+						{ series.length === 0 &&
+							<div className="m-4 text-center">
+								<h4>No Event Series.</h4>
+								<p>To get started, <Link className="text-first" to="/series/add">add an event series.</Link></p>
+							</div>
+						}
+						{/* <div className="divider mb-3" /> */}
 						<div className="card-footer py-3 d-flex justify-content-between">
 							<Collapse in={series.length > entries}>
 								<Pagination
