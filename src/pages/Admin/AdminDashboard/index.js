@@ -7,7 +7,6 @@ import OrganizationsGraph from '../OrganizationsGraph';
 export default function ContentDashboardPage() {
     return (
         <div>
-            <h1>Dashboard</h1>
             <Grid container spacing={3}>
                 <Grid item lg={6}> 
                     <OrganizationsGraph />

@@ -16,7 +16,7 @@ export default function LivePreviewExample() {
         <div className="card-header bg-white">
           <div className="card-header--title">
             <small className="d-block text-uppercase mt-1">News</small>
-            <b>Latest Blogs</b>
+            <b>Latest News</b>
           </div>
           <div className="card-header--actions">
             <Button

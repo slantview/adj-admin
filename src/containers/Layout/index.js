@@ -135,7 +135,6 @@ import {
   faSignOutAlt,
   faLink
 } from '@fortawesome/free-solid-svg-icons';
-import { Toolbar } from '@material-ui/core';
 
 library.add(
   far,

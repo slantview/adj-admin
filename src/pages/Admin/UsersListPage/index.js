@@ -15,6 +15,7 @@ import {
  } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
 import { Link } from 'react-router-dom';
 import Loading from '../../../components/Loading';
 import { getUsers } from '../../../utils/api';
@@ -57,9 +58,11 @@ export default function UsersListPage() {
 			setSearch(null);
 		} else {
 			setSearch(e.target.value);
-			const newData = usersData.filter(u => {
+			const newData = users.filter(u => {
                 return u.first_name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-                    u.last_name.toLowerCase().includes(e.target.value.toLowerCase());
+					u.last_name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+					u.first_name.toLowerCase().includes(e.target.value.toLowerCase()) + ' ' +
+					u.last_name.toLowerCase().includes(e.target.value.toLowerCase());
 			});
 			setUsers(newData);
 		}
@@ -69,8 +72,9 @@ export default function UsersListPage() {
         if (isLoading) {
             getUsers(userCtx.token)
                 .then(async response => {
-                    const users = await response.json();
-                    setUsers(users);
+                    const fetchedData = await response.json();
+					setUsers(fetchedData);
+					usersData = fetchedData;
                     setLoading(false);
                 });
         }
@@ -104,12 +108,17 @@ export default function UsersListPage() {
 
 					<div className="card-header--actions">
 						<div>
-						<Button to="/admin/users/add" component={Link} size="small" className="btn-neutral-primary">
-							<span className="btn-wrapper--icon">
-								<FontAwesomeIcon icon={['fas', 'plus-circle']} />
-							</span>
-							<span className="btn-wrapper--label">Add User</span>
-						</Button>
+							<Button component="a" onClick={() => setLoading(true)} size="small" className="btn-neutral-primary mr-2">
+								<span className="btn-wrapper--icon">
+									<RefreshTwoToneIcon fontSize="small" />
+								</span>
+							</Button>
+							<Button to="/admin/users/add" component={Link} size="small" className="btn-neutral-primary">
+								<span className="btn-wrapper--icon">
+									<FontAwesomeIcon icon={['fas', 'plus-circle']} />
+								</span>
+								<span className="btn-wrapper--label">Add User</span>
+							</Button>
 						</div>
 					</div>
 				</div>
@@ -125,13 +134,17 @@ export default function UsersListPage() {
 							</tr>
 						</thead>
 						<tbody>
-                            { isLoading && 
-                                <div className="text-center">
-                                    <Loading centerInPage={false} center={true} />
-                                </div> 
+							{ isLoading && 
+								<tr>
+									<td colSpan={5}>
+										<div className="text-center my-3">
+											<Loading centerInPage={false} center={true} />
+										</div> 
+									</td>
+								</tr>
                             }
 							{ !isLoading && users.slice((page-1)*entries, ((page-1)*entries)+entries).map(user => (
-								<UsersListTableRow setLoading={setLoading} setNotification={setNotificationWrapper} {...user} />
+								<UsersListTableRow key={user.id} setLoading={setLoading} setNotification={setNotificationWrapper} {...user} />
 							))}
 						</tbody>
 					</Table>

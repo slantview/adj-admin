@@ -44,12 +44,22 @@ const UsersListTableRow = (props) => {
 	};
 	const handlePasswordReset = () => {
 		resetPassword(id, userCtx.token)
-			.then(() => {
-				setNotification({
-					open: true,
-					type: 'success',
-					message: "Password reset sent for " + first_name + " " + last_name + " (ID: " + id + ")"
-				}, true);
+			.then(async (response) => {
+				if (response.ok) {
+					setNotification({
+						open: true,
+						type: 'success',
+						message: "Password reset sent for " + first_name + " " + last_name + " (ID: " + id + ")"
+					}, true);
+				} else {
+					const ret = await response.json()
+					setNotification({
+						open: true,
+						type: 'danger',
+						message: "Error sending password reset for " + first_name + " " + last_name + " (ID: " + id + "): " + ret.error
+					}, true);
+				}
+				
 			})
 			.catch((e) => {
 				setNotification({

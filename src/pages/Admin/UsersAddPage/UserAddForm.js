@@ -52,8 +52,7 @@ const RegisterPage1Form = (props) => {
 		<Form onSubmit={handleSubmit}>
             <div className="flex-grow-1 w-100 d-flex align-items-center">
                 <div className="bg-composed-wrapper--content">
-                <Grid container spacing={6} className="px-5">
-                    <Grid item lg={6} className="align-items-center">
+                <Grid container spacing={3} className="px-5">
                         <Grid item lg={6}>
                             <div className="mb-3">
                                 { errors && errors.api &&
@@ -74,6 +73,8 @@ const RegisterPage1Form = (props) => {
                                 />
                                 <span className="text-danger">{errors.first_name}</span>
                             </div>
+                        </Grid>
+                        <Grid item lg={6}>
                             <div className="mb-3">
                                 <label className="font-weight-bold mb-2">
                                     Last Name
@@ -91,6 +92,8 @@ const RegisterPage1Form = (props) => {
                                 <span className="text-danger">{errors.last_name}</span>
                                 
                             </div>
+                        </Grid>
+                        <Grid item lg={6}>
                             <div className="mb-3">
                                 <label className="font-weight-bold mb-2">
                                     Email address
@@ -108,6 +111,9 @@ const RegisterPage1Form = (props) => {
                                 />
                                 <span className="text-danger">{errors.email}</span>
                             </div>
+                        </Grid>
+                        <Grid item lg={6}></Grid>
+                        <Grid item lg={6}>
                             <div className="mb-3">
                                 <div className="d-flex justify-content-between">
                                     <label className="font-weight-bold mb-2">
@@ -127,6 +133,15 @@ const RegisterPage1Form = (props) => {
                                     className="mb-2"
                                 />
                                 <span className="text-danger">{errors.password}</span>
+                            </div>
+                        </Grid>
+                        <Grid item lg={6}>
+                            <div className="mb-3">
+                            <div className="d-flex justify-content-between">
+                                    <label className="font-weight-bold mb-2">
+                                        Password again
+                                    </label>
+                                </div>
                                 <TextField
                                     name="password2"
                                     variant="outlined"
@@ -140,7 +155,8 @@ const RegisterPage1Form = (props) => {
                                 />
                                 <span className="text-danger">{errors.password2}</span>
                             </div>
-
+                        </Grid>
+                        <Grid item lg={6}>
                             <div className="mb-3">
                                 <FormControlLabel
                                     control={
@@ -166,7 +182,6 @@ const RegisterPage1Form = (props) => {
                             
                         </Grid>
                     </Grid>
-                </Grid>
                 </div>
             </div>
 		</Form>
