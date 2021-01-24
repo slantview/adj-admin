@@ -269,7 +269,7 @@ const Layout = ({ children }) => {
 
 	if (!userCtx.user) {
 		history.push('/login');
-		return (<Loading />);
+		return (<Loading centerInPage={true} center={true} />);
 	}
 
 	return (

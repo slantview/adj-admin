@@ -31,6 +31,7 @@ import OrganizationStepper from './containers/OrganizationStepper';
 import SiteProvider from './providers/SiteProvider';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminUsersListPage from './pages/Admin/UsersListPage';
+import AdminUsersAddPage from './pages/Admin/UsersAddPage';
 
 ReactDOM.render(
 	<UserProvider>
@@ -73,7 +74,9 @@ ReactDOM.render(
 									<Route exact path="/admin/dashboard"><AdminDashboard /></Route>
 									<Route exact path="/admin/organizations"><OrganizationStepper /></Route>
 									<Route exact path="/admin/sites"><OrganizationStepper /></Route>
+									{/* Admin Users Pages */}
 									<Route exact path="/admin/users"><AdminUsersListPage /></Route>
+									<Route exact path="/admin/users/add"><AdminUsersAddPage /></Route>
 								</Layout>
 							</BackendProvider>
 						</Route>

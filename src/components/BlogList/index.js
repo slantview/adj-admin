@@ -66,10 +66,14 @@ export default function LivePreviewExample() {
                   </div>
                   <div className="d-flex align-items-center">
                     <div className="text-right pl-3">
-                      <span className="font-weight-bold font-size-lg">
-                        12,349
-                      </span>
-                      <span className="text-black-50 d-block">visits</span>
+                        <Button
+                            component="a"
+                            href="#/"
+                            size="small"
+                            className="btn-primary font-weight-bold"
+                            onClick={(e) => e.preventDefault()}
+                            >Read&nbsp;More
+                        </Button>
                     </div>
                   </div>
                 </div>
@@ -106,11 +110,15 @@ export default function LivePreviewExample() {
                     </div>
                   </div>
                   <div className="d-flex align-items-center">
-                    <div className="text-right pr-3 pl-3">
-                      <span className="font-weight-bold font-size-lg text-danger">
-                        345
-                      </span>
-                      <span className="text-black-50 d-block">reports</span>
+                    <div className="text-right pl-3">
+                        <Button
+                            component="a"
+                            href="#/"
+                            size="small"
+                            className="btn-primary font-weight-bold"
+                            onClick={(e) => e.preventDefault()}
+                            >Read&nbsp;More
+                        </Button>
                     </div>
                   </div>
                 </div>
@@ -148,10 +156,14 @@ export default function LivePreviewExample() {
                   </div>
                   <div className="d-flex align-items-center">
                     <div className="text-right pl-3">
-                      <span className="font-weight-bold font-size-lg">
-                        12,349
-                      </span>
-                      <span className="text-black-50 d-block">visits</span>
+                        <Button
+                            component="a"
+                            href="#/"
+                            size="small"
+                            className="btn-primary font-weight-bold"
+                            onClick={(e) => e.preventDefault()}
+                            >Read&nbsp;More
+                        </Button>
                     </div>
                   </div>
                 </div>
@@ -188,11 +200,15 @@ export default function LivePreviewExample() {
                     </div>
                   </div>
                   <div className="d-flex align-items-center">
-                    <div className="text-right pr-3 pl-3">
-                      <span className="font-weight-bold font-size-lg text-danger">
-                        345
-                      </span>
-                      <span className="text-black-50 d-block">reports</span>
+                    <div className="text-right pl-3">
+                        <Button
+                            component="a"
+                            href="#/"
+                            size="small"
+                            className="btn-primary font-weight-bold"
+                            onClick={(e) => e.preventDefault()}
+                            >Read&nbsp;More
+                        </Button>
                     </div>
                   </div>
                 </div>

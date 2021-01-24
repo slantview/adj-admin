@@ -57,7 +57,7 @@ export default function TournamentsListPage() {
 	});
 
 	if (loading) {
-		return (<Loading />);
+		return (<Loading centerInPage={true} center={true} />);
 	}
 
 	if (error) {

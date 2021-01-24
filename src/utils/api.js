@@ -1,5 +1,5 @@
 const API_URL      = process.env.NODE_ENV === "production" ? "https://api.beacons.gg" : "http://localhost:8080";
-const REGISTER_URL = API_URL + "/api/v1/user/register";
+const REGISTER_URL = API_URL + "/api/v1/users/register";
 const SITES_URL    = API_URL + "/api/v1/sites";
 const USERS_URL    = API_URL + "/api/v1/users";
 
@@ -45,6 +45,36 @@ export const getSiteMetadata = (url) => {
 export const getUsers = async (token) => {
     return fetch(USERS_URL, {
         method: 'get',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+}
+
+export const suspendUser = async (id, token) => {
+    return fetch(USERS_URL + '/' + id + '/suspend', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+}
+
+export const deleteUser = async (id, token) => {
+    return fetch(USERS_URL + '/' + id, {
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+}
+
+export const resetPassword = async (id, token) => {
+    return fetch(USERS_URL + '/' + id + '/reset', {
+        method: 'post',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token

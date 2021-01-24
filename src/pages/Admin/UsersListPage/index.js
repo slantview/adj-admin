@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
 	Table, 
@@ -10,13 +10,13 @@ import {
 	MenuItem,
 	TextField,
 	Collapse,
-	InputAdornment
+    InputAdornment,
+    Snackbar
  } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import { Link } from 'react-router-dom';
 import Loading from '../../../components/Loading';
-import Error from '../../../components/Error';
 import { getUsers } from '../../../utils/api';
 import { UserContext } from '../../../providers/UserProvider';
 import UsersListTableRow from '../../../components/UsersListTableRow';
@@ -27,16 +27,30 @@ export default function UsersListPage() {
 
 	const [isLoading, setLoading] = React.useState(true);
     const [entries, setEntries] = React.useState(10);
-    
+    const [search, setSearch] = React.useState(null);
+    const [users, setUsers] = React.useState(usersData);
+    const [page, setPage] = React.useState(1);
+    const [notification, setNotification] = useState({
+        open: false,
+        type: '',
+        message: ''
+    });
+   
+    const setNotificationWrapper = (update, updateUsers) => {
+        setNotification(update);
+        if (!isLoading && updateUsers) {
+            setLoading(true);
+        }
+    };
+    const handleClose = () => {
+        setNotification({ ...notification, open: false });
+    };
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};
-	const [page, setPage] = React.useState(1);
 	const handlePageChange = (event, page) => {
 		setPage(page);
 	};
-	const [search, setSearch] = React.useState(null);
-	const [users, setUsers] = React.useState(usersData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
 			setUsers(usersData);
@@ -52,7 +66,6 @@ export default function UsersListPage() {
     };
 
 	React.useEffect(() => {
-        console.log('isLoading', isLoading)
         if (isLoading) {
             getUsers(userCtx.token)
                 .then(async response => {
@@ -62,14 +75,6 @@ export default function UsersListPage() {
                 });
         }
 	}, [usersData, isLoading]);
-
-	if (isLoading) {
-		return (<Loading />);
-	}
-
-	// if (error) {
-	// 	return (<Error message={error.message} />)
-	// }
 
 	return (
 		<>
@@ -113,18 +118,23 @@ export default function UsersListPage() {
 						<thead>
 							<tr>
 								<th>User</th>
+                                <th>ID</th>
                                 <th className="text-center">Status</th>
                                 <th className="text-center">Role</th>
 								<th className="text-right">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							{ users.slice((page-1)*entries, ((page-1)*entries)+entries).map(user => (
-								<UsersListTableRow {...user} />
+                            { isLoading && 
+                                <div className="text-center">
+                                    <Loading centerInPage={false} center={true} />
+                                </div> 
+                            }
+							{ !isLoading && users.slice((page-1)*entries, ((page-1)*entries)+entries).map(user => (
+								<UsersListTableRow setLoading={setLoading} setNotification={setNotificationWrapper} {...user} />
 							))}
 						</tbody>
 					</Table>
-					<div className="divider mb-3" />
 					<div className="card-footer py-3 d-flex justify-content-between">
 						<Collapse in={users.length > entries}>
 							<Pagination
@@ -162,6 +172,15 @@ export default function UsersListPage() {
 					</div>
 				</CardContent>
 			</Card>
+            <Snackbar
+                anchorOrigin={{vertical: 'top', horizontal: 'center' }}
+                key="notification"
+                autoHideDuration={5000}
+                open={notification.open}
+                classes={{ root: 'toastr-' + notification.type }}
+                onClose={handleClose}
+                message={notification.message}
+            />
 		</>
 	);
 }

@@ -1,10 +1,15 @@
 
-import React from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { Button, Checkbox, Divider } from '@material-ui/core';
-import moment from 'moment';
+import { Button, List, ListItem, Menu } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/PersonTwoTone';
+import { deleteUser, resetPassword, suspendUser } from "../../utils/api";
+import { UserContext } from '../../providers/UserProvider';
+
+const ListItemLink = (props) => {
+    return <ListItem button component="a" {...props} />;
+}
 
 const UsersListTableRow = (props) => {
     const {
@@ -14,14 +19,86 @@ const UsersListTableRow = (props) => {
         email,
         photo_url,
         admin,
-        created_at,
-        updated_at,
         deleted_at,
-        suspended_at
+		suspended_at,
+		setNotification,
+		setLoading
     } = props;
+
+    const [anchorEl, setAnchorEl] = useState(false);
+	const userCtx = useContext(UserContext);
+
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+	const handleEdit = () => {
+		setNotification({
+			open: true,
+			type: 'primary',
+			message: "TODO: Allow users to edit."
+		}, false);
+		handleClose();
+	};
+	const handlePasswordReset = () => {
+		resetPassword(id, userCtx.token)
+			.then(() => {
+				setNotification({
+					open: true,
+					type: 'success',
+					message: "Password reset sent for " + first_name + " " + last_name + " (ID: " + id + ")"
+				}, true);
+			})
+			.catch((e) => {
+				setNotification({
+					open: true,
+					type: 'danger',
+					message: "Error sending password reset for " + first_name + " " + last_name + " (ID: " + id + "): " + e  
+				}, true);
+			});
+		handleClose();
+	};
+	const handleSuspend = () => {
+		setLoading(true);
+		suspendUser(id, userCtx.token)
+			.then(() => {
+				setNotification({
+					open: true,
+					type: 'success',
+					message: (suspended_at ? "Enabled" : "Disabled") + " user " + first_name + " " + last_name + " (ID: " + id + ")"
+				}, true);
+			})
+			.catch(e => {
+				setNotification({
+					open: true,
+					type: 'danger',
+					message: "Unable to " + (suspended_at ? "enable" : "disable") + " user " + first_name + " " + last_name + " (ID: " + id + "): " + e
+				}, false);
+			})
+		handleClose();
+	};
+	const handleDelete = () => {
+		setLoading(true);
+		deleteUser(id, userCtx.token)
+		.then(() => {
+			setNotification({
+				open: true,
+				type: 'success',
+				message: "Deleted user " + first_name + " " + last_name + " (ID: " + id + ")"
+			}, true);
+		})
+		.catch(e => {
+			setNotification({
+				open: true,
+				type: 'danger',
+				message: "Unable to delete user " + first_name + " " + last_name + " (ID: " + id + "): " + e
+			}, false);
+		})
+		handleClose();
+	};
     
-    const createdAt = moment(created_at).format("MM/DD/YYYY");
-    const updatedAt = moment(updated_at).format("MM/DD/YYYY");
 	return (
         <tr>
             <td>
@@ -54,15 +131,18 @@ const UsersListTableRow = (props) => {
                     </div>
                 </div>
             </td>
+            <td>
+                {id}
+            </td>
             <td className="text-center">
                 { suspended_at &&
-                    <span className="badge badge-warning">Suspended</span>
+                    <span className="badge badge-warning">Disabled</span>
                 }
                 { deleted_at &&
                     <span className="badge badge-danger">Deleted</span>
                 }
                 { !suspended_at && !deleted_at &&
-                    <span className="badge badge-success">Active</span>
+                    <span className="badge badge-success">Enabled</span>
                 }
             </td>
             <td className="text-center">
@@ -76,12 +156,39 @@ const UsersListTableRow = (props) => {
                 <div className="d-flex align-items-center justify-content-end pr-3">
                     <Button
                         size="small"
+                        onClick={handleClick}
                         className="btn-link d-30 p-0 btn-icon hover-scale-sm">
                         <FontAwesomeIcon
                             icon={['fas', 'ellipsis-h']}
                             className="font-size-lg"
                         />
                     </Button>
+                    <Menu
+						anchorEl={anchorEl}
+						keepMounted
+						getContentAnchorEl={null}
+						open={Boolean(anchorEl)}
+						classes={{ list: 'p-0' }}
+						onClose={handleClose}>
+						<div className="dropdown-menu-lg overflow-hidden p-0">
+							<div className="dropdown-menu-lg overflow-hidden p-0">
+								<List component="div" className="nav-neutral-primary font-size-sm text-left">
+									<ListItem onClick={handleEdit} button className="text-left">
+										Edit
+									</ListItem>
+									<ListItemLink onClick={handlePasswordReset} button className="text-left">
+										Reset Password
+									</ListItemLink>
+									<ListItemLink  onClick={handleSuspend} button className="text-left">
+										{suspended_at ? 'Enable' : 'Disable'}
+									</ListItemLink>
+									<ListItem onClick={handleDelete} button className="text-left">
+										Delete
+									</ListItem>
+								</List>
+							</div>
+						</div>
+					</Menu>
                 </div>
             </td>
         </tr>
