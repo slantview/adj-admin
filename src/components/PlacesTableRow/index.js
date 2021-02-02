@@ -24,7 +24,7 @@ const PlacesTableRow = (props) => {
             <td>
                 <div className="d-flex">
                     <div>
-                        { logo && logo.formats &&
+                        { false && logo && logo.formats && // Temporarily turn off images - TODO(smfr)
                             <Link to={"/places/"+id}>
                                 <img 
                                     src={logo.formats.thumbnail.url} 

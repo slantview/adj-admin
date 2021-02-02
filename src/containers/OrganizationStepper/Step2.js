@@ -5,13 +5,12 @@ import {
   TextField
 } from '@material-ui/core';
 
-const Step2 = () => {
-    const [state, setState] = useState('');
-  
-    const handleChange = (event) => {
-      setState(event.target.value);
-    };
-  
+const Step2 = (props) => {
+    const {
+        values,
+        handleChange
+    } = props;
+
     return (
       <>
         <Container>
@@ -30,6 +29,8 @@ const Step2 = () => {
                             rows={3}
                             variant="outlined"
                             size="small"
+                            value={values.about}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
@@ -39,15 +40,30 @@ const Step2 = () => {
                             fullWidth
                             variant="outlined"
                             size="small"
+                            value={values.website}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
                         <TextField
-                            name="addressLine2"
+                            name="email"
+                            label="Email"
+                            fullWidth
+                            variant="outlined"
+                            size="small"
+                            value={values.email}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item md={6} lg={6}>
+                        <TextField
+                            name="facebook"
                             fullWidth
                             label="Facebook"
                             variant="outlined"
                             size="small"
+                            value={values.facebook}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
@@ -57,6 +73,8 @@ const Step2 = () => {
                             fullWidth
                             variant="outlined"
                             size="small"
+                            value={values.twitch}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
@@ -66,6 +84,8 @@ const Step2 = () => {
                             label="Discord Server"
                             variant="outlined"
                             size="small"
+                            value={values.discord}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
@@ -75,6 +95,8 @@ const Step2 = () => {
                             fullWidth
                             variant="outlined"
                             size="small"
+                            value={values.instagram}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
@@ -84,6 +106,8 @@ const Step2 = () => {
                             label="Twitter"
                             variant="outlined"
                             size="small"
+                            value={values.twitter}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
@@ -93,6 +117,19 @@ const Step2 = () => {
                             fullWidth
                             variant="outlined"
                             size="small"
+                            value={values.youtube}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item md={6} lg={6}>
+                        <TextField
+                            name="linkedin"
+                            label="LinkedIn"
+                            fullWidth
+                            variant="outlined"
+                            size="small"
+                            value={values.linkedin}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
@@ -102,6 +139,8 @@ const Step2 = () => {
                             label="Patreon"
                             variant="outlined"
                             size="small"
+                            value={values.patreon}
+                            onChange={handleChange}
                         />
                     </Grid>
                 </Grid>

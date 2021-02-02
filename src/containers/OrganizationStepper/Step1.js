@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as Yup from 'yup';
 import {
   Grid,
   Container,
@@ -11,16 +8,16 @@ import {
   MenuItem,
   InputLabel
 } from '@material-ui/core';
-
+import { Formik, Form } from 'formik';
 import ImageUpload from '../../components/ImageUpload';
 
-const Step1 = (props) => {
-    const [values, setValue] = React.useState({});
-    const handleChange = (e) => {
-        console.log(e.target.value);
-        values[e.target.name] = e.target.value;
-        setValue(values);
-    };
+const Step1Form = (props) => {
+	const {
+		values,
+		errors,
+		touched,
+		onChange
+    } = props;
 
     return (
         <Container>
@@ -40,33 +37,39 @@ const Step1 = (props) => {
                             <Grid item md={12} lg={12}>
                                 <TextField
                                     fullWidth
-                                    name="orgName"
+                                    name="name"
                                     label="Organization Name"
                                     type="text"
                                     variant="outlined"
-                                    value={values.orgName}
-                                    onChange={handleChange}
+                                    value={values.name}
+                                    onChange={onChange}
+                                    error={touched.name && Boolean(errors.name)}
                                 />
+                                <span className="text-danger">{errors.name}</span>
                             </Grid>
                             <Grid item md={6} lg={6}>
                                 <TextField
-                                    name="addressLine1"
+                                    name="address_line_1"
                                     fullWidth
                                     label="Address"
                                     variant="outlined"
-                                    value={values.addressLine1}
-                                    onChange={handleChange}
+                                    value={values.address_line_1}
+                                    onChange={onChange}
+                                    error={touched.address_line_1 && Boolean(errors.address_line_1)}
                                 />
+                                <span className="text-danger">{errors.address_line_1}</span>
                             </Grid>
                             <Grid item md={6} lg={6}>
                                 <TextField
-                                    name="addressLine2"
+                                    name="address_line_2"
                                     fullWidth
                                     label="Address 2"
                                     variant="outlined"
-                                    value={values.addressLine2}
-                                    onChange={handleChange}
+                                    value={values.address_line_2}
+                                    onChange={onChange}
+                                    error={touched.address_line_2 && Boolean(errors.address_line_2)}
                                 />
+                                <span className="text-danger">{errors.address_line_2}</span>
                             </Grid>
                             <Grid item md={6} lg={6}>
                                 <TextField
@@ -75,8 +78,10 @@ const Step1 = (props) => {
                                     label="City"
                                     variant="outlined"
                                     value={values.city}
-                                    onChange={handleChange}
+                                    onChange={onChange}
+                                    error={touched.city && Boolean(errors.city)}
                                 />
+                                <span className="text-danger">{errors.city}</span>
                             </Grid>
                             <Grid item md={6} lg={6}>
                                 <TextField
@@ -85,32 +90,33 @@ const Step1 = (props) => {
                                     label="State/Province"
                                     variant="outlined"
                                     value={values.state}
-                                    onChange={handleChange}
+                                    onChange={onChange}
                                 />
+                                <span className="text-danger">{errors.state}</span>
                             </Grid>
                             <Grid item md={6} lg={6}>
                                 <TextField
-                                    name="postalCode"
+                                    name="postal_code"
                                     fullWidth
                                     label="Postal Code"
                                     variant="outlined"
-                                    value={values.postalCode}
-                                    onChange={handleChange}
+                                    value={values.postal_code}
+                                    onChange={onChange}
                                 />
+                                <span className="text-danger">{errors.postal_code}</span>
                             </Grid>
                             <Grid item md={6} lg={6}>
                                 <Select
                                     name="country"
                                     fullWidth
                                     label="Country"
-                                    defaultValue="USA"
-                                    value={values.country || "United States of America"}
-                                    onChange={handleChange}
+                                    value={values.country}
+                                    onChange={onChange}
                                     variant="outlined">
-                                        <MenuItem dense={true} className="font-size-sm" value="CAN">CAN</MenuItem>
-                                        <MenuItem dense={true} className="font-size-sm" value="USA">USA</MenuItem>
-                                        
+                                        <MenuItem dense={true} className="font-size-sm" value="CAN">Canada</MenuItem>
+                                        <MenuItem dense={true} className="font-size-sm" value="USA">United States of America</MenuItem>
                                 </Select>
+                                <span className="text-danger">{errors.country}</span>
                             </Grid>
                       </Grid>
                   </Grid>
@@ -124,6 +130,23 @@ const Step1 = (props) => {
           </div>
         </Container>
     );
+  };
+
+  const Step1 = (props) => {
+    const {
+        onChange,
+        values,
+        touched,
+        errors
+    } = props;
+
+	return (
+        <Step1Form 
+            onChange={onChange} 
+            values={values}
+            errors={errors}
+            touched={touched} />
+	)
   };
 
   export default Step1;

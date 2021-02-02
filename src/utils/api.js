@@ -1,7 +1,8 @@
-const API_URL      = process.env.NODE_ENV === "production" ? "https://api.beacons.gg" : "http://localhost:8080";
-const REGISTER_URL = API_URL + "/api/v1/users/register";
-const SITES_URL    = API_URL + "/api/v1/sites";
-const USERS_URL    = API_URL + "/api/v1/users";
+const API_URL           = process.env.NODE_ENV === "production" ? "https://api.beacons.gg" : "http://localhost:8080";
+const REGISTER_URL      = API_URL + "/api/v1/users/register";
+const SITES_URL         = API_URL + "/api/v1/sites";
+const USERS_URL         = API_URL + "/api/v1/users";
+const ORGANIZATIONS_URL = API_URL + "/api/v1/organizations";
 
 export const registerUser = async (data) => {
     return fetch(REGISTER_URL, {
@@ -13,8 +14,8 @@ export const registerUser = async (data) => {
     });
 }
 
-export const createSite = async (name, data) => {
-    return fetch(SITES_URL + '/' + name, {
+export const createSite = async (data) => {
+    return fetch(SITES_URL + '/' + data.name, {
         method: 'post',
         body: JSON.stringify(data),
         headers: {
@@ -50,7 +51,7 @@ export const getUsers = async (token) => {
             'Authorization': 'Bearer ' + token
         }
     });
-}
+};
 
 export const suspendUser = async (id, token) => {
     return fetch(USERS_URL + '/' + id + '/suspend', {
@@ -60,7 +61,7 @@ export const suspendUser = async (id, token) => {
             'Authorization': 'Bearer ' + token
         }
     });
-}
+};
 
 export const deleteUser = async (id, token) => {
     return fetch(USERS_URL + '/' + id, {
@@ -70,7 +71,7 @@ export const deleteUser = async (id, token) => {
             'Authorization': 'Bearer ' + token
         }
     });
-}
+};
 
 export const resetPassword = async (id, token) => {
     return fetch(USERS_URL + '/' + id + '/reset', {
@@ -80,4 +81,35 @@ export const resetPassword = async (id, token) => {
             'Authorization': 'Bearer ' + token
         }
     });
-}
+};
+
+export const getOrganizations = async (token) => {
+    return fetch(ORGANIZATIONS_URL, {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+};
+
+export const createOrganization = async (token, data) => {
+    return fetch(ORGANIZATIONS_URL, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+    });
+};
+
+export const deleteOrganization = async (token, id) => {
+    return fetch(ORGANIZATIONS_URL + '/' + id, {
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+};
