@@ -21,9 +21,12 @@ import Loading from '../../../components/Loading';
 import { getOrganizations } from '../../../utils/api';
 import { UserContext } from '../../../providers/UserProvider';
 import OrganizationListTableRow from '../../../components/OrganizationListTableRow';
+import { useHistory } from 'react-router-dom';
 
 export default function OrganizationListPage() {
     const userCtx = useContext(UserContext);
+	const history = useHistory();
+
 	let orgData = [];
 
 	const [isLoading, setLoading] = React.useState(true);
@@ -69,11 +72,19 @@ export default function OrganizationListPage() {
         if (isLoading) {
             getOrganizations(userCtx.token)
                 .then(async response => {
-                    const fetchedData = await response.json();
-					setOrganizations(fetchedData);
-					orgData = fetchedData;
-                    setLoading(false);
-                });
+					if (response.ok) {
+						const fetchedData = await response.json();
+						setOrganizations(fetchedData);
+						orgData = fetchedData;
+						setLoading(false);
+					} else if (response.status === 401) {
+						console.log('needs authentication.')
+						history.push('/login', true);
+					}
+                })
+				.catch(e => {
+					console.error(e);
+				});
         }
 	}, [orgData, isLoading]);
 

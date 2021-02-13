@@ -31,14 +31,13 @@ export default function Login() {
 	const history = useHistory();
 	
 	const userCtx = useContext(UserContext);
-	if (userCtx.user) {
+	if (userCtx.user && !userCtx.expired) {
 		history.push("/", true);
 	}
 
     const signInHandler = (values, { setErrors }) => {
 		auth.signInWithEmailAndPassword(values.email, values.password)
 			.then(result => {
-				console.log('result', result);
 				if (!result.confirmed) {
 					history.push("/organization/add");
 				} else {

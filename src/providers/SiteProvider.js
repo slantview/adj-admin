@@ -27,19 +27,19 @@ class SiteProvider extends Component {
             const token = await user.getIdToken();
             getSites(token)
                 .then(async response => {
-                    const sites = await response.json();
-                    sites.map(async (site, i) => {
-                        const response = await getSiteMetadata(site.backend_url)
-                        const orgInfo = await response.json();
-                        if (response.ok) {
+                    if (response.ok) {
+                        const sites = await response.json();
+                        sites.map(async (site, i) => {
+                            const response = await getSiteMetadata(site.backend_url)
+                            const orgInfo = await response.json();
                             site.metadata = orgInfo;
                             sites[i] = site;
-                        }
-                    });
-                    this.setState({
-                        selected: sites[0].id,
-                        sites: sites,
-                    });
+                        });
+                        this.setState({
+                            selected: sites[0].id,
+                            sites: sites,
+                        });
+                    }
                 })
                 .catch(e => {
                     console.error(e);

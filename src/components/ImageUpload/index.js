@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from 'react';
-
-import { Card, Button } from '@material-ui/core';
-
+import { Button } from '@material-ui/core';
 import { useDropzone } from 'react-dropzone';
-
+import { useField } from 'formik';
 import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
 import PublishTwoToneIcon from '@material-ui/icons/PublishTwoTone';
-import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import CheckIcon from '@material-ui/icons/Check';
 import PhotoIcon from '@material-ui/icons/Photo';
 
 export default function ImageUpload(props) {
 	const [files, setFiles] = useState([]);
+
+	const {
+		name,
+		title,
+		subtitle,
+		description,
+		setFieldValue,
+		error
+	} = props;
+
+	const isError = error !== null;
+
 	const {
 		isDragActive,
 		isDragAccept,
@@ -25,38 +34,32 @@ export default function ImageUpload(props) {
 		multiple: false,
 		accept: 'image/*',
 		onDrop: (acceptedFiles) => {
-		setFiles(
-			acceptedFiles.map((file) =>
-			Object.assign(file, {
-				preview: URL.createObjectURL(file)
-			})
-			)
-		);
+			const newFiles = acceptedFiles.map((file) =>
+				Object.assign(file, {
+					preview: URL.createObjectURL(file)
+				})
+			);
+			setFiles(newFiles);
+			setFieldValue(name, newFiles);
 		}
 	});
 
-	const {
-		title,
-		subtitle,
-		description
-	} = props;
-
 	const thumbs = files.map((file) => (
 		<div
-		key={file.name}
-		className="overflow-hidden text-center font-weight-bold text-success d-flex justify-content-center align-items-center">
-		<img
-			className="img-fluid rounded-sm"
-			src={file.preview}
-			alt={file.name}
-			style={{maxWidth: "60%"}}
-		/>
+			key={file.name}
+			className="overflow-hidden text-center font-weight-bold text-success d-flex justify-content-center align-items-center">
+				<img
+					className="img-fluid rounded-sm"
+					src={file.preview}
+					alt={file.name}
+					style={{maxWidth: "80%"}}
+				/>
 		</div>
 	));
 
 	useEffect(
 		() => () => {
-		files.forEach((file) => URL.revokeObjectURL(file.preview));
+			files.forEach((file) => URL.revokeObjectURL(file.preview));
 		},
 		[files]
 	);
@@ -74,26 +77,28 @@ export default function ImageUpload(props) {
 
 						{ thumbs.length === 0 &&
 						<div>
-							{isDragAccept && (
-							<div className="rounded mx-5 overflow-hidden bg-success text-center font-weight-bold text-white d-flex justify-content-center align-items-center">
-								<CheckIcon className="d-140" />
-							</div>
-							)}
-							{isDragReject && (
-							<div className="rounded overflow-hidden bg-danger text-center font-weight-bold text-white d-flex justify-content-center align-items-center">
-								<CloseTwoToneIcon className="d-140" />
-							</div>
-							)}
-							{!isDragActive && (
-							<div className="rounded overflow-hidden bg-neutral-dark text-center font-weight-bold text-black-50 d-flex justify-content-center align-items-center">
-								<PhotoIcon className="d-140" />
-								<div className="card-header--title text-center d-block">
-								<small>{title}</small>
-								<b>{subtitle}</b>
-								<p className="font-size-xs text-black-50">{description}</p>
+							{ isDragAccept && (
+								<div className="rounded mx-5 overflow-hidden bg-success text-center font-weight-bold text-white d-flex justify-content-center align-items-center">
+									<CheckIcon className="d-140" />
 								</div>
-							</div>
 							)}
+							{ isDragReject && (
+								<div className="rounded overflow-hidden bg-danger text-center font-weight-bold text-white d-flex justify-content-center align-items-center">
+									<CloseTwoToneIcon className="d-140" />
+								</div>
+							)}
+							{ !isDragActive && (
+								<div className="rounded overflow-hidden bg-neutral-dark text-centerfont-weight-bold text-black-50 d-flex justify-content-center align-items-center">
+									<PhotoIcon className="d-140" />
+									<div className="card-header--title text-center d-block">
+										<small>{title}</small>
+										<b>{subtitle}</b>
+										<p className="font-size-xs text-black-50">{description}</p>
+										{ isError && <span className="text-danger text-center">{error}</span> }
+									</div>
+								</div>
+							)}
+							
 						</div>
 						}
 						<Button

@@ -114,7 +114,7 @@ export default function SiteListPage() {
 								<span className="btn-wrapper--icon">
 									<FontAwesomeIcon icon={['fas', 'plus-circle']} />
 								</span>
-								<span className="btn-wrapper--label">Add Organization</span>
+								<span className="btn-wrapper--label">Add Site</span>
 							</Button>
 						</div>
 					</div>

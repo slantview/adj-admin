@@ -4,13 +4,16 @@ import {
   Container,
   TextField
 } from '@material-ui/core';
+import { useFormikContext, Field } from 'formik';
 
 const Step2 = (props) => {
-    const {
+	const { 
         values,
-        handleChange
-    } = props;
-
+        errors,
+        touched,
+        setFieldValue
+    } = useFormikContext();
+    console.log('Step2(values)', values);
     return (
       <>
         <Container>
@@ -21,126 +24,115 @@ const Step2 = (props) => {
                 <p className="text-black-50 mb-4">Enter your social media sites.</p>
                 <Grid container spacing={2}>
                     <Grid item md={12} lg={12}>
-                        <TextField
+                        <Field
                             name="about"
+                            component={TextField}
                             label="About your organization"
                             fullWidth
                             multiline
                             rows={3}
                             variant="outlined"
                             size="small"
-                            value={values.about}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="website"
+                            component={TextField}
                             label="Website"
                             fullWidth
                             variant="outlined"
                             size="small"
-                            value={values.website}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="email"
+                            component={TextField}
                             label="Email"
                             fullWidth
                             variant="outlined"
                             size="small"
-                            value={values.email}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="facebook"
+                            component={TextField}
                             fullWidth
                             label="Facebook"
                             variant="outlined"
                             size="small"
-                            value={values.facebook}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="twitch"
+                            component={TextField}
                             label="Twitch"
                             fullWidth
                             variant="outlined"
                             size="small"
-                            value={values.twitch}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="discord"
+                            component={TextField}
                             fullWidth
                             label="Discord Server"
                             variant="outlined"
                             size="small"
-                            value={values.discord}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="instagram"
+                            component={TextField}
                             label="Instagram"
                             fullWidth
                             variant="outlined"
                             size="small"
-                            value={values.instagram}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="twitter"
+                            component={TextField}
                             fullWidth
                             label="Twitter"
                             variant="outlined"
                             size="small"
-                            value={values.twitter}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="youtube"
+                            component={TextField}
                             label="Youtube"
                             fullWidth
                             variant="outlined"
                             size="small"
-                            value={values.youtube}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="linkedin"
+                            component={TextField}
                             label="LinkedIn"
                             fullWidth
                             variant="outlined"
                             size="small"
-                            value={values.linkedin}
-                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}>
-                        <TextField
+                        <Field
                             name="patreon"
+                            component={TextField}
                             fullWidth
                             label="Patreon"
                             variant="outlined"
                             size="small"
-                            value={values.patreon}
-                            onChange={handleChange}
                         />
                     </Grid>
                 </Grid>

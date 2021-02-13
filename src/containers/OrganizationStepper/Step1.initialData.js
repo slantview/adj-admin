@@ -5,5 +5,6 @@ export default {
     city: '',
     state: '',
     postal_code: '',
-    country: 'USA'
+    country: 'USA',
+    logo: ''
 };

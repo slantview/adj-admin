@@ -1,6 +1,6 @@
 import React, { Component, createContext } from "react";
 import firebase from 'firebase/app';
-
+import moment from 'moment';
 export const UserContext = createContext({ user: null });
 
 class UserProvider extends Component {
@@ -11,7 +11,8 @@ class UserProvider extends Component {
     state = {
         user: null,
         token: null,
-        admin: false
+        admin: false,
+        expires: null
     };
 
     logout = () => {
@@ -29,8 +30,20 @@ class UserProvider extends Component {
                 return;
             }
             const token = await userAuth.getIdToken();
-            const { claims } = await userAuth.getIdTokenResult();
-            this.setState({ user: userAuth, token: token, admin: claims ? claims.admin : false});
+            const { claims, expirationTime } = await userAuth.getIdTokenResult();
+
+            // If we are expired, let's logout and wait for a refresh or re-login.
+            if (moment(expirationTime).isSameOrBefore(moment())) {
+                console.log('expired, logging out.')
+                this.logout();
+            } else {
+                this.setState({ 
+                    user: userAuth, 
+                    token: token, 
+                    admin: claims ? claims.admin : false,
+                    expires: moment(expirationTime).unix()
+                });
+            }
         });
         this.setState({logout: this.logout});
     };

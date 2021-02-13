@@ -19,32 +19,21 @@ import StepIcon from './StepIcon';
 import { createOrganization } from '../../utils/api';
 import { UserContext } from '../../providers/UserProvider';
 import Error from '../../components/Error';
-import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import _ from 'lodash';
 
 const getSteps = () => {
   	return ['Organization Info', 'Social Media'];
 };
 
-const getStepContent = (step, onChange, values, errors, touched) =>  {
+const getStepContent = (step) =>  {
 	switch (step) {
 		case 0:
-			return <Step1 
-				validation={getStepValidation(step)} 
-				onChange={onChange} 
-				values={values}
-				errors={errors} 
-				touched={touched} 
-			/>;
+			return <Step1 />;
 		case 1:
-			return <Step2 
-				validation={getStepValidation(step)} 
-				onChange={onChange} 
-				values={values}
-				errors={errors} 
-				touched={touched} 
-			/>;
+			return <Step2 />;
 		default:
-			return <Error message="Not Found" />;
+			return <Error message="Step Not Found" />;
 	}
 };
 
@@ -57,6 +46,17 @@ const getStepValidation = (step) => {
 	}
 };
 
+const getDefaultValues = (step) => {
+	switch (step) {
+		case 0:
+			return Step1InitialData;
+		case 1:
+			return Step2InitialData;
+		default:
+			return {};
+	}
+};
+
 const isStepValid = async (step, data) => {
 	return getStepValidation(step).isValid();
 };
@@ -65,31 +65,18 @@ const OrganizationStepper = () => {
 	const history = useHistory();
 	const userCtx = useContext(UserContext);
 
+	const [data, setData] = useState({});
 	const [error, setError] = useState(null);
 	const [activeStep, setActiveStep] = useState(0);
 	const steps = getSteps();
-
-	const handleNext = async () => {
-		const isValid = await isStepValid(activeStep, values);
-		if (!isValid) {
-			await getStepValidation(activeStep)
-				.validate(values)
-				.catch(e => {
-					setError(e.errors.join(', '));
-				});
-			return false;
-		}
-		switch (activeStep) {
-			case 0:
-				setError(null);
-				submitStep1();
-				setActiveStep((prevActiveStep) => prevActiveStep + 1);
-		}
-		return true;
-	};
+	const isLastStep = activeStep === steps.length - 1;
 
 	const handleBack = () => {
-		setActiveStep((prevActiveStep) => prevActiveStep - 1);
+		// actions.setTouched({});
+		// actions.setSubmitting(false);
+		// actions.setErrors({})
+		// actions.setValues(getDefaultValues(activeStep - 1));
+		setActiveStep(activeStep - 1);
 	};
 
 	const handleReset = () => {
@@ -100,69 +87,21 @@ const OrganizationStepper = () => {
 		history.push("/admin/organizations");
 	};
 
-	const handleChange = (e) => {
-		console.log('Setting ' + e.target.name + ' to ' + e.target.value);
-		let newValues = values;
-		newValues[e.target.name] = e.target.value;
-		setValues(newValues);
-
-		// let newErrors = errors;
-		// await getStepValidation(activeStep)
-		// 	.validate(values)
-		// 	.catch(err => {
-		// 		console.log(err);
-		// 		err.errors.map(error => {
-		// 			console.log(error);
-		// 		});
-		// 	});
-		// setErrors(newErrors);
-		
-		// let newTouched = touched;
-		// newTouched[e.target.name] = true;
-		// setTouched(newTouched);
-	};
-
-	const getDefaultValues = (step) => {
-		switch (step) {
-			case 0:
-				return Step1InitialData;
-			case 1:
-				return Step2Schema;
-			default:
-				return {};
+	const handleSubmit = (values, actions, e) => {
+		console.log('handleSubmit', values, actions);
+		if (!isLastStep) {
+			setData(_.merge(data, values));
+			setActiveStep(activeStep + 1);
+			actions.setTouched({});
+			actions.setSubmitting(false);
+			actions.setValues(getDefaultValues(activeStep + 1))
+			
+		} else {
+			submitForm(_.merge(data, values));
 		}
 	};
 
-	const getDefaultTouched = (step) => {
-		switch (step) {
-			case 0:
-				return {
-					name: false,
-					address_line_1: false,
-					address_line_2: false,
-					city: false,
-					state: false,
-					postal_code: false,
-					country: false
-				}
-		}
-	};
-
-	const getDefaultErrors = (step) => {
-		switch (step) {
-			case 0:
-				return {
-					name: null,
-					address_line_1: null,
-					address_line_2: null,
-					city: null,
-					state: null,
-					postal_code: null,
-					country: null
-				}
-		}
-	};
-	const submitStep1 = () => {
+	const submitForm = (values) => {
 		createOrganization(userCtx.token, values)
 			.then((response) => {
 				if (response.ok) {
@@ -178,10 +117,6 @@ const OrganizationStepper = () => {
 			});
 		return true;
 	};
-
-	const [values, setValues] = useState(getDefaultValues(0));
-	const [errors, setErrors] = useState(getDefaultErrors(0));
-	const [touched, setTouched] = useState(getDefaultTouched(0));
 
 	return (
 		<div className="text-white px-0 px-lg-2 px-xl-4">
@@ -207,14 +142,15 @@ const OrganizationStepper = () => {
 						alternativeLabel
 						activeStep={activeStep}
 						connector={<StepConnector />}>
-						{steps.map((label) => (
-						<Step key={label}>
-							<StepLabel StepIconComponent={StepIcon}>{label}</StepLabel>
-						</Step>
-						))}
+							{ steps.map((label) => (
+								<Step key={label}>
+									<StepLabel StepIconComponent={StepIcon}>{label}</StepLabel>
+								</Step>
+							))}
 					</Stepper>
 					</div>
-					{activeStep === steps.length ? (
+					{ activeStep === steps.length ? (
+
 						<div className="text-center p-5">
 							<div className="avatar-icon-wrapper rounded-circle m-0">
 							<div className="d-inline-flex justify-content-center p-0 rounded-circle btn-icon avatar-icon-wrapper bg-neutral-success text-success m-0 d-130">
@@ -238,25 +174,37 @@ const OrganizationStepper = () => {
 							</div>
 						</div>
 					) : (
-						<div>
-							{ error &&
-								<Error message={error} />
-							}
-							<div>{getStepContent(activeStep, handleChange, values, errors, touched)}</div>
-							<div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-							<Button
-								disabled={activeStep === 0}
-								className="btn-primary font-weight-bold"
-								onClick={handleBack}>
-								Back
-							</Button>
-							<Button
-								className="btn-primary font-weight-bold"
-								onClick={handleNext}>
-								{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-							</Button>
-							</div>
-						</div>
+						<Formik
+							initialValues={getDefaultValues(activeStep)}
+							validationSchema={getStepValidation(activeStep)}
+							onSubmit={handleSubmit}
+						>
+							{({ isSubmitting }) => (
+								<Form id={"organization-add-form-" + activeStep}>
+									{ error &&
+										<Error message={error} />
+									}
+
+									<div>{getStepContent(activeStep)}</div>
+									
+									<div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
+										<Button
+											// type="submit"
+											disabled={activeStep === 0}
+											onClick={handleBack}
+											className="btn-primary font-weight-bold">
+											Back
+										</Button>
+										<Button
+											className="btn-primary font-weight-bold"
+											disabled={isSubmitting}
+											type="submit">
+												{isLastStep ? 'Finish' : 'Next'}
+										</Button>
+									</div>
+								</Form>
+							)}
+						</Formik>
 					)}
 				</div>
 			</Card>

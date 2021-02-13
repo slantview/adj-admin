@@ -22,6 +22,7 @@
     "fetch": "^1.1.0",
     "firebase": "^8.2.1",
     "formik": "^2.2.6",
+    "formik-material-ui": "^3.0.1",
     "graphql": "^15.4.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
