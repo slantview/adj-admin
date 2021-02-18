@@ -65,8 +65,6 @@ export default function Login() {
 	)
 }
 
-	
-	
 const LoginForm = (props) => {
 	const { 
 		values,

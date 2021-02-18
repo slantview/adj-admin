@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Card,
@@ -66,6 +66,8 @@ const OrganizationStepper = () => {
 	const userCtx = useContext(UserContext);
 
 	const [data, setData] = useState({});
+	let allData = useRef();
+
 	const [error, setError] = useState(null);
 	const [activeStep, setActiveStep] = useState(0);
 	const steps = getSteps();
@@ -89,15 +91,18 @@ const OrganizationStepper = () => {
 
 	const handleSubmit = (values, actions, e) => {
 		console.log('handleSubmit', values, actions);
+		allData.current = _.merge(allData.current, values);
+		console.log('allData', allData.current);
+
 		if (!isLastStep) {
-			setData(_.merge(data, values));
-			setActiveStep(activeStep + 1);
 			actions.setTouched({});
 			actions.setSubmitting(false);
-			actions.setValues(getDefaultValues(activeStep + 1))
+			// actions.setValues(getDefaultValues(activeStep + 1))
+			setActiveStep( prevStep => prevStep + 1);
 			
 		} else {
-			submitForm(_.merge(data, values));
+			console.log('Submitting data', allData.current);
+			submitForm(allData);
 		}
 	};
 

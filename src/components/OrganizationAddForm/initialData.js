@@ -1,0 +1,21 @@
+export const initialData = {
+    name: '',
+    address_line_1: '',
+    address_line_2: '',
+    city: '',
+    state: '',
+    postal_code: '',
+    country: 'USA',
+    logo: '',
+    patreon: '',
+    linkedin: '',
+    youtube: '',
+    twitter: '',
+    instagram: '',
+    discord: '',
+    twitch: '',
+    facebook: '',
+    email: '',
+    website: '',
+    about: ''
+};

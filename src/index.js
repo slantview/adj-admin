@@ -27,13 +27,13 @@ import PlacesAddPage from './pages/PlacesAddPage';
 import RecoverPage from './pages/RecoverPage';
 import MyAccountPage from './pages/MyAccountPage';
 import ProfileSettings from './pages/ProfileSettings';
-import OrganizationStepper from './containers/OrganizationStepper';
 import SiteProvider from './providers/SiteProvider';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminUsersListPage from './pages/Admin/UsersListPage';
 import AdminUsersAddPage from './pages/Admin/UsersAddPage';
 import AdminOrganizationListPage from './pages/Admin/OrganizationListPage';
 import SiteListPage from './pages/Admin/SiteListPage';
+import OrganizationAddForm from './components/OrganizationAddForm';
 
 ReactDOM.render(
 	<UserProvider>
@@ -76,7 +76,7 @@ ReactDOM.render(
 									<Route exact path="/admin/dashboard"><AdminDashboard /></Route>
 									{/* Admin Organization Pages */}
 									<Route exact path="/admin/organizations"><AdminOrganizationListPage /></Route>
-									<Route exact path="/admin/organizations/add"><OrganizationStepper /></Route>
+									<Route exact path="/admin/organizations/add"><OrganizationAddForm /></Route>
 									{/* Admin Sites Pages */}
 									<Route exact path="/admin/sites"><SiteListPage /></Route>
 									{/* Admin Users Pages */}
