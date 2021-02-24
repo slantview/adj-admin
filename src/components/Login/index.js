@@ -31,9 +31,13 @@ export default function Login() {
 	const history = useHistory();
 	
 	const userCtx = useContext(UserContext);
-	if (userCtx.user && !userCtx.expired) {
-		history.push("/", true);
-	}
+	useEffect(() => {
+		if (userCtx.user && !userCtx.expired) {
+			history.push("/");
+		}
+	}, [userCtx.expired, userCtx.user])
+
+	
 
     const signInHandler = (values, { setErrors }) => {
 		auth.signInWithEmailAndPassword(values.email, values.password)

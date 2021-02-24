@@ -67,7 +67,7 @@ const Sidebar = (props) => {
                 </div>
 
                 <div className="sidebar-navigation nav-alt">
-                    <div class="sidebar-header opacity-5">
+                    <div className="sidebar-header opacity-5">
                         <span>Content Admin</span>
                     </div>
                     <ul>
@@ -142,7 +142,7 @@ const Sidebar = (props) => {
                     { userCtx.admin &&
                         <div className="">
                             <div className="divider opacity-5" />
-                            <div class="sidebar-header opacity-5">
+                            <div className="sidebar-header opacity-5">
                                 <span>Admin Menu</span>
                             </div>
                             <ul>

@@ -9,6 +9,7 @@ import { validationSchema } from './validationSchema';
 import _ from 'lodash';
 import Finished from './Finished';
 import Error from '../Error';
+import Loading from '../Loading';
 
 const OrganizationAddForm = () => {
     const userCtx = useContext(UserContext);
@@ -17,7 +18,6 @@ const OrganizationAddForm = () => {
 
     const handleSubmit = (values, actions) => {
         const submitValues = _.pickBy(values, (value, key) => key !== 'logo');
-        console.log(submitValues);
 
         createOrganization(userCtx.token, values)
             .then(async (response) => {
@@ -59,30 +59,39 @@ const OrganizationAddForm = () => {
 
                     { error && <Error message={error} /> }
 
-                    { isSubmitted ? (
+
+                    { isSubmitted &&
                         <Finished />
-                    ) : (
+                    }
+                    { !isSubmitted &&
                         <Formik
                             initialValues={initialData}
                             validationSchema={validationSchema}
                             onSubmit={handleSubmit}>
                                 {(FormProps) => (
-                                    <Form id="organization-add-form">   
-                                        
-                                        <OrganizationForm {...FormProps} />
+                                    <Form id="organization-add-form"> 
+                                        { FormProps.isSubmitting ? (
+                                            <div className="text-center m-5">
+                                                <Loading center={true} />
+                                                <h3 className="mt-3">Creating Organization...</h3>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <OrganizationForm {...FormProps} />
 
-                                        <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                            <Button
-                                                className="btn-primary font-weight-bold"
-                                                disabled={FormProps.isSubmitting}
-                                                type="submit">
-                                                    Add Organization
-                                            </Button>
-                                        </div>
+                                                <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
+                                                    <Button
+                                                        className="btn-primary font-weight-bold"
+                                                        type="submit">
+                                                            Add Organization
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )}
                                     </Form>
                                 )}
                         </Formik>
-                    )}
+                    }
 				</div>
 			</Card>
 		</div>

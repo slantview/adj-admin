@@ -69,7 +69,7 @@ const SiteSelector = () => {
                                         { siteContext.sites.map(site => (
                                             <MenuItem
                                                 id={site.id}
-                                                fullWidth
+                                                key={site.id}
                                                 onClick={() => handleChange(site.id)} 
                                                 dense={false} 
                                                 className="font-size-sm text-left" >
