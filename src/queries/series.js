@@ -10,7 +10,7 @@ export const GET_ALL_SERIES = gql`
             card {
                 formats
             }
-            events(sort: "starts_at:ASC", limit: 4, where: {published_at_null:false}) {
+            events(sort: "starts_at:DESC", limit: 4, where: {published_at_null:false}) {
                 id
                 title
                 tournaments {
