@@ -1,7 +1,8 @@
-import React, { Component, createContext } from "react";
 import firebase from 'firebase/app';
 import moment from 'moment';
-export const UserContext = createContext({ user: null });
+import React, { Component, createContext } from "react";
+
+export const UserContext = createContext({ user: null, token: null, admin: false, expires: null });
 
 class UserProvider extends Component {
     constructor(props) {

@@ -1,25 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react';
-import {
-  Grid,
-  Button,
-  TextField,
-  InputAdornment,
-  Checkbox,
-  FormControlLabel,
-  Hidden
-} from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { auth } from '../../utils/firebase';
-import { useHistory } from 'react-router-dom';
-import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
+import { Button, Checkbox, FormControlLabel, Grid, Hidden, InputAdornment, TextField } from '@material-ui/core';
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
+import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
+import { Form, Formik } from 'formik';
+import _ from 'lodash';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
+
 import hero from '../../assets/images/hero-bg/hero-arena.jpg';
 import logo from '../../assets/images/logo.png';
-import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
-import Error from '../Error';
-import _ from 'lodash';
 import { UserContext } from '../../providers/UserProvider';
+import { auth } from '../../utils/firebase';
+import Error from '../Error';
 
 let validationSchema = Yup.object({
 	checked: Yup.bool(),
@@ -33,10 +26,10 @@ export default function Login() {
 	const userCtx = useContext(UserContext);
 
 	useEffect(() => {
-		if (userCtx.user && !userCtx.expired) {
+		if (userCtx.user) {
 			history.push("/");
 		}
-	}, [userCtx.expired, userCtx.user])
+	}, [userCtx.expires, userCtx.user])
 
     const signInHandler = (values, { setErrors }) => {
 		auth.signInWithEmailAndPassword(values.email, values.password)

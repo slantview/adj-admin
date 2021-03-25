@@ -1,27 +1,21 @@
-import React, { useContext } from 'react';
-import {
-    Divider,
-    Drawer,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText
-} from '@material-ui/core';
-import EventNoteIcon from '@material-ui/icons/EventNoteTwoTone';
-import DateRangeIcon from '@material-ui/icons/DateRangeTwoTone';
-import GamesIcon from '@material-ui/icons/GamesTwoTone';
-import PlaceIcon from '@material-ui/icons/PlaceTwoTone';
-import SportsEsportsIcon from '@material-ui/icons/SportsEsportsTwoTone';
-import DashboardIcon from '@material-ui/icons/DashboardTwoTone';
+import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import BusinessIcon from '@material-ui/icons/BusinessTwoTone';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
+import DashboardIcon from '@material-ui/icons/DashboardTwoTone';
+import DateRangeIcon from '@material-ui/icons/DateRangeTwoTone';
+import EventNoteIcon from '@material-ui/icons/EventNoteTwoTone';
+import GamesIcon from '@material-ui/icons/GamesTwoTone';
 import LanguageIcon from '@material-ui/icons/LanguageTwoTone';
 import PeopleIcon from '@material-ui/icons/PeopleTwoTone';
-import BusinessIcon from '@material-ui/icons/BusinessTwoTone';
+import PlaceIcon from '@material-ui/icons/PlaceTwoTone';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsportsTwoTone';
+import _ from 'lodash';
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+
+import { UserContext } from '../../providers/UserProvider';
 import useStyles from '../../theme/useStyles';
 import SiteSelector from '../SiteSelector';
-import { Link, NavLink } from 'react-router-dom';
-import _ from 'lodash';
-import { UserContext } from '../../providers/UserProvider';
 import Userbox from '../Userbox/index';
 
 const ListItemLink = (props) => {
@@ -92,7 +86,6 @@ const Sidebar = (props) => {
                                 activeClassName={isNavCategory('series') ? "active" : null} 
                                 key="series" 
                                 onClick={() => handleCategoryClick('series')}
-                                activeClassName="active"
                                 className="nav-link-simple"
                                 to="/series">
                                     <span className="sidebar-icon">
@@ -109,7 +102,6 @@ const Sidebar = (props) => {
                                 activeClassName={isNavCategory('games') ? "active" : null} 
                                 key="games" 
                                 onClick={() => handleCategoryClick('games')}
-                                activeClassName="active"
                                 className="nav-link-simple"
                                 to="/games">
                                     <span className="sidebar-icon">
@@ -126,7 +118,6 @@ const Sidebar = (props) => {
                                 activeClassName={isNavCategory('places') ? "active" : null} 
                                 key="places" 
                                 onClick={() => handleCategoryClick('places')}
-                                activeClassName="active"
                                 className="nav-link-simple"
                                 to="/places">
                                     <span className="sidebar-icon">
@@ -167,7 +158,6 @@ const Sidebar = (props) => {
                                         activeClassName={isNavCategory('admin-organizations') ? "active" : null} 
                                         key="admin-organizations" 
                                         onClick={() => handleCategoryClick('admin-organizations')}
-                                        activeClassName="active"
                                         className="nav-link-simple"
                                         to="/admin/organizations">
                                             <span className="sidebar-icon">
@@ -184,7 +174,6 @@ const Sidebar = (props) => {
                                         activeClassName={isNavCategory('admin-sites') ? "active" : null} 
                                         key="admin-sites" 
                                         onClick={() => handleCategoryClick('admin-users')}
-                                        activeClassName="active"
                                         className="nav-link-simple"
                                         to="/admin/sites">
                                             <span className="sidebar-icon">
@@ -201,7 +190,6 @@ const Sidebar = (props) => {
                                         activeClassName={isNavCategory('admin-users') ? "active" : null} 
                                         key="admin-users" 
                                         onClick={() => handleCategoryClick('admin-users')}
-                                        activeClassName="active"
                                         className="nav-link-simple"
                                         to="/admin/users">
                                             <span className="sidebar-icon">

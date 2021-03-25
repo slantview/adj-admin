@@ -1,9 +1,8 @@
-
-import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
 import { Button, Checkbox, Divider } from '@material-ui/core';
 import moment from 'moment';
+import React from "react";
+import { Link } from 'react-router-dom';
 
 const EventsTableRow = (props) => {
     const {
@@ -15,20 +14,23 @@ const EventsTableRow = (props) => {
         created_at,
         updated_at,
         starts_at,
-        published_at
+        published_at,
+        seriesId
     } = props;
-    const createdAt = moment(created_at).format("MM/DD/YYYY");
-    const updatedAt = moment(updated_at).format("MM/DD/YYYY");
+
     const startsAt = moment(starts_at).format("MM/DD/YYYY");
-    const isFuture = moment(starts_at).subtract(moment()) > 0;
-    console.log('isFuture', isFuture);
+    const isFuture = moment(starts_at).isAfter(moment());
+    console.log(startsAt, isFuture);
 	return (
-        <tr>
-            <td>
-                <div className="d-flex">
+        <tr className="p-0 m-0 my-1">
+            <td className="p-0 m-0 mb-0">
+                <div className="">{startsAt}</div>
+            </td>
+            <td className="p-0 m-0 mb-0">
+                <div>
                     <div>
                         { card && card.formats &&
-                            <Link to={"/series/"+id}>
+                            <Link to={"/series/"+seriesId}>
                                 <img 
                                     src={card.formats.thumbnail.url} 
                                     width="120px" 
@@ -38,8 +40,8 @@ const EventsTableRow = (props) => {
                         }
                     </div>
                     <div>
-                        <Link to={"/series/"+id}>
-                            <span className="font-weight-bold text-black" title={title}>
+                        <Link to={"/series/"+seriesId+"/"+id}>
+                            <span className="text-black" title={title}>
                                 {title}
                             </span>
                             <span className="text-black-50 d-block">
@@ -49,13 +51,8 @@ const EventsTableRow = (props) => {
                     </div>
                 </div>
             </td>
-            <td className="text-center">
-                <span className="">{tournaments ? tournaments.length : 0}</span>
-            </td>
-            <td className="text-center">
-                <div className="">{startsAt}</div>
-            </td>
-            <td className="text-center">
+
+            <td className="p-0 m-0 mb-0">
                 { published_at && isFuture &&
                     <span className="badge text-uppercase badge-success">Published</span>
                 }
@@ -66,7 +63,7 @@ const EventsTableRow = (props) => {
                     <span className="badge text-uppercase badge-neutral-first text-first">Draft</span>
                 }
             </td>
-            <td className="text-right">
+            <td className="p-0 m-0 mb-0">
                 <div className="d-flex align-items-center justify-content-end pr-3">
                     <Button
                         size="small"
