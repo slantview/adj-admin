@@ -1,13 +1,19 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@material-ui/core';
+import React from 'react';
 import { useHistory } from 'react-router';
 
-const Finished = () => {
+const Finished = (props) => {
     const history = useHistory();
+    const {
+        redirect,
+        title,
+        subtitle,
+        buttonText
+    } = props;
 
     const handleFinish = () => {
-        history.push('/admin/organizations');
+        history.push(redirect ? redirect : '/');
     };
 
     return (
@@ -20,16 +26,16 @@ const Finished = () => {
                 />
             </div>
             </div>
-            <h4 className="font-weight-bold mt-4">You are all done!</h4>
+            <h4 className="font-weight-bold mt-4">{title}</h4>
             <p className="mb-0 font-size-lg text-muted">
-                Now let's get get started with your events.
+                {subtitle}
             </p>
             <div className="pt-4">
                 <Button
                     onClick={handleFinish}
                     className="btn-primary font-weight-bold hover-scale-lg mx-1 p-2"
                     size="small">
-                    <span className="btn-wrapper--label">Finish</span>
+                    <span className="btn-wrapper--label">{buttonText}</span>
                 </Button>
             </div>
         </div>

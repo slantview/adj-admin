@@ -25,7 +25,7 @@ function SeriesListItem({ id, title, subtitle, description, card, events, update
 									<RefreshTwoToneIcon fontSize="small" />
 								</span>
 							</Button>
-						<Button to="/series/add" component={Link} size="small" className="btn-neutral-primary">
+						<Button to={"/events/" + id + '/add'} component={Link} size="small" className="btn-neutral-primary">
 							<span className="btn-wrapper--icon">
 								<FontAwesomeIcon icon={['fas', 'plus-circle']} />
 							</span>
@@ -35,7 +35,7 @@ function SeriesListItem({ id, title, subtitle, description, card, events, update
 				</div>
 			</div>
             <CardContent className="px-0 pt-3">
-                <Grid container spacing={2} justify="center">
+                <Grid container spacing={2}>
                     <Grid item sm={4} lg={4} alignContent="center">
                         <div className="text-center">
                             <Link to="/">

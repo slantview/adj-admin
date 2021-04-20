@@ -1,41 +1,40 @@
 import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
-import _ from 'lodash';
 import React, { useContext, useState } from 'react';
+import * as Yup from 'yup';
 
-import { UserContext } from '../../providers/UserProvider';
-import { createOrganization } from '../../utils/api';
-import Error from '../Error';
-import Loading from '../Loading';
-import Finished from './Finished';
-import { initialData } from './initialData';
-import OrganizationForm from './OrganizationForm';
-import { validationSchema } from './validationSchema';
+import Error from 'components/Error';
+import Loading from 'components/Loading';
+import Finished from 'components/OrganizationAddForm/Finished';
+import { UserContext } from 'providers/UserProvider';
 
-const OrganizationAddForm = () => {
+import EventForm from './EventForm';
+
+const initialData = {
+    title: '',
+    description: '',
+    is_online: true,
+    is_offline: false,
+    starts_at: new Date(),
+    ends_at: new Date()
+};
+const validationSchema = Yup.object({
+    title: Yup.string().required('Title is required'),
+    description: Yup.string().required('Description is required'),
+    starts_at: Yup.date().required("Starts At is required"),
+    ends_at: Yup.date().required("Ends At is required"),
+    logo: Yup.array().required('Logo Image is required'),
+    card: Yup.array().required('Card Image is required'),
+    sign_up_link: Yup.string().required('Sign Up Link is required'),
+});
+
+function EventAddForm({ seriesId }) {
     const userCtx = useContext(UserContext);
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
     const handleSubmit = (values, actions) => {
-        const submitValues = _.pickBy(values, (value, key) => key !== 'logo');
-
-        createOrganization(userCtx.token, values)
-            .then(async (response) => {
-                if (response.ok) {
-                    setSubmitted(true);
-                    return true;
-                }
-                const result = await response.json();
-                if (result.error) {
-                    setError(result.error);
-                } else {
-                    setError('Error adding Organization: ' + response.statusText);
-                }
-            })
-            .catch(e => {
-                console.error(e);
-            });
+        // setSubmitted(true);
     };
 
     return (
@@ -43,7 +42,7 @@ const OrganizationAddForm = () => {
 			<Card className="card-box">
 				<div className="card-header">
 					<div className="card-header--title">
-					    <small>Create Organization</small>
+					    <small>Create Event</small>
 					</div>
 					<div className="card-header--actions">
                         {/* Actions */}
@@ -60,7 +59,8 @@ const OrganizationAddForm = () => {
                     { isSubmitted &&
                         <Finished 
                             title="You are all done!"
-                            redirect="/admin/organizations"
+                            buttonText="Continue"
+                            redirect="/events"
                         />
                     }
                     { !isSubmitted &&
@@ -73,17 +73,17 @@ const OrganizationAddForm = () => {
                                         { FormProps.isSubmitting ? (
                                             <div className="text-center m-5">
                                                 <Loading center={true} />
-                                                <h3 className="mt-3">Creating Organization...</h3>
+                                                <h3 className="mt-3">Creating Event...</h3>
                                             </div>
                                         ) : (
                                             <div>
-                                                <OrganizationForm {...FormProps} />
+                                                <EventForm {...FormProps} />
 
                                                 <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
                                                     <Button
                                                         className="btn-primary font-weight-bold"
                                                         type="submit">
-                                                            Add Organization
+                                                            Add Event
                                                     </Button>
                                                 </div>
                                             </div>
@@ -98,4 +98,4 @@ const OrganizationAddForm = () => {
     )
 }
 
-export default OrganizationAddForm;
+export default EventAddForm;

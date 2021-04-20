@@ -1,18 +1,11 @@
-import React from 'react';
-import {
-    Container,
-    Grid,
-    MenuItem
-} from '@material-ui/core';
+import { Container, Grid, MenuItem } from '@material-ui/core';
 import { Field } from 'formik';
+import { Select, TextField } from 'formik-material-ui';
+import React from 'react';
+
 import ImageUpload from '../../components/ImageUpload';
-import { 
-    TextField,
-    Select
-} from 'formik-material-ui';
 
 const OrganizationForm = (props) => {
-    console.log(props);
     const { 
 		values,
 		errors,

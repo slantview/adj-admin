@@ -83,11 +83,11 @@ const Sidebar = (props) => {
                         </li>
                         <li>
                             <NavLink
-                                activeClassName={isNavCategory('series') ? "active" : null} 
-                                key="series" 
-                                onClick={() => handleCategoryClick('series')}
+                                activeClassName={isNavCategory('events') ? "active" : null} 
+                                key="events" 
+                                onClick={() => handleCategoryClick('events')}
                                 className="nav-link-simple"
-                                to="/series">
+                                to="/events">
                                     <span className="sidebar-icon">
                                         <EventNoteIcon />
                                     </span>
@@ -123,7 +123,23 @@ const Sidebar = (props) => {
                                     <span className="sidebar-icon">
                                         <PlaceIcon />
                                     </span>
-                                    Places
+                                    Venues
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                activeClassName={isNavCategory('team') ? "active" : null} 
+                                key="team" 
+                                onClick={() => handleCategoryClick('users')}
+                                className="nav-link-simple"
+                                to="/team">
+                                    <span className="sidebar-icon">
+                                        <PeopleIcon />
+                                    </span>
+                                    Team
                                     <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
                                         <ChevronRightTwoToneIcon />
                                     </span>

@@ -23,7 +23,6 @@ export default function SeriesListPage() {
 	const [search, setSearch] = React.useState(null);
 	const [series, setSeries] = React.useState(seriesData);
 
-
 	React.useEffect(() => {
 		if (isLoading && !loading) {
 			setLoading(loading);

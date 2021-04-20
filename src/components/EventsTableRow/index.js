@@ -20,7 +20,7 @@ const EventsTableRow = (props) => {
 
     const startsAt = moment(starts_at).format("MM/DD/YYYY");
     const isFuture = moment(starts_at).isAfter(moment());
-    console.log(startsAt, isFuture);
+
 	return (
         <tr className="p-0 m-0 my-1">
             <td className="p-0 m-0 mb-0">

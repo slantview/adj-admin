@@ -1,39 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LoginPage from './pages/LoginPage';
-import store from './state/store.js';
 import { Provider } from 'react-redux';
-import { 
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Redirect
-} from 'react-router-dom';
-import BackendProvider from './providers/BackendProvider';
-import reportWebVitals from './reportWebVitals';
-import UserProvider from './providers/UserProvider';
+import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
+import OrganizationAddForm from './components/OrganizationAddForm';
 import Layout from './containers/Layout';
-import Homepage from './pages/Homepage';
-import SeriesListPage from './pages/SeriesListPage';
-import SeriesAddPage from './pages/SeriesAddPage';
-import EventsListPage from './pages/EventsListPage';
-import EventsAddPage from './pages/EventsAddPage';
-import TournamentsListPage from './pages/TournamentsListPage';
-import TournamentsAddPage from './pages/TournamentsAddPage';
-import GamesListPage from './pages/GamesListPage';
-import GamesAddPage from './pages/GamesAddPage';
-import PlacesListPage from './pages/PlacesListPage';
-import PlacesAddPage from './pages/PlacesAddPage';
-import RecoverPage from './pages/RecoverPage';
-import MyAccountPage from './pages/MyAccountPage';
-import ProfileSettings from './pages/ProfileSettings';
-import SiteProvider from './providers/SiteProvider';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-import AdminUsersListPage from './pages/Admin/UsersListPage';
-import AdminUsersAddPage from './pages/Admin/UsersAddPage';
 import AdminOrganizationListPage from './pages/Admin/OrganizationListPage';
 import SiteListPage from './pages/Admin/SiteListPage';
-import OrganizationAddForm from './components/OrganizationAddForm';
+import AdminUsersAddPage from './pages/Admin/UsersAddPage';
+import AdminUsersListPage from './pages/Admin/UsersListPage';
+import EventsAddPage from './pages/EventsAddPage';
+import EventsListPage from './pages/EventsListPage';
+import GamesAddPage from './pages/GamesAddPage';
+import GamesListPage from './pages/GamesListPage';
+import Homepage from './pages/Homepage';
+import LoginPage from './pages/LoginPage';
+import MyAccountPage from './pages/MyAccountPage';
+import PlacesAddPage from './pages/PlacesAddPage';
+import PlacesListPage from './pages/PlacesListPage';
+import ProfileSettings from './pages/ProfileSettings';
+import RecoverPage from './pages/RecoverPage';
+import SeriesAddPage from './pages/SeriesAddPage';
+import SeriesListPage from './pages/SeriesListPage';
+import TournamentsAddPage from './pages/TournamentsAddPage';
+import TournamentsListPage from './pages/TournamentsListPage';
+import BackendProvider from './providers/BackendProvider';
+import SiteProvider from './providers/SiteProvider';
+import UserProvider from './providers/UserProvider';
+import reportWebVitals from './reportWebVitals';
+import store from './state/store.js';
 
 ReactDOM.render(
 	<UserProvider>
@@ -51,11 +47,12 @@ ReactDOM.render(
 										<Homepage />
 									</Route>
 									{/* Series Pages */}
-									<Route exact path="/series"><SeriesListPage /></Route>
-									<Route exact path="/series/add"><SeriesAddPage /></Route>
+									{/* <Route exact path="/series"><SeriesListPage /></Route>
+									<Route exact path="/series/add"><SeriesAddPage /></Route> */}
 									{/* Events Pages */}
-									<Route exact path="/events"><EventsListPage /></Route>
+									<Route exact path="/events"><SeriesListPage /></Route>
 									<Route exact path="/events/add"><EventsAddPage /></Route>
+									<Route exact path="/events/:seriesId/add"><EventsAddPage /></Route>
 									{/* <Route exact path="/events/template"><EventsTemplateListPage /></Route>
 									<Route exact path="/events/template/add"><EventsTemplateAddPage /></Route> */}
 									{/* Tournaments Pages */}
