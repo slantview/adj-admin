@@ -2,7 +2,12 @@ import React, { Component, createContext, useContext } from "react";
 import { getSites, getSiteMetadata } from '../utils/api';
 import firebase from 'firebase/app';
 
-export const SiteContext = createContext({ selected: null, sites: [] });
+export const SiteContext = createContext({ 
+    selected: null, 
+    sites: [], 
+    setSite: null,
+    user: null
+});
 
 class SiteProvider extends Component {
     state = {

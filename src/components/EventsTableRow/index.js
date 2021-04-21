@@ -1,25 +1,58 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Checkbox, Divider } from '@material-ui/core';
+import { Button, List, ListItem, Menu } from '@material-ui/core';
 import moment from 'moment';
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
+import EventCloneDialog from './EventCloneDialog';
+
+const ListItemLink = (props) => {
+    return <ListItem button component="a" {...props} />;
+}
 
 const EventsTableRow = (props) => {
+    const {
+        setNotification,
+		setLoading,
+        event,
+        refreshSeries
+    } = props;
+
     const {
         id,
         title,
         subtitle,
-        card,
-        tournaments,
-        created_at,
-        updated_at,
         starts_at,
         published_at,
-        seriesId
-    } = props;
+        seriesId,
+    } = event;
 
     const startsAt = moment(starts_at).format("MM/DD/YYYY");
     const isFuture = moment(starts_at).isAfter(moment());
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [cloneConfirmModal, setCloneConfirmModal] = useState(false);
+
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+    const handleEdit = () => {
+		setNotification({
+			open: true,
+			type: 'primary',
+			message: "TODO: Allow users to edit."
+		}, false);
+		handleClose();
+    };
+    const handleClone = () => {
+		setCloneConfirmModal(true);
+        handleClose()
+    };
+    const handleDelete = () => {
+		handleClose();
+	};
 
 	return (
         <tr className="p-0 m-0 my-1">
@@ -28,27 +61,14 @@ const EventsTableRow = (props) => {
             </td>
             <td className="p-0 m-0 mb-0">
                 <div>
-                    <div>
-                        { card && card.formats &&
-                            <Link to={"/series/"+seriesId}>
-                                <img 
-                                    src={card.formats.thumbnail.url} 
-                                    width="120px" 
-                                    alt={title} 
-                                    className="mr-3" />
-                            </Link>
-                        }
-                    </div>
-                    <div>
-                        <Link to={"/series/"+seriesId+"/"+id}>
-                            <span className="text-black" title={title}>
-                                {title}
-                            </span>
-                            <span className="text-black-50 d-block">
-                                {subtitle}
-                            </span>
-                        </Link>
-                    </div>
+                    <Link to={"/series/"+seriesId+"/"+id}>
+                        <span className="text-black" title={title}>
+                            {title}
+                        </span>
+                        <span className="text-black-50 d-block">
+                            {subtitle}
+                        </span>
+                    </Link>
                 </div>
             </td>
 
@@ -64,15 +84,47 @@ const EventsTableRow = (props) => {
                 }
             </td>
             <td className="p-0 m-0 mb-0">
-                <div className="d-flex align-items-center justify-content-end pr-3">
+            <div className="d-flex align-items-center justify-content-end pr-3">
                     <Button
                         size="small"
+                        onClick={handleClick}
                         className="btn-link d-30 p-0 btn-icon hover-scale-sm">
                         <FontAwesomeIcon
                             icon={['fas', 'ellipsis-h']}
                             className="font-size-lg"
                         />
                     </Button>
+                    <Menu
+						anchorEl={anchorEl}
+						keepMounted
+						getContentAnchorEl={null}
+						open={Boolean(anchorEl)}
+						classes={{ list: 'p-0' }}
+						onClose={handleClose}>
+						<div className="dropdown-menu-lg overflow-hidden p-0">
+							<div className="dropdown-menu-lg overflow-hidden p-0">
+								<List component="div" className="nav-neutral-primary font-size-sm text-left">
+                                    <ListItem onClick={handleClone} button className="text-left">
+										Clone
+									</ListItem>
+                                    <ListItem onClick={handleEdit} button className="text-left">
+										Edit
+									</ListItem>
+									<ListItem onClick={(e) => e.preventDefault() } button className="text-left">
+										Delete
+									</ListItem>
+								</List>
+							</div>
+						</div>
+					</Menu>
+                    <EventCloneDialog
+                        event={event}
+                        cloneConfirmModal={cloneConfirmModal}
+                        setCloneConfirmModal={setCloneConfirmModal}
+                        setLoading={setLoading}
+                        setNotification={setNotification}
+                        refreshSeries={refreshSeries}
+                    />
                 </div>
             </td>
         </tr>

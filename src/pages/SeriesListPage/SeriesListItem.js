@@ -1,13 +1,24 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card, CardContent, Grid, Table } from '@material-ui/core';
-import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import EventsTableRow from '../../components/EventsTableRow';
 import AddNewEventCard from './AddNewEventCard';
 
-function SeriesListItem({ id, title, subtitle, description, card, events, updated_at, published_at, setLoading }) {
+function SeriesListItem(props) {
+	const { 
+		id, 
+		title, 
+		subtitle, 
+		description, 
+		card, 
+		events, 
+		updated_at, 
+		published_at, 
+		setLoading,
+		setNotification,
+		refreshSeries
+	} = props;
 
     return (
         <Card className="card-box mb-spacing-6">
@@ -20,11 +31,6 @@ function SeriesListItem({ id, title, subtitle, description, card, events, update
 
 				<div className="card-header--actions">
 					<div>
-						<Button component="a" onClick={() => setLoading(true)} size="small" className="btn-neutral-primary mr-2">
-								<span className="btn-wrapper--icon">
-									<RefreshTwoToneIcon fontSize="small" />
-								</span>
-							</Button>
 						<Button to={"/events/" + id + '/add'} component={Link} size="small" className="btn-neutral-primary">
 							<span className="btn-wrapper--icon">
 								<FontAwesomeIcon icon={['fas', 'plus-circle']} />
@@ -67,7 +73,14 @@ function SeriesListItem({ id, title, subtitle, description, card, events, update
 									</thead>
 									<tbody>
 										{ events.length > 0 && events.map(event => (
-											<EventsTableRow key={event.id} seriesId={id} {...event} />
+											<EventsTableRow
+												event={event}
+												key={event.id} 
+												seriesId={id}
+												setNotification={setNotification}
+												setLoading={setLoading}
+												refreshSeries={refreshSeries}
+											 />
 										))}
 									</tbody>
 								</Table>

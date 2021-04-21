@@ -10,7 +10,7 @@ import defaultLogo from '../../assets/images/logo.png';
 const SiteSelector = () => {
     const siteContext = useContext(SiteContext);
     const [logo, setLogo] = useState(defaultLogo);
-	const [anchorEl, setAnchorEl] = useState(false);
+	const [anchorEl, setAnchorEl] = useState(null);
 	const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
 	};

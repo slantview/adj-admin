@@ -1,17 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Grid, TextField as MTextField } from '@material-ui/core';
-import { DateTimePicker } from '@material-ui/pickers'
 import MDEditor, { commands } from '@uiw/react-md-editor';
+import 'date-fns';
 import { Field } from 'formik';
 import { Switch, TextField } from 'formik-material-ui';
 import React from 'react';
-
 import ImageUpload from '../../components/ImageUpload';
 
-import 'date-fns';
-
 const EventForm = (props) => {
-    console.log(props);
     const { 
 		values,
 		errors,
@@ -69,7 +65,6 @@ const EventForm = (props) => {
 									label="Starts At"
 									placeholder=""
 									fullWidth
-									autoOk
 									InputLabelProps={{
 										shrink: true,
 									}}
@@ -83,7 +78,6 @@ const EventForm = (props) => {
 									label="Ends At"
 									placeholder=""
 									fullWidth
-									autoOk
 									InputLabelProps={{
 										shrink: true,
 									}}

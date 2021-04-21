@@ -9,6 +9,10 @@ export const GET_ORGANIZATION_METADATA = gql`
                 logo {
                     formats
                 }
+                timezone {
+                    name
+                    value
+                }
             }
         }
     }

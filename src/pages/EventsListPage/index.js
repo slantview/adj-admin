@@ -115,7 +115,7 @@ export default function EventsListPage() {
 						</thead>
 						<tbody>
 							{ events.map(event => (
-								<EventsTableRow {...event} />
+								<EventsTableRow event={event} setNotification={() => console.log('ok') } />
 							))}
 						</tbody>
 					</Table>
