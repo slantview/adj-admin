@@ -1,12 +1,15 @@
 import React, { Component, createContext, useContext } from "react";
 import { getSites, getSiteMetadata } from '../utils/api';
 import firebase from 'firebase/app';
+import { Preview } from "@material-ui/icons";
 
 export const SiteContext = createContext({ 
     selected: null, 
     sites: [], 
     setSite: null,
-    user: null
+    user: null,
+    onSiteChanged: null,
+    siteChangedCallbacks: []
 });
 
 class SiteProvider extends Component {
@@ -14,15 +17,34 @@ class SiteProvider extends Component {
         selected: null,
         sites: [],
         user: null,
-        setSite: null
+        setSite: null,
+        siteChangedCallbacks: new Array(),
+        onSiteChanged: null
     };
 
     setSite = (id) => {
+        if (this.state.siteChangedCallbacks.length > 0) {
+            Promise.all(this.state.siteChangedCallbacks.map(cb => cb()))
+        }
         return this.setState({selected: id});
     }
 
+    onSiteChanged = (callback) => {
+        console.log('onSiteChanged: ');
+        console.log('this.state= ', this.state);
+        console.log('callback= ', callback);
+        this.state.siteChangedCallbacks.push(callback);
+        this.setState({
+            siteChangedCallbacks: this.state.siteChangedCallbacks
+        });
+        console.log('---- DONE ----')
+    }
+
     componentDidMount = async () => {
-        this.setState({setSite: this.setSite});
+        this.setState({
+            setSite: this.setSite,
+            onSiteChanged: this.onSiteChanged
+        });
 
         const auth = firebase.auth();
         auth.onAuthStateChanged(async user => {

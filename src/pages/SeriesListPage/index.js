@@ -1,7 +1,8 @@
 import { NetworkStatus, useQuery } from '@apollo/client';
 import { Button, Grid, Snackbar } from '@material-ui/core';
 import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
-import React, { useState } from 'react';
+import { SiteContext } from 'providers/SiteProvider';
+import React, { useContext, useState } from 'react';
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
 import { GET_ALL_SERIES } from '../../queries/series';
@@ -9,6 +10,7 @@ import AddNewSeriesCard from './AddNewSeriesCard';
 import SeriesListItem from './SeriesListItem';
 
 export default function SeriesListPage() {
+	const siteCtx = useContext(SiteContext);
 	const { loading, error, data, refetch, networkStatus } = useQuery(
 		GET_ALL_SERIES, 
 		{ 
@@ -39,6 +41,16 @@ export default function SeriesListPage() {
 		setSeries([]);
 		refetch();
 	};
+
+	// Register to be notified of a site change.
+	React.useEffect(() => {
+		siteCtx.onSiteChanged(async () => {
+			return new Promise((resolve, reject) => {
+				refreshSeries();
+				resolve();
+			});
+		});
+	}, [])
 
 	React.useEffect(() => {
 		if (isLoading && !loading) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
 	Table, 
@@ -20,9 +20,15 @@ import { useQuery } from '@apollo/client';
 import { GET_ALL_PLACES } from '../../queries/places';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
+import { SiteContext } from 'providers/SiteProvider';
 
 export default function PlacesListPage() {
-	const { loading, error, data } = useQuery(GET_ALL_PLACES);
+	const siteCtx = useContext(SiteContext);
+	const { loading, error, data, refetch, networkStatus } = useQuery(
+		GET_ALL_PLACES, 
+		{ 
+			notifyOnNetworkStatusChange: true 
+		});
 	const placesData = loading || error ? [] : data ? data.places : [];
 	const [isLoading, setLoading] = React.useState(loading);
 
@@ -48,6 +54,22 @@ export default function PlacesListPage() {
 			setPlaces(newData);
 		}
 	};
+
+	const refreshPlaces = () => {
+		setLoading(true);
+		setPlaces([]);
+		refetch();
+	}
+
+	// Register to be notified of a site change.
+	React.useEffect(() => {
+		siteCtx.onSiteChanged(async () => {
+			return new Promise((resolve, reject) => {
+				refreshPlaces();
+				resolve();
+			});
+		});
+	}, [])
 
 	React.useEffect(() => {
 		if (isLoading && !loading) {

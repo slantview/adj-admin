@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
 	Table, 
@@ -20,9 +20,15 @@ import { useQuery } from '@apollo/client';
 import { GET_ALL_GAMES } from '../../queries/games';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
+import { SiteContext } from 'providers/SiteProvider';
 
 export default function GamesListPage() {
-	const { loading, error, data } = useQuery(GET_ALL_GAMES);
+	const siteCtx = useContext(SiteContext);
+	const { loading, error, data,  refetch, networkStatus } = useQuery(
+		GET_ALL_GAMES,
+		{ 
+			notifyOnNetworkStatusChange: true 
+		});
 	const gamesData = loading || error ? [] : data ? data.games : [];
 	const [isLoading, setLoading] = React.useState(loading);
 
@@ -48,6 +54,22 @@ export default function GamesListPage() {
 			setGames(newData);
 		}
 	};
+
+	const refreshGames = () => {
+		setLoading(true);
+		setGames([]);
+		refetch();
+	}
+
+	// Register to be notified of a site change.
+	React.useEffect(() => {
+		siteCtx.onSiteChanged(async () => {
+			return new Promise((resolve, reject) => {
+				refreshGames();
+				resolve();
+			});
+		});
+	}, [])
 
 	React.useEffect(() => {
 		if (isLoading && !loading) {
