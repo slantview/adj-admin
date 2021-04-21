@@ -3,11 +3,7 @@ import { Button, List, ListItem, Menu } from '@material-ui/core';
 import moment from 'moment';
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import EventCloneDialog from './EventCloneDialog';
-
-const ListItemLink = (props) => {
-    return <ListItem button component="a" {...props} />;
-}
+import EventCloneDialog from '../EventCloneDialog';
 
 const EventsTableRow = (props) => {
     const {
