@@ -17,7 +17,8 @@ const urlSuffix = ".beacons.gg";
 const blockedWordsRegex = new RegExp(`^((?!${blockedWords.join('|')}).)*$`);
 const validationSchema = Yup.object({
 	siteUrl: Yup.string()
-		.matches(blockedWordsRegex, 'Site name not allowed.')
+		// TODO(smfr): Turn off until we can do this better.
+		// .matches(blockedWordsRegex, 'Site name not allowed.')
 		.required("Site URL is required.")
 });
 

@@ -9,7 +9,6 @@ const blockedWords = [
 	"18397818",
 	"em9764",
 	"hosting.ghs",
-	"\\*",
 	"mx",
 	"4r5e",
 	"5h1t",
