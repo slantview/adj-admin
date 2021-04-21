@@ -5,7 +5,6 @@ import {
     DialogActions,
     DialogContent, DialogTitle
 } from '@material-ui/core';
-import Error from 'components/Error';
 import Loading from 'components/Loading';
 import { Form, Formik } from 'formik';
 import _ from 'lodash';
@@ -30,7 +29,6 @@ const EventCloneDialog = (props) => {
         event,
         cloneConfirmModal,
         setCloneConfirmModal,
-        setLoading,
         setNotification,
         refreshSeries
     } = props;

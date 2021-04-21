@@ -11,13 +11,6 @@ const EventForm = (props) => {
     const { 
 		values,
 		errors,
-		touched,
-		handleChange,
-		handleSubmit,
-		isValid,
-		isSubmitting,
-		setFieldTouched,
-		submitCount,
         setFieldValue
 	} = props;
 

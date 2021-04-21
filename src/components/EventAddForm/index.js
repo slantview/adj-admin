@@ -1,13 +1,10 @@
 import { Button, Card } from '@material-ui/core';
-import { Form, Formik } from 'formik';
-import React, { useContext, useState } from 'react';
-import * as Yup from 'yup';
-
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
-import { UserContext } from 'providers/UserProvider';
-
+import { Form, Formik } from 'formik';
+import React, { useState } from 'react';
+import * as Yup from 'yup';
 import EventForm from './EventForm';
 
 const initialData = {
@@ -28,8 +25,7 @@ const validationSchema = Yup.object({
     sign_up_link: Yup.string().required('Sign Up Link is required'),
 });
 
-function EventAddForm({ seriesId }) {
-    const userCtx = useContext(UserContext);
+function EventAddForm(props) {
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 

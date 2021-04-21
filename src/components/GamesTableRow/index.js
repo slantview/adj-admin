@@ -1,9 +1,9 @@
 
-import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
-import { Button, Checkbox, Divider } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import moment from 'moment';
+import React from "react";
+import { Link } from 'react-router-dom';
 
 const GamesTableRow = (props) => {
     const {
@@ -11,15 +11,13 @@ const GamesTableRow = (props) => {
         title,
         subtitle,
         cover,
-        logo,
-        events,
         created_at,
-        updated_at,
-        published_at
+        updated_at
     } = props;
     
     const createdAt = moment(created_at).format("MM/DD/YYYY");
     const updatedAt = moment(updated_at).format("MM/DD/YYYY");
+    
 	return (
         <tr>
             <td>

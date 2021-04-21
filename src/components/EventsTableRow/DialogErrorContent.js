@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, DialogActions } from '@material-ui/core';
-import React from 'react'
+import { Button } from '@material-ui/core';
+import React from 'react';
 
 const DialogErrorContent = (props) => {
     const {
