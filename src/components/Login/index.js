@@ -3,11 +3,9 @@ import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
 import { Form, Formik } from 'formik';
 import _ from 'lodash';
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
-
 import hero from '../../assets/images/hero-bg/hero-arena.jpg';
 import logo from '../../assets/images/logo.png';
 import { UserContext } from '../../providers/UserProvider';
@@ -20,25 +18,24 @@ let validationSchema = Yup.object({
 	email: Yup.string().email('Email must be a valid format (e.g. user@example.com)').required('Email is required')
 });
 
-export default function Login() {
+export default function Login(props) {
 	const history = useHistory();
-	
+	const location = useLocation();
 	const userCtx = useContext(UserContext);
+	// @ts-ignore
+	const fromUrl = location.state && location.state.from;
+	const redirect = fromUrl && fromUrl !== '/login' ? fromUrl : '/';
 
 	useEffect(() => {
 		if (userCtx.user) {
-			history.push("/");
+			history.push(redirect);
 		}
 	}, [userCtx.expires, userCtx.user])
 
     const signInHandler = (values, { setErrors }) => {
 		auth.signInWithEmailAndPassword(values.email, values.password)
 			.then(result => {
-				if (!result.confirmed) {
-					history.push("/organization/add");
-				} else {
-					history.push("/");
-				}
+				history.push(redirect);
 				return true;
 			})
 			.catch(e => {
@@ -67,11 +64,7 @@ const LoginForm = (props) => {
 		errors,
 		touched,
 		handleChange,
-		handleSubmit,
-		isValid,
-		isSubmitting,
-		setFieldTouched,
-		submitCount
+		handleSubmit
 	} = props;
 
 	return (

@@ -1,8 +1,8 @@
+import SiteAddPage from 'pages/Admin/SiteAddPage';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import OrganizationAddForm from './components/OrganizationAddForm';
 import Layout from './containers/Layout';
 import AdminDashboard from './pages/Admin/AdminDashboard';
@@ -11,7 +11,6 @@ import SiteListPage from './pages/Admin/SiteListPage';
 import AdminUsersAddPage from './pages/Admin/UsersAddPage';
 import AdminUsersListPage from './pages/Admin/UsersListPage';
 import EventsAddPage from './pages/EventsAddPage';
-import EventsListPage from './pages/EventsListPage';
 import GamesAddPage from './pages/GamesAddPage';
 import GamesListPage from './pages/GamesListPage';
 import Homepage from './pages/Homepage';
@@ -21,7 +20,6 @@ import PlacesAddPage from './pages/PlacesAddPage';
 import PlacesListPage from './pages/PlacesListPage';
 import ProfileSettings from './pages/ProfileSettings';
 import RecoverPage from './pages/RecoverPage';
-import SeriesAddPage from './pages/SeriesAddPage';
 import SeriesListPage from './pages/SeriesListPage';
 import TournamentsAddPage from './pages/TournamentsAddPage';
 import TournamentsListPage from './pages/TournamentsListPage';
@@ -30,6 +28,7 @@ import SiteProvider from './providers/SiteProvider';
 import UserProvider from './providers/UserProvider';
 import reportWebVitals from './reportWebVitals';
 import store from './state/store.js';
+
 
 ReactDOM.render(
 	<UserProvider>
@@ -76,6 +75,7 @@ ReactDOM.render(
 									<Route exact path="/admin/organizations/add"><OrganizationAddForm /></Route>
 									{/* Admin Sites Pages */}
 									<Route exact path="/admin/sites"><SiteListPage /></Route>
+									<Route exact path="/admin/sites/add"><SiteAddPage /></Route>
 									{/* Admin Users Pages */}
 									<Route exact path="/admin/users"><AdminUsersListPage /></Route>
 									<Route exact path="/admin/users/add"><AdminUsersAddPage /></Route>

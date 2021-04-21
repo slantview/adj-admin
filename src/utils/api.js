@@ -14,12 +14,13 @@ export const registerUser = async (data) => {
     });
 }
 
-export const createSite = async (data) => {
+export const createSite = async (data, token) => {
     return fetch(SITES_URL + '/' + data.name, {
         method: 'post',
         body: JSON.stringify(data),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
         }
     });
 }

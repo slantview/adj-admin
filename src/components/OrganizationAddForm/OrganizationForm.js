@@ -2,20 +2,11 @@ import { Container, Grid, MenuItem } from '@material-ui/core';
 import { Field } from 'formik';
 import { Select, TextField } from 'formik-material-ui';
 import React from 'react';
-
 import ImageUpload from '../../components/ImageUpload';
 
 const OrganizationForm = (props) => {
     const { 
-		values,
 		errors,
-		touched,
-		handleChange,
-		handleSubmit,
-		isValid,
-		isSubmitting,
-		setFieldTouched,
-		submitCount,
         setFieldValue
 	} = props;
 

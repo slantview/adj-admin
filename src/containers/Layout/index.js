@@ -262,12 +262,11 @@ library.add(
 );
 
 const Layout = ({ children }) => {
-	const classes = useStyles();
 	const userCtx = useContext(UserContext);
 	const history = useHistory();
 
 	if (!userCtx.user) {
-		history.push('/login');
+		history.push('/login', { from: window.location.pathname });
 		return (<Loading centerInPage={true} center={true} />);
 	}
 

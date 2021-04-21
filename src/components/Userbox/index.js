@@ -1,12 +1,11 @@
-import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, Badge, Menu, Button, List, ListItem, Divider } from '@material-ui/core';
+import { Box, Button, Divider, List, ListItem, Menu } from '@material-ui/core';
+import PersonIcon from '@material-ui/icons/PersonTwoTone';
+import React, { useContext, useState } from 'react';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+import avatar from '../../assets/images/icon.png';
 import { UserContext } from "../../providers/UserProvider";
 import { auth } from '../../utils/firebase';
-import { useHistory } from 'react-router-dom';
-import { Link, NavLink } from 'react-router-dom';
-import PersonIcon from '@material-ui/icons/PersonTwoTone';
-import avatar from '../../assets/images/icon.png';
 
 const ListItemLink = (props) => {
     return <ListItem button component={Link} {...props} />;
@@ -15,7 +14,7 @@ const ListItemLink = (props) => {
 const Userbox = () => {
     const userCtx = useContext(UserContext);
 	const history = useHistory();
-	const [anchorEl, setAnchorEl] = useState(false);
+	const [anchorEl, setAnchorEl] = useState(null);
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -27,7 +26,7 @@ const Userbox = () => {
 		auth.signOut()
 			.then(() => {
 				userCtx.logout();
-				history.push('/login', true);
+				history.push('/login', { from: window.location.pathname });
 			})
 			.catch(e => {
 				console.error('Error signing out: ', e);

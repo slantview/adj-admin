@@ -1,32 +1,28 @@
-import React from 'react';
 import {
-  Grid,
-  Container,
-  TextField,
-  InputBase,
-  InputAdornment,
-  Divider
+	Container,
+	Grid,
+	InputAdornment
 } from '@material-ui/core';
+import { Field } from 'formik';
+import { TextField } from 'formik-material-ui';
+import React from 'react';
 
-const SiteAddForm = () => {
+const SiteAddForm = (props) => {
     return (
-		<Container>
-			<div className="p-4">
-				<h5 className="font-size-xl mb-1 font-weight-bold">
-				Events Site
-				</h5>
-				<p className="text-black-50 mb-4">
-					Choose a URL for your site. This will be your events site hosted on beacons.gg. If you would like to 
-					use a custom domain, please contact us.
-				</p>
-				<Grid container spacing={6}>
+		<div className="p-4">
+			<p className="text-black-50 mb-4">
+				Choose a URL for your site. This will be your events site hosted on beacons.gg. If you would like to 
+				use a custom domain, please contact us.
+			</p>
+			<Grid container spacing={6}>
 				<Grid item md={12} lg={12}>
 					<Grid item md={12} lg={12}>
-						<TextField
+						<Field
+							component={TextField}
 							name="siteUrl"
 							fullWidth
 							label="Site URL"
-							defaultValue="orgname"
+							placeholder="orgname"
 							InputProps={{
 								startAdornment: (
 									<InputAdornment position="start" disableTypography={true}>
@@ -38,13 +34,12 @@ const SiteAddForm = () => {
 										.beacons.gg
 									</InputAdornment>
 								)
-							  }}
+							}}
 						/>
 					</Grid>
 				</Grid>
-				</Grid>
-			</div>
-		</Container>
+			</Grid>
+		</div>
     );
   };
 

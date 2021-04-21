@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { Button } from '@material-ui/core';
-import { useDropzone } from 'react-dropzone';
-import { useField } from 'formik';
-import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
-import PublishTwoToneIcon from '@material-ui/icons/PublishTwoTone';
 import CheckIcon from '@material-ui/icons/Check';
+import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
 import PhotoIcon from '@material-ui/icons/Photo';
+import PublishTwoToneIcon from '@material-ui/icons/PublishTwoTone';
+import React, { useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 export default function ImageUpload(props) {
 	const [files, setFiles] = useState([]);

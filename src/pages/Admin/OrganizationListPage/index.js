@@ -79,7 +79,7 @@ export default function OrganizationListPage() {
 						setLoading(false);
 					} else if (response.status === 401) {
 						console.log('needs authentication.')
-						history.push('/login', true);
+						history.push('/login', { from: window.location.pathname });
 					}
                 })
 				.catch(e => {
