@@ -30,9 +30,6 @@ class SiteProvider extends Component {
     }
 
     onSiteChanged = (callback) => {
-        console.log('onSiteChanged: ');
-        console.log('this.state= ', this.state);
-        console.log('callback= ', callback);
         this.state.siteChangedCallbacks.push(callback);
         this.setState({
             siteChangedCallbacks: this.state.siteChangedCallbacks

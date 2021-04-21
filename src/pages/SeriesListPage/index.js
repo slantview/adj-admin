@@ -21,21 +21,6 @@ export default function SeriesListPage() {
 	const [series, setSeries] = React.useState(seriesData);
 	const isRefetching = networkStatus === NetworkStatus.refetch;
 
-	const [notification, setNotification] = useState({
-        open: false,
-        type: '',
-        message: ''
-    });
-    const setNotificationWrapper = (update, updateUsers) => {
-        setNotification(update);
-        if (!isLoading && updateUsers) {
-            setLoading(true);
-        }
-    };
-	const handleClose = () => {
-        setNotification({ ...notification, open: false });
-    };
-
 	const refreshSeries = () => {
 		setLoading(true);
 		setSeries([]);
@@ -90,22 +75,12 @@ export default function SeriesListPage() {
 				{ series.length > 0 && series.map(item => (
 					<SeriesListItem 
 						key={item.id}  
-						setLoading={setLoading} 
-						setNotification={setNotificationWrapper} 
+						setLoading={setLoading}
 						refreshSeries={refreshSeries}
 						{...item}
 					/>
 				))}
 			</div>
-			<Snackbar
-                anchorOrigin={{vertical: 'top', horizontal: 'center' }}
-                key="notification"
-                autoHideDuration={5000}
-                open={notification.open}
-                classes={{ root: 'toastr-' + notification.type }}
-                onClose={handleClose}
-                message={notification.message}
-            />
 		</>
 	);
 }

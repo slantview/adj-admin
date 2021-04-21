@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
 import moment from 'moment';
-import React, { useState } from "react";
+import { NotificationContext } from 'providers/NotificationProvider';
+import React, { useContext, useState } from "react";
 import { Link } from 'react-router-dom';
 import EventCloneDialog from '../EventCloneDialog';
 
 const EventsTableRow = (props) => {
     const {
-        setNotification,
 		setLoading,
         event,
         refreshSeries
@@ -25,6 +25,7 @@ const EventsTableRow = (props) => {
     const startsAt = moment(starts_at).format("MM/DD/YYYY");
     const isFuture = moment(starts_at).isAfter(moment());
 
+    const notify = useContext(NotificationContext).notify;
     const [anchorEl, setAnchorEl] = useState(null);
     const [cloneConfirmModal, setCloneConfirmModal] = useState(false);
 
@@ -35,11 +36,10 @@ const EventsTableRow = (props) => {
 		setAnchorEl(null);
 	};
     const handleEdit = () => {
-		setNotification({
-			open: true,
+		notify({
 			type: 'primary',
 			message: "TODO: Allow users to edit."
-		}, false);
+		});
 		handleClose();
     };
     const handleClone = () => {
@@ -118,7 +118,6 @@ const EventsTableRow = (props) => {
                         cloneConfirmModal={cloneConfirmModal}
                         setCloneConfirmModal={setCloneConfirmModal}
                         setLoading={setLoading}
-                        setNotification={setNotification}
                         refreshSeries={refreshSeries}
                     />
                 </div>

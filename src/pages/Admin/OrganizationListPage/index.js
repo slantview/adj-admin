@@ -34,21 +34,7 @@ export default function OrganizationListPage() {
     const [search, setSearch] = React.useState(null);
     const [organizations, setOrganizations] = React.useState(orgData);
     const [page, setPage] = React.useState(1);
-    const [notification, setNotification] = useState({
-        open: false,
-        type: '',
-        message: ''
-    });
    
-    const setNotificationWrapper = (update, updateUsers) => {
-        setNotification(update);
-        if (!isLoading && updateUsers) {
-            setLoading(true);
-        }
-    };
-    const handleClose = () => {
-        setNotification({ ...notification, open: false });
-    };
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};
@@ -151,7 +137,10 @@ export default function OrganizationListPage() {
 								</tr>
                             }
 							{ !isLoading && organizations.length > 0 && organizations.slice((page-1)*entries, ((page-1)*entries)+entries).map(org => (
-								<OrganizationListTableRow key={org.id} setLoading={setLoading} setNotification={setNotificationWrapper} {...org} />
+								<OrganizationListTableRow 
+									key={org.id} 
+									setLoading={setLoading}
+									{...org} />
 							))}
 						</tbody>
 					</Table>
@@ -192,15 +181,6 @@ export default function OrganizationListPage() {
 					</div>
 				</CardContent>
 			</Card>
-            <Snackbar
-                anchorOrigin={{vertical: 'top', horizontal: 'center' }}
-                key="notification"
-                autoHideDuration={5000}
-                open={notification.open}
-                classes={{ root: 'toastr-' + notification.type }}
-                onClose={handleClose}
-                message={notification.message}
-            />
 		</>
 	);
 }

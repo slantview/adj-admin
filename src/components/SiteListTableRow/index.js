@@ -1,11 +1,10 @@
 
-import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
-import PersonIcon from '@material-ui/icons/PersonTwoTone';
-import { deleteUser, resetPassword, suspendUser } from "../../utils/api";
+import { NotificationContext } from 'providers/NotificationProvider';
+import React, { useContext, useState } from "react";
 import { UserContext } from '../../providers/UserProvider';
+import { deleteSite } from "../../utils/api";
 
 const ListItemLink = (props) => {
     return <ListItem button component="a" {...props} />;
@@ -21,13 +20,15 @@ const SiteListTableRow = (props) => {
         backend_url,
         deleted_at,
 		suspended_at,
-		setNotification,
 		setLoading
     } = props;
 
-    const [anchorEl, setAnchorEl] = useState(false);
+   
 	const userCtx = useContext(UserContext);
+    const notify = useContext(NotificationContext).notify;
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -35,28 +36,36 @@ const SiteListTableRow = (props) => {
 		setAnchorEl(null);
 	};
 	const handleEdit = () => {
-		setNotification({
-			open: true,
+		notify({
 			type: 'primary',
 			message: "TODO: Allow users to edit."
-		}, false);
+		});
 		handleClose();
     };
     const handleSuspend = () => {
-		setNotification({
-			open: true,
+		notify({
 			type: 'primary',
 			message: "TODO: Allow users to suspend."
-		}, false);
+		});
 		handleClose();
     };
     const handleDelete = () => {
-		setNotification({
-			open: true,
-			type: 'primary',
-			message: "TODO: Allow users to delete."
-		}, false);
-		handleClose();
+        deleteSite({id: id}, userCtx.token)
+            .then(resp => {
+                if (resp.ok) {
+                    notify({
+                        type: 'success',
+                        message: `Successfully deleted site '${name}'.`
+                    });
+                    setLoading(true);
+                }
+            })
+            .catch(e => {
+                notify({
+                    type: 'error',
+                    message: `Error deleting site '${name}': ${e.toString()}.`
+                });
+            });
 	};
     
 	return (

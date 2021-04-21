@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, List, ListItem, Menu, Dialog } from '@material-ui/core';
 import { deleteOrganization, resetPassword, suspendUser } from "../../utils/api";
 import { UserContext } from '../../providers/UserProvider';
+import { NotificationContext } from "providers/NotificationProvider";
 
 const ListItemLink = (props) => {
     return <ListItem button component="a" {...props} />;
@@ -16,15 +17,14 @@ const OrganizationListTableRow = (props) => {
         email,
         website,
         deleted_at,
-		suspended_at,
-		setNotification,
-		setLoading
+		suspended_at
     } = props;
 
-    const [anchorEl, setAnchorEl] = useState(false);
-    const [errorConfirmModal, setErrorConfirmModal] = useState(false);
-
     const userCtx = useContext(UserContext);
+    const notify = useContext(NotificationContext).notify;
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [errorConfirmModal, setErrorConfirmModal] = useState(false);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -33,47 +33,42 @@ const OrganizationListTableRow = (props) => {
 		setAnchorEl(null);
 	};
 	const handleEdit = () => {
-		setNotification({
-			open: true,
+		notify({
 			type: 'primary',
 			message: "TODO: Allow users to edit."
-		}, false);
+		});
 		handleClose();
     };
     const handleSuspend = () => {
-		setNotification({
-			open: true,
+		notify({
 			type: 'primary',
 			message: "TODO: Allow users to suspend."
-		}, false);
+		});
 		handleClose();
     };
     const handleDelete = () => {
         deleteOrganization(userCtx.token, id)
             .then(response => {
                 if (response.ok) {
-                    setNotification({
-                        open: true,
+                    notify({
                         type: 'success',
                         message: "Sucessfully deleted organization."
-                    }, true);
+                    });
                 } else {
                     const result = response.json();
                     console.log(result);
                     console.log(response);
-                    setNotification({
-                        open: true,
+                    notify({
                         type: 'danger',
-                        message: "Unable to delete organization: " + result.error
-                    }, false);
+                        message: "Unable to delete organization."
+                    });
                 }
             })
             .catch(e => {
-                setNotification({
-                    open: true,
+                notify({
                     type: 'danger',
                     message: "Unable to delete organization: " + e
-                }, false);
+                });
             });
 		
 		handleClose();

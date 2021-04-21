@@ -31,21 +31,7 @@ export default function SiteListPage() {
     const [sites, setSites] = React.useState([]);
     const [allSites, setAllSites] = React.useState([]);
     const [page, setPage] = React.useState(1);
-    const [notification, setNotification] = useState({
-        open: false,
-        type: '',
-        message: ''
-    });
    
-    const setNotificationWrapper = (update, updateUsers) => {
-        setNotification(update);
-        if (!isLoading && updateUsers) {
-            setLoading(true);
-        }
-    };
-    const handleClose = () => {
-        setNotification({ ...notification, open: false });
-    };
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};
@@ -140,7 +126,10 @@ export default function SiteListPage() {
 								</tr>
                             }
 							{ !isLoading && sites.length > 0 && sites.slice((page-1)*entries, ((page-1)*entries)+entries).map(org => (
-								<SiteListTableRow key={org.id} setLoading={setLoading} setNotification={setNotificationWrapper} {...org} />
+								<SiteListTableRow 
+									key={org.id} 
+									setLoading={setLoading}
+									{...org} />
 							))}
 						</tbody>
 					</Table>
@@ -181,15 +170,6 @@ export default function SiteListPage() {
 					</div>
 				</CardContent>
 			</Card>
-            <Snackbar
-                anchorOrigin={{vertical: 'top', horizontal: 'center' }}
-                key="notification"
-                autoHideDuration={5000}
-                open={notification.open}
-                classes={{ root: 'toastr-' + notification.type }}
-                onClose={handleClose}
-                message={notification.message}
-            />
 		</>
 	);
 }

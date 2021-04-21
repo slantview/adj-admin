@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { 
 	Card, 
 	CardContent
@@ -8,18 +8,23 @@ import UserAddForm from './UserAddForm';
 import { registerUser } from '../../../utils/api';
 import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
+import { NotificationContext } from 'providers/NotificationProvider';
 
 export default function UsersListPage() {
-    const [isLoading, setLoading] = useState(false);
-	const [notification, setNotification] = useState(null);
+	const notify = useContext(NotificationContext).notify;
 	const history = useHistory();
+
+	const [isLoading, setLoading] = useState(false);
 
     const submit = (values, { setErrors }) => {
 		return registerUser(values)
 			.then(async response => {
 				const userData = await response.json();
 				if (response.ok) {
-					setNotification("User successfully added.")
+					notify({
+						type: 'success',
+						message: "User successfully added."
+					});
 					history.push("/admin/users")
 					return true;
 				} else {

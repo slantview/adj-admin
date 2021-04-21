@@ -1,26 +1,25 @@
-import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-	Table, 
-	Card, 
-	CardContent, 
+import {
 	Button,
-	FormControl,
-	Select,
-	MenuItem,
-	TextField,
+	Card,
+	CardContent,
 	Collapse,
-    InputAdornment,
-    Snackbar
- } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
-import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+	FormControl,
+	InputAdornment,
+	MenuItem,
+	Select,
+	Table,
+	TextField
+} from '@material-ui/core';
 import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
+import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+import Pagination from '@material-ui/lab/Pagination';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Loading from '../../../components/Loading';
-import { getUsers } from '../../../utils/api';
-import { UserContext } from '../../../providers/UserProvider';
 import UsersListTableRow from '../../../components/UsersListTableRow';
+import { UserContext } from '../../../providers/UserProvider';
+import { getUsers } from '../../../utils/api';
 
 export default function UsersListPage() {
     const userCtx = useContext(UserContext);
@@ -31,21 +30,7 @@ export default function UsersListPage() {
     const [search, setSearch] = React.useState(null);
     const [users, setUsers] = React.useState(usersData);
     const [page, setPage] = React.useState(1);
-    const [notification, setNotification] = useState({
-        open: false,
-        type: '',
-        message: ''
-    });
    
-    const setNotificationWrapper = (update, updateUsers) => {
-        setNotification(update);
-        if (!isLoading && updateUsers) {
-            setLoading(true);
-        }
-    };
-    const handleClose = () => {
-        setNotification({ ...notification, open: false });
-    };
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};
@@ -144,7 +129,10 @@ export default function UsersListPage() {
 								</tr>
                             }
 							{ !isLoading && users.slice((page-1)*entries, ((page-1)*entries)+entries).map(user => (
-								<UsersListTableRow key={user.id} setLoading={setLoading} setNotification={setNotificationWrapper} {...user} />
+								<UsersListTableRow 
+									key={user.id} 
+									setLoading={setLoading}
+									{...user} />
 							))}
 						</tbody>
 					</Table>
@@ -185,15 +173,6 @@ export default function UsersListPage() {
 					</div>
 				</CardContent>
 			</Card>
-            <Snackbar
-                anchorOrigin={{vertical: 'top', horizontal: 'center' }}
-                key="notification"
-                autoHideDuration={5000}
-                open={notification.open}
-                classes={{ root: 'toastr-' + notification.type }}
-                onClose={handleClose}
-                message={notification.message}
-            />
 		</>
 	);
 }

@@ -8,15 +8,10 @@ import AddNewEventCard from './AddNewEventCard';
 function SeriesListItem(props) {
 	const { 
 		id, 
-		title, 
-		subtitle, 
-		description, 
+		title,
 		card, 
-		events, 
-		updated_at, 
-		published_at, 
+		events,
 		setLoading,
-		setNotification,
 		refreshSeries
 	} = props;
 
@@ -77,7 +72,6 @@ function SeriesListItem(props) {
 												event={event}
 												key={event.id} 
 												seriesId={id}
-												setNotification={setNotification}
 												setLoading={setLoading}
 												refreshSeries={refreshSeries}
 											 />

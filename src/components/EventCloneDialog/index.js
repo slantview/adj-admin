@@ -8,6 +8,7 @@ import {
 import Loading from 'components/Loading';
 import { Form, Formik } from 'formik';
 import _ from 'lodash';
+import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
 import React, { useContext, useState } from 'react';
 import { eventToNewEvent, tournamentToNewTournament } from 'utils/graphql';
@@ -29,7 +30,6 @@ const EventCloneDialog = (props) => {
         event,
         cloneConfirmModal,
         setCloneConfirmModal,
-        setNotification,
         refreshSeries
     } = props;
 
@@ -41,6 +41,8 @@ const EventCloneDialog = (props) => {
         copy_tournament_data: true,
         save_as_draft: false
     };
+
+    const notify = useContext(NotificationContext).notify;
 
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState(null);
@@ -84,11 +86,10 @@ const EventCloneDialog = (props) => {
                 const createdEvent = ret.data.createEvent.event;
                 setCloneConfirmModal(false);
                 refreshSeries();
-                setNotification({
-                    open: true,
+                notify({
                     type: 'success',
                     message: "Successfully added event: " + createdEvent.title
-                }, false);
+                });
             }).catch(e  => {
                 setError(e.toString());
             });

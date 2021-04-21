@@ -1,4 +1,5 @@
 import SiteAddPage from 'pages/Admin/SiteAddPage';
+import NotificationProvider from 'providers/NotificationProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -29,62 +30,63 @@ import UserProvider from './providers/UserProvider';
 import reportWebVitals from './reportWebVitals';
 import store from './state/store.js';
 
-
 ReactDOM.render(
 	<UserProvider>
 		<SiteProvider>
 			<Router>
 				<Provider store={store}>
-					<Switch>
-						<Route exact path="/login"><LoginPage /></Route>
-						{/* <Route exact path="/register"><RegistrationPage /></Route> */}
-						<Route exact path="/recover"><RecoverPage /></Route>
-						<Route path="/">
-							<BackendProvider>
-								<Layout>
-									<Route exact path="/">
-										<Homepage />
-									</Route>
-									{/* Series Pages */}
-									{/* <Route exact path="/series"><SeriesListPage /></Route>
-									<Route exact path="/series/add"><SeriesAddPage /></Route> */}
-									{/* Events Pages */}
-									<Route exact path="/events"><SeriesListPage /></Route>
-									<Route exact path="/events/add"><EventsAddPage /></Route>
-									<Route exact path="/events/:seriesId/add"><EventsAddPage /></Route>
-									{/* <Route exact path="/events/template"><EventsTemplateListPage /></Route>
-									<Route exact path="/events/template/add"><EventsTemplateAddPage /></Route> */}
-									{/* Tournaments Pages */}
-									<Route exact path="/tournaments"><TournamentsListPage /></Route>
-									<Route exact path="/tournaments/add"><TournamentsAddPage /></Route>
-									{/* <Route exact path="/tournaments/template"><TournamentsTemplateListPage /></Route>
-									<Route exact path="/tournaments/template/add"><TournamentsTemplateAddPage /></Route> */}
-									{/* Games Pages */}
-									<Route exact path="/games"><GamesListPage /></Route>
-									<Route exact path="/games/add"><GamesAddPage /></Route>
-									{/* Places Pages */}
-									<Route exact path="/places"><PlacesListPage /></Route>
-									<Route exact path="/places/add"><PlacesAddPage /></Route>
-									{/* Account Pages */}
-									<Route exact path="/user/account"><MyAccountPage /></Route>
-									<Route exact path="/user/profile"><ProfileSettings /></Route>
-									{/* Admin Pages */}
-									<Route exact path="/admin/dashboard"><AdminDashboard /></Route>
-									{/* Admin Organization Pages */}
-									<Route exact path="/admin/organizations"><AdminOrganizationListPage /></Route>
-									<Route exact path="/admin/organizations/add"><OrganizationAddForm /></Route>
-									{/* Admin Sites Pages */}
-									<Route exact path="/admin/sites"><SiteListPage /></Route>
-									<Route exact path="/admin/sites/add"><SiteAddPage /></Route>
-									{/* Admin Users Pages */}
-									<Route exact path="/admin/users"><AdminUsersListPage /></Route>
-									<Route exact path="/admin/users/add"><AdminUsersAddPage /></Route>
-								</Layout>
-							</BackendProvider>
-						</Route>
-						<Redirect path="/logout" to="/login" />
-						<Redirect to="/" />
-					</Switch>
+					<NotificationProvider>
+						<Switch>
+							<Route exact path="/login"><LoginPage /></Route>
+							{/* <Route exact path="/register"><RegistrationPage /></Route> */}
+							<Route exact path="/recover"><RecoverPage /></Route>
+							<Route path="/">
+								<BackendProvider>
+									<Layout>
+										<Route exact path="/">
+											<Homepage />
+										</Route>
+										{/* Series Pages */}
+										{/* <Route exact path="/series"><SeriesListPage /></Route>
+										<Route exact path="/series/add"><SeriesAddPage /></Route> */}
+										{/* Events Pages */}
+										<Route exact path="/events"><SeriesListPage /></Route>
+										<Route exact path="/events/add"><EventsAddPage /></Route>
+										<Route exact path="/events/:seriesId/add"><EventsAddPage /></Route>
+										{/* <Route exact path="/events/template"><EventsTemplateListPage /></Route>
+										<Route exact path="/events/template/add"><EventsTemplateAddPage /></Route> */}
+										{/* Tournaments Pages */}
+										<Route exact path="/tournaments"><TournamentsListPage /></Route>
+										<Route exact path="/tournaments/add"><TournamentsAddPage /></Route>
+										{/* <Route exact path="/tournaments/template"><TournamentsTemplateListPage /></Route>
+										<Route exact path="/tournaments/template/add"><TournamentsTemplateAddPage /></Route> */}
+										{/* Games Pages */}
+										<Route exact path="/games"><GamesListPage /></Route>
+										<Route exact path="/games/add"><GamesAddPage /></Route>
+										{/* Places Pages */}
+										<Route exact path="/places"><PlacesListPage /></Route>
+										<Route exact path="/places/add"><PlacesAddPage /></Route>
+										{/* Account Pages */}
+										<Route exact path="/user/account"><MyAccountPage /></Route>
+										<Route exact path="/user/profile"><ProfileSettings /></Route>
+										{/* Admin Pages */}
+										<Route exact path="/admin/dashboard"><AdminDashboard /></Route>
+										{/* Admin Organization Pages */}
+										<Route exact path="/admin/organizations"><AdminOrganizationListPage /></Route>
+										<Route exact path="/admin/organizations/add"><OrganizationAddForm /></Route>
+										{/* Admin Sites Pages */}
+										<Route exact path="/admin/sites"><SiteListPage /></Route>
+										<Route exact path="/admin/sites/add"><SiteAddPage /></Route>
+										{/* Admin Users Pages */}
+										<Route exact path="/admin/users"><AdminUsersListPage /></Route>
+										<Route exact path="/admin/users/add"><AdminUsersAddPage /></Route>
+									</Layout>
+								</BackendProvider>
+							</Route>
+							<Redirect path="/logout" to="/login" />
+							<Redirect to="/" />
+						</Switch>
+					</NotificationProvider>
 				</Provider>
 			</Router>
 		</SiteProvider>

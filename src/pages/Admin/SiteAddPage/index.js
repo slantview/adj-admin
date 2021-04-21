@@ -3,6 +3,7 @@ import Error from 'components/Error';
 import Loading from 'components/Loading';
 import SiteAddForm from 'components/SiteAddForm';
 import { Form, Formik } from 'formik';
+import { NotificationContext } from 'providers/NotificationProvider';
 import { UserContext } from 'providers/UserProvider';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
@@ -23,12 +24,10 @@ const validationSchema = Yup.object({
 });
 
 const SiteAddPage = (props) => {
-	const {
-		setNotification
-	} = props;
-
 	const userCtx = useContext(UserContext);
+	const notify = useContext(NotificationContext).notify;
 	const history = useHistory();
+	
 	const [isSubmitted, setSubmitted] = useState(false);
 	const [error, setError] = useState(null);
 
@@ -40,11 +39,10 @@ const SiteAddPage = (props) => {
 		createSite({name: siteName}, userCtx.token)
 			.then(resp => {
 				if (resp.status === 200) {
-					setNotification({
-						open: true,
+					notify({
 						type: 'success',
 						message: `Successfully created ${siteName}.${urlSuffix}.`
-					}, false);
+					});
 					history.push('/admin/sites');
 				} else {
 					setError('An error occurred adding site.')

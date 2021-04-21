@@ -15,7 +15,7 @@ export const registerUser = async (data) => {
 }
 
 export const createSite = async (data, token) => {
-    return fetch(SITES_URL + '/' + data.name, {
+    return fetch(SITES_URL, {
         method: 'post',
         body: JSON.stringify(data),
         headers: {
@@ -28,6 +28,17 @@ export const createSite = async (data, token) => {
 export const getSites = async (token) => {
     return fetch(SITES_URL, {
         method: 'get',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+}
+
+export const deleteSite = async (data, token) => {
+    return fetch(SITES_URL + '/' + data.id, {
+        method: 'delete',
+        body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token

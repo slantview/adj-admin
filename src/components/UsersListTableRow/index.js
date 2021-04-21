@@ -6,6 +6,7 @@ import { Button, List, ListItem, Menu } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/PersonTwoTone';
 import { deleteUser, resetPassword, suspendUser } from "../../utils/api";
 import { UserContext } from '../../providers/UserProvider';
+import { NotificationContext } from "providers/NotificationProvider";
 
 const ListItemLink = (props) => {
     return <ListItem button component="a" {...props} />;
@@ -21,12 +22,13 @@ const UsersListTableRow = (props) => {
         admin,
         deleted_at,
 		suspended_at,
-		setNotification,
 		setLoading
     } = props;
 
-    const [anchorEl, setAnchorEl] = useState(false);
 	const userCtx = useContext(UserContext);
+	const notify = useContext(NotificationContext).notify;
+
+    const [anchorEl, setAnchorEl] = useState(null);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -35,38 +37,34 @@ const UsersListTableRow = (props) => {
 		setAnchorEl(null);
 	};
 	const handleEdit = () => {
-		setNotification({
-			open: true,
+		notify({
 			type: 'primary',
 			message: "TODO: Allow users to edit."
-		}, false);
+		});
 		handleClose();
 	};
 	const handlePasswordReset = () => {
 		resetPassword(id, userCtx.token)
 			.then(async (response) => {
 				if (response.ok) {
-					setNotification({
-						open: true,
+					notify({
 						type: 'success',
 						message: "Password reset sent for " + first_name + " " + last_name + " (ID: " + id + ")"
-					}, true);
+					});
 				} else {
 					const ret = await response.json()
-					setNotification({
-						open: true,
+					notify({
 						type: 'danger',
 						message: "Error sending password reset for " + first_name + " " + last_name + " (ID: " + id + "): " + ret.error
-					}, true);
+					});
 				}
 				
 			})
 			.catch((e) => {
-				setNotification({
-					open: true,
+				notify({
 					type: 'danger',
 					message: "Error sending password reset for " + first_name + " " + last_name + " (ID: " + id + "): " + e  
-				}, true);
+				});
 			});
 		handleClose();
 	};
@@ -74,18 +72,16 @@ const UsersListTableRow = (props) => {
 		setLoading(true);
 		suspendUser(id, userCtx.token)
 			.then(() => {
-				setNotification({
-					open: true,
+				notify({
 					type: 'success',
 					message: (suspended_at ? "Enabled" : "Disabled") + " user " + first_name + " " + last_name + " (ID: " + id + ")"
-				}, true);
+				});
 			})
 			.catch(e => {
-				setNotification({
-					open: true,
+				notify({
 					type: 'danger',
 					message: "Unable to " + (suspended_at ? "enable" : "disable") + " user " + first_name + " " + last_name + " (ID: " + id + "): " + e
-				}, false);
+				});
 			})
 		handleClose();
 	};
@@ -93,18 +89,16 @@ const UsersListTableRow = (props) => {
 		setLoading(true);
 		deleteUser(id, userCtx.token)
 		.then(() => {
-			setNotification({
-				open: true,
+			notify({
 				type: 'success',
 				message: "Deleted user " + first_name + " " + last_name + " (ID: " + id + ")"
-			}, true);
+			});
 		})
 		.catch(e => {
-			setNotification({
-				open: true,
+			notify({
 				type: 'danger',
 				message: "Unable to delete user " + first_name + " " + last_name + " (ID: " + id + "): " + e
-			}, false);
+			});
 		})
 		handleClose();
 	};
