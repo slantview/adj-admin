@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_ALL_EVENTS = gql`
     query {
-        events {
+        events(publicationState: PREVIEW) {
             id
             title
             slug
@@ -28,7 +28,13 @@ export const GET_ALL_EVENTS = gql`
                 id
                 formats
             }
-            tournaments {
+            tournaments(
+                where: {
+                    _or: [
+                        { published_at_null: true },
+                        { published_at_null: false }
+                    ]
+            }) {
                 id
                 Title
                 description
@@ -128,6 +134,42 @@ export const CREATE_TOURNAMENT = gql`
            tournament {
                id
            }
+        }
+    }
+`
+
+export const DELETE_EVENT = gql`
+    mutation DeleteEvent($id: ID!) {
+        deleteEvent(input: { where: { id: $id } }) {
+            event {
+                id
+                title
+            }
+        }
+    }
+`
+
+export const DELETE_TOURNAMENT = gql`
+    mutation DeleteTournament($id: Int!) {
+        deleteTournament(input: { where: { id: $id } }) {
+            tournament {
+                id
+                title
+            }
+        }
+    }
+`
+
+export const UPDATE_EVENT = gql`
+    mutation UpdateEvent($id: ID!, $data: editEventInput) {
+        updateEvent(input: { 
+            where: { id: $id },
+            data: $data
+        }) {
+            event {
+                id
+                title
+            }
         }
     }
 `

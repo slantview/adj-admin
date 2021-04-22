@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_ALL_SERIES = gql`
     query {
-        seriesItems {
+        seriesItems(publicationState: PREVIEW) {
             id
             title
             subtitle
@@ -10,7 +10,16 @@ export const GET_ALL_SERIES = gql`
             card {
                 formats
             }
-            events(sort: "starts_at:DESC", limit: 4, where: {published_at_null:false}) {
+            events(
+                sort: "starts_at:DESC", 
+                limit: 4,
+                where: {
+                    _or: [
+                        { published_at_null: true },
+                        { published_at_null: false }
+                    ]
+                }
+            ) {
                 id
                 title
                 slug
@@ -79,7 +88,6 @@ export const GET_ALL_SERIES = gql`
                 published_at
 
             }
-
             created_at
             updated_at
             published_at

@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_ALL_PLACES = gql`
     query {
-        places {
+        places(publicationState: PREVIEW) {
             id
             name
             description

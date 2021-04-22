@@ -1,7 +1,11 @@
+import { useMutation } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
+import _ from 'lodash';
 import moment from 'moment';
 import { NotificationContext } from 'providers/NotificationProvider';
+import { SiteContext } from 'providers/SiteProvider';
+import { UPDATE_EVENT, DELETE_EVENT } from 'queries/events';
 import React, { useContext, useState } from "react";
 import { Link } from 'react-router-dom';
 import EventCloneDialog from '../EventCloneDialog';
@@ -26,8 +30,15 @@ const EventsTableRow = (props) => {
     const isFuture = moment(starts_at).isAfter(moment());
 
     const notify = useContext(NotificationContext).notify;
+    const siteCtx = useContext(SiteContext);
+
+    const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
+    const timezone = site.metadata.timezone;
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [cloneConfirmModal, setCloneConfirmModal] = useState(false);
+    const [deleteEvent, eventDeleteData] = useMutation(DELETE_EVENT);
+    const [updateEvent, eventUpdateData] = useMutation(UPDATE_EVENT);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -46,7 +57,69 @@ const EventsTableRow = (props) => {
 		setCloneConfirmModal(true);
         handleClose()
     };
+
+    const handlePublish = () => {
+        updateEvent({ variables: { 
+                id: id, 
+                data: { 
+                    published_at: moment().tz(timezone.value).format() 
+                }
+            }})
+            .then(result => {
+                const updatedEvent = result.data.updateEvent.event;
+                notify({
+                    type: 'success',
+                    message: `Successfully published event: ${updatedEvent.title}.`
+                });
+                refreshSeries();
+            })
+            .catch(e => {
+                notify({
+                    type: 'danger',
+                    message: `Error publishing event: ${e.toString()}`
+                });
+            });
+    };
+
+    const handleUnpublish = () => {
+        updateEvent({ variables: {
+                id: id,
+                data: {
+                    published_at: null
+                }
+            }})
+            .then(result => {
+                const updatedEvent = result.data.updateEvent.event;
+                notify({
+                    type: 'success',
+                    message: `Successfully unpublished event: ${updatedEvent.title}.`
+                });
+                refreshSeries();
+            })
+            .catch(e => {
+                notify({
+                    type: 'danger',
+                    message: `Error deleting event: ${e.toString()}`
+                });
+            });
+    };
+
     const handleDelete = () => {
+        deleteEvent({ variables: { id: id }})
+            .then(result => {
+                const deletedEvent = result.data.deleteEvent.event;
+                notify({
+                    type: 'success',
+                    message: `Successfully deleted event: ${deletedEvent.title}.`
+                });
+                refreshSeries();
+            })
+            .catch(e => {
+                notify({
+                    type: 'danger',
+                    message: `Error deleting event: ${e.toString()}`
+                });
+            })
 		handleClose();
 	};
 
@@ -103,10 +176,16 @@ const EventsTableRow = (props) => {
                                     <ListItem onClick={handleClone} button className="text-left">
 										Clone
 									</ListItem>
+                                    <ListItem 
+                                        onClick={published_at === null ? handlePublish : handleUnpublish} 
+                                        button 
+                                        className="text-left">
+										    {published_at === null ? 'Publish' : 'Unpublish'}
+									</ListItem>
                                     <ListItem onClick={handleEdit} button className="text-left">
 										Edit
 									</ListItem>
-									<ListItem onClick={(e) => e.preventDefault() } button className="text-left">
+									<ListItem onClick={handleDelete} button className="text-left">
 										Delete
 									</ListItem>
 								</List>

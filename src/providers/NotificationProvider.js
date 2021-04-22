@@ -8,7 +8,7 @@ export const NotificationContext = createContext({
 class NotificationProvider extends Component {
     state = {
         open: false,
-        type: "primary",
+        type: "",
         message: ""
     };
 
