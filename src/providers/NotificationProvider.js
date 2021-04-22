@@ -23,7 +23,6 @@ class NotificationProvider extends Component {
     onClose = () => {
         this.setState({
             open: false,
-            type: "primary",
             message: ""
         });
     }
