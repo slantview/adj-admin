@@ -1,8 +1,8 @@
 import { NetworkStatus, useQuery } from '@apollo/client';
-import { Container } from '@material-ui/core';
-import SectionHeader from 'components/SectionHeader';
+import { Button, Grid, Snackbar } from '@material-ui/core';
+import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
 import { SiteContext } from 'providers/SiteProvider';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
 import { GET_ALL_SERIES } from '../../queries/series';
@@ -54,17 +54,20 @@ export default function SeriesListPage() {
 
 	return (
 		<>
-			<SectionHeader 
-				title="Event Series"
-				titleColor="text-white"
-				subtitle="See all series, events, and tournaments."
-				subtitleColor="text-white-50"
-                backgroundStyle='bg-beacons-gradient'
-				linkText="Add Series"
-				linkTo="/series/add"
-				linkIconName="plus"
-			/>
-			<Container className="mt-5">
+			<div>
+				<Grid container>
+					<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+						<h2>Events</h2>
+						<p>See all series, events, and tournaments.</p>
+					</Grid>
+					<Grid item xs={6} sm={6} md={6} lg={6} xl={6} className="text-right">
+						<Button component="a" onClick={() => refreshSeries() } size="small" className="btn-neutral-primary mr-2">
+							<span className="btn-wrapper--icon">
+								<RefreshTwoToneIcon fontSize="medium" />
+							</span>
+						</Button>
+					</Grid>
+				</Grid>
 				{ series.length === 0 &&
 					<AddNewSeriesCard />
 				}
@@ -77,7 +80,7 @@ export default function SeriesListPage() {
 						{...item}
 					/>
 				))}
-			</Container>
+			</div>
 		</>
 	);
 }

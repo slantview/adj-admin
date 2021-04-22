@@ -280,9 +280,7 @@ const Layout = ({ children }) => {
 				<div className="app-main">
 					<Header hidden={true} />
 					<div className="app-content">
-						<div className="app-content--inner">
 							<div className="app-content--inner__wrapper">{children}</div>
-						</div>
 					</div>
 				</div>
 			</div>

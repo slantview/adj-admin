@@ -11,7 +11,8 @@ import {
 	TextField,
 	Collapse,
     InputAdornment,
-    Snackbar
+    Snackbar,
+	Container
  } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
@@ -66,7 +67,7 @@ export default function SiteListPage() {
 	}, [allSites, sites, isLoading]);
 
 	return (
-		<>
+		<Container>
 			<div>
 				<h2>Sites</h2>
 				<p>List all sites.</p>
@@ -172,6 +173,6 @@ export default function SiteListPage() {
 					</div>
 				</CardContent>
 			</Card>
-		</>
+		</Container>
 	);
 }

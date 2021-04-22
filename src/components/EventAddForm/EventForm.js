@@ -92,7 +92,7 @@ const EventForm = (props) => {
 						</h5>
 						<p className="text-black-50 pb-0 mb-0">Add images for the event.</p>
 					</Grid>
-                    <Grid md={6} lg={6}> 
+                    <Grid item md={6} lg={6}> 
                         <ImageUpload 
                             name="logo"
                             title="Header Image" 

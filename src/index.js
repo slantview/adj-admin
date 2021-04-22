@@ -1,9 +1,12 @@
-import SiteAddPage from 'pages/Admin/SiteAddPage';
-import NotificationProvider from 'providers/NotificationProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
+import SiteAddPage from 'pages/Admin/SiteAddPage';
+import SeriesDetailPage from 'pages/SeriesDetailPage';
+import NotificationProvider from 'providers/NotificationProvider';
+
 import OrganizationAddForm from './components/OrganizationAddForm';
 import Layout from './containers/Layout';
 import AdminDashboard from './pages/Admin/AdminDashboard';
@@ -12,6 +15,7 @@ import SiteListPage from './pages/Admin/SiteListPage';
 import AdminUsersAddPage from './pages/Admin/UsersAddPage';
 import AdminUsersListPage from './pages/Admin/UsersListPage';
 import EventsAddPage from './pages/EventsAddPage';
+import EventsListPage from './pages/EventsListPage';
 import GamesAddPage from './pages/GamesAddPage';
 import GamesListPage from './pages/GamesListPage';
 import Homepage from './pages/Homepage';
@@ -47,10 +51,11 @@ ReactDOM.render(
 											<Homepage />
 										</Route>
 										{/* Series Pages */}
-										{/* <Route exact path="/series"><SeriesListPage /></Route>
-										<Route exact path="/series/add"><SeriesAddPage /></Route> */}
+										<Route exact path="/series/:seriesId"><SeriesDetailPage /></Route>
+										{/* <Route exact path="/series/add"><SeriesAddPage /></Route> */}
 										{/* Events Pages */}
 										<Route exact path="/events"><SeriesListPage /></Route>
+										<Route exact path="/events/list"><EventsListPage /></Route>
 										<Route exact path="/events/add"><EventsAddPage /></Route>
 										<Route exact path="/events/:seriesId/add"><EventsAddPage /></Route>
 										{/* <Route exact path="/events/template"><EventsTemplateListPage /></Route>
