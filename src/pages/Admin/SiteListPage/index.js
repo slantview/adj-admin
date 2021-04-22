@@ -21,10 +21,12 @@ import Loading from '../../../components/Loading';
 import { getSites } from '../../../utils/api';
 import { UserContext } from '../../../providers/UserProvider';
 import SiteListTableRow from '../../../components/SiteListTableRow';
+import { SiteContext } from 'providers/SiteProvider';
 
 export default function SiteListPage() {
     const userCtx = useContext(UserContext);
-
+	const siteCtx = useContext(SiteContext);
+	
 	const [isLoading, setLoading] = React.useState(true);
     const [entries, setEntries] = React.useState(10);
     const [search, setSearch] = React.useState(null);

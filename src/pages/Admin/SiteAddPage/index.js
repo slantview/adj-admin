@@ -4,6 +4,7 @@ import Loading from 'components/Loading';
 import SiteAddForm from 'components/SiteAddForm';
 import { Form, Formik } from 'formik';
 import { NotificationContext } from 'providers/NotificationProvider';
+import { SiteContext } from 'providers/SiteProvider';
 import { UserContext } from 'providers/UserProvider';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
@@ -25,6 +26,7 @@ const validationSchema = Yup.object({
 
 const SiteAddPage = (props) => {
 	const userCtx = useContext(UserContext);
+	const siteCtx = useContext(SiteContext);
 	const notify = useContext(NotificationContext).notify;
 	const history = useHistory();
 	
@@ -39,6 +41,7 @@ const SiteAddPage = (props) => {
 		createSite({name: siteName}, userCtx.token)
 			.then(resp => {
 				if (resp.status === 200) {
+					siteCtx.refetchSites();
 					notify({
 						type: 'success',
 						message: `Successfully created ${siteName}.${urlSuffix}.`

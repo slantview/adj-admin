@@ -9,7 +9,8 @@ export const SiteContext = createContext({
     setSite: null,
     user: null,
     onSiteChanged: null,
-    siteChangedCallbacks: []
+    siteChangedCallbacks: [],
+    refetchSites: null
 });
 
 class SiteProvider extends Component {
@@ -19,7 +20,8 @@ class SiteProvider extends Component {
         user: null,
         setSite: null,
         siteChangedCallbacks: new Array(),
-        onSiteChanged: null
+        onSiteChanged: null,
+        refetchSites: null
     };
 
     setSite = (id) => {
@@ -34,15 +36,9 @@ class SiteProvider extends Component {
         this.setState({
             siteChangedCallbacks: this.state.siteChangedCallbacks
         });
-        console.log('---- DONE ----')
     }
 
-    componentDidMount = async () => {
-        this.setState({
-            setSite: this.setSite,
-            onSiteChanged: this.onSiteChanged
-        });
-
+    refetchSites = () => {
         const auth = firebase.auth();
         auth.onAuthStateChanged(async user => {
             if (user === null) {
@@ -60,7 +56,7 @@ class SiteProvider extends Component {
                             sites[i] = site;
                         });
                         this.setState({
-                            selected: sites[0].id,
+                            selected: this.state.selected === null ? sites[0].id : this.state.selected,
                             sites: sites,
                         });
                     }
@@ -69,6 +65,16 @@ class SiteProvider extends Component {
                     console.error(e);
                 });
         });
+    }
+
+    componentDidMount = async () => {
+        this.setState({
+            setSite: this.setSite,
+            onSiteChanged: this.onSiteChanged,
+            refetchSites: this.refetchSites
+        });
+
+        this.refetchSites();
     };
 
     render() {

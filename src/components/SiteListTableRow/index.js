@@ -2,6 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
 import { NotificationContext } from 'providers/NotificationProvider';
+import { SiteContext } from 'providers/SiteProvider';
 import React, { useContext, useState } from "react";
 import { UserContext } from '../../providers/UserProvider';
 import { deleteSite } from "../../utils/api";
@@ -25,6 +26,7 @@ const SiteListTableRow = (props) => {
 
    
 	const userCtx = useContext(UserContext);
+    const siteCtx = useContext(SiteContext);
     const notify = useContext(NotificationContext).notify;
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -53,6 +55,7 @@ const SiteListTableRow = (props) => {
         deleteSite({id: id}, userCtx.token)
             .then(resp => {
                 if (resp.ok) {
+                    siteCtx.refetchSites();
                     notify({
                         type: 'success',
                         message: `Successfully deleted site '${name}'.`
