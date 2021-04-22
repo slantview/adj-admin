@@ -47,6 +47,10 @@ const SiteAddPage = (props) => {
 						message: `Successfully created ${siteName}.${urlSuffix}.`
 					});
 					history.push('/admin/sites');
+				} else if (resp.status === 409) {
+					setError('Site name already exists.')
+					actions.setSubmitting(false);
+					actions.resetForm();
 				} else {
 					setError('An error occurred adding site.')
 				}
