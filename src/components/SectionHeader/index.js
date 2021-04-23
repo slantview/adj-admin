@@ -41,7 +41,7 @@ const SectionHeader = (props) => {
 									<Breadcrumbs separator="›" className="text-white text-uppercase">
 										{ breadcrumbs.map(b => 
 											{ return b.to === null ? (
-												<span>{b.title}</span>
+												<span key="page">{b.title}</span>
 											):(
 												<RouterLink key={b.to} to={b.to} className="text-white-50">
 													{b.title}

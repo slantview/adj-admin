@@ -9,7 +9,6 @@ export default function ContentDashboardPage() {
             <SectionHeader 
 				title="Dashboard"
 				titleColor="text-white"
-				subtitle="Manage users and groups."
 				subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
 				breadcrumbs={[
@@ -17,8 +16,6 @@ export default function ContentDashboardPage() {
                 ]}
 			/>
 			<Container className="mt-5">
-                <h1>Dashboard</h1>
-                <p>This is where we dashboard at</p>
                 <BlogList />
             </Container>
         </>

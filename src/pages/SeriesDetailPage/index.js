@@ -17,7 +17,7 @@ const SeriesDetailPage = (props) => {
     const { loading, error, data, refetch, networkStatus } = useQuery(
 		GET_SERIES, 
 		{ 
-            variables: { id: seriesId, limit: entries },
+            variables: { id: seriesId, limit: 9999 },
 			notifyOnNetworkStatusChange: true 
 		});
    const [seriesData, setSeriesData] = useState(null);

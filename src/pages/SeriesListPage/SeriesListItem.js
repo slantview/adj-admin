@@ -1,23 +1,51 @@
 import { Button, Card, CardContent, CardMedia, Grid } from '@material-ui/core';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import moment from 'moment-timezone';
+import { SiteContext } from 'providers/SiteProvider';
+import _ from 'lodash';
 
 function SeriesListItem(props) {
 	const { 
 		id, 
 		title,
 		subtitle,
-		header
+		header,
+		events
 	} = props;
 
 	const history = useHistory();
+	const siteCtx = useContext(SiteContext);
+    const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
+    const timezone = site.metadata.timezone.value;
 	
 	const handleClick = () => {
 		history.push('/series/' + id);
 	};
+
+	const today = moment().tz(timezone);
+	let nextEvent = null;
+	const previousEvents = [];
+	const upcomingEvents = events.map(e => {
+		const eventTime = moment(e.starts_at).tz(timezone);
+		if (eventTime.isAfter(today)) {
+			if (nextEvent === null) {
+				nextEvent = eventTime;
+			} else if (nextEvent.isAfter(eventTime)) {
+				nextEvent = eventTime;
+			}
+			return e;
+		}
+		if (e.published_at !== null) {
+			previousEvents.push(e);
+		}
+	});
+
+	// @ts-ignore
+	const nextEventFormatted = nextEvent !== null ? nextEvent.format("MMMM Do, YYYY") : "No Upcoming Events";
 	
     return (
-        <Card className="mb-5" raised={true} onClick={handleClick}>
+        <Card className="mb-5" raised={true} onClick={handleClick} square={true}>
 			<CardMedia
 				image={header.formats.large.url}
 				title={title}>
@@ -44,12 +72,16 @@ function SeriesListItem(props) {
 							</Grid>
 							<Grid container alignItems="flex-end">
 								<Grid item sm={12} lg={12}>
-									<span className="text-uppercase font-weight-bold text-white">Next Event: </span>
-									<span className="text-white-50">April 24th, 2021</span>
-									<span className="text-uppercase font-weight-bold text-white ml-3">Upcoming Events: </span>
-									<span className="text-white-50">4</span>
-									<span className="text-uppercase font-weight-bold text-white ml-3">Completed Events: </span>
-									<span className="text-white-50">69420</span>
+									<div className="mb-2">
+										<span className="font-size-lg font-weight-bold text-uppercase text-white-50 ml-2">Next Event: </span>
+										<span className="font-size-xl text-white font-weight-bold ml-1">{nextEventFormatted}</span>
+									</div>
+									<div>
+										<span className="font-size-md text-uppercase text-white-50 ml-2">Upcoming: </span>
+										<span className="text-white font-weight-bold ">{upcomingEvents.length}</span>
+										<span className="font-size-md text-uppercase text-white-50 ml-5">Completed: </span>
+										<span className="text-white font-weight-bold">{previousEvents.length}</span>
+									</div>
 								</Grid>
 								
 							</Grid>

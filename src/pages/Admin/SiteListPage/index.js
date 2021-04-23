@@ -70,13 +70,13 @@ export default function SiteListPage() {
 	return (
 		<>
 			<SectionHeader 
-				title="Organizations"
+				title="Sites"
 				titleColor="text-white"
-				subtitle="List all organizations."
+				subtitle="List all sites."
 				subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
-				linkText="New Org"
-				linkTo="/admin/organizations/add"
+				linkText="Add Site"
+				linkTo="/admin/sites/add"
 				linkIconName="plus"
 				breadcrumbs={[
                     { title: "Home", to: "/" },

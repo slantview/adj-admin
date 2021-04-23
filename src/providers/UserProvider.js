@@ -26,6 +26,7 @@ class UserProvider extends Component {
 
     componentDidMount = () => {
         const auth = firebase.auth();
+
         auth.onAuthStateChanged(async userAuth => {
             if (userAuth === null) {
                 return;
@@ -46,6 +47,20 @@ class UserProvider extends Component {
                 });
             }
         });
+
+        auth.onIdTokenChanged(async userAuth => {
+            if (userAuth) {
+                const token = await userAuth.getIdToken();
+                const { claims, expirationTime } = await userAuth.getIdTokenResult();
+                this.setState({
+                    user: userAuth, 
+                    token: token, 
+                    admin: claims ? claims.admin : false,
+                    expires: moment(expirationTime).unix()
+                });
+            }
+        });
+
         this.setState({logout: this.logout});
     };
 

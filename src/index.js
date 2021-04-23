@@ -48,7 +48,7 @@ ReactDOM.render(
 								<BackendProvider>
 									<Layout>
 										<Route exact path="/">
-											<Homepage />
+											<Redirect to="/events" />
 										</Route>
 										{/* Series Pages */}
 										<Route exact path="/series/:seriesId"><SeriesDetailPage /></Route>
@@ -89,7 +89,7 @@ ReactDOM.render(
 								</BackendProvider>
 							</Route>
 							<Redirect path="/logout" to="/login" />
-							<Redirect to="/" />
+							<Redirect to="/events" />
 						</Switch>
 					</NotificationProvider>
 				</Provider>

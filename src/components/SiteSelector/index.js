@@ -1,21 +1,29 @@
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import _ from 'lodash';
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import defaultLogo from '../../assets/images/logo.png';
 import { SiteContext } from '../../providers/SiteProvider';
 
 
 const SiteSelector = () => {
     const siteContext = useContext(SiteContext);
+    const history = useHistory();
     const [logo, setLogo] = useState(defaultLogo);
 	const [anchorEl, setAnchorEl] = useState(null);
     const currentSite = _.first(siteContext.sites.filter(site => site.id === siteContext.selected));
 	const selectedSite = currentSite ? currentSite : { domain: "" };
+    const selectorDisabled = siteContext.sites.length === 1;
+
     const handleClick = (event) => {
+        if (selectorDisabled) {
+            return event.preventDefault();
+        }
         setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
         setAnchorEl(null);
+
 	};
   
     const handleChange = (siteId) => {
@@ -23,7 +31,8 @@ const SiteSelector = () => {
         const headerLogo = selectedSite && selectedSite.metadata ? selectedSite.metadata.logo.formats.thumbnail.url : defaultLogo;
         setLogo(headerLogo);
         siteContext.setSite(selectedSite.id);
-        handleClose()
+        handleClose();
+        history.push('/');
     };
 
     return (
@@ -73,12 +82,21 @@ const SiteSelector = () => {
                     </a>
                 </div>
                 <div className="mt-2">
-                    <Button
-                        onClick={handleClick} 
-                        className="border-0 btn-neutral-primary text-hover-white text-white-50 px-3"
-                        disableRipple>
-                            {selectedSite.domain}
-                    </Button>
+                    { selectorDisabled ? (
+                        <span className="text-uppercase border-0 bg-primary opacity-4 text-hover-white text-white px-4">
+                                {selectedSite.domain}
+                        </span>
+                    ) : (
+                        <Button
+                            onClick={handleClick} 
+                            className="border-0 btn-neutral-primary text-hover-white text-white-50 px-3"
+                            disableRipple>
+                                {selectedSite.domain}
+                        </Button>
+                    )
+
+                    }
+                    
                 </div>
         </div>
         

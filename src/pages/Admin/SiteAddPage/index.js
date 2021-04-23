@@ -1,6 +1,7 @@
-import { Button, ButtonGroup, Card, CardActions, CardContent } from '@material-ui/core';
+import { Button, ButtonGroup, Card, CardActions, CardContent, Container } from '@material-ui/core';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import SectionHeader from 'components/SectionHeader';
 import SiteAddForm from 'components/SiteAddForm';
 import { Form, Formik } from 'formik';
 import { NotificationContext } from 'providers/NotificationProvider';
@@ -62,49 +63,62 @@ const SiteAddPage = (props) => {
 	}
 
     return (
-		<Formik
-			initialValues={initialData}
-			validationSchema={validationSchema}
-			onSubmit={handleSubmit}>
-				{(FormProps) => (
-					<Form id="organization-add-form"> 
-						<Card className="card-box mb-spacing-6-x2">
-							<div className="card-header">
-								<div className="card-header--title">
-									<small className="d-block text-uppercase mt-1">Site</small>
-									<b>Add New Site</b>
-								</div>
-							</div>
-							<CardContent className="px-0 pt-2 pb-3">
-								{ error &&
-									<Error message={error} />
-								}
-								{ (FormProps.isSubmitting || isSubmitted) && !error ? (
-									<div className="text-center m-5">
-										<Loading center={true} />
-										<h3 className="mt-3">Creating site {FormProps.values.siteUrl}{urlSuffix}...</h3>
+		<>
+			<SectionHeader 
+				title="Add New Site"
+				titleColor="text-white"
+				backgroundStyle='bg-beacons-gradient'
+				breadcrumbs={[
+					{ title: "Home", to: "/" },
+					{ title: "Admin Dashboard", to: "/admin/dashboard" },
+				]}
+			/>
+			<Container className="mt-5">
+				<Formik
+					initialValues={initialData}
+					validationSchema={validationSchema}
+					onSubmit={handleSubmit}>
+						{(FormProps) => (
+							<Form id="organization-add-form"> 
+								<Card className="card-box mb-spacing-6-x2">
+									<div className="card-header">
+										<div className="card-header--title">
+											<small className="d-block text-uppercase mt-1">Site</small>
+											<b>Add New Site</b>
+										</div>
 									</div>
-								) : (
-									<div>
-										<SiteAddForm {...FormProps} />
-									</div>
-								)}
-							</CardContent>
-							<CardActions className="px-4 py-2 mb-2">
-								{ !FormProps.isSubmitting &&
-									<Button
-										name="submit"
-										type="submit"
-										disabled={FormProps.isSubmitting}
-										className="btn btn-primary font-weight-bold">
-											Create Site
-									</Button>
-								}
-							</CardActions>
-						</Card>
-					</Form>
-					)}
-			</Formik>
+									<CardContent className="px-0 pt-2 pb-3">
+										{ error &&
+											<Error message={error} />
+										}
+										{ (FormProps.isSubmitting || isSubmitted) && !error ? (
+											<div className="text-center m-5">
+												<Loading center={true} />
+												<h3 className="mt-3">Creating site {FormProps.values.siteUrl}{urlSuffix}...</h3>
+											</div>
+										) : (
+											<div>
+												<SiteAddForm {...FormProps} />
+											</div>
+										)}
+									</CardContent>
+									<CardActions className="px-4 py-2 mb-2">
+										{ !FormProps.isSubmitting &&
+											<Button
+												name="submit"
+												type="submit"
+												disabled={FormProps.isSubmitting}
+												className="btn btn-primary font-weight-bold">
+													Create Site
+											</Button>
+										}
+									</CardActions>
+								</Card>
+							</Form>
+						)}
+				</Formik>
+			</Container>
+		</>
     )
 }
 
