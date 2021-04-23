@@ -11,7 +11,9 @@ const SiteSelector = () => {
     const siteContext = useContext(SiteContext);
     const [logo, setLogo] = useState(defaultLogo);
 	const [anchorEl, setAnchorEl] = useState(null);
-	const handleClick = (event) => {
+    const currentSite = _.first(siteContext.sites.filter(site => site.id === siteContext.selected));
+	const selectedSite = currentSite ? currentSite : { domain: "" };
+    const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
@@ -26,24 +28,15 @@ const SiteSelector = () => {
         handleClose()
     };
 
+    
+
     return (
-        <div className="pl-3 pr-2 w-100">
+        <div className="px-3 w-100">
                 <div className="text-center w-100">
                     <a title="Select Site">
                         <img alt="Select Site" src={logo} height={50} />
+                        
                         <span>
-                            <Button
-                                variant="text"
-                                onClick={handleClick} 
-                                className="ml-2 p-0 d-30 border-0 btn-transition-none text-white-50"
-                                disableRipple
-                                style={{position:"absolute", right: 10, top: 20}}
-                                >
-                                <FontAwesomeIcon
-                                    icon={['fas', 'ellipsis-h']}
-                                    className="font-size-lg"
-                                />
-                            </Button>
                             <Menu
                                 anchorEl={anchorEl}
                                 keepMounted
@@ -51,11 +44,11 @@ const SiteSelector = () => {
                                 getContentAnchorEl={null}
                                 anchorOrigin={{
                                     vertical: 'bottom',
-                                    horizontal: -16
+                                    horizontal: 'center'
                                 }}
                                 transformOrigin={{
                                     vertical: 'top',
-                                    horizontal: 'right'
+                                    horizontal: 'center'
                                 }}
                                 open={Boolean(anchorEl)}
                                 classes={{ list: 'p-0' }}
@@ -84,34 +77,14 @@ const SiteSelector = () => {
                         </div>
                     </a>
                 </div>
-           
-            {/* <Collapse in={open}>
-                <div className="dropdown-menu-lg overflow-hidden p-0">
-                    <ul
-                        component="div"
-                        className="nav-neutral-primary text-left d-flex align-items-center flex-column">
-                        { siteContext.sites.map(site => (
-                            <li><a onClick={() => handleChange(site.id)} dense={true} className="font-size-sm" >{site.domain}</a></li>
-                        ))}
-                    </ul>
+                <div className="mt-2">
+                    <Button
+                        onClick={handleClick} 
+                        className="border-0 btn-neutral-primary text-white-50"
+                        disableRipple>
+                            {selectedSite.domain}
+                    </Button>
                 </div>
-            </Collapse>  */}
-            {/* 
-                <Select
-                    name="site"
-                    fullWidth
-                    autoFocus
-                    inputProps={{ autoFocus: true }}
-                    value={siteContext.selected}
-                    onChange={handleChange}
-                    onBlur={() => setOpen(false) }
-                    variant="filled">
-                        { siteContext.sites.map(site => (
-                            <MenuItem dense={true} className="font-size-sm" value={site.id}>{site.domain}</MenuItem>
-                        ))}
-                        
-                </Select>
-            */}
         </div>
         
     )

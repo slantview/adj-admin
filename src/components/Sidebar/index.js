@@ -48,18 +48,11 @@ const Sidebar = (props) => {
     }
 
     return (
-        <div className="app-sidebar app-sidebar--dark app-sidebar--shadow">
-            {/* <SidebarHeader /> */}
+        <div className="app-sidebar app-sidebar--dark">
             <div className="app-sidebar--content">
-                <div className="sidebar-header">
-                    <div className="text-center py-3">
-                        <SiteSelector />
-                    </div>
-                    <div className="divider opacity-5" />
-                    
-                    <Userbox />
+                <div className="text-center py-3">
+                    <SiteSelector />
                 </div>
-
                 <div className="sidebar-navigation nav-alt">
                     <div className="sidebar-header opacity-5">
                         <span>Content Admin</span>
@@ -221,6 +214,10 @@ const Sidebar = (props) => {
                         </div>
                     }
                 </div>
+            </div>
+            <div className="sidebar-footer">
+                <div className="divider opacity-5" />
+                <Userbox />
             </div>
         </div>
     );
