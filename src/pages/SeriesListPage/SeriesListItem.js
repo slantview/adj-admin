@@ -23,17 +23,18 @@ function SeriesListItem(props) {
 				title={title}>
 					<div className="py-0 bg-beacons-black-to-transparent w-100">
 						<CardContent className="">	
-							<Grid container spacing={0} alignItems="flex-start" className="mb-4">
+							<Grid container spacing={0} alignItems="flex-start" className="mb-4" style={{minHeight: "200px"}}>
 								<Grid item sm={9} lg={9}>
-									<h1 className="text-white text-shadow font-weight-bold text-uppercase">{title}</h1>
+									<h2 className="text-white text-shadow font-weight-bold text-uppercase">{title}</h2>
 									<h3 className="text-white-50 font-size-lg font-weight-bold ">{subtitle}</h3>
 								</Grid>
 								<Grid item sm={3} lg={3}>
 									<Grid alignItems="center">
-										<div className="mt-5 text-right">
+										<div className=" text-right">
 											<Button
-												className="btn btn-rounded btn-neutral-second text-white text-uppercase font-weight-bold">
-												Manage Series
+												size="large"
+												className="p-3 btn btn-rounded btn-neutral-second text-white text-uppercase font-weight-bold">
+													Manage Series
 											</Button>
 										</div>
 									</Grid>

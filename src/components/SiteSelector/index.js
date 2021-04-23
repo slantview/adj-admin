@@ -1,11 +1,9 @@
-import { Menu, Divider, Collapse, List, ListItem, MenuItem } from '@material-ui/core';
-import React, { useContext, useState } from 'react';
-import { SiteContext } from '../../providers/SiteProvider';
-import { Button } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Menu, MenuItem } from '@material-ui/core';
 import _ from 'lodash';
-
+import React, { useContext, useState } from 'react';
 import defaultLogo from '../../assets/images/logo.png';
+import { SiteContext } from '../../providers/SiteProvider';
+
 
 const SiteSelector = () => {
     const siteContext = useContext(SiteContext);
@@ -28,14 +26,11 @@ const SiteSelector = () => {
         handleClose()
     };
 
-    
-
     return (
         <div className="px-3 w-100">
                 <div className="text-center w-100">
                     <a title="Select Site">
                         <img alt="Select Site" src={logo} height={50} />
-                        
                         <span>
                             <Menu
                                 anchorEl={anchorEl}
@@ -80,7 +75,7 @@ const SiteSelector = () => {
                 <div className="mt-2">
                     <Button
                         onClick={handleClick} 
-                        className="border-0 btn-neutral-primary text-white-50"
+                        className="border-0 btn-neutral-primary text-hover-white text-white-50 px-3"
                         disableRipple>
                             {selectedSite.domain}
                     </Button>

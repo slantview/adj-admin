@@ -19,6 +19,7 @@ const Userbox = () => {
 
 	const handleClick = (event) => {
 		setOpen(!open);
+		event.preventDefault();
 	};
 	const handleClose = () => {
 		setOpen(false);
@@ -27,6 +28,7 @@ const Userbox = () => {
 	const logout = () => {
 		auth.signOut()
 			.then(() => {
+				// @ts-ignore
 				userCtx.logout();
 				history.push('/login', { from: window.location.pathname });
 			})
@@ -62,6 +64,7 @@ const Userbox = () => {
 									{ userCtx.admin && <div className="badge badge-success font-weight-bold border-0">Admin</div> }
 								</div>
 							</div>
+
 							<Divider className="w-100" />
 							
 							<div className="d-flex py-1 justify-content-center">
@@ -85,29 +88,29 @@ const Userbox = () => {
 					</Menu>
 				</Card>
 			</Grid>
-			<div className="app-sidebar--userbox m-0" ref={menuRef}>
+			<div className="app-sidebar--userbox m-0 pb-4" ref={menuRef}>
 				<Grid container>
 					<Grid item xs={4} sm={4} md={4} lg={4} xl={4} >
-						<div className="avatar-icon-lg" >
+						<div className="avatar-icon-lg ml-2" >
 							<div className="avatar-icon rounded-circle">
-								<a onClick={handleClick}>
+								<Link onClick={handleClick} to="" className="text-white font-weight-bold">
 									{ userCtx.user.photoURL ? (
 										<img alt={userCtx.user.displayName} src={userCtx.user.photoURL} />
 									) : (
 										<PersonIcon color="primary" fontSize="large" />
 									)}
-								</a>
+								</Link>
 							</div>
 						</div>
 					</Grid>
 					<Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
 						<div className="my-1 userbox-details" ref={menuRef}>
-							<a onClick={handleClick}>
+							<Link onClick={handleClick} to="" className="text-white font-weight-bold">
 								<span className="font-weight-bold text-left">{userCtx.user.displayName}</span>
 								<small className="d-block text-white-50">
 									{userCtx.user.email}
 								</small>
-							</a>
+							</Link>
 						</div>
 					</Grid>
 				</Grid>

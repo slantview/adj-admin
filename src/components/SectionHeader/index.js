@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Breadcrumbs, Button, CardMedia, Grid, Paper } from '@material-ui/core';
+import { Breadcrumbs, Button, CardMedia, Grid, Paper, Link } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+
+import headerBackground from 'assets/images/header-bg.jpg';
 
 const SectionHeader = (props) => {
 	const {
@@ -22,28 +24,35 @@ const SectionHeader = (props) => {
 
 	const showLink = (linkText || linkIconName) && (linkOnClick || linkTo); 
 	const realMinHeight = minHeight ? minHeight : "15vh";
+	const bgImage = backgroundImage ? backgroundImage : headerBackground;
 
 	return (
 		<>
-			<Paper square={true} elevation={1}>
+			<Paper square={true} elevation={2}>
 				<CardMedia
 					style={{minHeight: realMinHeight}}
-					image={backgroundImage}
+					image={bgImage}
 					title={title}
 				>
-					{ breadcrumbs &&
-						<Breadcrumbs>
-							{ breadcrumbs.map(b => {
-								<Link to={b.to}>
-									{b.title}
-								</Link>
-							})}
-						</Breadcrumbs>
-					}
-					<div className={clsx("p-5", backgroundStyle)} style={{minHeight: realMinHeight}}>
+					<div className={clsx("pb-5 pt-3 pl-4", backgroundStyle)} style={{minHeight: realMinHeight}}>
 						<Grid container>
+							<Grid item sm={12} lg={12}>
+								{ breadcrumbs && breadcrumbs.length > 0 &&
+									<Breadcrumbs separator="›" className="text-white text-uppercase">
+										{ breadcrumbs.map(b => 
+											{ return b.to === null ? (
+												<span>{b.title}</span>
+											):(
+												<RouterLink key={b.to} to={b.to} className="text-white-50">
+													{b.title}
+												</RouterLink>
+											)})
+										}
+									</Breadcrumbs>
+								}
+							</Grid>
 							<Grid item sm={12} lg={10}>
-								<div className="app-page-title--heading">
+								<div className="app-page-title--heading mt-4">
 									<h1 className={clsx(
 										"font-size-xxxl", 
 										"font-weight-bold", 
@@ -52,7 +61,7 @@ const SectionHeader = (props) => {
 										{title}
 									</h1>
 									{ subtitle && (
-										<h3 className={clsx("font-size-md", subtitleColor)}>
+										<h3 className={clsx("font-size-lg", subtitleColor)}>
 											{subtitle}
 										</h3>
 									)}
@@ -62,11 +71,11 @@ const SectionHeader = (props) => {
 								{ showLink &&
 									<div className="text-center">
 										<Button
-											component={Link}
+											component={RouterLink}
 											to={linkTo ? linkTo : ''}
 											variant="contained"
 											size="small"
-											className="p-2 px-3 btn btn-primary"
+											className="p-2 px-3 mr-0 btn btn-primary font-weight-bold"
 											onClick={linkOnClick ? linkOnClick : null}>
 												<span className="btn-wrapper--icon mr-2">
 													<FontAwesomeIcon icon={['fas', linkIconName]} className="opacity-8" />

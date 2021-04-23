@@ -36,14 +36,6 @@ function EventAddForm(props) {
     return (
         <div className="text-white px-0 px-lg-2 px-xl-4">
 			<Card className="card-box">
-				<div className="card-header">
-					<div className="card-header--title">
-					    <small>Create Event</small>
-					</div>
-					<div className="card-header--actions">
-                        {/* Actions */}
-					</div>
-				</div>
 				<div>
 					<div className="bg-secondary mb-3">
                         {/* Header */}

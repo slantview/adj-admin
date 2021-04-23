@@ -11,7 +11,8 @@ import {
 	TextField,
 	Collapse,
     InputAdornment,
-    Snackbar
+    Snackbar,
+	Container
  } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
@@ -22,6 +23,7 @@ import { getOrganizations } from '../../../utils/api';
 import { UserContext } from '../../../providers/UserProvider';
 import OrganizationListTableRow from '../../../components/OrganizationListTableRow';
 import { useHistory } from 'react-router-dom';
+import SectionHeader from 'components/SectionHeader';
 
 export default function OrganizationListPage() {
     const userCtx = useContext(UserContext);
@@ -76,111 +78,123 @@ export default function OrganizationListPage() {
 
 	return (
 		<>
-			<div>
-				<h2>Organizations</h2>
-				<p>List all organizations.</p>
-			</div>
-			<Card className="card-box mb-spacing-6-x2">
-				<div className="card-header">
-					<div className="card-header--title">
-						<div className="search-wrapper">
-							<TextField
-								variant="outlined"
-								size="small"
-								id="input-search"
-								onChange={handleSearchChange}
-								InputProps={{
-									startAdornment: (
-										<InputAdornment position="start">
-											<SearchTwoToneIcon />
-										</InputAdornment>
-									)
-								}}
-							/>
+			<SectionHeader 
+				title="Organizations"
+				titleColor="text-white"
+				subtitle="List all organizations."
+				subtitleColor="text-white-50"
+                backgroundStyle='bg-beacons-gradient'
+				linkText="New Org"
+				linkTo="/admin/organizations/add"
+				linkIconName="plus"
+				breadcrumbs={[
+                    { title: "Home", to: "/" },
+                    { title: "Admin Dashboard", to: "/admin/dashboard" },
+                ]}
+			/>
+			<Container className="mt-5">
+				<Card className="card-box mb-spacing-6-x2">
+					<div className="card-header">
+						<div className="card-header--title">
+							<div className="search-wrapper">
+								<TextField
+									variant="outlined"
+									size="small"
+									id="input-search"
+									onChange={handleSearchChange}
+									InputProps={{
+										startAdornment: (
+											<InputAdornment position="start">
+												<SearchTwoToneIcon />
+											</InputAdornment>
+										)
+									}}
+								/>
+							</div>
 						</div>
-					</div>
 
-					<div className="card-header--actions">
-						<div>
-							<Button component="a" onClick={() => setLoading(true)} size="small" className="btn-neutral-primary mr-2">
-								<span className="btn-wrapper--icon">
-									<RefreshTwoToneIcon fontSize="small" />
-								</span>
-							</Button>
-							<Button to="/admin/organizations/add" component={Link} size="small" className="btn-neutral-primary">
-								<span className="btn-wrapper--icon">
-									<FontAwesomeIcon icon={['fas', 'plus-circle']} />
-								</span>
-								<span className="btn-wrapper--label">Add Organization</span>
-							</Button>
+						<div className="card-header--actions">
+							<div>
+								<Button component="a" onClick={() => setLoading(true)} size="small" className="btn-neutral-primary mr-2">
+									<span className="btn-wrapper--icon">
+										<RefreshTwoToneIcon fontSize="small" />
+									</span>
+								</Button>
+								<Button to="/admin/organizations/add" component={Link} size="small" className="btn-neutral-primary">
+									<span className="btn-wrapper--icon">
+										<FontAwesomeIcon icon={['fas', 'plus-circle']} />
+									</span>
+									<span className="btn-wrapper--label">Add Organization</span>
+								</Button>
+							</div>
 						</div>
 					</div>
-				</div>
-				<CardContent className="px-0 pt-2 pb-3">
-					<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
-						<thead>
-							<tr>
-								<th>Organization</th>
-                                <th>ID</th>
-                                <th className="text-center">Status</th>
-								<th className="text-right">Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							{ isLoading && 
+					<CardContent className="px-0 pt-2 pb-3">
+						<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
+							<thead>
 								<tr>
-									<td colSpan={5}>
-										<div className="text-center my-3">
-											<Loading centerInPage={false} center={true} />
-										</div> 
-									</td>
+									<th>Organization</th>
+									<th>ID</th>
+									<th className="text-center">Status</th>
+									<th className="text-right">Actions</th>
 								</tr>
-                            }
-							{ !isLoading && organizations.length > 0 && organizations.slice((page-1)*entries, ((page-1)*entries)+entries).map(org => (
-								<OrganizationListTableRow 
-									key={org.id} 
-									setLoading={setLoading}
-									{...org} />
-							))}
-						</tbody>
-					</Table>
-					<div className="card-footer py-3 d-flex justify-content-between">
-						<Collapse in={organizations.length > entries}>
-							<Pagination
-								className="pagination-second"
-								variant="outlined"
-								page={page}
-								onChange={handlePageChange}
-								count={ Math.round((organizations.length/entries)) + (organizations.length%entries === 0 ? 0 : 1)}
-							/>
-						</Collapse>
-						<div className="d-flex align-items-center">
-							<span>Show</span>
-							<FormControl size="small" variant="outlined" className="mx-3">
-								<Select
-									labelId="select-entries-label"
-									id="select-entries"
-									value={entries}
-									onChange={handleEntriesChange}>
-									<MenuItem className="mx-2" value={1}>
-										All
-									</MenuItem>
-									<MenuItem className="mx-2" value={5}>
-										5
-									</MenuItem>
-									<MenuItem className="mx-2" value={10}>
-										10
-									</MenuItem>
-									<MenuItem className="mx-2" value={20}>
-										20
-									</MenuItem>
-								</Select>
-							</FormControl>
-							<span>entries</span>
+							</thead>
+							<tbody>
+								{ isLoading && 
+									<tr>
+										<td colSpan={5}>
+											<div className="text-center my-3">
+												<Loading centerInPage={false} center={true} />
+											</div> 
+										</td>
+									</tr>
+								}
+								{ !isLoading && organizations.length > 0 && organizations.slice((page-1)*entries, ((page-1)*entries)+entries).map(org => (
+									<OrganizationListTableRow 
+										key={org.id} 
+										setLoading={setLoading}
+										{...org} />
+								))}
+							</tbody>
+						</Table>
+						<div className="card-footer py-3 d-flex justify-content-between">
+							<Collapse in={organizations.length > entries}>
+								<Pagination
+									className="pagination-second"
+									variant="outlined"
+									page={page}
+									onChange={handlePageChange}
+									count={ Math.round((organizations.length/entries)) + (organizations.length%entries === 0 ? 0 : 1)}
+								/>
+							</Collapse>
+							<div className="d-flex align-items-center">
+								<span>Show</span>
+								<FormControl size="small" variant="outlined" className="mx-3">
+									<Select
+										labelId="select-entries-label"
+										id="select-entries"
+										value={entries}
+										onChange={handleEntriesChange}>
+										<MenuItem className="mx-2" value={1}>
+											All
+										</MenuItem>
+										<MenuItem className="mx-2" value={5}>
+											5
+										</MenuItem>
+										<MenuItem className="mx-2" value={10}>
+											10
+										</MenuItem>
+										<MenuItem className="mx-2" value={20}>
+											20
+										</MenuItem>
+									</Select>
+								</FormControl>
+								<span>entries</span>
+							</div>
 						</div>
-					</div>
-				</CardContent>
-			</Card>
+					</CardContent>
+				</Card>
+			</Container>
 		</>
 	);
 }

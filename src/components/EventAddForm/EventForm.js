@@ -17,12 +17,6 @@ const EventForm = (props) => {
     return (
         <Container>
             <div className="p-4">
-                <h5 className="font-size-xl mb-1 font-weight-bold">
-                    New Event
-                </h5>
-                <p className="text-black-50 mb-4">
-                    Description of form.
-                </p>
                 <Grid container spacing={4}>
                     <Grid item md={12} lg={12} className="mt-2">
                         <Grid container spacing={3}>

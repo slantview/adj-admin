@@ -99,6 +99,10 @@ export default function GamesListPage() {
 				linkText="Add Game"
 				linkTo="/games/add"
 				linkIconName="plus"
+				breadcrumbs={[
+                    { title: "Home", to: "/" },
+                    { title: "Games" }
+                ]}
 			/>
 			<Container className="mt-5">
 				<Card className="card-box mb-spacing-6-x2">

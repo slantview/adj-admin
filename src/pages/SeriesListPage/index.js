@@ -63,6 +63,10 @@ export default function SeriesListPage() {
 				linkText="Add Series"
 				linkTo="/series/add"
 				linkIconName="plus"
+				breadcrumbs={[
+                    { title: "Home", to: "/" },
+                    { title: "Events" },
+                ]}
 			/>
 			<Container className="mt-5">
 				{ series.length === 0 &&

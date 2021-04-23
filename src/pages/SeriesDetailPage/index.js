@@ -67,7 +67,8 @@ const SeriesDetailPage = (props) => {
                 linkTo={"/events/" + seriesId + "/add"}
                 linkIconName="plus"
                 breadcrumbs={[
-                    { title: 'Events', to: '/events' }
+                    { title: "Home", to: "/" },
+                    { title: "Events Series", to: "/events" }
                 ]}
                 minHeight="25vh"
             />

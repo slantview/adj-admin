@@ -99,6 +99,10 @@ export default function PlacesListPage() {
 				linkText="Add Venue"
 				linkTo="/venues/add"
 				linkIconName="plus"
+				breadcrumbs={[
+                    { title: "Home", to: "/" },
+                    { title: "Venues" }
+                ]}
 			/>
 			<Container className="mt-5">
 				<Card className="card-box mb-spacing-6-x2">
