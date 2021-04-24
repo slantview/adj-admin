@@ -1,27 +1,45 @@
 import { useQuery } from '@apollo/client';
-import { Container } from '@material-ui/core';
+import { Button, Container, Grid } from '@material-ui/core';
+import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 import EventsList from 'components/EventsList';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
+import _ from 'lodash';
+import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
 import { GET_SERIES } from 'queries/series';
 import React, { useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { getSortedEvents } from 'utils/events';
 import Error from '../../components/Error';
 
 const SeriesDetailPage = (props) => {
     const siteCtx = useContext(SiteContext);
+    const history = useHistory();
     // @ts-ignore
     const { seriesId } = useParams();
-    const [entries, setEntries] = React.useState(10);
+    const [entries, setEntries] = React.useState(5);
     const { loading, error, data, refetch, networkStatus } = useQuery(
 		GET_SERIES, 
 		{ 
-            variables: { id: seriesId, limit: 9999 },
+            variables: { id: seriesId, limit: 1000 },
 			notifyOnNetworkStatusChange: true 
 		});
    const [seriesData, setSeriesData] = useState(null);
-   const [isLoading, setLoading] = React.useState(loading);
+   const [isLoading, setLoading] = useState(loading);
+ 
+   const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
+   const timezone = site && site.metadata ? site.metadata.timezone.value : '';
+
+   const [sortedEvents, setSortedEvents] = useState(
+       getSortedEvents(seriesData && seriesData.events ? seriesData.events : null, timezone)
+    );
+
+    const nextEventFormatted = sortedEvents.next !== null ?
+        moment(sortedEvents.next.starts_at).tz(timezone)
+            .format("MMMM Do, YYYY") : "No Upcoming Events";
+
 
    const refreshSeries = () => {
         setLoading(true);
@@ -29,7 +47,7 @@ const SeriesDetailPage = (props) => {
         refetch();
     };
 
-    // Register to be notified of a site change.
+    // First load only.
 	React.useEffect(() => {
 		siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
@@ -40,13 +58,16 @@ const SeriesDetailPage = (props) => {
 	}, [])
 
     React.useEffect(() => {
-        if (isLoading && !loading && data && data.seriesItem) {
+        if ((isLoading || !loading) && data && data.seriesItem) {
             setSeriesData(data.seriesItem);
+            
+            const sortedEvents = getSortedEvents(data.seriesItem.events, timezone);
+            setSortedEvents(sortedEvents);
             setLoading(loading);
         }
     }, [loading, data, error]);
 
-	if (isLoading) {
+	if (isLoading || seriesData === null) {
 		return (<Loading centerInPage={true} center={true} />);
 	}
 
@@ -70,15 +91,59 @@ const SeriesDetailPage = (props) => {
                     { title: "Home", to: "/" },
                     { title: "Events Series", to: "/events" }
                 ]}
-                minHeight="25vh"
-            />
+            >
+                <div className="my-5" />
+                <Grid container alignItems="flex-end" className="mb-3">
+                    <Grid item sm={12} lg={12}>
+                        <div className="mb-2 mt-5">
+                            <span className="font-size-lg font-weight-bold text-uppercase text-white-50">Next Event: </span>
+                            { sortedEvents.next !== null ? (
+                                <Button
+                                    component={Link} 
+                                    to={"/series/" + seriesId + "/" + sortedEvents.next.id} 
+                                    className="ml-0 font-size-xl btn btn-neutral-primary text-white text-capitalize mb-1"
+                                >
+                                    <span className="font-size-xl text-white font-weight-bold">{nextEventFormatted}</span>
+                                    <ChevronRightTwoToneIcon />
+                                </Button>
+                            ) : (
+                                <span className="font-size-xl text-white font-weight-bold">{nextEventFormatted}</span>
+                            )}
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} lg={12}>
+                        <div>
+                            <span className="font-size-md text-uppercase text-white-50">Upcoming: </span>
+                            <span className="text-white font-weight-bold ">{sortedEvents.upcoming.length}</span>
+                            <span className="font-size-md text-uppercase text-white-50 ml-3">Completed: </span>
+                            <span className="text-white font-weight-bold">{sortedEvents.previous.length}</span>
+                            <span className="font-size-md text-uppercase text-white-50 ml-3">Unpublished: </span>
+                            <span className="text-white font-weight-bold">{sortedEvents.unpublished.length}</span>
+                        </div>
+                    </Grid>
+                </Grid>
+            </SectionHeader>
             <Container className="mt-5">
-                <EventsList 
-                    events={seriesData.events} 
-                    refreshSeries={refreshSeries} 
-                    entries={entries} 
-                    setEntries={setEntries}
-                />
+                { sortedEvents.upcoming && sortedEvents.upcoming.length > 0 &&
+                     <EventsList 
+                        headerTitle={"Upcoming"}
+                        events={sortedEvents.upcoming} 
+                        refreshSeries={refreshSeries} 
+                        entries={entries} 
+                        setEntries={setEntries}
+                    />
+                }
+
+                {/* { seriesData.events && seriesData.events.length > 0 &&
+                     <EventsList 
+                        headerTitle={"All"}
+                        events={seriesData.events} 
+                        refreshSeries={refreshSeries} 
+                        entries={entries} 
+                        setEntries={setEntries}
+                    />
+                } */}
+               
             </Container>
         </>
     )

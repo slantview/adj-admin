@@ -90,10 +90,8 @@ const OrganizationStepper = () => {
 	};
 
 	const handleSubmit = (values, actions, e) => {
-		console.log('handleSubmit', values, actions);
 		allData.current = _.merge(allData.current, values);
-		console.log('allData', allData.current);
-
+		
 		if (!isLastStep) {
 			actions.setTouched({});
 			actions.setSubmitting(false);

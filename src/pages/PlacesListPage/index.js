@@ -14,7 +14,7 @@ import {
 	Container
  } from '@material-ui/core';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import Pagination from '@material-ui/lab/Pagination';
+import Pagination from '@material-ui/core/Pagination';
 import { Link } from 'react-router-dom';
 import PlacesTableRow from '../../components/PlacesTableRow';
 import { useQuery } from '@apollo/client';

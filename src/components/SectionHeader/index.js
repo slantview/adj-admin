@@ -34,7 +34,7 @@ const SectionHeader = (props) => {
 					image={bgImage}
 					title={title}
 				>
-					<div className={clsx("pb-5 pt-3 pl-4", backgroundStyle)} style={{minHeight: realMinHeight}}>
+					<div className={clsx("pt-3 pl-4", backgroundStyle)} style={{minHeight: realMinHeight}}>
 						<Grid container>
 							<Grid item sm={12} lg={12}>
 								{ breadcrumbs && breadcrumbs.length > 0 &&
@@ -85,12 +85,11 @@ const SectionHeader = (props) => {
 									</div>
 								}
 							</Grid>
-						</Grid>
-						<Grid container>
-							<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+							<Grid item sm={12} lg={12}>
 								{props.children}
 							</Grid>
 						</Grid>
+						
 					</div>
 				</CardMedia>
 			</Paper>

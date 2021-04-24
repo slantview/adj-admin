@@ -41,7 +41,7 @@ const SiteAddPage = (props) => {
 
 		createSite({name: siteName}, userCtx.token)
 			.then(resp => {
-				if (resp.status === 200) {
+				if (resp.ok) {
 					siteCtx.refetchSites();
 					notify({
 						type: 'success',

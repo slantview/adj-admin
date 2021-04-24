@@ -77,6 +77,18 @@ class SiteProvider extends Component {
         this.refetchSites();
     };
 
+    componentWillUnmount = () => {
+        this.setState({
+            selected: null,
+            sites: [],
+            user: null,
+            setSite: null,
+            siteChangedCallbacks: new Array(),
+            onSiteChanged: null,
+            refetchSites: null
+        });
+    }
+
     render() {
         return (
             <SiteContext.Provider value={this.state}>

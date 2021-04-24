@@ -141,11 +141,14 @@ const EventsListRow = (props) => {
                 { published_at && isFuture &&
                     <span className="badge text-uppercase badge-success">Published</span>
                 }
-                { !isFuture &&
+                { !isFuture && published_at &&
                     <span className="badge text-uppercase badge-neutral-success text-black-50">Archived</span>
                 }
                 { !published_at && isFuture &&
                     <span className="badge text-uppercase badge-neutral-first text-first">Draft</span>
+                }
+                 { !isFuture && !published_at &&
+                    <span className="badge text-uppercase badge-neutral-success text-black-50">Draft</span>
                 }
             </td>
             <td className="text-right">

@@ -40,14 +40,12 @@ const Sidebar = (props) => {
 
     useEffect(() => {
         const firstPathElement = window.location.pathname.split('/').shift();
-        if (firstPathElement === '') {
+        if (firstPathElement === '' || firstPathElement === null) {
             setCategory('events');
         } else {
             setCategory(firstPathElement);
         }
     }, [])
-    
-    console.log(category);
 
     return (
         <div className="app-sidebar app-sidebar--dark">

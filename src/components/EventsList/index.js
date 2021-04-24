@@ -10,7 +10,8 @@ const EventsList = (props) => {
         events,
         refreshSeries,
         entries,
-        setEntries
+        setEntries,
+        headerTitle
     } = props;
 
     const [eventsList, setEvents] = React.useState(events);
@@ -41,7 +42,7 @@ const EventsList = (props) => {
         <Card className="card-box mb-spacing-6-x2" elevation={0}>
             <div className="card-header">
                 <div className="card-header--title">
-                    <small className="d-block text-uppercase mt-1">Upcoming</small>
+                    <small className="d-block text-uppercase mt-1">{headerTitle}</small>
                     <b>Events</b>
                 </div>
                 <div className="card-header--actions">
@@ -73,7 +74,7 @@ const EventsList = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        { eventsList.map(event => (
+                        {  eventsList && eventsList.length > 0 && eventsList.slice((page-1)*entries, ((page-1)*entries)+entries).map(event => (
                             <EventsListRow event={event} refreshSeries={refreshSeries} />
                         ))}
                     </tbody>
@@ -86,7 +87,7 @@ const EventsList = (props) => {
                             variant="outlined"
                             page={page}
                             onChange={handlePageChange}
-                            count={ Math.round((eventsList.length/entries)) + (eventsList.length%entries === 0 ? 0 : 1)}
+                            count={ Math.floor((eventsList.length/entries)) + (eventsList.length%entries === 0 ? 0 : 1)}
                         />
                     </Collapse>
                     <div className="d-flex align-items-center">

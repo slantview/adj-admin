@@ -1,10 +1,10 @@
 
-import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, List, ListItem, Menu, Dialog } from '@material-ui/core';
-import { deleteOrganization, resetPassword, suspendUser } from "../../utils/api";
-import { UserContext } from '../../providers/UserProvider';
+import { Button, Dialog, List, ListItem, Menu } from '@material-ui/core';
 import { NotificationContext } from "providers/NotificationProvider";
+import React, { useContext, useState } from "react";
+import { UserContext } from '../../providers/UserProvider';
+import { deleteOrganization } from "../../utils/api";
 
 const ListItemLink = (props) => {
     return <ListItem button component="a" {...props} />;
@@ -50,6 +50,7 @@ const OrganizationListTableRow = (props) => {
         deleteOrganization(userCtx.token, id)
             .then(response => {
                 if (response.ok) {
+                    setErrorConfirmModal(false);
                     notify({
                         type: 'success',
                         message: "Sucessfully deleted organization."

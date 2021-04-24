@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import Pagination from '@material-ui/lab/Pagination';
+import Pagination from '@material-ui/core/Pagination';
 import SectionHeader from 'components/SectionHeader';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';

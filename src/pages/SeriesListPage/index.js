@@ -38,7 +38,7 @@ export default function SeriesListPage() {
 	}, [])
 
 	React.useEffect(() => {
-		if (isLoading && !loading) {
+		if (isLoading && !loading && seriesData !== null) {
 			setLoading(loading);
 			setSeries(seriesData);
 		}

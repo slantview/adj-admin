@@ -14,7 +14,7 @@ import {
     Snackbar,
 	Container
  } from '@material-ui/core';
-import Pagination from '@material-ui/lab/Pagination';
+import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
 import { Link } from 'react-router-dom';
