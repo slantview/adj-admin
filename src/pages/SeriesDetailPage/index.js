@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Button, Container, Grid } from '@material-ui/core';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
+import EventAddNewCard from 'components/EventAddNewCard';
 import EventsList from 'components/EventsList';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
@@ -124,15 +125,17 @@ const SeriesDetailPage = (props) => {
                 </Grid>
             </SectionHeader>
             <Container className="mt-5">
-                { sortedEvents.upcoming && sortedEvents.upcoming.length > 0 &&
-                     <EventsList 
+                { sortedEvents.upcoming && sortedEvents.upcoming.length > 0 ? (
+                    <EventsList 
                         headerTitle={"Upcoming"}
                         events={sortedEvents.upcoming} 
                         refreshSeries={refreshSeries} 
                         entries={entries} 
                         setEntries={setEntries}
                     />
-                }
+                ) : (
+                    <EventAddNewCard id={seriesId} />
+                )}
 
                 {/* { seriesData.events && seriesData.events.length > 0 &&
                      <EventsList 
