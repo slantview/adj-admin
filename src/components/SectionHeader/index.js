@@ -34,7 +34,7 @@ const SectionHeader = (props) => {
 					image={bgImage}
 					title={title}
 				>
-					<div className={clsx("pt-3 pl-4", backgroundStyle)} style={{minHeight: realMinHeight}}>
+					<div className={clsx("pt-1", backgroundStyle)} style={{minHeight: realMinHeight}}>
 						<Grid container>
 							<Grid item sm={12} lg={12}>
 								{ breadcrumbs && breadcrumbs.length > 0 &&
@@ -52,7 +52,7 @@ const SectionHeader = (props) => {
 								}
 							</Grid>
 							<Grid item sm={12} lg={10}>
-								<div className="app-page-title--heading mt-4">
+								<div className="app-page-title--heading mt-2">
 									<h1 className={clsx(
 										"font-size-xxxl", 
 										"font-weight-bold", 
@@ -69,7 +69,7 @@ const SectionHeader = (props) => {
 							</Grid>
 							<Grid item sm={12} lg={2}>
 								{ showLink &&
-									<div className="text-center">
+									<div className="text-right mr-3">
 										<Button
 											component={RouterLink}
 											to={linkTo ? linkTo : ''}
@@ -85,11 +85,10 @@ const SectionHeader = (props) => {
 									</div>
 								}
 							</Grid>
-							<Grid item sm={12} lg={12}>
+							<Grid item xs={12} sm={12} lg={12} xl={12}>
 								{props.children}
 							</Grid>
 						</Grid>
-						
 					</div>
 				</CardMedia>
 			</Paper>

@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import OrganizationAddPage from 'pages/Admin/OrganizationAddPage';
 import SiteAddPage from 'pages/Admin/SiteAddPage';
 import SeriesDetailPage from 'pages/SeriesDetailPage';
 import NotificationProvider from 'providers/NotificationProvider';
@@ -6,7 +7,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import OrganizationAddForm from './components/OrganizationAddForm';
 import Layout from './containers/Layout';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminOrganizationListPage from './pages/Admin/OrganizationListPage';
@@ -100,7 +100,7 @@ ReactDOM.render(
 												<Route exact path="/admin/dashboard"><AdminDashboard /></Route>
 												{/* Admin Organization Pages */}
 												<Route exact path="/admin/organizations"><AdminOrganizationListPage /></Route>
-												<Route exact path="/admin/organizations/add"><OrganizationAddForm /></Route>
+												<Route exact path="/admin/organizations/add"><OrganizationAddPage /></Route>
 												{/* Admin Sites Pages */}
 												<Route exact path="/admin/sites"><SiteListPage /></Route>
 												<Route exact path="/admin/sites/add"><SiteAddPage /></Route>

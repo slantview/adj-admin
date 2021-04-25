@@ -7,7 +7,8 @@ const Loading = (props) => {
     const { 
         center,
         centerInPage,
-        showTimeout
+        showTimeout,
+        bgColor
     } = props;
 
     const useTimeout = showTimeout ? showTimeout : true;

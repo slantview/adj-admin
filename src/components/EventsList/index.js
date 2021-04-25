@@ -39,7 +39,7 @@ const EventsList = (props) => {
 	};
     
     return (
-        <Card className="card-box mb-spacing-6-x2" elevation={0}>
+        <Card className="card-box mb-spacing-6-x2" elevation={1}>
             <div className="card-header">
                 <div className="card-header--title">
                     <small className="d-block text-uppercase mt-1">{headerTitle}</small>

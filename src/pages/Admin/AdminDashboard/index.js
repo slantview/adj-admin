@@ -15,12 +15,11 @@ export default function ContentDashboardPage() {
 				subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
                 breadcrumbs={[
-                    { title: "Home", to: "/" },
-                    { title: "Dashboard", to: "/admin/dashboard" }
+                    { title: "Home", to: "/" }
                 ]}
 			/>
-            <Container className="mt-3">
-                <Grid container spacing={3}>
+            <div className="mt-2 mx-3">
+                <Grid container spacing={2}>
                     <Grid item lg={6}> 
                         <OrganizationsGraph />
                     </Grid>
@@ -31,7 +30,7 @@ export default function ContentDashboardPage() {
                         <UsersGraph />
                     </Grid>
                 </Grid>
-            </Container>
+            </div>
         </>
     );
 }

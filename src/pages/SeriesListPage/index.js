@@ -68,7 +68,7 @@ export default function SeriesListPage() {
                     { title: "Events" },
                 ]}
 			/>
-			<Container className="mt-5">
+			<div className="mt-5 mx-5">
 				{ series.length === 0 &&
 					<AddNewSeriesCard />
 				}
@@ -81,7 +81,7 @@ export default function SeriesListPage() {
 						{...item}
 					/>
 				))}
-			</Container>
+			</div>
 		</>
 	);
 }

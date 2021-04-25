@@ -79,11 +79,10 @@ export default function SiteListPage() {
 				linkTo="/admin/sites/add"
 				linkIconName="plus"
 				breadcrumbs={[
-                    { title: "Home", to: "/" },
-                    { title: "Admin Dashboard", to: "/admin/dashboard" },
+                    { title: "Home", to: "/" }
                 ]}
 			/>
-			<Container className="mt-5">
+			<div className="mt-2 mx-3">
 				<Card className="card-box mb-spacing-6-x2">
 					<div className="card-header">
 						<div className="card-header--title">
@@ -173,7 +172,7 @@ export default function SiteListPage() {
 						</div>
 					</CardContent>
 				</Card>
-			</Container>
+			</div>
 		</>
 	);
 }

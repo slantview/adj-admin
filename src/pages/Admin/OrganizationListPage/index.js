@@ -84,18 +84,21 @@ export default function OrganizationListPage() {
 				subtitle="List all organizations."
 				subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
-				linkText="New Org"
+				linkText="Add Organization"
 				linkTo="/admin/organizations/add"
 				linkIconName="plus"
 				breadcrumbs={[
-                    { title: "Home", to: "/" },
-                    { title: "Admin Dashboard", to: "/admin/dashboard" },
+                    { title: "Home", to: "/" }
                 ]}
 			/>
-			<Container className="mt-5">
+			<div className="mt-2 mx-3">
 				<Card className="card-box mb-spacing-6-x2">
 					<div className="card-header">
 						<div className="card-header--title">
+							
+						</div>
+
+						<div className="card-header--actions">
 							<div className="search-wrapper">
 								<TextField
 									variant="outlined"
@@ -110,22 +113,6 @@ export default function OrganizationListPage() {
 										)
 									}}
 								/>
-							</div>
-						</div>
-
-						<div className="card-header--actions">
-							<div>
-								<Button component="a" onClick={() => setLoading(true)} size="small" className="btn-neutral-primary mr-2">
-									<span className="btn-wrapper--icon">
-										<RefreshTwoToneIcon fontSize="small" />
-									</span>
-								</Button>
-								<Button to="/admin/organizations/add" component={Link} size="small" className="btn-neutral-primary">
-									<span className="btn-wrapper--icon">
-										<FontAwesomeIcon icon={['fas', 'plus-circle']} />
-									</span>
-									<span className="btn-wrapper--label">Add Organization</span>
-								</Button>
 							</div>
 						</div>
 					</div>
@@ -194,7 +181,7 @@ export default function OrganizationListPage() {
 						</div>
 					</CardContent>
 				</Card>
-			</Container>
+			</div>
 		</>
 	);
 }

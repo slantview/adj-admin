@@ -70,7 +70,7 @@ const SiteAddPage = (props) => {
 				backgroundStyle='bg-beacons-gradient'
 				breadcrumbs={[
 					{ title: "Home", to: "/" },
-					{ title: "Admin Dashboard", to: "/admin/dashboard" },
+					{ title: "Sites", to: "/admin/sites" },
 				]}
 			/>
 			<Container className="mt-5">

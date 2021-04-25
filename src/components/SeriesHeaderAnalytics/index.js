@@ -9,8 +9,6 @@ const SeriesHeaderAnalytics = (props) => {
         timezone
     } = props;
 
-    console.log(analytics);
-
     const getDateArray = () => {
         let dateArray = new Array();
         for (let i = 0; i <= 6; i++) {
@@ -39,7 +37,7 @@ const SeriesHeaderAnalytics = (props) => {
         return analyticsArray;
     }
 
-    const chartDashboardStatistics2BOptions = {
+    const options = {
         chart: {
             toolbar: {
                 show: false
@@ -49,13 +47,28 @@ const SeriesHeaderAnalytics = (props) => {
             },
             foreColor: '#ffffff'
         },
+        yaxis: [
+            {
+                labels: {
+                    formatter: (val) => {
+                        return val.toFixed(0);
+                    },
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                }
+            }
+        ],
         dataLabels: {
-            enabled: false
+            enabled: false,
+            background: {
+                enabled: true
+            }
         },
-        colors: ['rgba(255,255,255,.4)', 'rgba(255,255,255,.8)'],
+        colors: ['rgba(255,255,255,.5)', 'rgba(255,255,255,.9)'],
         fill: {
             opacity: 1.0,
-            colors: ['rgba(255,255,255,.4)', 'rgba(255,255,255,.8)'],
+            colors: ['rgba(255,255,255,.5)', 'rgba(255,255,255,.9)'],
         },
         grid: {
             strokeDashArray: '5',
@@ -67,15 +80,15 @@ const SeriesHeaderAnalytics = (props) => {
             colors: ['transparent']
         },
         legend: {
-            show: true,
-            position: 'bottom'
+            show: false,
+            position: 'right',
+            style: {
+                fontWeight: 'bold'
+            }
         },
-        labels: getDateArray().map(d => d.format('MM/DD')),
-        yaxis: {
-            decimalsInFloat: false
-        }
+        labels: getDateArray().map(d => d.format('MM/DD'))
     };
-    const chartDashboardStatistics2BData = [
+    const data = [
         {
             name: 'Sessions',
             data: extractAnalytics(getDateArray(), 'sessions')
@@ -88,18 +101,14 @@ const SeriesHeaderAnalytics = (props) => {
 
     return (
         <div>
-           
             <div>
                 <Chart
-                    options={chartDashboardStatistics2BOptions}
-                    series={chartDashboardStatistics2BData}
+                    options={options}
+                    series={data}
                     type="bar"
-                    height={280}
+                    height={180}
                 />
             </div>
-            {/* <div className="font-weight-bold font-size-lg text-uppercase text-white text-right mr-2 mt-0">
-                Series Stats
-            </div> */}
         </div>
     )
 }

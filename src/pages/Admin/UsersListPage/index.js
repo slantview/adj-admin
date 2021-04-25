@@ -79,11 +79,10 @@ export default function UsersListPage() {
 				linkTo="/admin/users/add"
 				linkIconName="plus"
 				breadcrumbs={[
-                    { title: "Home", to: "/" },
-                    { title: "Admin Dashboard", to: "/admin/dashboard" }
+                    { title: "Home", to: "/" }
                 ]}
 			/>
-			<Container className="mt-5">
+			<div className="mt-5 mx-3">
 				<Card className="card-box mb-spacing-6-x2">
 					<div className="card-header">
 						<div className="card-header--title">
@@ -106,17 +105,6 @@ export default function UsersListPage() {
 
 						<div className="card-header--actions">
 							<div>
-								<Button component="a" onClick={() => setLoading(true)} size="small" className="btn-neutral-primary mr-2">
-									<span className="btn-wrapper--icon">
-										<RefreshTwoToneIcon fontSize="small" />
-									</span>
-								</Button>
-								<Button to="/admin/users/add" component={Link} size="small" className="btn-neutral-primary">
-									<span className="btn-wrapper--icon">
-										<FontAwesomeIcon icon={['fas', 'plus-circle']} />
-									</span>
-									<span className="btn-wrapper--label">Add User</span>
-								</Button>
 							</div>
 						</div>
 					</div>
@@ -186,7 +174,7 @@ export default function UsersListPage() {
 						</div>
 					</CardContent>
 				</Card>
-			</Container>
+			</div>
 		</>
 	);
 }

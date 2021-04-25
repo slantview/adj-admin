@@ -120,12 +120,11 @@ const SeriesDetailPage = (props) => {
                     { title: "Events Series", to: "/events" }
                 ]}
             >
-                {/* <div className="my-5" /> */}
-                <Grid container alignItems="flex-end" className="mb-3">
+                <Grid container alignItems="flex-end">
                     <Grid item sm={6} lg={6} xl={6}>
                         <Grid container>
                             <Grid item sm={12} lg={12}>
-                                <div className="mb-2 mt-1">
+                                <div className="mb-1 mt-1">
                                     <span className="font-size-lg font-weight-bold text-uppercase text-white-50">Next Event: </span>
                                     { sortedEvents.next !== null ? (
                                         <Button
@@ -142,7 +141,7 @@ const SeriesDetailPage = (props) => {
                                 </div>
                             </Grid>
                             <Grid item sm={12} lg={12} xl={12}>
-                                <div>
+                                <div className="mb-2">
                                     <span className="font-size-md text-uppercase text-white-50">Upcoming: </span>
                                     <span className="text-white font-weight-bold ">{sortedEvents.upcoming.length}</span>
                                     <span className="font-size-md text-uppercase text-white-50 ml-3">Completed: </span>
@@ -151,14 +150,16 @@ const SeriesDetailPage = (props) => {
                                     <span className="text-white font-weight-bold">{sortedEvents.unpublished.length}</span>
                                 </div>
                             </Grid>
-                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item sm={6} lg={6} xl={6}>
-                        <SeriesHeaderAnalytics analytics={analytics} timezone={timezone} />
+                        <div className="mr-3">
+                            <SeriesHeaderAnalytics analytics={analytics} timezone={timezone} />
+                        </div>
                     </Grid>
                 </Grid>
             </SectionHeader>
-            <Container className="mt-5">
+            <div className="mt-3 mx-4">
                 { sortedEvents.upcoming && sortedEvents.upcoming.length > 0 ? (
                     <EventsList 
                         headerTitle={"Upcoming"}
@@ -181,7 +182,7 @@ const SeriesDetailPage = (props) => {
                     />
                 } */}
                
-            </Container>
+            </div>
         </>
     )
 }
