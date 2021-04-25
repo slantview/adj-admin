@@ -1,19 +1,12 @@
-import React from 'react';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  Grid,
-  LinearProgress,
-  Card,
-  CardContent,
-  Button
+    Card,
+    CardContent, Grid,
+    LinearProgress
 } from '@material-ui/core';
-
+import React from 'react';
 import Chart from 'react-apexcharts';
 
 export default function UsersGraph() {
-  
-
     const chartDashboardStatistics2BOptions = {
         chart: {
             toolbar: {

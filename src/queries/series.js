@@ -193,6 +193,7 @@ export const GET_SERIES = gql`
     query($id: ID!, $limit: Int!) {
         seriesItem(id: $id, publicationState: PREVIEW) {
             id
+            slug
             title
             subtitle
             description

@@ -5,18 +5,23 @@ import EventAddNewCard from 'components/EventAddNewCard';
 import EventsList from 'components/EventsList';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
+import SeriesHeaderAnalytics from 'components/SeriesHeaderAnalytics';
 import _ from 'lodash';
 import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
+import { UserContext } from 'providers/UserProvider';
 import { GET_SERIES } from 'queries/series';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { getSiteAnalytics } from 'utils/api';
 import { getSortedEvents } from 'utils/events';
 import Error from '../../components/Error';
 
 const SeriesDetailPage = (props) => {
     const siteCtx = useContext(SiteContext);
+    const userCtx = useContext(UserContext);
+
     const history = useHistory();
     // @ts-ignore
     const { seriesId } = useParams();
@@ -27,15 +32,18 @@ const SeriesDetailPage = (props) => {
             variables: { id: seriesId, limit: 1000 },
 			notifyOnNetworkStatusChange: true 
 		});
-   const [seriesData, setSeriesData] = useState(null);
-   const [isLoading, setLoading] = useState(loading);
+    const [seriesData, setSeriesData] = useState(null);
+    const [isLoading, setLoading] = useState(loading);
  
-   const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
-   const timezone = site && site.metadata ? site.metadata.timezone.value : '';
+    const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
+    const timezone = site && site.metadata ? site.metadata.timezone.value : '';
 
-   const [sortedEvents, setSortedEvents] = useState(
+    const [sortedEvents, setSortedEvents] = useState(
        getSortedEvents(seriesData && seriesData.events ? seriesData.events : null, timezone)
     );
+    
+    const [analytics, setAnalytics] = useState(null);
+
 
     const nextEventFormatted = sortedEvents.next !== null ?
         moment(sortedEvents.next.starts_at).tz(timezone)
@@ -48,17 +56,36 @@ const SeriesDetailPage = (props) => {
         refetch();
     };
 
+    const refreshSiteAnalytics = () => {
+        if (seriesData !== null) {
+            getSiteAnalytics(userCtx.token, siteCtx.selected, seriesData.slug)
+                .then(resp => resp.json())
+                .then(data => {
+                    setAnalytics(data.rows);
+                })
+                .catch(e => {
+                    console.error(e);
+                });
+        }
+    };
+
     // First load only.
-	React.useEffect(() => {
+	useEffect(() => {
 		siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
 				refreshSeries();
+                refreshSiteAnalytics();
 				resolve();
 			});
 		});
-	}, [])
+	}, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
+        refreshSiteAnalytics();
+    }, [seriesData])
+
+
+    useEffect(() => {
         if ((isLoading || !loading) && data && data.seriesItem) {
             setSeriesData(data.seriesItem);
             
@@ -93,34 +120,41 @@ const SeriesDetailPage = (props) => {
                     { title: "Events Series", to: "/events" }
                 ]}
             >
-                <div className="my-5" />
+                {/* <div className="my-5" /> */}
                 <Grid container alignItems="flex-end" className="mb-3">
-                    <Grid item sm={12} lg={12}>
-                        <div className="mb-2 mt-5">
-                            <span className="font-size-lg font-weight-bold text-uppercase text-white-50">Next Event: </span>
-                            { sortedEvents.next !== null ? (
-                                <Button
-                                    component={Link} 
-                                    to={"/series/" + seriesId + "/" + sortedEvents.next.id} 
-                                    className="ml-0 font-size-xl btn btn-neutral-primary text-white text-capitalize mb-1"
-                                >
-                                    <span className="font-size-xl text-white font-weight-bold">{nextEventFormatted}</span>
-                                    <ChevronRightTwoToneIcon />
-                                </Button>
-                            ) : (
-                                <span className="font-size-xl text-white font-weight-bold">{nextEventFormatted}</span>
-                            )}
-                        </div>
+                    <Grid item sm={6} lg={6} xl={6}>
+                        <Grid container>
+                            <Grid item sm={12} lg={12}>
+                                <div className="mb-2 mt-1">
+                                    <span className="font-size-lg font-weight-bold text-uppercase text-white-50">Next Event: </span>
+                                    { sortedEvents.next !== null ? (
+                                        <Button
+                                            component={Link} 
+                                            to={"/series/" + seriesId + "/" + sortedEvents.next.id} 
+                                            className="ml-0 font-size-xl btn btn-neutral-primary text-white text-capitalize mb-1"
+                                        >
+                                            <span className="font-size-xl text-white font-weight-bold">{nextEventFormatted}</span>
+                                            <ChevronRightTwoToneIcon />
+                                        </Button>
+                                    ) : (
+                                        <span className="font-size-xl text-white font-weight-bold">{nextEventFormatted}</span>
+                                    )}
+                                </div>
+                            </Grid>
+                            <Grid item sm={12} lg={12} xl={12}>
+                                <div>
+                                    <span className="font-size-md text-uppercase text-white-50">Upcoming: </span>
+                                    <span className="text-white font-weight-bold ">{sortedEvents.upcoming.length}</span>
+                                    <span className="font-size-md text-uppercase text-white-50 ml-3">Completed: </span>
+                                    <span className="text-white font-weight-bold">{sortedEvents.previous.length}</span>
+                                    <span className="font-size-md text-uppercase text-white-50 ml-3">Unpublished: </span>
+                                    <span className="text-white font-weight-bold">{sortedEvents.unpublished.length}</span>
+                                </div>
+                            </Grid>
+                            </Grid>
                     </Grid>
-                    <Grid item sm={12} lg={12}>
-                        <div>
-                            <span className="font-size-md text-uppercase text-white-50">Upcoming: </span>
-                            <span className="text-white font-weight-bold ">{sortedEvents.upcoming.length}</span>
-                            <span className="font-size-md text-uppercase text-white-50 ml-3">Completed: </span>
-                            <span className="text-white font-weight-bold">{sortedEvents.previous.length}</span>
-                            <span className="font-size-md text-uppercase text-white-50 ml-3">Unpublished: </span>
-                            <span className="text-white font-weight-bold">{sortedEvents.unpublished.length}</span>
-                        </div>
+                    <Grid item sm={6} lg={6} xl={6}>
+                        <SeriesHeaderAnalytics analytics={analytics} timezone={timezone} />
                     </Grid>
                 </Grid>
             </SectionHeader>

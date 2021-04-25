@@ -125,3 +125,18 @@ export const deleteOrganization = async (token, id) => {
         }
     });
 };
+
+export const getSiteAnalytics = async (token, id, pathId) => {
+    const data = {
+        "path": pathId
+    };
+
+    return fetch(SITES_URL + '/' + id + '/analytics', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(data)
+    });
+}
