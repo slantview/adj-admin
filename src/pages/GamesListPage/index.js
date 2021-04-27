@@ -148,7 +148,7 @@ export default function GamesListPage() {
 							</thead>
 							<tbody>
 								{ games.slice((page-1)*entries, ((page-1)*entries)+entries).map(game => (
-									<GamesTableRow {...game} />
+									<GamesTableRow key={game.id} {...game} />
 								))}
 							</tbody>
 						</Table>

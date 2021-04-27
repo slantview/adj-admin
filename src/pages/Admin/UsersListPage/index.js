@@ -1,10 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-	Button,
 	Card,
 	CardContent,
 	Collapse,
-	Container,
 	FormControl,
 	InputAdornment,
 	MenuItem,
@@ -12,12 +9,10 @@ import {
 	Table,
 	TextField
 } from '@material-ui/core';
-import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
-import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import Pagination from '@material-ui/core/Pagination';
+import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import SectionHeader from 'components/SectionHeader';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import Loading from '../../../components/Loading';
 import UsersListTableRow from '../../../components/UsersListTableRow';
 import { UserContext } from '../../../providers/UserProvider';

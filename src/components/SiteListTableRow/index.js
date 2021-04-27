@@ -1,4 +1,3 @@
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
 import { NotificationContext } from 'providers/NotificationProvider';
@@ -17,7 +16,6 @@ const SiteListTableRow = (props) => {
         name,
         url,
         domain,
-        backend_domain,
         backend_url,
         deleted_at,
 		suspended_at,

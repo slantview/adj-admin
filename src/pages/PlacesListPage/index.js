@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
 	Table, 
@@ -64,7 +64,7 @@ export default function PlacesListPage() {
 	}
 
 	// Register to be notified of a site change.
-	React.useEffect(() => {
+	useEffect(() => {
 		siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
 				refreshPlaces();
@@ -73,7 +73,7 @@ export default function PlacesListPage() {
 		});
 	}, [])
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (isLoading && !loading) {
 			setLoading(loading);
 			setPlaces(placesData);
@@ -151,7 +151,7 @@ export default function PlacesListPage() {
 							</thead>
 							<tbody>
 								{ places.map(place => (
-									<PlacesTableRow {...place} />
+									<PlacesTableRow key={place.id} {...place} />
 								))}
 							</tbody>
 						</Table>

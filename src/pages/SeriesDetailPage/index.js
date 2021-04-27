@@ -1,19 +1,17 @@
 import { useQuery } from '@apollo/client';
-import { Button, Container, Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 import EventAddNewCard from 'components/EventAddNewCard';
 import EventsList from 'components/EventsList';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
 import SeriesHeaderAnalytics from 'components/SeriesHeaderAnalytics';
-import _ from 'lodash';
 import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
 import { UserContext } from 'providers/UserProvider';
 import { GET_SERIES } from 'queries/series';
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { getSiteAnalytics } from 'utils/api';
 import { getSortedEvents } from 'utils/events';
 import Error from '../../components/Error';
@@ -22,7 +20,7 @@ const SeriesDetailPage = (props) => {
     const siteCtx = useContext(SiteContext);
     const userCtx = useContext(UserContext);
 
-    const history = useHistory();
+    // const history = useHistory();
     // @ts-ignore
     const { seriesId } = useParams();
     const [entries, setEntries] = React.useState(5);

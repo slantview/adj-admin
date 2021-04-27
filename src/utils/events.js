@@ -17,11 +17,11 @@ export const getSortedEvents = (allEvents, timezone) => {
     const unpublishedEvents = [];
     const upcomingEvents = [];
 
-    allEvents.map(e => {
+    allEvents.forEach(e => {
         if (e.published_at !== null) {
             const eventTime = moment(e.starts_at).tz(timezone);
             const nextEventTime =  nextEvent !== null ? moment(nextEvent.starts_at).tz(timezone) : null;
-            
+
             if (eventTime?.isAfter(today)) {
                 upcomingEvents.push(e);
                 if (nextEvent === null) {

@@ -50,7 +50,7 @@ const SeriesHeaderAnalytics = (props) => {
             {
                 labels: {
                     style: {
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Telegraf-Bold',
                         fontWeight: 'bold'
                     },
                     formatter: (val) => {
@@ -62,7 +62,7 @@ const SeriesHeaderAnalytics = (props) => {
         xaxis: {
             labels: {
                 style: {
-                    fontFamily: 'Poppins',
+                    fontFamily: 'Telegraf-Bold',
                     fontWeight: 'bold'
                 }
             }
@@ -70,7 +70,7 @@ const SeriesHeaderAnalytics = (props) => {
         dataLabels: {
             enabled: false,
             style: {
-                fontFamily: 'Poppins',
+                fontFamily: 'Telegraf-Bold',
                 fontWeight: 'bold'
             },
             background: {
@@ -95,7 +95,7 @@ const SeriesHeaderAnalytics = (props) => {
             show: false,
             position: 'right',
             style: {
-                fontFamily: 'Poppins',
+                fontFamily: 'Telegraf-Bold',
                 fontWeight: 'bold'
 
             }

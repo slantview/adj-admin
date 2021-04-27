@@ -16,9 +16,9 @@ function SeriesListItem(props) {
 
 	const history = useHistory();
 	const siteCtx = useContext(SiteContext);
-    const timezone = siteCtx.timezone
+    const timezone = siteCtx.getSite()?.metadata?.timezone.value;
 	const buttonRef = useRef(null);
-	
+
 	const handleClick = () => {
 		history.push('/series/' + id);
 	};
@@ -67,7 +67,7 @@ function SeriesListItem(props) {
 											<span className="font-size-lg font-weight-bold text-uppercase text-white-50 ml-2">Next Event: </span>
 											<span className="font-size-xl text-white font-weight-bold ml-1">{nextEventFormatted}</span>
 										</div>
-										<div>
+										<div className="font-weight-normal">
 											<span className="font-size-md text-uppercase text-white-50 ml-2">Upcoming: </span>
 											<span className="text-white font-weight-bold ">{upcomingEvents.length}</span>
 											<span className="font-size-md text-uppercase text-white-50 ml-3">Completed: </span>

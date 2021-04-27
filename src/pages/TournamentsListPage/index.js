@@ -1,25 +1,24 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-	Table, 
-	Card, 
-	CardContent, 
-	Button,
-	FormControl,
-	Select,
-	MenuItem,
-	TextField,
-	InputAdornment,
-	Collapse
-} from '@material-ui/core';
-import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import Pagination from '@material-ui/core/Pagination';
-import { Link } from 'react-router-dom';
-import TournamentsTableRow from '../../components/TournamentsTableRow';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_TOURNAMENTS } from '../../queries/tournaments';
-import Loading from '../../components/Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	Button, Card,
+	CardContent,
+	Collapse,
+	FormControl,
+	InputAdornment,
+	MenuItem,
+	Select,
+	Table,
+	TextField
+} from '@material-ui/core';
+import Pagination from '@material-ui/core/Pagination';
+import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Error from '../../components/Error';
+import Loading from '../../components/Loading';
+import TournamentsTableRow from '../../components/TournamentsTableRow';
+import { GET_ALL_TOURNAMENTS } from '../../queries/tournaments';
 
 export default function TournamentsListPage() {
 	const { loading, error, data } = useQuery(GET_ALL_TOURNAMENTS);
@@ -49,12 +48,12 @@ export default function TournamentsListPage() {
 		}
 	};
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (isLoading && !loading) {
 			setLoading(loading);
 			setTournaments(tournamentData);
 		}
-	});
+	}, [loading, isLoading, tournamentData]);
 
 	if (loading) {
 		return (<Loading centerInPage={true} center={true} />);

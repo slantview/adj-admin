@@ -76,7 +76,6 @@ const MuiTheme = createMuiTheme({
         padding: '10px 22px',
         fontSize: 14,
       },
-
       sizeLarge: {
         padding: '16px 28px',
         fontSize: 16
@@ -110,7 +109,7 @@ const MuiTheme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: ['Poppins', 'sans-serif'].join(','),
+    fontFamily: ['Telegraf-Regular', 'sans-serif'].join(','),
     htmlFontSize: 16,
     htmlFontColor: '#ffffff',
     fontSize: 14

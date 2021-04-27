@@ -1,8 +1,8 @@
-import React, { Component, createContext, useContext } from "react";
-import { getSites, getSiteMetadata } from '../utils/api';
+import Loading from "components/Loading";
 import firebase from 'firebase/app';
 import _ from "lodash";
-import Loading from "components/Loading";
+import React, { Component, createContext } from "react";
+import { getSiteMetadata, getSites } from '../utils/api';
 
 export const SiteContext = createContext({ 
     loading: true,
@@ -29,7 +29,7 @@ class SiteProvider extends Component {
         user: null,
         setSite: null,
         getSite: null,
-        siteChangedCallbacks: new Array(),
+        siteChangedCallbacks: [],
         onSiteChanged: null,
         refetchSites: null,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -111,7 +111,7 @@ class SiteProvider extends Component {
             user: null,
             setSite: null,
             getSite: null,
-            siteChangedCallbacks: new Array(),
+            siteChangedCallbacks: [],
             onSiteChanged: null,
             refetchSites: null
         });

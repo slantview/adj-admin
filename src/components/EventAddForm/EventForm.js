@@ -96,7 +96,7 @@ const EventForm = (props) => {
                             error={errors.logo}
                         />
                     </Grid>
-                    <Grid md={6} lg={6}> 
+                    <Grid item md={6} lg={6}> 
                         <ImageUpload 
                             name="card"
                             title="Card Image" 

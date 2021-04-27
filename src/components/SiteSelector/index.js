@@ -25,6 +25,7 @@ const SiteSelector = () => {
         setAnchorEl(null);
 	};
 
+    // @ts-ignore
     useEffect(() => {
         siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
@@ -52,7 +53,7 @@ const SiteSelector = () => {
     }
 
     return (
-        <div className="px-3 w-100">
+        <div className="px-3 w-100 font-weight-light">
                 <div className="text-center w-100">
                     <a title="Select Site">
                         <img alt="Select Site" src={logo} height={50} />
@@ -74,7 +75,7 @@ const SiteSelector = () => {
                                 classes={{ list: 'p-0' }}
                                 onClose={handleClose}
                                 onBlur={handleClose}>
-                                    <div className="dropdown-menu-lg text-center overflow-hidden p-0">
+                                    <div className="dropdown-menu-lg text-center overflow-hidden p-0 font-weight-light">
                                         <div className="app-nav-logo--text  text-primary m-1">
                                             <b className="text-uppercase font-size-sm">Select Site</b>
                                         </div>
@@ -85,27 +86,27 @@ const SiteSelector = () => {
                                                 key={site.id}
                                                 onClick={() => handleChange(site.id)} 
                                                 dense={false} 
-                                                className="font-size-sm text-left" >
+                                                className="font-size-sm text-left font-weight-light" >
                                                 {site.domain}
                                             </MenuItem>
                                         ))}
                                     </div>
                             </Menu>
                         </span>
-                        <div className="app-nav-logo--text m-4" style={{display:"none"}}>
+                        <div className="app-nav-logo--text m-4 font-weight-light" style={{display:"none"}}>
                             <b>Select Site</b>
                         </div>
                     </a>
                 </div>
                 <div className="mt-2">
                     { selectorDisabled ? (
-                        <span className="text-uppercase border-0 bg-primary opacity-4 text-hover-white text-white px-4">
+                        <span className="text-uppercase border-0 bg-primary opacity-4 text-hover-white text-white px-4 font-weight-bold">
                                 {selectedSite?.domain}
                         </span>
                     ) : (
                         <Button
                             onClick={handleClick} 
-                            className="border-0 btn-neutral-primary text-hover-white text-white-50 px-3"
+                            className="border-0 btn-neutral-primary text-hover-white text-white-50 px-3 font-weight-bold"
                             disableRipple>
                                 {selectedSite?.domain}
                         </Button>

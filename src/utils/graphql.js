@@ -3,10 +3,7 @@ import {
 
     HttpLink, InMemoryCache
 } from '@apollo/client';
-import _ from 'lodash';
 import moment from 'moment-timezone';
-import { SiteContext } from 'providers/SiteProvider';
-import { useContext } from 'react';
 import slugify from 'slugify';
 
 const httpLink = new HttpLink({ 

@@ -336,9 +336,14 @@ $embed-responsive-aspect-ratios: join(
 // Font, line-height, and color for body text, headings, and more.
 
 // stylelint-disable value-keyword-case
-$font-family-sans-serif:      'Poppins', sans-serif;
+$font-family-sans-serif:      'Telegraf-Regular', sans-serif;
 $font-family-monospace:       "Times New Roman", Times, serif;
 $font-family-base:            $font-family-sans-serif;
+$font-family-light:           'Telegraf-Thin', sans-serif;
+$font-family-lighter:         'Telegraf-Thin', sans-serif;
+$font-family-normal:          $font-family-sans-serif;
+$font-family-bold:            'Telegraf-Bold', sans-serif;
+$font-family-bolder:          'Telegraf-Ultrabold', sans-serif;
 // stylelint-enable value-keyword-case
 
 $font-size-base:              1rem; // Assumes the browser default, typically `16px`
@@ -364,8 +369,8 @@ $h5-font-size:                $font-size-base * 1.25;
 $h6-font-size:                $font-size-base;
 
 $headings-margin-bottom:      $spacer / 2;
-$headings-font-family:        null;
-$headings-font-weight:        500;
+$headings-font-family:        'Telegraf-Ultrabold';
+$headings-font-weight:        bold;
 $headings-line-height:        1.2;
 $headings-color:              null;
 

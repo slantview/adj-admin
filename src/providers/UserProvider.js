@@ -2,7 +2,6 @@ import Loading from 'components/Loading';
 import firebase from 'firebase/app';
 import moment from 'moment';
 import React, { Component, createContext } from "react";
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export const UserContext = createContext({ user: null, token: null, admin: false, expires: null });
 

@@ -38,12 +38,12 @@ const SectionHeader = (props) => {
 						<Grid container>
 							<Grid item sm={12} lg={12}>
 								{ breadcrumbs && breadcrumbs.length > 0 &&
-									<Breadcrumbs separator="›" className="text-white text-uppercase">
+									<Breadcrumbs separator="›" className="text-white text-uppercase font-weight-light">
 										{ breadcrumbs.map(b => 
 											{ return b.to === null ? (
 												<span key={b.title}>{b.title}</span>
 											):(
-												<RouterLink key={b.title} to={b.to ? b.to : ''} className="text-white-50">
+												<RouterLink key={b.title} to={b.to ? b.to : ''} className="text-white-50 font-weight-light">
 													{b.title}
 												</RouterLink>
 											)})
@@ -55,7 +55,7 @@ const SectionHeader = (props) => {
 								<div className="app-page-title--heading mt-2">
 									<h1 className={clsx(
 										"font-size-xxxl", 
-										"font-weight-bold", 
+										"font-weight-bolder", 
 										"text-uppercase", 
 										titleColor)}>
 										{title}
