@@ -28,16 +28,21 @@ const SiteSelector = () => {
     useEffect(() => {
         siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
-                const currentSite = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
-				setSelectedSite(currentSite);
-                setLogo(currentSite?.metadata?.logo.formats.thumbnail.url ? currentSite?.metadata?.logo.formats.thumbnail.url : defaultLogo );
+                updateSelectedSite(siteCtx.selected);
 				resolve();
 			});
 		});
     }, [])
 
+    const updateSelectedSite = (siteId) => {
+        const currentSite = _.first(siteCtx.sites.filter(s => s.id === siteId));
+        setSelectedSite(currentSite);
+        setLogo(currentSite?.metadata?.logo.formats.thumbnail.url ? currentSite?.metadata?.logo.formats.thumbnail.url : defaultLogo );
+    };
+
     const handleChange = (siteId) => {
         siteCtx.setSite(siteId);
+        updateSelectedSite(siteId);
         handleClose();
         history.push('/');
     };
