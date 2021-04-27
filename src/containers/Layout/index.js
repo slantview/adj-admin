@@ -15,6 +15,7 @@ import MuiTheme from '../../theme';
 import useStyles from '../../theme/useStyles';
 
 import '../../assets/base.scss';
+import moment from 'moment-timezone';
 
 library.add(
   far,

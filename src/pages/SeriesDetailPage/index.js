@@ -34,9 +34,8 @@ const SeriesDetailPage = (props) => {
 		});
     const [seriesData, setSeriesData] = useState(null);
     const [isLoading, setLoading] = useState(loading);
- 
-    const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
-    const timezone = site && site.metadata ? site.metadata.timezone.value : '';
+
+    const timezone = siteCtx.timezone ? siteCtx.timezone : Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const [sortedEvents, setSortedEvents] = useState(
        getSortedEvents(seriesData && seriesData.events ? seriesData.events : null, timezone)

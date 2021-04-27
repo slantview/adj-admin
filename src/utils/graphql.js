@@ -80,7 +80,6 @@ export const eventToNewEvent = (event, values, timezone) => {
 };
 
 export const tournamentToNewTournament = (tournament, values, timezone) => {
-    console.log(tournament);
     const value_starts_at = moment(values.starts_at).tz(timezone.value);
     const event_registration_cutoff = moment(tournament.registration_cutoff).tz(timezone.value);
     const registration_cutoff =  moment(

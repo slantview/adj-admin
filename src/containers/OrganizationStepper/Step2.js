@@ -13,7 +13,7 @@ const Step2 = (props) => {
         touched,
         setFieldValue
     } = useFormikContext();
-    console.log('Step2(values)', values);
+    
     return (
       <>
         <Container>

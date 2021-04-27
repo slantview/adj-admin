@@ -1,19 +1,19 @@
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import _ from 'lodash';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import defaultLogo from '../../assets/images/logo.png';
 import { SiteContext } from '../../providers/SiteProvider';
 
 
 const SiteSelector = () => {
-    const siteContext = useContext(SiteContext);
+    const siteCtx = useContext(SiteContext);
     const history = useHistory();
     const [logo, setLogo] = useState(defaultLogo);
 	const [anchorEl, setAnchorEl] = useState(null);
-    const currentSite = _.first(siteContext.sites.filter(site => site.id === siteContext.selected));
-	const selectedSite = currentSite ? currentSite : { domain: "" };
-    const selectorDisabled = siteContext.sites.length === 1;
+    const [selectedSite, setSelectedSite] = useState(null)
+    const selectorDisabled = siteCtx.sites.length === 1;
+    const loading = siteCtx.sites.length === 0;
 
     const handleClick = (event) => {
         if (selectorDisabled) {
@@ -23,17 +23,28 @@ const SiteSelector = () => {
 	};
 	const handleClose = () => {
         setAnchorEl(null);
-
 	};
-  
+
+    useEffect(() => {
+        siteCtx.onSiteChanged(async () => {
+			return new Promise((resolve, reject) => {
+                const currentSite = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
+				setSelectedSite(currentSite);
+                setLogo(currentSite?.metadata?.logo.formats.thumbnail.url ? currentSite?.metadata?.logo.formats.thumbnail.url : defaultLogo );
+				resolve();
+			});
+		});
+    }, [])
+
     const handleChange = (siteId) => {
-        const selectedSite = _.first(siteContext.sites.filter(site => site.id === siteId));
-        const headerLogo = selectedSite && selectedSite.metadata ? selectedSite.metadata.logo.formats.thumbnail.url : defaultLogo;
-        setLogo(headerLogo);
-        siteContext.setSite(selectedSite.id);
+        siteCtx.setSite(siteId);
         handleClose();
         history.push('/');
     };
+
+    if (loading) {
+        return (<span>Loading...</span>);
+    }
 
     return (
         <div className="px-3 w-100">
@@ -63,7 +74,7 @@ const SiteSelector = () => {
                                             <b className="text-uppercase font-size-sm">Select Site</b>
                                         </div>
                                         <span className="divider mb-1" />
-                                        { siteContext.sites.map(site => (
+                                        { siteCtx.sites?.map(site => (
                                             <MenuItem
                                                 id={site.id}
                                                 key={site.id}
@@ -84,14 +95,14 @@ const SiteSelector = () => {
                 <div className="mt-2">
                     { selectorDisabled ? (
                         <span className="text-uppercase border-0 bg-primary opacity-4 text-hover-white text-white px-4">
-                                {selectedSite.domain}
+                                {selectedSite?.domain}
                         </span>
                     ) : (
                         <Button
                             onClick={handleClick} 
                             className="border-0 btn-neutral-primary text-hover-white text-white-50 px-3"
                             disableRipple>
-                                {selectedSite.domain}
+                                {selectedSite?.domain}
                         </Button>
                     )
 

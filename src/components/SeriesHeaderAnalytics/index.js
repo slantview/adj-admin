@@ -19,7 +19,7 @@ const SeriesHeaderAnalytics = (props) => {
     };
 
     const extractAnalytics = (dates, type) => {
-        if (typeof analytics === 'undefined' || analytics === null) {
+        if (typeof analytics === 'undefined' || analytics === null || dates.length === 0) {
             return [0,0,0,0,0,0,0];
         }
         let analyticsArray = new Array();
@@ -33,7 +33,6 @@ const SeriesHeaderAnalytics = (props) => {
             }
             i++;
         });
-        console.log('analyticsArray', analyticsArray);
         return analyticsArray;
     }
 
@@ -50,17 +49,30 @@ const SeriesHeaderAnalytics = (props) => {
         yaxis: [
             {
                 labels: {
+                    style: {
+                        fontFamily: 'Poppins',
+                        fontWeight: 'bold'
+                    },
                     formatter: (val) => {
                         return val.toFixed(0);
-                    },
-                    style: {
-                        fontWeight: 'bold'
                     }
                 }
             }
         ],
+        xaxis: {
+            labels: {
+                style: {
+                    fontFamily: 'Poppins',
+                    fontWeight: 'bold'
+                }
+            }
+        },
         dataLabels: {
             enabled: false,
+            style: {
+                fontFamily: 'Poppins',
+                fontWeight: 'bold'
+            },
             background: {
                 enabled: true
             }
@@ -83,7 +95,9 @@ const SeriesHeaderAnalytics = (props) => {
             show: false,
             position: 'right',
             style: {
+                fontFamily: 'Poppins',
                 fontWeight: 'bold'
+
             }
         },
         labels: getDateArray().map(d => d.format('MM/DD'))

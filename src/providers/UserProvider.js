@@ -1,3 +1,4 @@
+import Loading from 'components/Loading';
 import firebase from 'firebase/app';
 import moment from 'moment';
 import React, { Component, createContext } from "react";
@@ -47,6 +48,7 @@ class UserProvider extends Component {
             if (userAuth) {
                 const token = await userAuth.getIdToken();
                 const { claims, expirationTime } = await userAuth.getIdTokenResult();
+                
                 this.setState({
                     user: userAuth, 
                     token: token, 
@@ -62,7 +64,11 @@ class UserProvider extends Component {
     render() {
         return (
             <UserContext.Provider value={this.state}>
-                {this.props.children}
+                { this.state.user ? (
+                    this.props.children
+                ) : (
+                    <Loading centerInPage={true} center={true} />
+                )}
             </UserContext.Provider>
         );
     }

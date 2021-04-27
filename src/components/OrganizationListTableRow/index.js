@@ -57,8 +57,6 @@ const OrganizationListTableRow = (props) => {
                     });
                 } else {
                     const result = response.json();
-                    console.log(result);
-                    console.log(response);
                     notify({
                         type: 'danger',
                         message: "Unable to delete organization."

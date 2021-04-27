@@ -19,7 +19,7 @@ const Step1 = (props) => {
         touched,
         setFieldValue
     } = useFormikContext();
-    console.log(values);
+    
     return (
         <Container>
             <div className="p-4">

@@ -1,34 +1,49 @@
 import React, { Component, createContext, useContext } from "react";
 import { getSites, getSiteMetadata } from '../utils/api';
 import firebase from 'firebase/app';
-import { Preview } from "@material-ui/icons";
+import _ from "lodash";
+import Loading from "components/Loading";
 
 export const SiteContext = createContext({ 
+    loading: true,
     selected: null, 
     sites: [], 
     setSite: null,
+    getSite: null,
     user: null,
     onSiteChanged: null,
     siteChangedCallbacks: [],
-    refetchSites: null
+    refetchSites: null,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
 });
 
 class SiteProvider extends Component {
+    constructor(props) {
+        super(props);
+        this.setSite = this.setSite.bind(this);
+    }
     state = {
+        loading: true,
         selected: null,
         sites: [],
         user: null,
         setSite: null,
+        getSite: null,
         siteChangedCallbacks: new Array(),
         onSiteChanged: null,
-        refetchSites: null
+        refetchSites: null,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
     };
 
     setSite = (id) => {
+        this.setState({selected: id});
+        this.siteDidChange();
+    }
+
+    siteDidChange = () => {
         if (this.state.siteChangedCallbacks.length > 0) {
             Promise.all(this.state.siteChangedCallbacks.map(cb => cb()))
         }
-        return this.setState({selected: id});
     }
 
     onSiteChanged = (callback) => {
@@ -38,6 +53,10 @@ class SiteProvider extends Component {
         });
     }
 
+    getSite = () => {
+        return _.first(this.state.sites.filter(s => s.id === this.state.selected));
+    }
+
     refetchSites = () => {
         const auth = firebase.auth();
         auth.onAuthStateChanged(async user => {
@@ -45,20 +64,27 @@ class SiteProvider extends Component {
                 return;
             }
             const token = await user.getIdToken();
+            this.setState({loading:true});
             getSites(token)
                 .then(async response => {
                     if (response.ok) {
-                        const sites = await response.json();
-                        sites.map(async (site, i) => {
+                        let sites = await response.json();
+                        sites.forEach(async (site, i) => {
                             const response = await getSiteMetadata(site.backend_url)
                             const orgInfo = await response.json();
                             site.metadata = orgInfo;
                             sites[i] = site;
                         });
+
+                        const selectedSiteId = this.state.selected === null ? sites[0].id : this.state.selected;
+                        const selectedSite = _.first(sites.filter(s => s.id === selectedSiteId));
                         this.setState({
-                            selected: this.state.selected === null ? sites[0].id : this.state.selected,
+                            selected: selectedSiteId,
                             sites: sites,
+                            timezone: selectedSite?.metadata?.timezone.value,
+                            loading: false
                         });
+                        this.siteDidChange();
                     }
                 })
                 .catch(e => {
@@ -70,6 +96,7 @@ class SiteProvider extends Component {
     componentDidMount = async () => {
         this.setState({
             setSite: this.setSite,
+            getSite: this.getSite,
             onSiteChanged: this.onSiteChanged,
             refetchSites: this.refetchSites
         });
@@ -83,6 +110,7 @@ class SiteProvider extends Component {
             sites: [],
             user: null,
             setSite: null,
+            getSite: null,
             siteChangedCallbacks: new Array(),
             onSiteChanged: null,
             refetchSites: null
@@ -92,7 +120,11 @@ class SiteProvider extends Component {
     render() {
         return (
             <SiteContext.Provider value={this.state}>
-                {this.props.children}
+                { this.state.loading ? (
+                    <Loading centerInPage={true} center={true} />
+                ) : (
+                    this.props.children
+                )}
             </SiteContext.Provider>
         );
     }

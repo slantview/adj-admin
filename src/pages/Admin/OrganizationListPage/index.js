@@ -66,7 +66,7 @@ export default function OrganizationListPage() {
 						orgData = fetchedData;
 						setLoading(false);
 					} else if (response.status === 401) {
-						console.log('needs authentication.')
+						console.log('needs authentication.');
 						history.push('/login', { from: window.location.pathname });
 					}
                 })

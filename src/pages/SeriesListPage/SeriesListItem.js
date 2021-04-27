@@ -1,9 +1,8 @@
 import { Button, Card, CardActionArea, CardContent, CardMedia, Grid } from '@material-ui/core';
-import React, { useContext, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
 import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
-import _ from 'lodash';
+import React, { useContext, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { getSortedEvents } from 'utils/events';
 
 function SeriesListItem(props) {
@@ -17,8 +16,7 @@ function SeriesListItem(props) {
 
 	const history = useHistory();
 	const siteCtx = useContext(SiteContext);
-    const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
-    const timezone = site.metadata.timezone.value;
+    const timezone = siteCtx.timezone
 	const buttonRef = useRef(null);
 	
 	const handleClick = () => {
@@ -52,6 +50,7 @@ function SeriesListItem(props) {
 										<Grid alignItems="center">
 											<div className=" text-right">
 												<Button
+													component="span"
 													size="large"
 													className="p-3 btn btn-rounded btn-neutral-second text-white text-uppercase font-weight-bold">
 														Manage Series

@@ -91,7 +91,7 @@ const OrganizationStepper = () => {
 
 	const handleSubmit = (values, actions, e) => {
 		allData.current = _.merge(allData.current, values);
-		
+
 		if (!isLastStep) {
 			actions.setTouched({});
 			actions.setSubmitting(false);
@@ -99,7 +99,6 @@ const OrganizationStepper = () => {
 			setActiveStep( prevStep => prevStep + 1);
 			
 		} else {
-			console.log('Submitting data', allData.current);
 			submitForm(allData);
 		}
 	};
@@ -109,13 +108,12 @@ const OrganizationStepper = () => {
 			.then((response) => {
 				if (response.ok) {
 					const result = response.json();
-					console.log(result);
 					return true;
 				}
 				return false;
 			})
 			.catch(e => {
-				console.log(e);
+				setError(e.toString());
 				return false;
 			});
 		return true;

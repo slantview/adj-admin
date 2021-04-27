@@ -31,9 +31,7 @@ const EventsListRow = (props) => {
 
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
-
-    const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
-    const timezone = site.metadata.timezone;
+    const timezone = siteCtx.timezone;
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [cloneConfirmModal, setCloneConfirmModal] = useState(false);
@@ -62,7 +60,7 @@ const EventsListRow = (props) => {
         updateEvent({ variables: { 
                 id: id, 
                 data: { 
-                    published_at: moment().tz(timezone.value).format() 
+                    published_at: moment().tz(timezone).format() 
                 }
             }})
             .then(result => {
