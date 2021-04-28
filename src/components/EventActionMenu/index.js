@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { Button, ListItem, List, Menu } from '@material-ui/core';
+import { Button, List, ListItem, Menu } from '@material-ui/core';
 import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
 import EventCloneDialog from 'components/EventCloneDialog';
 import moment from 'moment-timezone';
@@ -12,7 +12,8 @@ const EventActionMenu = (props) => {
     const {
         event,
         refreshSeries,
-        setLoading
+        setLoading,
+        iconClassName
     } = props;
 
     const {
@@ -124,7 +125,7 @@ const EventActionMenu = (props) => {
             <Button
                 size="small"
                 onClick={handleClick}
-                className="d-30 p-0 text-black-50">
+                className={"d-30 p-0 " + iconClassName}>
                     <SettingsTwoToneIcon fontSize="small" />
             </Button>
             <Menu

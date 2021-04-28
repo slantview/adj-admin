@@ -12,17 +12,12 @@ const SectionHeader = (props) => {
 		subtitle,
 		titleColor,
 		subtitleColor,
-		linkText,
-		linkIconName,
-		linkOnClick,
-		linkTo,
 		backgroundStyle,
 		backgroundImage,
 		minHeight,
 		breadcrumbs
 	} = props;
 
-	const showLink = (linkText || linkIconName) && (linkOnClick || linkTo); 
 	const realMinHeight = minHeight ? minHeight : "15vh";
 	const bgImage = backgroundImage ? backgroundImage : headerBackground;
 
@@ -36,7 +31,7 @@ const SectionHeader = (props) => {
 				>
 					<div className={clsx("pt-1", backgroundStyle)} style={{minHeight: realMinHeight}}>
 						<Grid container>
-							<Grid item sm={12} lg={10}>
+							<Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
 								<div className="app-page-title--heading mt-2">
 									<h1 className={clsx(
 										"font-size-xxxl", 
@@ -52,25 +47,8 @@ const SectionHeader = (props) => {
 									)}
 								</div>
 							</Grid>
-							{ showLink &&
-								<Grid item sm={12} lg={2}>
-									<div className="text-right mr-3">
-										<Button
-											component={RouterLink}
-											to={linkTo ? linkTo : ''}
-											variant="contained"
-											size="small"
-											className="p-2 px-3 mr-0 btn btn-primary font-weight-bold"
-											onClick={linkOnClick ? linkOnClick : null}>
-												<span className="btn-wrapper--icon mr-2">
-													<FontAwesomeIcon icon={['fas', linkIconName]} className="opacity-8" />
-												</span>
-												<span>{linkText}</span>
-										</Button>
-									</div>
-								</Grid>
-							}
-							<Grid item xs={12} sm={12} lg={12} xl={12}>
+							
+							<Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
 								{props.children}
 							</Grid>
 						</Grid>

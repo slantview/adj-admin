@@ -64,7 +64,8 @@ const SeriesHeaderAnalytics = (props) => {
                 style: {
                     fontFamily: 'Telegraf-Bold',
                     fontWeight: 'bold'
-                }
+                },
+                position: 'right'
             }
         },
         dataLabels: {
@@ -120,7 +121,7 @@ const SeriesHeaderAnalytics = (props) => {
                     options={options}
                     series={data}
                     type="bar"
-                    height={180}
+                    height={220}
                 />
             </div>
         </div>

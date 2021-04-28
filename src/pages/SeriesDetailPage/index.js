@@ -118,21 +118,7 @@ const SeriesDetailPage = (props) => {
                 ]}
             >
                 <Grid container alignItems="flex-end">
-                    <Grid item sm={6} lg={6} xl={6}>
-                        <Grid container>
-                            <Grid item sm={12} lg={12} xl={12}>
-                                <div className="mb-2">
-                                    <span className="font-size-md text-uppercase text-white-50">Upcoming: </span>
-                                    <span className="text-white font-weight-bold ">{sortedEvents.upcoming.length}</span>
-                                    <span className="font-size-md text-uppercase text-white-50 ml-3">Completed: </span>
-                                    <span className="text-white font-weight-bold">{sortedEvents.previous.length}</span>
-                                    <span className="font-size-md text-uppercase text-white-50 ml-3">Unpublished: </span>
-                                    <span className="text-white font-weight-bold">{sortedEvents.unpublished.length}</span>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item sm={6} lg={6} xl={6}>
+                    <Grid item sm={12} lg={12} xl={12}>
                         <div className="mr-3">
                             <SeriesHeaderAnalytics analytics={analytics} timezone={timezone} />
                         </div>
@@ -140,14 +126,17 @@ const SeriesDetailPage = (props) => {
                 </Grid>
             </SectionHeader>
 
-            <div className="mx-4">
+            <div className="mx-4 mt-4">
                 <Grid container>
-                    <Grid item md={12} lg={12} xl={12}>
+                    <Grid item md={6} lg={6} xl={6}>
+                        <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">Upcoming Events</h3>
+                    </Grid>
+                    <Grid item md={6} lg={6} xl={6}>
                         <div className="text-right">
                             <Button
                                 component={Link}
                                 to={'/events/' + seriesId + '/add'}
-                                variant="contained"
+                                // variant="contained"
                                 size="small"
                                 className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
                                     <span className="btn-wrapper--icon mr-2">
