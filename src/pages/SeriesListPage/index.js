@@ -64,10 +64,9 @@ export default function SeriesListPage() {
 				linkText="Add Series"
 				linkTo="/series/add"
 				linkIconName="plus"
-				breadcrumbs={[
-                    { title: "Home", to: "/" },
-                    { title: "Events" },
-                ]}
+				// breadcrumbs={[
+                //     { title: "Home", to: "/" }
+                // ]}
 			/>
 			<div className="mt-5 mx-5">
 				{ series.length === 0 &&

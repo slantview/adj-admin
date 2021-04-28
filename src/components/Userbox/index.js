@@ -30,7 +30,6 @@ const Userbox = () => {
 			.then(() => {
 				// @ts-ignore
 				userCtx.logout();
-				history.push('/login', { from: window.location.pathname });
 			})
 			.catch(e => {
 				console.error('Error signing out: ', e);

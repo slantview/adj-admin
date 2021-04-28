@@ -115,7 +115,7 @@ const SeriesDetailPage = (props) => {
                 linkIconName="plus"
                 breadcrumbs={[
                     { title: "Home", to: "/" },
-                    { title: "Events Series", to: "/events" }
+                    { title: "Events", to: "/events" }
                 ]}
             >
                 <Grid container alignItems="flex-end">

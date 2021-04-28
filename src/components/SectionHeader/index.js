@@ -36,21 +36,6 @@ const SectionHeader = (props) => {
 				>
 					<div className={clsx("pt-1", backgroundStyle)} style={{minHeight: realMinHeight}}>
 						<Grid container>
-							<Grid item sm={12} lg={12}>
-								{ breadcrumbs && breadcrumbs.length > 0 &&
-									<Breadcrumbs separator="›" className="text-white text-uppercase font-weight-normal">
-										{ breadcrumbs.map(b => 
-											{ return b.to === null ? (
-												<span key={b.title}>{b.title}</span>
-											):(
-												<RouterLink key={b.title} to={b.to ? b.to : ''} className="text-white-50 font-weight-normal">
-													{b.title}
-												</RouterLink>
-											)})
-										}
-									</Breadcrumbs>
-								}
-							</Grid>
 							<Grid item sm={12} lg={10}>
 								<div className="app-page-title--heading mt-2">
 									<h1 className={clsx(
@@ -92,6 +77,21 @@ const SectionHeader = (props) => {
 					</div>
 				</CardMedia>
 			</Paper>
+			<div className="ml-3 mt-2">
+				{ breadcrumbs && breadcrumbs.length > 0 &&
+					<Breadcrumbs separator="›" className="text-black text-uppercase font-weight-bold">
+						{ breadcrumbs.map(b => 
+							{ return b.to === null ? (
+								<span key={b.title}>{b.title}</span>
+							):(
+								<RouterLink key={b.title} to={b.to ? b.to : ''} className="text-black font-weight-normal">
+									{b.title}
+								</RouterLink>
+							)})
+						}
+					</Breadcrumbs>
+				}
+			</div>
 		</>
 	);
 };

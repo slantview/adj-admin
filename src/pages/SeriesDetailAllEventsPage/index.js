@@ -112,7 +112,7 @@ const SeriesDetailAllEventsPage = (props) => {
                 linkIconName="plus"
                 breadcrumbs={[
                     { title: "Home", to: "/" },
-                    { title: "Events Series", to: "/events" },
+                    { title: "Events", to: "/events" },
                     { title: seriesData.title, to: "/series/" + seriesData.id }
                 ]}
             >

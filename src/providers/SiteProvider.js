@@ -73,6 +73,7 @@ class SiteProvider extends Component {
                 return;
             }
             const token = await user.getIdToken();
+            
             this.setState({loading:true});
             getSites(token)
                 .then(async response => {
@@ -131,7 +132,7 @@ class SiteProvider extends Component {
     render() {
         return (
             <SiteContext.Provider value={this.state}>
-                { this.state.loading ? (
+                { false && this.state.loading ? (
                     <Loading centerInPage={true} center={true} />
                 ) : (
                     this.props.children

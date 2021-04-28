@@ -63,7 +63,7 @@ export default function SeriesAddPage() {
                 breadcrumbs={[
                     { title: "Home", to: "/" },
                     { title: "Events", to: "/events" },
-                    { title: seriesData.title, to: "/events/" + seriesId }
+                    { title: seriesData.title, to: "/series/" + seriesId }
                 ]}
                 minHeight="10vh"
             />
