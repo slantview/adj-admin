@@ -10,6 +10,7 @@ export const SiteContext = createContext({
     sites: [], 
     setSite: null,
     getSite: null,
+    getTimezone: null,
     user: null,
     onSiteChanged: null,
     siteChangedCallbacks: [],
@@ -21,6 +22,8 @@ class SiteProvider extends Component {
     constructor(props) {
         super(props);
         this.setSite = this.setSite.bind(this);
+        this.getSite = this.getSite.bind(this);
+        this.getTimezone = this.getTimezone.bind(this);
     }
     state = {
         loading: true,
@@ -29,6 +32,7 @@ class SiteProvider extends Component {
         user: null,
         setSite: null,
         getSite: null,
+        getTimezone: null,
         siteChangedCallbacks: [],
         onSiteChanged: null,
         refetchSites: null,
@@ -56,6 +60,11 @@ class SiteProvider extends Component {
     getSite = () => {
         return _.first(this.state.sites.filter(s => s.id === this.state.selected));
     }
+
+    getTimezone = () => {
+        return this.getSite()?.metadata?.timezone.value;
+    }
+   
 
     refetchSites = () => {
         const auth = firebase.auth();
@@ -97,6 +106,7 @@ class SiteProvider extends Component {
         this.setState({
             setSite: this.setSite,
             getSite: this.getSite,
+            getTimezone: this.getTimezone,
             onSiteChanged: this.onSiteChanged,
             refetchSites: this.refetchSites
         });
@@ -111,6 +121,7 @@ class SiteProvider extends Component {
             user: null,
             setSite: null,
             getSite: null,
+            getTimezone: null,
             siteChangedCallbacks: [],
             onSiteChanged: null,
             refetchSites: null

@@ -51,7 +51,7 @@ const AdminMenu = (props) => {
                             </Button>
                         </div>
                         <Collapse in={open}>
-                            <Divider className="w-100 text-white" />
+                            <Divider className="w-100 text-white font-weight-light" />
                             <ul>
                                 <li>
                                     <NavLink

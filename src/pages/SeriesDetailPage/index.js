@@ -3,6 +3,7 @@ import { Button, Grid } from '@material-ui/core';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 import EventAddNewCard from 'components/EventAddNewCard';
 import EventsList from 'components/EventsList';
+import EventsUpcomingCard from 'components/EventsUpcomingCard';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
 import SeriesHeaderAnalytics from 'components/SeriesHeaderAnalytics';
@@ -120,23 +121,6 @@ const SeriesDetailPage = (props) => {
                 <Grid container alignItems="flex-end">
                     <Grid item sm={6} lg={6} xl={6}>
                         <Grid container>
-                            <Grid item sm={12} lg={12}>
-                                <div className="mb-1 mt-1">
-                                    <span className="font-size-lg font-weight-bold text-uppercase text-white-50">Next Event: </span>
-                                    { sortedEvents.next !== null ? (
-                                        <Button
-                                            component={Link} 
-                                            to={"/series/" + seriesId + "/" + sortedEvents.next.id} 
-                                            className="ml-0 font-size-xl btn btn-neutral-primary text-white text-capitalize mb-1"
-                                        >
-                                            <span className="font-size-xl text-white font-weight-bold">{nextEventFormatted}</span>
-                                            <ChevronRightTwoToneIcon />
-                                        </Button>
-                                    ) : (
-                                        <span className="font-size-xl text-white font-weight-bold">{nextEventFormatted}</span>
-                                    )}
-                                </div>
-                            </Grid>
                             <Grid item sm={12} lg={12} xl={12}>
                                 <div className="mb-2">
                                     <span className="font-size-md text-uppercase text-white-50">Upcoming: </span>
@@ -156,18 +140,23 @@ const SeriesDetailPage = (props) => {
                     </Grid>
                 </Grid>
             </SectionHeader>
+            
             <div className="mt-3 mx-4">
-                { sortedEvents.upcoming && sortedEvents.upcoming.length > 0 ? (
-                    <EventsList 
+                <>
+                    <EventsUpcomingCard 
+                        series={seriesData} 
+                        events={sortedEvents.upcoming} 
+                        next={sortedEvents.next}
+                    />
+
+                    {/* <EventsList 
                         headerTitle={"Upcoming"}
                         events={sortedEvents.upcoming} 
                         refreshSeries={refreshSeries} 
                         entries={entries} 
                         setEntries={setEntries}
-                    />
-                ) : (
-                    <EventAddNewCard id={seriesId} />
-                )}
+                    /> */}
+                </>
 
                 {/* { seriesData.events && seriesData.events.length > 0 &&
                      <EventsList 

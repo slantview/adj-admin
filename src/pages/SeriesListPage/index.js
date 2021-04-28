@@ -1,5 +1,6 @@
 import { NetworkStatus, useQuery } from '@apollo/client';
 import { Container } from '@material-ui/core';
+import EventsUpcomingCard from 'components/EventsUpcomingCard';
 import SectionHeader from 'components/SectionHeader';
 import { SiteContext } from 'providers/SiteProvider';
 import React, { useContext } from 'react';
@@ -72,7 +73,7 @@ export default function SeriesListPage() {
 				{ series.length === 0 &&
 					<AddNewSeriesCard />
 				}
-
+			
 				{ series.length > 0 && series.map(item => (
 					<SeriesListItem 
 						key={item.id}  
