@@ -12,7 +12,8 @@ import {
 	Collapse,
     InputAdornment,
     Snackbar,
-	Container
+	Container,
+	Grid
  } from '@material-ui/core';
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
@@ -92,97 +93,116 @@ export default function OrganizationListPage() {
 					{ title: "Organizations", to: null }
                 ]}
 			/>
-			<div className="mt-2 mx-3">
-				<Card className="card-box mb-spacing-6-x2">
-					<div className="card-header">
-						<div className="card-header--title">
-							
-						</div>
+			<div className="mx-4 mt-4">
+                <Grid container>
+                    <Grid item md={6} lg={6} xl={6}>
+                        <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">All Organizations</h3>
+                    </Grid>
+                    <Grid item md={6} lg={6} xl={6}>
+                        <div className="text-right">
+                            <Button
+                                component={Link}
+                                to={'/admin/organizations/add'}
+                                // variant="contained"
+                                size="small"
+                                className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
+                                    <span className="btn-wrapper--icon mr-2">
+                                        <FontAwesomeIcon icon={['fas', 'plus']} className="opacity-8" />
+                                    </span>
+                                    Add Organization
+                            </Button>
+                        </div>
+                    </Grid>
+                    <Grid item md={12} lg={12} xl={12} className="mt-3">
+						<Card className="card-box mb-spacing-6-x2">
+							<div className="card-header">
+								<div className="card-header--actions">
+									<div className="search-wrapper">
+										<TextField
+											variant="outlined"
+											size="small"
+											id="input-search"
+											onChange={handleSearchChange}
+											InputProps={{
+												startAdornment: (
+													<InputAdornment position="start">
+														<SearchTwoToneIcon />
+													</InputAdornment>
+												)
+											}}
+										/>
+									</div>
+								</div>
+							</div>
+							<CardContent className="px-0 pt-2 pb-3">
+								<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
+									<thead>
+										<tr>
+											<th>Organization</th>
+											<th>ID</th>
+											<th className="text-center">Status</th>
+											<th className="text-right">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{ isLoading && 
+											<tr>
+												<td colSpan={5}>
+													<div className="text-center my-3">
+														<Loading centerInPage={false} center={true} />
+													</div> 
+												</td>
+											</tr>
+										}
+										{ !isLoading && organizations.length > 0 && organizations.slice((page-1)*entries, ((page-1)*entries)+entries).map(org => (
+											<OrganizationListTableRow 
+												key={org.id} 
+												setLoading={setLoading}
+												{...org} />
+										))}
+									</tbody>
+								</Table>
+								<div className="card-footer py-3 d-flex justify-content-between">
+									<Collapse in={organizations.length > entries}>
+										<Pagination
+											className="pagination-second"
+											variant="outlined"
+											page={page}
+											onChange={handlePageChange}
+											count={ Math.round((organizations.length/entries)) + (organizations.length%entries === 0 ? 0 : 1)}
+										/>
+									</Collapse>
+									<div className="d-flex align-items-center">
+										<span>Show</span>
+										<FormControl size="small" variant="outlined" className="mx-3">
+											<Select
+												labelId="select-entries-label"
+												id="select-entries"
+												value={entries}
+												onChange={handleEntriesChange}>
+												<MenuItem className="mx-2" value={1}>
+													All
+												</MenuItem>
+												<MenuItem className="mx-2" value={5}>
+													5
+												</MenuItem>
+												<MenuItem className="mx-2" value={10}>
+													10
+												</MenuItem>
+												<MenuItem className="mx-2" value={20}>
+													20
+												</MenuItem>
+											</Select>
+										</FormControl>
+										<span>entries</span>
+									</div>
+								</div>
+							</CardContent>
+						</Card>
+                    </Grid>
+                </Grid>
+            </div>
 
-						<div className="card-header--actions">
-							<div className="search-wrapper">
-								<TextField
-									variant="outlined"
-									size="small"
-									id="input-search"
-									onChange={handleSearchChange}
-									InputProps={{
-										startAdornment: (
-											<InputAdornment position="start">
-												<SearchTwoToneIcon />
-											</InputAdornment>
-										)
-									}}
-								/>
-							</div>
-						</div>
-					</div>
-					<CardContent className="px-0 pt-2 pb-3">
-						<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
-							<thead>
-								<tr>
-									<th>Organization</th>
-									<th>ID</th>
-									<th className="text-center">Status</th>
-									<th className="text-right">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{ isLoading && 
-									<tr>
-										<td colSpan={5}>
-											<div className="text-center my-3">
-												<Loading centerInPage={false} center={true} />
-											</div> 
-										</td>
-									</tr>
-								}
-								{ !isLoading && organizations.length > 0 && organizations.slice((page-1)*entries, ((page-1)*entries)+entries).map(org => (
-									<OrganizationListTableRow 
-										key={org.id} 
-										setLoading={setLoading}
-										{...org} />
-								))}
-							</tbody>
-						</Table>
-						<div className="card-footer py-3 d-flex justify-content-between">
-							<Collapse in={organizations.length > entries}>
-								<Pagination
-									className="pagination-second"
-									variant="outlined"
-									page={page}
-									onChange={handlePageChange}
-									count={ Math.round((organizations.length/entries)) + (organizations.length%entries === 0 ? 0 : 1)}
-								/>
-							</Collapse>
-							<div className="d-flex align-items-center">
-								<span>Show</span>
-								<FormControl size="small" variant="outlined" className="mx-3">
-									<Select
-										labelId="select-entries-label"
-										id="select-entries"
-										value={entries}
-										onChange={handleEntriesChange}>
-										<MenuItem className="mx-2" value={1}>
-											All
-										</MenuItem>
-										<MenuItem className="mx-2" value={5}>
-											5
-										</MenuItem>
-										<MenuItem className="mx-2" value={10}>
-											10
-										</MenuItem>
-										<MenuItem className="mx-2" value={20}>
-											20
-										</MenuItem>
-									</Select>
-								</FormControl>
-								<span>entries</span>
-							</div>
-						</div>
-					</CardContent>
-				</Card>
-			</div>
 		</>
 	);
 }

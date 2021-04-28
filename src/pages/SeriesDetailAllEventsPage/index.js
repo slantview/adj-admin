@@ -107,38 +107,14 @@ const SeriesDetailAllEventsPage = (props) => {
                 subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
                 backgroundImage={seriesData.header.formats.large.url}
-                linkText="Add Event"
-                linkTo={"/events/" + seriesId + "/add"}
-                linkIconName="plus"
                 breadcrumbs={[
                     { title: "Home", to: "/" },
                     { title: "Events", to: "/events" },
                     { title: seriesData.title, to: "/series/" + seriesData.id },
-                    { title: "All Events", to: null}
+                    { title: "All Events", to: null }
                 ]}
-            >
-                <Grid container alignItems="flex-end">
-                    <Grid item sm={6} lg={6} xl={6}>
-                        <Grid container>
-                            <Grid item sm={12} lg={12} xl={12}>
-                                <div className="mb-2">
-                                    <span className="font-size-md text-uppercase text-white-50">Upcoming: </span>
-                                    <span className="text-white font-weight-bold ">{sortedEvents.upcoming.length}</span>
-                                    <span className="font-size-md text-uppercase text-white-50 ml-3">Completed: </span>
-                                    <span className="text-white font-weight-bold">{sortedEvents.previous.length}</span>
-                                    <span className="font-size-md text-uppercase text-white-50 ml-3">Unpublished: </span>
-                                    <span className="text-white font-weight-bold">{sortedEvents.unpublished.length}</span>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item sm={6} lg={6} xl={6}>
-                        <div className="mr-3">
-                            <SeriesHeaderAnalytics analytics={analytics} timezone={timezone} />
-                        </div>
-                    </Grid>
-                </Grid>
-            </SectionHeader>
+                minHeight="20vh"
+            />
             
             <div className="mt-3 mx-4">
                 { seriesData.events && seriesData.events.length > 0 &&

@@ -1,29 +1,27 @@
-import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-	Table, 
-	Card, 
-	CardContent, 
+import {
 	Button,
-	FormControl,
-	Select,
-	MenuItem,
-	TextField,
+	Card,
+	CardContent,
 	Collapse,
-    InputAdornment,
-    Snackbar,
-	Container
- } from '@material-ui/core';
+	FormControl,
+	Grid,
+	InputAdornment,
+	MenuItem,
+	Select,
+	Table,
+	TextField
+} from '@material-ui/core';
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
+import SectionHeader from 'components/SectionHeader';
+import { SiteContext } from 'providers/SiteProvider';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Loading from '../../../components/Loading';
-import { getSites } from '../../../utils/api';
-import { UserContext } from '../../../providers/UserProvider';
 import SiteListTableRow from '../../../components/SiteListTableRow';
-import { SiteContext } from 'providers/SiteProvider';
-import SectionHeader from 'components/SectionHeader';
+import { UserContext } from '../../../providers/UserProvider';
+import { getSites } from '../../../utils/api';
 
 export default function SiteListPage() {
     const userCtx = useContext(UserContext);
@@ -83,96 +81,114 @@ export default function SiteListPage() {
 					{ title: "Sites", to: null }
                 ]}
 			/>
-			<div className="mt-2 mx-3">
-				<Card className="card-box mb-spacing-6-x2">
-					<div className="card-header">
-						<div className="card-header--title">
-							
-						</div>
-
-						<div className="card-header--actions">
-							<div className="search-wrapper">
-								<TextField
-									variant="outlined"
-									size="small"
-									id="input-search"
-									onChange={handleSearchChange}
-									InputProps={{
-										startAdornment: (
-											<InputAdornment position="start">
-												<SearchTwoToneIcon />
-											</InputAdornment>
-										)
-									}}
-								/>
+			 <div className="mx-4 mt-4">
+                <Grid container>
+					<Grid item md={6} lg={6} xl={6}>
+                        <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">All Sites</h3>
+                    </Grid>
+					<Grid item md={6} lg={6} xl={6}>
+                        <div className="text-right">
+                            <Button
+                                component={Link}
+                                to={'/admin/sites/add'}
+                                // variant="contained"
+                                size="small"
+                                className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
+                                    <span className="btn-wrapper--icon mr-2">
+                                        <FontAwesomeIcon icon={['fas', 'plus']} className="opacity-8" />
+                                    </span>
+                                    Add Site
+                            </Button>
+                        </div>
+                    </Grid>
+					<Grid item md={12} lg={12} xl={12} className="mt-3">
+						<Card className="card-box mb-spacing-6-x2">
+							<div className="card-header">
+								<div className="card-header--actions">
+									<div className="search-wrapper">
+										<TextField
+											variant="outlined"
+											size="small"
+											id="input-search"
+											onChange={handleSearchChange}
+											InputProps={{
+												startAdornment: (
+													<InputAdornment position="start">
+														<SearchTwoToneIcon />
+													</InputAdornment>
+												)
+											}}
+										/>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					<CardContent className="px-0 pt-2 pb-3">
-						<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
-							<thead>
-								<tr>
-									<th>Site</th>
-									<th>URL</th>
-									<th className="text-center">Status</th>
-									<th className="text-right">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{ isLoading && 
-									<tr>
-										<td colSpan={5}>
-											<div className="text-center my-3">
-												<Loading centerInPage={false} center={true} />
-											</div> 
-										</td>
-									</tr>
-								}
-								{ !isLoading && sites.length > 0 && sites.slice((page-1)*entries, ((page-1)*entries)+entries).map(org => (
-									<SiteListTableRow 
-										key={org.id} 
-										setLoading={setLoading}
-										{...org} />
-								))}
-							</tbody>
-						</Table>
-						<div className="card-footer py-3 d-flex justify-content-between">
-							<Collapse in={sites.length > entries}>
-								<Pagination
-									className="pagination-second"
-									variant="outlined"
-									page={page}
-									onChange={handlePageChange}
-									count={ Math.round((sites.length/entries)) + (sites.length%entries === 0 ? 0 : 1)}
-								/>
-							</Collapse>
-							<div className="d-flex align-items-center">
-								<span>Show</span>
-								<FormControl size="small" variant="outlined" className="mx-3">
-									<Select
-										labelId="select-entries-label"
-										id="select-entries"
-										value={entries}
-										onChange={handleEntriesChange}>
-										<MenuItem className="mx-2" value={1}>
-											All
-										</MenuItem>
-										<MenuItem className="mx-2" value={5}>
-											5
-										</MenuItem>
-										<MenuItem className="mx-2" value={10}>
-											10
-										</MenuItem>
-										<MenuItem className="mx-2" value={20}>
-											20
-										</MenuItem>
-									</Select>
-								</FormControl>
-								<span>entries</span>
-							</div>
-						</div>
-					</CardContent>
-				</Card>
+							<CardContent className="px-0 pt-2 pb-3">
+								<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
+									<thead>
+										<tr>
+											<th>Site</th>
+											<th>URL</th>
+											<th className="text-center">Status</th>
+											<th className="text-right">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{ isLoading && 
+											<tr>
+												<td colSpan={5}>
+													<div className="text-center my-3">
+														<Loading centerInPage={false} center={true} />
+													</div> 
+												</td>
+											</tr>
+										}
+										{ !isLoading && sites.length > 0 && sites.slice((page-1)*entries, ((page-1)*entries)+entries).map(org => (
+											<SiteListTableRow 
+												key={org.id} 
+												setLoading={setLoading}
+												{...org} />
+										))}
+									</tbody>
+								</Table>
+								<div className="card-footer py-3 d-flex justify-content-between">
+									<Collapse in={sites.length > entries}>
+										<Pagination
+											className="pagination-second"
+											variant="outlined"
+											page={page}
+											onChange={handlePageChange}
+											count={ Math.round((sites.length/entries)) + (sites.length%entries === 0 ? 0 : 1)}
+										/>
+									</Collapse>
+									<div className="d-flex align-items-center">
+										<span>Show</span>
+										<FormControl size="small" variant="outlined" className="mx-3">
+											<Select
+												labelId="select-entries-label"
+												id="select-entries"
+												value={entries}
+												onChange={handleEntriesChange}>
+												<MenuItem className="mx-2" value={1}>
+													All
+												</MenuItem>
+												<MenuItem className="mx-2" value={5}>
+													5
+												</MenuItem>
+												<MenuItem className="mx-2" value={10}>
+													10
+												</MenuItem>
+												<MenuItem className="mx-2" value={20}>
+													20
+												</MenuItem>
+											</Select>
+										</FormControl>
+										<span>entries</span>
+									</div>
+								</div>
+							</CardContent>
+						</Card>
+					</Grid>
+				</Grid>
 			</div>
 		</>
 	);

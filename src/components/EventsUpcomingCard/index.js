@@ -23,7 +23,7 @@ const EventsUpcomingCard = (props) => {
 	const bgImage = next ? next.header.formats.large.url : headerBackground;
 
 	return (
-		<div className="">
+		<div className="mt-2">
 			<Grid container spacing={2}>
 				<Grid item xl={12}>
 					<Card className="card-shadow-md card-box-hover-rise card-box-hover my-3">

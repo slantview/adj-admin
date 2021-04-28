@@ -72,12 +72,9 @@ ReactDOM.render(
 												<Route path="/">
 													<BackendProvider>
 														<Layout>
-															<Route exact path="/">
-																<Redirect to="/events" />
-															</Route>
 															{/* Series Pages */}
-															<Route exact path="/series/:seriesId"><SeriesDetailPage /></Route>
 															<Route exact path="/series/add"><SeriesAddPage /></Route>
+															<Route exact path="/series/:seriesId"><SeriesDetailPage /></Route>
 															<Route exact path="/series/:seriesId/all"><SeriesDetailAllEventsPage /></Route>
 															{/* Events Pages */}
 															<Route exact path="/events"><SeriesListPage /></Route>
@@ -111,6 +108,8 @@ ReactDOM.render(
 															{/* Admin Users Pages */}
 															<Route exact path="/admin/users"><AdminUsersListPage /></Route>
 															<Route exact path="/admin/users/add"><AdminUsersAddPage /></Route>
+
+															<Route exact path="/"><Redirect to="/events" /></Route>
 														</Layout>
 													</BackendProvider>
 												</Route>

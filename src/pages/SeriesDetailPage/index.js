@@ -116,6 +116,7 @@ const SeriesDetailPage = (props) => {
                     { title: "Events", to: "/events" },
                     { title: seriesData.title, to: null }
                 ]}
+                minHeight="20vh"
             >
                 <Grid container alignItems="flex-end">
                     <Grid item sm={12} lg={12} xl={12}>

@@ -49,10 +49,10 @@ const EventsListRow = (props) => {
                     </div>
                 </div>
             </td>
-            <td className="text-center">
+            <td className="text-left">
                 {startsAt}
             </td>
-            <td className="text-center">
+            <td className="text-left">
                 { published_at && isFuture &&
                     <span className="badge text-uppercase badge-success">Published</span>
                 }
@@ -68,7 +68,11 @@ const EventsListRow = (props) => {
             </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">
-                    <EventActionMenu event={event} refreshSeries={refreshSeries} setLoading={setLoading} />
+                    <EventActionMenu 
+                        event={event} 
+                        refreshSeries={refreshSeries} 
+                        setLoading={setLoading} 
+                        iconClassName="text-black-50" />
                 </div>
             </td>
         </tr>

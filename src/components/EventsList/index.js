@@ -68,8 +68,8 @@ const EventsList = (props) => {
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th className="text-center">Starts At</th>
-                            <th className="text-center">Status</th>
+                            <th className="text-left">Starts At</th>
+                            <th className="text-left">Status</th>
                             <th className="text-right">Actions</th>
                         </tr>
                     </thead>

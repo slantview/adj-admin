@@ -1,4 +1,5 @@
-import { Container } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Container, Grid } from '@material-ui/core';
 import OrganizationAddForm from 'components/OrganizationAddForm';
 import SectionHeader from 'components/SectionHeader';
 import React from 'react';
@@ -16,9 +17,14 @@ const OrganizationAddPage = (props) => {
                     { title: "Add Organization", to: null }
 				]}
 			/>
-			<Container className="mt-5">
-				<OrganizationAddForm />
-			</Container>
+
+            <div className="mx-4 mt-4">
+                <Grid container>
+                    <Grid item md={12} lg={12} xl={12} className="mt-3">
+                        <OrganizationAddForm />
+                    </Grid>
+                </Grid>
+            </div>
 		</>
     )
 }

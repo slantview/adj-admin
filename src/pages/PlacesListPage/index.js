@@ -1,28 +1,28 @@
-import React, { useContext, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-	Table, 
-	Card, 
-	CardContent, 
-	Button,
-	FormControl,
-	Select,
-	MenuItem,
-	TextField,
-	InputAdornment,
-	Collapse,
-	Container
- } from '@material-ui/core';
-import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import Pagination from '@material-ui/core/Pagination';
-import { Link } from 'react-router-dom';
-import PlacesTableRow from '../../components/PlacesTableRow';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_PLACES } from '../../queries/places';
-import Loading from '../../components/Loading';
-import Error from '../../components/Error';
-import { SiteContext } from 'providers/SiteProvider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	Button,
+	Card,
+	CardContent,
+	Collapse,
+	FormControl,
+	Grid,
+	InputAdornment,
+	MenuItem,
+	Select,
+	Table,
+	TextField
+} from '@material-ui/core';
+import Pagination from '@material-ui/core/Pagination';
+import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import SectionHeader from 'components/SectionHeader';
+import { SiteContext } from 'providers/SiteProvider';
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Error from '../../components/Error';
+import Loading from '../../components/Loading';
+import PlacesTableRow from '../../components/PlacesTableRow';
+import { GET_ALL_PLACES } from '../../queries/places';
 
 export default function PlacesListPage() {
 	const siteCtx = useContext(SiteContext);
@@ -104,95 +104,106 @@ export default function PlacesListPage() {
                     { title: "Venues", to: null }
                 ]}
 			/>
-			<Container className="mt-5">
-				<Card className="card-box mb-spacing-6-x2">
-					<div className="card-header">
-						<div className="card-header--title">
-							<div className="search-wrapper">
-								<TextField
-									variant="outlined"
-									size="small"
-									id="input-search"
-									onChange={handleSearchChange}
-									InputProps={{
-										startAdornment: (
-											<InputAdornment position="start">
-												<SearchTwoToneIcon />
-											</InputAdornment>
-										)
-									}}
-								/>
+			<div className="mx-4 mt-4">
+                <Grid container>
+					<Grid item md={6} lg={6} xl={6}>
+                        <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">All Venues</h3>
+                    </Grid>
+					<Grid item md={6} lg={6} xl={6}>
+                        <div className="text-right">
+                            <Button
+                                component={Link}
+                                to={'/places/add'}
+                                // variant="contained"
+                                size="small"
+                                className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
+                                    <span className="btn-wrapper--icon mr-2">
+                                        <FontAwesomeIcon icon={['fas', 'plus']} className="opacity-8" />
+                                    </span>
+                                    Add Venue
+                            </Button>
+                        </div>
+                    </Grid>
+					<Grid item md={12} lg={12} xl={12} className="mt-3">
+						<Card className="card-box mb-spacing-6-x2">
+							<div className="card-header">
+								<div className="card-header--title">
+									<div className="search-wrapper">
+										<TextField
+											variant="outlined"
+											size="small"
+											id="input-search"
+											onChange={handleSearchChange}
+											InputProps={{
+												startAdornment: (
+													<InputAdornment position="start">
+														<SearchTwoToneIcon />
+													</InputAdornment>
+												)
+											}}
+										/>
+									</div>
+								</div>
 							</div>
-						</div>
-
-						<div className="card-header--actions">
-							<div>
-							<Button to="/places/add" component={Link} size="small" className="btn-neutral-primary">
-								<span className="btn-wrapper--icon">
-									<FontAwesomeIcon icon={['fas', 'plus-circle']} />
-								</span>
-								<span className="btn-wrapper--label">Add Place</span>
-							</Button>
-							</div>
-						</div>
-					</div>
-					<CardContent className="px-0 pt-2 pb-3">
-						<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
-							<thead>
-								<tr>
-									<th>Name</th>
-									<th className="text-center">Events</th>
-									<th className="text-center">Tournaments</th>
-									<th className="text-center">Created At</th>
-									<th className="text-center">Updated At</th>
-									<th className="text-center">Status</th>
-									<th className="text-right">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{ places.map(place => (
-									<PlacesTableRow key={place.id} {...place} />
-								))}
-							</tbody>
-						</Table>
-						<div className="divider mb-3" />
-						<div className="card-footer py-3 d-flex justify-content-between">
-							<Collapse in={places.length > entries}>
-								<Pagination
-									className="pagination-second"
-									variant="outlined"
-									page={page}
-									count={ Math.round((places.length/entries)) + (places.length%entries === 0 ? 0 : 1)}
-								/>
-							</Collapse>
-							<div className="d-flex align-items-center">
-								<span>Show</span>
-								<FormControl size="small" variant="outlined" className="mx-3">
-									<Select
-										labelId="select-entries-label"
-										id="select-entries"
-										value={entries}
-										onChange={handleEntriesChange}>
-										<MenuItem className="mx-2" value={1}>
-											All
-										</MenuItem>
-										<MenuItem className="mx-2" value={5}>
-											5
-										</MenuItem>
-										<MenuItem className="mx-2" value={10}>
-											10
-										</MenuItem>
-										<MenuItem className="mx-2" value={20}>
-											20
-										</MenuItem>
-									</Select>
-								</FormControl>
-								<span>entries</span>
-							</div>
-						</div>
-					</CardContent>
-				</Card>
-			</Container>
+							<CardContent className="px-0 pt-2 pb-3">
+								<Table className="table table-borderless table-hover table-alternate text-nowrap mb-0">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th className="text-center">Events</th>
+											<th className="text-center">Tournaments</th>
+											<th className="text-center">Created At</th>
+											<th className="text-center">Updated At</th>
+											<th className="text-center">Status</th>
+											<th className="text-right">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{ places.map(place => (
+											<PlacesTableRow key={place.id} {...place} />
+										))}
+									</tbody>
+								</Table>
+								<div className="divider mb-3" />
+								<div className="card-footer py-3 d-flex justify-content-between">
+									<Collapse in={places.length > entries}>
+										<Pagination
+											className="pagination-second"
+											variant="outlined"
+											page={page}
+											count={ Math.round((places.length/entries)) + (places.length%entries === 0 ? 0 : 1)}
+										/>
+									</Collapse>
+									<div className="d-flex align-items-center">
+										<span>Show</span>
+										<FormControl size="small" variant="outlined" className="mx-3">
+											<Select
+												labelId="select-entries-label"
+												id="select-entries"
+												value={entries}
+												onChange={handleEntriesChange}>
+												<MenuItem className="mx-2" value={1}>
+													All
+												</MenuItem>
+												<MenuItem className="mx-2" value={5}>
+													5
+												</MenuItem>
+												<MenuItem className="mx-2" value={10}>
+													10
+												</MenuItem>
+												<MenuItem className="mx-2" value={20}>
+													20
+												</MenuItem>
+											</Select>
+										</FormControl>
+										<span>entries</span>
+									</div>
+								</div>
+							</CardContent>
+						</Card>
+					</Grid>
+				</Grid>
+			</div>
 		</>
 	);
 }
