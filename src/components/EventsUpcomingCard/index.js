@@ -5,6 +5,7 @@ import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
 import React, { useContext } from 'react';
 import EventActionMenu from 'components/EventActionMenu';
+import { Link } from 'react-router-dom';
 
 const EventsUpcomingCard = (props) => {
 	const {
@@ -109,6 +110,11 @@ const EventsUpcomingCard = (props) => {
 									</div>
 								</CardContent>
 							}
+							<CardContent>
+								<Link to={"/series/" + series.id + "/all"} className="font-weight-bold text-first">
+									See all events
+								</Link> 
+							</CardContent>
 						</Card>
 					</Grid>
 				</Grid>

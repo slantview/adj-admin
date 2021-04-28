@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import OrganizationAddPage from 'pages/Admin/OrganizationAddPage';
 import SiteAddPage from 'pages/Admin/SiteAddPage';
 import SeriesAddPage from 'pages/SeriesAddPage';
+import SeriesDetailAllEventsPage from 'pages/SeriesDetailAllEventsPage';
 import SeriesDetailPage from 'pages/SeriesDetailPage';
 import NotificationProvider from 'providers/NotificationProvider';
 import React from 'react';
@@ -76,6 +77,7 @@ ReactDOM.render(
 												{/* Series Pages */}
 												<Route exact path="/series/:seriesId"><SeriesDetailPage /></Route>
 												<Route exact path="/series/add"><SeriesAddPage /></Route>
+												<Route exact path="/series/:seriesId/all"><SeriesDetailAllEventsPage /></Route>
 												{/* Events Pages */}
 												<Route exact path="/events"><SeriesListPage /></Route>
 												<Route exact path="/events/list"><EventsListPage /></Route>
