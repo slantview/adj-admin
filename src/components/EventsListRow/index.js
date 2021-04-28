@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
+import EventActionMenu from 'components/EventActionMenu';
 import _ from 'lodash';
 import moment from 'moment';
 import { NotificationContext } from 'providers/NotificationProvider';
@@ -31,7 +32,7 @@ const EventsListRow = (props) => {
 
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
-    const timezone = siteCtx.timezone;
+    const timezone = siteCtx.getTimezone();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [cloneConfirmModal, setCloneConfirmModal] = useState(false);
@@ -124,12 +125,24 @@ const EventsListRow = (props) => {
 	return (
         <tr >
             <td>
-                <div>
-                    <Link to={"/series/"+seriesId+"/"+id}>
-                        <span className="text-black" title={title}>
-                            {title}
+                <div className="d-flex align-items-center">
+                    <div className="avatar-icon-wrapper mr-2">
+                        <div className="avatar-icon">
+                            <img alt={event.title} src={event.card.formats.thumbnail.url} />
+                        </div>
+                    </div>
+                    <div>
+                        <Link
+                            to={"/events/" + seriesId + "/" + event.id}
+                            onClick={(e) => e.preventDefault()}
+                            className="font-weight-bold text-black"
+                            title={event.title}>
+                                {event.title}
+                        </Link>
+                        <span className="text-black-50 font-weight-light d-block">
+                            {moment(event.starts_at).tz(timezone).format("MM/DD/YYYY h:mmA")}
                         </span>
-                    </Link>
+                    </div>
                 </div>
             </td>
             <td className="text-center">
@@ -151,51 +164,7 @@ const EventsListRow = (props) => {
             </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">
-                    <Button
-                        size="small"
-                        onClick={handleClick}
-                        className="btn-link d-30 p-0 btn-icon hover-scale-sm">
-                        <FontAwesomeIcon
-                            icon={['fas', 'ellipsis-h']}
-                            className="font-size-lg"
-                        />
-                    </Button>
-                    <Menu
-						anchorEl={anchorEl}
-						keepMounted
-						getContentAnchorEl={null}
-						open={Boolean(anchorEl)}
-						classes={{ list: 'p-0' }}
-						onClose={handleClose}>
-						<div className="dropdown-menu-lg overflow-hidden p-0">
-							<div className="dropdown-menu-lg overflow-hidden p-0">
-								<List component="div" className="nav-neutral-primary font-size-sm text-left">
-                                    <ListItem onClick={handleClone} button className="text-left">
-										Clone
-									</ListItem>
-                                    <ListItem 
-                                        onClick={published_at === null ? handlePublish : handleUnpublish} 
-                                        button 
-                                        className="text-left">
-										    {published_at === null ? 'Publish' : 'Unpublish'}
-									</ListItem>
-                                    <ListItem onClick={handleEdit} button className="text-left">
-										Edit
-									</ListItem>
-									<ListItem onClick={handleDelete} button className="text-left">
-										Delete
-									</ListItem>
-								</List>
-							</div>
-						</div>
-					</Menu>
-                    <EventCloneDialog
-                        event={event}
-                        cloneConfirmModal={cloneConfirmModal}
-                        setCloneConfirmModal={setCloneConfirmModal}
-                        setLoading={setLoading}
-                        refreshSeries={refreshSeries}
-                    />
+                    <EventActionMenu event={event} refreshSeries={refreshSeries} setLoading={setLoading} />
                 </div>
             </td>
         </tr>
