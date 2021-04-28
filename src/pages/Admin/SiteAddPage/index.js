@@ -71,6 +71,7 @@ const SiteAddPage = (props) => {
 				breadcrumbs={[
 					{ title: "Home", to: "/" },
 					{ title: "Sites", to: "/admin/sites" },
+					{ title: "Add Site", to: null }
 				]}
 			/>
 			<Container className="mt-5">

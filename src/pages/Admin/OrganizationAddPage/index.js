@@ -13,6 +13,7 @@ const OrganizationAddPage = (props) => {
 				breadcrumbs={[
 					{ title: "Home", to: "/" },
 					{ title: "Organizations", to: "/admin/organizations" },
+                    { title: "Add Organization", to: null }
 				]}
 			/>
 			<Container className="mt-5">

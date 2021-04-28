@@ -12,7 +12,7 @@ export default function ContentDashboardPage() {
 				subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
 				breadcrumbs={[
-                    { title: "Home", to: "/" }
+                    { title: "Home", to: null }
                 ]}
 			/>
 			<Container className="mt-5">

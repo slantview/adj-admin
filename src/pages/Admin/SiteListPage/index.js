@@ -79,7 +79,8 @@ export default function SiteListPage() {
 				linkTo="/admin/sites/add"
 				linkIconName="plus"
 				breadcrumbs={[
-                    { title: "Home", to: "/" }
+					{ title: "Home", to: "/" },
+					{ title: "Sites", to: null }
                 ]}
 			/>
 			<div className="mt-2 mx-3">

@@ -27,7 +27,7 @@ const SectionHeader = (props) => {
 	const bgImage = backgroundImage ? backgroundImage : headerBackground;
 
 	return (
-		<>
+		<div className="mb-1">
 			<Paper square={true} elevation={2}>
 				<CardMedia
 					style={{minHeight: realMinHeight}}
@@ -52,8 +52,8 @@ const SectionHeader = (props) => {
 									)}
 								</div>
 							</Grid>
-							<Grid item sm={12} lg={2}>
-								{ showLink &&
+							{ showLink &&
+								<Grid item sm={12} lg={2}>
 									<div className="text-right mr-3">
 										<Button
 											component={RouterLink}
@@ -68,8 +68,8 @@ const SectionHeader = (props) => {
 												<span>{linkText}</span>
 										</Button>
 									</div>
-								}
-							</Grid>
+								</Grid>
+							}
 							<Grid item xs={12} sm={12} lg={12} xl={12}>
 								{props.children}
 							</Grid>
@@ -77,22 +77,33 @@ const SectionHeader = (props) => {
 					</div>
 				</CardMedia>
 			</Paper>
-			<div className="ml-3 mt-2">
-				{ breadcrumbs && breadcrumbs.length > 0 &&
-					<Breadcrumbs separator="›" className="text-black text-uppercase font-weight-bold">
-						{ breadcrumbs.map(b => 
-							{ return b.to === null ? (
-								<span key={b.title}>{b.title}</span>
-							):(
-								<RouterLink key={b.title} to={b.to ? b.to : ''} className="text-black font-weight-normal">
-									{b.title}
-								</RouterLink>
-							)})
+			
+			<div className="mx-4 mt-2">
+				<Grid container>
+					<Grid item md={12} lg={12} xl={12}>
+						{ breadcrumbs && breadcrumbs.length > 0 &&
+							<>
+								<Breadcrumbs separator="›" className="text-black-50 font-weight-regular">
+									{ breadcrumbs.map(b => 
+										{ return b.to === null ? (
+											<span className="font-weight-bold" key={b.title}>{b.title}</span>
+										):(
+											<RouterLink 
+												key={b.title} 
+												to={b.to ? b.to : ''} 
+												className="text-first text-underline font-weight-bold"
+												style={{textDecoration: "underline"}}>
+													{b.title}
+											</RouterLink>
+										)})
+									}
+								</Breadcrumbs>
+							</>
 						}
-					</Breadcrumbs>
-				}
+					</Grid>
+				</Grid>
 			</div>
-		</>
+		</div>
 	);
 };
 

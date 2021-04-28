@@ -74,7 +74,8 @@ export default function UsersListPage() {
 				linkTo="/admin/users/add"
 				linkIconName="plus"
 				breadcrumbs={[
-                    { title: "Home", to: "/" }
+                    { title: "Home", to: "/" },
+					{ title: "Users", to: null }
                 ]}
 			/>
 			<div className="mt-5 mx-3">

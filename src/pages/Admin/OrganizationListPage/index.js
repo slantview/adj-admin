@@ -88,7 +88,8 @@ export default function OrganizationListPage() {
 				linkTo="/admin/organizations/add"
 				linkIconName="plus"
 				breadcrumbs={[
-                    { title: "Home", to: "/" }
+					{ title: "Home", to: "/" },
+					{ title: "Organizations", to: null }
                 ]}
 			/>
 			<div className="mt-2 mx-3">

@@ -1,8 +1,6 @@
 import { useQuery } from '@apollo/client';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Grid } from '@material-ui/core';
-import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
-import EventAddNewCard from 'components/EventAddNewCard';
-import EventsList from 'components/EventsList';
 import EventsUpcomingCard from 'components/EventsUpcomingCard';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
@@ -12,7 +10,7 @@ import { SiteContext } from 'providers/SiteProvider';
 import { UserContext } from 'providers/UserProvider';
 import { GET_SERIES } from 'queries/series';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getSiteAnalytics } from 'utils/api';
 import { getSortedEvents } from 'utils/events';
 import Error from '../../components/Error';
@@ -102,7 +100,7 @@ const SeriesDetailPage = (props) => {
 	}
 
     return (
-        <>
+        <div>
             <SectionHeader 
                 title={seriesData.title}
                 titleColor="text-white"
@@ -110,12 +108,13 @@ const SeriesDetailPage = (props) => {
                 subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
                 backgroundImage={seriesData.header.formats.large.url}
-                linkText="Add Event"
-                linkTo={"/events/" + seriesId + "/add"}
-                linkIconName="plus"
+                // linkText="Add Event"
+                // linkTo={"/events/" + seriesId + "/add"}
+                // linkIconName="plus"
                 breadcrumbs={[
                     { title: "Home", to: "/" },
-                    { title: "Events", to: "/events" }
+                    { title: "Events", to: "/events" },
+                    { title: seriesData.title, to: null }
                 ]}
             >
                 <Grid container alignItems="flex-end">
@@ -140,37 +139,36 @@ const SeriesDetailPage = (props) => {
                     </Grid>
                 </Grid>
             </SectionHeader>
-            
-            <div className="mt-3 mx-4">
-                <>
-                    <EventsUpcomingCard 
-                        series={seriesData} 
-                        events={sortedEvents.upcoming} 
-                        next={sortedEvents.next}
-                        refreshSeries={refreshSeries}
-                    />
 
-                    {/* <EventsList 
-                        headerTitle={"Upcoming"}
-                        events={sortedEvents.upcoming} 
-                        refreshSeries={refreshSeries} 
-                        entries={entries} 
-                        setEntries={setEntries}
-                    /> */}
-                </>
-
-                {/* { seriesData.events && seriesData.events.length > 0 &&
-                     <EventsList 
-                        headerTitle={"All"}
-                        events={seriesData.events} 
-                        refreshSeries={refreshSeries} 
-                        entries={entries} 
-                        setEntries={setEntries}
-                    />
-                } */}
-               
+            <div className="mx-4">
+                <Grid container>
+                    <Grid item md={12} lg={12} xl={12}>
+                        <div className="text-right">
+                            <Button
+                                component={Link}
+                                to={'/events/' + seriesId + '/add'}
+                                variant="contained"
+                                size="small"
+                                className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
+                                    <span className="btn-wrapper--icon mr-2">
+                                        <FontAwesomeIcon icon={['fas', 'plus']} className="opacity-8" />
+                                    </span>
+                                    Add Event
+                            </Button>
+                        </div>
+                    </Grid>
+                    <Grid item md={12} lg={12} xl={12}>
+                        <EventsUpcomingCard 
+                            series={seriesData} 
+                            events={sortedEvents.upcoming} 
+                            next={sortedEvents.next}
+                            refreshSeries={refreshSeries}
+                        />
+                    </Grid>
+                </Grid>
             </div>
-        </>
+            
+        </div>
     )
 }
 

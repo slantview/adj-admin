@@ -101,7 +101,7 @@ export default function PlacesListPage() {
 				linkIconName="plus"
 				breadcrumbs={[
                     { title: "Home", to: "/" },
-                    { title: "Venues" }
+                    { title: "Venues", to: null }
                 ]}
 			/>
 			<Container className="mt-5">

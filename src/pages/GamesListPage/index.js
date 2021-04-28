@@ -101,7 +101,7 @@ export default function GamesListPage() {
 				linkIconName="plus"
 				breadcrumbs={[
                     { title: "Home", to: "/" },
-                    { title: "Games" }
+                    { title: "Games", to: null }
                 ]}
 			/>
 			<Container className="mt-5">

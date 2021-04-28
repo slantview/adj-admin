@@ -113,7 +113,8 @@ const SeriesDetailAllEventsPage = (props) => {
                 breadcrumbs={[
                     { title: "Home", to: "/" },
                     { title: "Events", to: "/events" },
-                    { title: seriesData.title, to: "/series/" + seriesData.id }
+                    { title: seriesData.title, to: "/series/" + seriesData.id },
+                    { title: "All Events", to: null}
                 ]}
             >
                 <Grid container alignItems="flex-end">

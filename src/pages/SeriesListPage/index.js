@@ -56,7 +56,7 @@ export default function SeriesListPage() {
 	return (
 		<>
 			<SectionHeader 
-				title="Event Series"
+				title="Events"
 				titleColor="text-white"
 				subtitle="See all series, events, and tournaments."
 				subtitleColor="text-white-50"
@@ -64,9 +64,10 @@ export default function SeriesListPage() {
 				linkText="Add Series"
 				linkTo="/series/add"
 				linkIconName="plus"
-				// breadcrumbs={[
-                //     { title: "Home", to: "/" }
-                // ]}
+				breadcrumbs={[
+                    { title: "Home", to: "/" },
+					{ title: "Events", to: null }
+                ]}
 			/>
 			<div className="mt-5 mx-5">
 				{ series.length === 0 &&
