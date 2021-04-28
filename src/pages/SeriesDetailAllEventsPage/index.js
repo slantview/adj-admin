@@ -21,7 +21,7 @@ const SeriesDetailAllEventsPage = (props) => {
     // const history = useHistory();
     // @ts-ignore
     const { seriesId } = useParams();
-    const [entries, setEntries] = React.useState(5);
+    const [entries, setEntries] = React.useState(10);
     const { loading, error, data, refetch, networkStatus } = useQuery(
 		GET_SERIES, 
 		{ 
@@ -112,7 +112,8 @@ const SeriesDetailAllEventsPage = (props) => {
                 linkIconName="plus"
                 breadcrumbs={[
                     { title: "Home", to: "/" },
-                    { title: "Events Series", to: "/events" }
+                    { title: "Events Series", to: "/events" },
+                    { title: seriesData.title, to: "/series/" + seriesData.id }
                 ]}
             >
                 <Grid container alignItems="flex-end">
