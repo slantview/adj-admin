@@ -128,7 +128,7 @@ const EventsTableRow = (props) => {
             </td>
             <td className="p-0 m-0 mb-0">
                 <div>
-                    <Link to={"/series/"+seriesId+"/"+id}>
+                    <Link to={"/series/view/"+seriesId+"/"+id}>
                         <span className="text-black" title={title}>
                             {title}
                         </span>

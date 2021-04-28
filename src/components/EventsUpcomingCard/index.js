@@ -146,7 +146,7 @@ const EventsUpcomingCard = (props) => {
 						}
 						<CardContent>
 							<Link 
-								to={"/series/" + series.id + "/all"} 
+								to={"/series/view/" + series.id + "/all"} 
 								style={{textDecoration: 'underline'}} 
 								className="font-weight-bold text-first">
 									See all events

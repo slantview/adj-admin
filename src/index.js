@@ -74,12 +74,11 @@ ReactDOM.render(
 														<Layout>
 															{/* Series Pages */}
 															<Route exact path="/series/add"><SeriesAddPage /></Route>
-															<Route exact path="/series/:seriesId"><SeriesDetailPage /></Route>
-															<Route exact path="/series/:seriesId/all"><SeriesDetailAllEventsPage /></Route>
+															<Route exact path="/series/view/:seriesId"><SeriesDetailPage /></Route>
+															<Route exact path="/series/view/:seriesId/all"><SeriesDetailAllEventsPage /></Route>
 															{/* Events Pages */}
 															<Route exact path="/events"><SeriesListPage /></Route>
 															<Route exact path="/events/list"><EventsListPage /></Route>
-															<Route exact path="/events/add"><EventsAddPage /></Route>
 															<Route exact path="/events/:seriesId/add"><EventsAddPage /></Route>
 															{/* <Route exact path="/events/template"><EventsTemplateListPage /></Route>
 															<Route exact path="/events/template/add"><EventsTemplateAddPage /></Route> */}

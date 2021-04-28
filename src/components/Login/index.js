@@ -25,7 +25,7 @@ export default function Login(props) {
 	// @ts-ignore
 	const fromUrl = location.state && location.state.from;
 	const redirect = fromUrl && fromUrl !== '/login' ? fromUrl : '/';
-	console.log('login')
+	
 	useEffect(() => {
 		if (userCtx.user) {
 			history.push(redirect);

@@ -11,7 +11,7 @@ function AddNewEventCard({ id }) {
                 <EventBusyTwoToneIcon fontSize="large" />
             </div>
             <h4 className="font-size-lg">No Upcoming Events</h4>
-            <p>To get started, <Link className="text-first" to={"/series/" + id + "/add"}>add a new event.</Link></p>
+            <p>To get started, <Link className="text-first" to={"/series/view/" + id + "/add"}>add a new event.</Link></p>
         </div>
     )
 }

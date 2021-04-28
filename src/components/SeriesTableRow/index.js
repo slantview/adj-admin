@@ -25,7 +25,7 @@ const SeriesTableRow = (props) => {
                 <div className="d-flex">
                     { card && 
                         <div>
-                            <Link to={"/series/"+id}>
+                            <Link to={"/series/view/"+id}>
                                 <img 
                                     src={card.formats.thumbnail.url} 
                                     width="120px" 
@@ -35,7 +35,7 @@ const SeriesTableRow = (props) => {
                         </div>
                     }
                     <div>
-                        <Link to={"/series/"+id}>
+                        <Link to={"/series/view/"+id}>
                             <div className="font-weight-bold text-black" title={title}>
                                 {title}
                             </div>

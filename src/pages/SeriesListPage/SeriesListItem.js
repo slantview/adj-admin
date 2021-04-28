@@ -20,7 +20,7 @@ function SeriesListItem(props) {
 	const buttonRef = useRef(null);
 
 	const handleClick = () => {
-		history.push('/series/' + id);
+		history.push('/series/view/' + id);
 	};
 
 	const sortedEvents = getSortedEvents(events, timezone);
