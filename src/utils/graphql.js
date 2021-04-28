@@ -36,19 +36,19 @@ export const getClient = (backend, token) => {
 
 export const eventToNewEvent = (event, values, timezone) => {
     // Adjust the time to the local timezone as set by the site.
-    const value_starts_at = moment(values.starts_at).tz(timezone.value);
-    const event_starts_at = moment(event.starts_at).tz(timezone.value);
+    const value_starts_at = moment(values.starts_at).tz(timezone);
+    const event_starts_at = moment(event.starts_at).tz(timezone);
     const starts_at =  moment(
         value_starts_at.format("YYYY-MM-DD ") +
         event_starts_at.format("HH:mm:00")
-    ).tz(timezone.value).format();
+    ).tz(timezone).format();
     
-    const value_ends_at = moment(values.ends_at).tz(timezone.value);
-    const event_ends_at = moment(event.ends_at).tz(timezone.value);
+    const value_ends_at = moment(values.ends_at).tz(timezone);
+    const event_ends_at = moment(event.ends_at).tz(timezone);
     const ends_at = moment(
         value_ends_at.format("YYYY-MM-DD ") +
         event_ends_at.format("HH:mm:00")
-    ).tz(timezone.value).format();
+    ).tz(timezone).format();
 
     return {
         title: values.title,
@@ -77,18 +77,18 @@ export const eventToNewEvent = (event, values, timezone) => {
 };
 
 export const tournamentToNewTournament = (tournament, values, timezone) => {
-    const value_starts_at = moment(values.starts_at).tz(timezone.value);
-    const event_registration_cutoff = moment(tournament.registration_cutoff).tz(timezone.value);
+    const value_starts_at = moment(values.starts_at).tz(timezone);
+    const event_registration_cutoff = moment(tournament.registration_cutoff).tz(timezone);
     const registration_cutoff =  moment(
         value_starts_at.format("YYYY-MM-DD ") +
         event_registration_cutoff.format("HH:mm:00")
-    ).tz(timezone.value).format();
+    ).tz(timezone).format();
 
-    const original_start_time = moment(tournament.tournament_start_time).tz(timezone.value);
+    const original_start_time = moment(tournament.tournament_start_time).tz(timezone);
     const tournament_start_time =  moment(
         value_starts_at.format("YYYY-MM-DD ") +
         original_start_time.format("HH:mm:00")
-    ).tz(timezone.value).format();
+    ).tz(timezone).format();
 
     return {
         title: tournament.title,

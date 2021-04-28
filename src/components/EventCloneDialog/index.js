@@ -51,7 +51,7 @@ const EventCloneDialog = (props) => {
     const isLoading = processing && !error;
 
     const siteCtx = useContext(SiteContext);
-    const timezone = siteCtx.timezone;
+    const timezone = siteCtx.getTimezone();
     
     const handleSubmit = async (values, actions) => {
         setProcessing(true);

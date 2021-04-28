@@ -16,7 +16,7 @@ function SeriesListItem(props) {
 
 	const history = useHistory();
 	const siteCtx = useContext(SiteContext);
-    const timezone = siteCtx.getSite()?.metadata?.timezone.value;
+    const timezone = siteCtx.getTimezone();
 	const buttonRef = useRef(null);
 
 	const handleClick = () => {

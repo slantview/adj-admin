@@ -147,6 +147,7 @@ const SeriesDetailPage = (props) => {
                         series={seriesData} 
                         events={sortedEvents.upcoming} 
                         next={sortedEvents.next}
+                        refreshSeries={refreshSeries}
                     />
 
                     {/* <EventsList 

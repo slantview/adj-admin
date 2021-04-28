@@ -4,16 +4,16 @@ import EventAddNewCard from 'components/EventAddNewCard';
 import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
 import React, { useContext } from 'react';
-import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
+import EventActionMenu from 'components/EventActionMenu';
 
 const EventsUpcomingCard = (props) => {
 	const {
 		series,
 		events,
-		next
+		next,
+		refreshSeries,
+		setLoading
 	} = props;
-
-	
 
 	const siteCtx = useContext(SiteContext);
 	const timezone = siteCtx.getTimezone();
@@ -69,7 +69,7 @@ const EventsUpcomingCard = (props) => {
 											</thead> */}
 											<tbody>
 												{ events && events.map(event => (
-													<tr>
+													<tr key={event.id}>
 														<td>
 															<div className="d-flex align-items-center">
 																<div className="avatar-icon-wrapper mr-2">
@@ -99,10 +99,8 @@ const EventsUpcomingCard = (props) => {
 																<span className="badge text-uppercase badge-neutral-first text-first">Draft</span>
 															}
 														</td>
-														<td className="text-right">
-															<Button size="small" className="btn-neutral-second" disableElevation={true}>
-																<SettingsTwoToneIcon fontSize="small" />
-															</Button>
+														<td className="text-right text-black-50">
+															<EventActionMenu event={event} refreshSeries={refreshSeries} setLoading={setLoading} />
 														</td>
 													</tr>
 												))}
