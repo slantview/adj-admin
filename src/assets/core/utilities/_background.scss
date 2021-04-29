@@ -41,6 +41,10 @@
   background-image: linear-gradient(120deg, $sidebar-bg 20%, transparent 100%) !important;
 }
 
+.bg-black-80 {
+  background: rgba(0,0,0, 0.8) !important;
+}
+
 .bg-beacons-white-to-transparent {
   background-image: linear-gradient(90deg, #ffffff 20%, transparent 90%) !important;
 }

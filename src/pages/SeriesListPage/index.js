@@ -55,6 +55,8 @@ export default function SeriesListPage() {
 		return (<Error message={error.message} />)
 	}
 
+	console.log(series);
+
 	return (
 		<>
 			<SectionHeader 
@@ -95,7 +97,7 @@ export default function SeriesListPage() {
 						{ series.length === 0 &&
 							<AddNewSeriesCard />
 						}
-					
+
 						{ series.length > 0 && series.map(item => (
 							<SeriesListItem 
 								key={item.id}  

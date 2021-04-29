@@ -41,7 +41,7 @@ const SeriesDetailPage = (props) => {
     const [analytics, setAnalytics] = useState(null);
 
     // @ts-ignore
-    const { refresh } = location.state.refresh;
+    const refresh = location?.state?.refresh;
 
     const nextEventFormatted = sortedEvents.next !== null ?
         moment(sortedEvents.next.starts_at).tz(timezone)

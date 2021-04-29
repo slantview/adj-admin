@@ -90,7 +90,7 @@ const SeriesAddForm = (props) => {
                                         <Form id="organization-add-form"> 
                                             { FormProps.isSubmitting ? (
                                                 <div className="text-center m-5">
-                                                    <Loading center={true} />
+                                                    <Loading center={true} showTimeout={false} />
                                                     <h3 className="mt-3">Creating Series...</h3>
                                                 </div>
                                             ) : (

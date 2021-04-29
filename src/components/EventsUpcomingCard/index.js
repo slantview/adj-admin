@@ -34,7 +34,7 @@ const EventsUpcomingCard = (props) => {
 				<Grid item xl={12}>
 					<Card className="card-shadow-md card-box-hover-rise card-box-hover my-3">
 						<CardMedia image={bgImage}>
-							<div className="py-0 bg-beacons-black-to-transparent w-100">
+							<div className="py-0 bg-black-80 w-100">
 								<CardContent className="p-3 m-0">
 										{ next === null ? (
 											<EventAddNewCard id={series.id} />
