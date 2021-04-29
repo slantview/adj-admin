@@ -26,9 +26,11 @@ function equalTo(ref, msg) {
 	  },
 	});
 }
+// @ts-ignore
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
 let validationSchema = Yup.object({
+	// @ts-ignore
 	password2: Yup.string().equalTo(Yup.ref('password'), 'Passwords must match').required('Password confirm is required'),
 	password: Yup.string().required('Password is required'),
 	email: Yup.string().email('Email must be a valid format (e.g. user@example.com)').required('Email is required'),

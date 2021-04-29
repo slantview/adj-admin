@@ -198,9 +198,11 @@ export const GET_SERIES = gql`
             subtitle
             description
             card {
+                id
                 formats
             }
             header {
+                id
                 formats
             }
             events(
@@ -296,6 +298,28 @@ export const GET_SERIES = gql`
 export const CREATE_SERIES = gql`
     mutation CreateNewSeries($payload: createSeriesItemInput) {
         createSeriesItem(input: $payload) {
+            seriesItem {
+                id
+                slug
+                title
+                subtitle
+                description
+                card {
+                    formats
+                }
+                header {
+                    formats
+                }
+                created_at
+                updated_at
+            }
+        }
+    }
+`
+
+export const UPDATE_SERIES = gql`
+    mutation UpdateSeries($payload: updateSeriesItemInput) {
+        updateSeriesItem(input: $payload) {
             seriesItem {
                 id
                 slug

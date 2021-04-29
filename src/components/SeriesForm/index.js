@@ -1,7 +1,7 @@
 import { FormControl, Grid, InputLabel, MenuItem } from '@material-ui/core';
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import 'date-fns';
-import { Field } from 'formik';
+import { ErrorMessage, Field } from 'formik';
 import { Select, TextField } from 'formik-material-ui';
 import React from 'react';
 import ImageUpload from '../../components/ImageUpload';
@@ -40,17 +40,11 @@ const SeriesForm = (props) => {
                                             id: 'cadence'
                                         }}
                                     >
-                                        <MenuItem className="mx-2" value="weekly">
-                                            Weekly
-                                        </MenuItem>
-                                        <MenuItem className="mx-2" value="biweekly">
-                                            Bi-Weekly
-                                        </MenuItem>
-                                        <MenuItem className="mx-2" value="monthly">
-                                            Monthly
-                                        </MenuItem>
-                                    
+                                        <MenuItem className="mx-2" value="weekly">Weekly</MenuItem>
+                                        <MenuItem className="mx-2" value="biweekly">Bi-Weekly</MenuItem>
+                                        <MenuItem className="mx-2" value="monthly">Monthly</MenuItem>
                                     </Field>
+                                    <ErrorMessage name="cadence" />
                                 </FormControl>
                             </Grid>
                             <Grid item md={12} lg={12}>
@@ -99,6 +93,7 @@ const SeriesForm = (props) => {
                             subtitle="Upload your header image" 
                             description="1280x640"
                             setFieldValue={setFieldValue}
+                            value={values.header}
                             error={errors.header}
                         />
                     </Grid>
@@ -109,6 +104,7 @@ const SeriesForm = (props) => {
                             subtitle="Upload your card image" 
                             description="800x400"
                             setFieldValue={setFieldValue}
+                            value={values.card}
                             error={errors.card}
                         />
                     </Grid>

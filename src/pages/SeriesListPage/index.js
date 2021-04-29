@@ -45,8 +45,6 @@ export default function SeriesListPage() {
 		return (<Error message={error.message} />)
 	}
 
-	console.log(series);
-
 	return (
 		<>
 			<SectionHeader 

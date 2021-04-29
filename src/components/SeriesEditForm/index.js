@@ -6,19 +6,12 @@ import Finished from 'components/OrganizationAddForm/Finished';
 import { Form, Formik } from 'formik';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { UPLOAD_FILE } from 'queries/files';
-import { CREATE_SERIES } from 'queries/series';
+import { UPDATE_SERIES } from 'queries/series';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import SeriesForm from 'components/SeriesForm';
 
-const initialData = {
-    title: '',
-    description: '',
-    cadence: '',
-    header: [],
-    card: []
-};
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
     subtitle: Yup.string().required('Subtitle is required'),
@@ -28,46 +21,74 @@ const validationSchema = Yup.object({
     card: Yup.array().required('Card Image is required')
 });
 
-const SeriesAddForm = (props) => {
+const SeriesEditForm = ({ series }) => {
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
-    const [addSeries] = useMutation(CREATE_SERIES);
+    const [updateSeries] = useMutation(UPDATE_SERIES);
     const [uploadFile] = useMutation(UPLOAD_FILE);
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
+    const initialData = {
+        title: series.title,
+        slug: series.slug,
+        subtitle: series.subtitle,
+        description: series.description,
+        header: [{__typename: 'UploadFile', name: series.title, preview: series.header.formats.small.url}],
+        card: [{__typename: 'UploadFile', name: series.title, preview: series.card.formats.small.url}],
+        venues: series.venues,
+        cadence: series.cadence
+    };
+    console.log('initialData', initialData);
+
     const handleSubmit = async (values, actions) => {
-        let newSeries = values;
+        setError(null);
 
-        const headerResponse = await uploadFile({ 
-            variables: { 
-                file: values.header[0]
-            }
-        });
-
-        const cardResponse = await uploadFile({ 
-            variables: { 
-                file: values.card[0]
-            }
-        });
-
-        newSeries.header = headerResponse.data.upload.id;
-        newSeries.card = cardResponse.data.upload.id;
+        let newSeries = {
+            title: values.title,
+            slug: values.slug,
+            subtitle: values.subtitle,
+            description: values.description,
+            header: values.header?.id,
+            card: values.header?.id,
+            venues: values.venues,
+            cadence: values.cadence
+        };
+        
+        let headerResponse = null;
+        if (values.header[0].path) {
+            headerResponse = await uploadFile({ 
+                variables: { 
+                    file: values.header[0]
+                }
+            });
+            newSeries.header = headerResponse.data.upload.id;
+        }
+        
+        let cardResponse = null;
+        if (values.card[0].path) {
+            cardResponse = await uploadFile({ 
+                variables: { 
+                    file: values.card[0]
+                }
+            });
+            newSeries.card = cardResponse.data.upload.id;
+        }
 
         // TODO(smfr): Hard code this for now.
         newSeries.use_hero_title_text = false;
 
-        addSeries({ variables: { payload: { data: newSeries }}})
+        updateSeries({ variables: { payload: { where: { id: series.id }, data: newSeries }}})
             .then((ret) => {
-                const createdSeries = ret.data.createSeriesItem.seriesItem;
+                const updateSeries = ret.data.updateSeriesItem.seriesItem;
                 client.resetStore()
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully added event: " + createdSeries.title
+                            message: "Successfully updated event: " + updateSeries.title
                         });
-                        history.push('/events', { refresh: true });
+                        history.push('/series/view/' + updateSeries.id);
                     });
             }).catch(e  => {
                 setError(e.toString());
@@ -81,13 +102,6 @@ const SeriesAddForm = (props) => {
                     <div>
                         { error && <Error message={error} /> }
 
-                        { isSubmitted &&
-                            <Finished 
-                                title="You are all done!"
-                                buttonText="Continue"
-                                redirect="/events"
-                            />
-                        }
                         { !isSubmitted &&
                             <Formik
                                 initialValues={initialData}
@@ -98,7 +112,7 @@ const SeriesAddForm = (props) => {
                                             { FormProps.isSubmitting ? (
                                                 <div className="text-center m-5">
                                                     <Loading center={true} showTimeout={false} />
-                                                    <h3 className="mt-3">Creating Series...</h3>
+                                                    <h3 className="mt-3">Updating Series...</h3>
                                                 </div>
                                             ) : (
                                                 <div>
@@ -108,7 +122,7 @@ const SeriesAddForm = (props) => {
                                                         <Button
                                                             className="btn-primary font-weight-bold"
                                                             type="submit">
-                                                                Add Series
+                                                                Update Series
                                                         </Button>
                                                     </div>
                                                 </div>
@@ -124,4 +138,4 @@ const SeriesAddForm = (props) => {
     )
 }
 
-export default SeriesAddForm;
+export default SeriesEditForm;

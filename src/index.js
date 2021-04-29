@@ -4,6 +4,7 @@ import SiteAddPage from 'pages/Admin/SiteAddPage';
 import SeriesAddPage from 'pages/SeriesAddPage';
 import SeriesDetailAllEventsPage from 'pages/SeriesDetailAllEventsPage';
 import SeriesDetailPage from 'pages/SeriesDetailPage';
+import SeriesEditPage from 'pages/SeriesEditPage';
 import NotificationProvider from 'providers/NotificationProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -75,6 +76,7 @@ ReactDOM.render(
 															{/* Series Pages */}
 															<Route exact path="/series/add"><SeriesAddPage /></Route>
 															<Route exact path="/series/view/:seriesId"><SeriesDetailPage /></Route>
+															<Route exact path="/series/edit/:seriesId"><SeriesEditPage /></Route>
 															<Route exact path="/series/view/:seriesId/all"><SeriesDetailAllEventsPage /></Route>
 															{/* Events Pages */}
 															<Route exact path="/events"><SeriesListPage /></Route>
