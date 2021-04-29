@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, CardMedia, Grid, Table } from '@material-ui/core';
+import { Fade, Tooltip, Card, CardContent, CardMedia, Grid, Table } from '@material-ui/core';
 import headerBackground from 'assets/images/header-bg.jpg';
 import EventAddNewCard from 'components/EventAddNewCard';
 import moment from 'moment-timezone';
@@ -33,75 +33,79 @@ const EventsUpcomingCard = (props) => {
 			<Grid container spacing={2}>
 				<Grid item xl={12}>
 					<Card className="card-shadow-md card-box-hover-rise card-box-hover my-3">
-						<CardMedia
-							image={bgImage}
-							title={next?.title}>
-								<div className="py-0 bg-beacons-black-to-transparent w-100">
-									<CardContent className="p-3 m-0">
-											{ next === null ? (
-												<EventAddNewCard id={series.id} />
-											) : (
-												<Table className="m-0 table table-borderless text-nowrap text-left mb-0">
-													<tbody>
-														<tr>
-															<td style={{width: "60%"}}>
-																<div className="text-white">
-																	<h5 className="font-weight-bolder mb-2">
-																		<span className="text-uppercase text-white-50">Next Event: </span>
-																	</h5>
-																	<h4>
-																		<span className="font-weight-bolder">
-																			{next?.title}
-																		</span>
-																	</h4>
-																	<div>
-																	<div className="mb-2 font-size-md text-uppercase font-weight-bold text-white-50">Games Played: </div>
-																		{ gameImages && gameImages.length > 0 && gameImages.map(i => ( 
+						<CardMedia image={bgImage}>
+							<div className="py-0 bg-beacons-black-to-transparent w-100">
+								<CardContent className="p-3 m-0">
+										{ next === null ? (
+											<EventAddNewCard id={series.id} />
+										) : (
+											<Table className="m-0 table table-borderless text-nowrap text-left mb-0">
+												<tbody>
+													<tr>
+														<td style={{width: "60%"}}>
+															<div className="text-white">
+																<h5 className="font-weight-bolder mb-2">
+																	<span className="text-uppercase text-white-50">Next Event: </span>
+																</h5>
+																<h4>
+																	<span className="font-weight-bolder">
+																		{next?.title}
+																	</span>
+																</h4>
+																<div>
+																	{ gameImages &&
+																		<div className="mb-2 font-size-md text-uppercase font-weight-bold text-white-50">Games Played: </div>
+																	}
+																	{ gameImages && gameImages.length > 0 && gameImages.map(i => ( 
+																		<Tooltip 
+																			TransitionComponent={Fade} 
+																			TransitionProps={{ timeout: 600 }} 
+																			title={i.title}>
 																			<div className="avatar-icon-wrapper mr-2">
 																				<div className="avatar-icon">
 																					<img key={i.title} alt={i.title} src={i.cover} />
 																				</div>
 																			</div>
-																		))}
-																	</div>
-
+																		</Tooltip>
+																	))}
 																</div>
-															</td>
-															<td className="text-left">
-																<div className="font-weight-bold">
-																	<div className="font-size-md text-uppercase text-white-50">Date: </div>
-																	<div className="text-white font-weight-bold ">
-																		{nextStartsAt?.format("MM/DD/YYYY")}
-																	</div>
-																	<div className="font-size-md font-weight-bold text-uppercase text-white-50">Time: </div>
-																	<div className="text-white font-weight-bold ">
-																		{nextStartsAt?.format("h:mmA")}
-																	</div>
+															</div>
+														</td>
+														<td className="text-left">
+															<div className="font-weight-bold">
+																<div className="font-size-md text-uppercase text-white-50">Date: </div>
+																<div className="text-white font-weight-bold ">
+																	{nextStartsAt?.format("MM/DD/YYYY")}
 																</div>
-															</td>
-															<td className="text-left">
-																<div className="font-size-md font-weight-bold text-uppercase text-white-50">Status: </div>
-																{ next?.published_at &&
-																	<div className="badge text-uppercase badge-success">Published</div>
-																}
-																{ !next?.published_at &&
-																	<div className="badge text-uppercase badge-neutral-first text-first">Draft</div>
-																}
-															</td>
-															
-															<td className="text-right text-white">
-																<EventActionMenu 
-																	event={next} 
-																	refreshSeries={refreshSeries} 
-																	setLoading={setLoading} 
-																	iconClassName="text-white" />
-															</td>
-														</tr>
-													</tbody>
-												</Table>
-											)}
-									</CardContent>
-								</div>
+																<div className="font-size-md font-weight-bold text-uppercase text-white-50">Time: </div>
+																<div className="text-white font-weight-bold ">
+																	{nextStartsAt?.format("h:mmA")}
+																</div>
+															</div>
+														</td>
+														<td className="text-left">
+															<div className="font-size-md font-weight-bold text-uppercase text-white-50">Status: </div>
+															{ next?.published_at &&
+																<div className="badge text-uppercase badge-success">Published</div>
+															}
+															{ !next?.published_at &&
+																<div className="badge text-uppercase badge-neutral-first text-first">Draft</div>
+															}
+														</td>
+														
+														<td className="text-right text-white">
+															<EventActionMenu 
+																event={next} 
+																refreshSeries={refreshSeries} 
+																setLoading={setLoading} 
+																iconClassName="text-white" />
+														</td>
+													</tr>
+												</tbody>
+											</Table>
+										)}
+								</CardContent>
+							</div>
 						</CardMedia>
 						{ events && events.length > 0 &&
 							<CardContent>
