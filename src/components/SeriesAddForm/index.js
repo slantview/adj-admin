@@ -21,6 +21,7 @@ const initialData = {
 };
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
+    subtitle: Yup.string().required('Subtitle is required'),
     cadence: Yup.string().required('Cadence is required'),
     description: Yup.string().required('Description is required'),
     header: Yup.array().required('Header Image is required'),
@@ -53,6 +54,9 @@ const SeriesAddForm = (props) => {
 
         newSeries.header = headerResponse.data.upload.id;
         newSeries.card = cardResponse.data.upload.id;
+
+        // TODO(smfr): Hard code this for now.
+        newSeries.use_hero_title_text = false;
 
         addSeries({ variables: { payload: { data: newSeries }}})
             .then((ret) => {

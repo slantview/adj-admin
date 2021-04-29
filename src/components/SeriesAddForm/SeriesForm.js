@@ -28,7 +28,6 @@ const SeriesForm = (props) => {
                                     type="text"
                                     variant="outlined"
                                 />
-
                             </Grid>
                             <Grid item md={6} lg={6}>
                                 <FormControl fullWidth>
@@ -53,6 +52,16 @@ const SeriesForm = (props) => {
                                     
                                     </Field>
                                 </FormControl>
+                            </Grid>
+                            <Grid item md={12} lg={12}>
+                                <Field
+                                    component={TextField}
+                                    fullWidth
+                                    name="subtitle"
+                                    label="Subtitle"
+                                    type="text"
+                                    variant="outlined"
+                                />
                             </Grid>
                             <Grid item md={12} lg={12}>
                                 <span className="text-black font-weight-bold">Description</span>

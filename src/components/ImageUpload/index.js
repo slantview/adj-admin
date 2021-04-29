@@ -40,10 +40,14 @@ export default function ImageUpload(props) {
 			);
 			setFiles(newFiles);
 			setFieldValue(name, acceptedFiles);
-			console.log('newFiles: ', newFiles);
-			console.log('acceptedFiles', acceptedFiles);
 		}
 	});
+
+	const reset = (e) => {
+		setFiles([]);
+		setFieldValue(name, []);
+		e.preventDefault();
+	};
 
 	const thumbs = files.map((file) => (
 		<div
@@ -74,7 +78,12 @@ export default function ImageUpload(props) {
 				<div className="dropzone-inner-wrapper rounded align-items-center dropzone-avatar">
 					<div className="rounded m-5 align-items-center">
 					
-						{thumbs.length > 0 && <div>{thumbs}</div>}
+						{ thumbs.length > 0 && 
+							<div>
+								{thumbs}
+								<div><a href="#/" onClick={reset}>(clear)</a></div>
+							</div>
+						}
 
 						{ thumbs.length === 0 &&
 						<div>
