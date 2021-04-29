@@ -49,9 +49,6 @@ const SeriesEditPage = (props) => {
             <div className="mt-3 mx-4">
 				<Grid container >
                     <Grid item md={12} lg={12} xl={12}>
-                        <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">Edit {seriesId}</h3>
-                    </Grid>
-                    <Grid item md={12} lg={12} xl={12}>
                         <SeriesEditForm series={seriesData} />
                     </Grid>
                 </Grid>

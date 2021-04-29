@@ -1,7 +1,7 @@
 import { FormControl, Grid, InputLabel, MenuItem } from '@material-ui/core';
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import 'date-fns';
-import { ErrorMessage, Field } from 'formik';
+import { Field } from 'formik';
 import { Select, TextField } from 'formik-material-ui';
 import React from 'react';
 import ImageUpload from '../../components/ImageUpload';
@@ -44,7 +44,7 @@ const SeriesForm = (props) => {
                                         <MenuItem className="mx-2" value="biweekly">Bi-Weekly</MenuItem>
                                         <MenuItem className="mx-2" value="monthly">Monthly</MenuItem>
                                     </Field>
-                                    <ErrorMessage name="cadence" />
+                                    <span className="text-danger">{errors.cadence}</span>
                                 </FormControl>
                             </Grid>
                             <Grid item md={12} lg={12}>
