@@ -44,7 +44,7 @@ const EventsUpcomingCard = (props) => {
 													<tr>
 														<td style={{width: "60%"}}>
 															<div className="text-white">
-																<h5 className="font-weight-bolder mb-2">
+																<h5 className="font-weight-bolder mb-1">
 																	<span className="text-uppercase text-white-50">Next Event: </span>
 																</h5>
 																<h4>
@@ -52,7 +52,7 @@ const EventsUpcomingCard = (props) => {
 																		{next?.title}
 																	</span>
 																</h4>
-																<div>
+																<div className="mt-2">
 																	{ gameImages &&
 																		<div className="mb-2 font-size-md text-uppercase font-weight-bold text-white-50">Games Played: </div>
 																	}
