@@ -4,6 +4,7 @@ import { Button, Grid } from '@material-ui/core';
 import EventsUpcomingCard from 'components/EventsUpcomingCard';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
+import SeriesDetailBlock from 'components/SeriesDetailBlock';
 import SeriesHeaderAnalytics from 'components/SeriesHeaderAnalytics';
 import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
@@ -137,6 +138,9 @@ const SeriesDetailPage = (props) => {
 
             <div className="mx-4 mt-4">
                 <Grid container>
+                    <Grid item md={12} lg={12} xl={12}>
+                        <SeriesDetailBlock series={seriesData} />
+                    </Grid>
                     <Grid item md={6} lg={6} xl={6}>
                         <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">Upcoming Events</h3>
                     </Grid>

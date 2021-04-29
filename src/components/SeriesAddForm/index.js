@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
@@ -31,6 +31,7 @@ const validationSchema = Yup.object({
 const SeriesAddForm = (props) => {
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
+    const client = useApolloClient();
     const [addSeries] = useMutation(CREATE_SERIES);
     const [uploadFile] = useMutation(UPLOAD_FILE);
     const [isSubmitted, setSubmitted] = useState(false);
@@ -61,11 +62,14 @@ const SeriesAddForm = (props) => {
         addSeries({ variables: { payload: { data: newSeries }}})
             .then((ret) => {
                 const createdSeries = ret.data.createSeriesItem.seriesItem;
-                notify({
-                    type: 'success',
-                    message: "Successfully added event: " + createdSeries.title
-                });
-                history.push('/events', { refresh: true });
+                client.resetStore()
+                    .then(() => {
+                        notify({
+                            type: 'success',
+                            message: "Successfully added event: " + createdSeries.title
+                        });
+                        history.push('/events', { refresh: true });
+                    });
             }).catch(e  => {
                 setError(e.toString());
             });

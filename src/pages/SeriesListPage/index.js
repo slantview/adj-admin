@@ -30,16 +30,6 @@ export default function SeriesListPage() {
 		refetch();
 	};
 
-	// Register to be notified of a site change.
-	React.useEffect(() => {
-		siteCtx.onSiteChanged(async () => {
-			return new Promise((resolve, reject) => {
-				refreshSeries();
-				resolve();
-			});
-		});
-	}, [])
-
 	React.useEffect(() => {
 		if (isLoading && !loading && seriesData !== null) {
 			setLoading(loading);
