@@ -37,10 +37,8 @@ const SeriesEditForm = ({ series }) => {
         description: series.description,
         header: [{__typename: 'UploadFile', name: series.title, preview: series.header.formats.small.url}],
         card: [{__typename: 'UploadFile', name: series.title, preview: series.card.formats.small.url}],
-        venues: series.venues,
         cadence: series.cadence
     };
-    console.log('initialData', initialData);
 
     const handleSubmit = async (values, actions) => {
         setError(null);

@@ -23,7 +23,6 @@ const SeriesDetailPage = (props) => {
 
     // @ts-ignore
     const { seriesId } = useParams();
-    const [entries, setEntries] = React.useState(5);
     const { loading, error, data, refetch, networkStatus } = useQuery(
 		GET_SERIES, 
 		{ 
@@ -141,6 +140,7 @@ const SeriesDetailPage = (props) => {
                     <Grid item md={12} lg={12} xl={12}>
                         <SeriesDetailBlock series={seriesData} />
                     </Grid>
+
                     <Grid item md={6} lg={6} xl={6}>
                         <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">Upcoming Events</h3>
                     </Grid>

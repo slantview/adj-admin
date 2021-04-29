@@ -64,9 +64,6 @@ export default function ImageUpload(props) {
 		[files]
 	);
 
-	console.log('files: ', files);
-	console.log('value', value);
-
 	const thumbs = files.map((file) => {
 		return (
 			<div

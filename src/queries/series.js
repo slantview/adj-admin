@@ -7,6 +7,7 @@ export const GET_ALL_SERIES = gql`
             title
             subtitle
             description
+            cadence
             card {
                 formats
             }
@@ -197,6 +198,7 @@ export const GET_SERIES = gql`
             title
             subtitle
             description
+            cadence
             card {
                 id
                 formats

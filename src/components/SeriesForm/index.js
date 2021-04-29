@@ -33,6 +33,8 @@ const SeriesForm = (props) => {
                                 <FormControl fullWidth>
                                     <InputLabel className="px-1" htmlFor="cadence">Cadence</InputLabel>
                                     <Field
+                                        labelId="cadence"
+                                        id="cadence"
                                         component={Select}
                                         name="cadence"
                                         variant="outlined"
