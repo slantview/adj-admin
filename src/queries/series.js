@@ -257,6 +257,11 @@ export const GET_SERIES = gql`
                     matcherino_coupon_amount
                     game {
                         id
+                        title
+                        cover {
+                            formats
+                        }
+
                     }
                     game_rules {
                         id

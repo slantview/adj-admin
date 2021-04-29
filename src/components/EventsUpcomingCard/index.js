@@ -21,7 +21,13 @@ const EventsUpcomingCard = (props) => {
 
 	const nextStartsAt = next && timezone ? moment(next.starts_at).tz(timezone) : null;
 	const bgImage = next ? next.header.formats.large.url : headerBackground;
-
+	const gameImages = next?.tournaments?.flatMap(t => {
+		return {
+			title: t.game.title,
+			cover: t.game.cover.formats.thumbnail.url
+		};
+	});
+	
 	return (
 		<div className="mt-2">
 			<Grid container spacing={2}>
@@ -48,6 +54,17 @@ const EventsUpcomingCard = (props) => {
 																			{next?.title}
 																		</span>
 																	</h4>
+																	<div>
+																	<div className="mb-2 font-size-md text-uppercase font-weight-bold text-white-50">Games Played: </div>
+																		{ gameImages && gameImages.length > 0 && gameImages.map(i => ( 
+																			<div className="avatar-icon-wrapper mr-2">
+																				<div className="avatar-icon">
+																					<img key={i.title} alt={i.title} src={i.cover} />
+																				</div>
+																			</div>
+																		))}
+																	</div>
+
 																</div>
 															</td>
 															<td className="text-left">
