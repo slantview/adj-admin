@@ -10,7 +10,7 @@ import { SiteContext } from 'providers/SiteProvider';
 import { UserContext } from 'providers/UserProvider';
 import { GET_SERIES } from 'queries/series';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { getSiteAnalytics } from 'utils/api';
 import { getSortedEvents } from 'utils/events';
 import Error from '../../components/Error';
@@ -18,8 +18,8 @@ import Error from '../../components/Error';
 const SeriesDetailPage = (props) => {
     const siteCtx = useContext(SiteContext);
     const userCtx = useContext(UserContext);
+    const location = useLocation();
 
-    // const history = useHistory();
     // @ts-ignore
     const { seriesId } = useParams();
     const [entries, setEntries] = React.useState(5);
@@ -40,6 +40,8 @@ const SeriesDetailPage = (props) => {
     
     const [analytics, setAnalytics] = useState(null);
 
+    // @ts-ignore
+    const { refresh } = location.state.refresh;
 
     const nextEventFormatted = sortedEvents.next !== null ?
         moment(sortedEvents.next.starts_at).tz(timezone)
@@ -75,6 +77,12 @@ const SeriesDetailPage = (props) => {
 			});
 		});
 	}, []);
+
+    useEffect(() => {
+        if (refresh) {
+            refreshSeries();
+        }
+    }, [refresh])
 
     useEffect(() => {
         refreshSiteAnalytics();

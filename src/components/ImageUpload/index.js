@@ -39,7 +39,9 @@ export default function ImageUpload(props) {
 				})
 			);
 			setFiles(newFiles);
-			setFieldValue(name, newFiles);
+			setFieldValue(name, acceptedFiles);
+			console.log('newFiles: ', newFiles);
+			console.log('acceptedFiles', acceptedFiles);
 		}
 	});
 

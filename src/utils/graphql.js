@@ -1,8 +1,9 @@
 import {
     ApolloClient,
-
-    HttpLink, InMemoryCache
+    HttpLink, 
+    InMemoryCache
 } from '@apollo/client';
+import { createUploadLink } from "apollo-upload-client";
 import moment from 'moment-timezone';
 import slugify from 'slugify';
 
@@ -16,20 +17,28 @@ export const client = new ApolloClient({
 });
 
 export const getClient = (backend, token) => {
-    const httpAuthBackendLink = new HttpLink({ 
+    const httpUploadLink = createUploadLink({
         uri: backend,
         headers: {
             authorization: `Bearer ${token}`
         }
     });
-    const httpNoAuthBackendLink = new HttpLink({ 
-        uri: backend,
-        headers: {
-            authorization: `Bearer ${token}`
-        }
-    });
+
+    // const httpAuthBackendLink = new HttpLink({ 
+    //     uri: backend,
+    //     headers: {
+    //         authorization: `Bearer ${token}`
+    //     }
+    // });
+    // const httpNoAuthBackendLink = new HttpLink({ 
+    //     uri: backend,
+    //     headers: {
+    //         authorization: `Bearer ${token}`
+    //     }
+    // });
     return new ApolloClient({
-        link: token ? httpAuthBackendLink : httpNoAuthBackendLink,
+        // @ts-ignore
+        link: httpUploadLink,
         cache: new InMemoryCache()
     });
 };

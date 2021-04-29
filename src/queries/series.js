@@ -292,3 +292,25 @@ export const GET_SERIES = gql`
         }
     }
 `;
+
+export const CREATE_SERIES = gql`
+    mutation CreateNewSeries($payload: createSeriesItemInput) {
+        createSeriesItem(input: $payload) {
+            seriesItem {
+                id
+                slug
+                title
+                subtitle
+                description
+                card {
+                    formats
+                }
+                header {
+                    formats
+                }
+                created_at
+                updated_at
+            }
+        }
+    }
+`
