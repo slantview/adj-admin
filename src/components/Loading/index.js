@@ -39,7 +39,7 @@ const Loading = (props) => {
             >
                 <HashLoader />
             </div>
-            { timer &&
+            { timer && showTimeout &&
                 <div
                     className="mt-5"
                     style={{

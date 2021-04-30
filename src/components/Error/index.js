@@ -1,8 +1,8 @@
 import React from 'react';
 import { 
+    Alert,
     Container
  } from '@material-ui/core';
- import { Alert } from '@material-ui/lab';
  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Error = ({message}) => {

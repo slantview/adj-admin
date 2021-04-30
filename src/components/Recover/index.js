@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  Grid,
-  Button,
-  TextField,
-  InputAdornment
+	Alert,
+	Button, 
+	Grid,
+	InputAdornment, 
+	TextField
 } from '@material-ui/core';
 import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
-import { Alert } from '@material-ui/lab';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import hero from '../../assets/images/hero-bg/hero-arena.jpg';
 import logo from '../../assets/images/logo.png';
