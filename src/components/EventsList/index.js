@@ -1,9 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, CardContent, Collapse, FormControl, InputAdornment, Link, MenuItem, Pagination, Select, Table, TextField } from '@material-ui/core';
+import { Card, CardContent, Collapse, FormControl, InputAdornment, MenuItem, Pagination, Select, Table, TextField } from '@material-ui/core';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+import React from 'react';
+
 import EventsListRow from 'components/EventsListRow';
-import EventsTableRow from 'components/EventsTableRow';
-import React from 'react'
 
 const EventsList = (props) => {
     const {
@@ -22,7 +21,7 @@ const EventsList = (props) => {
 	const handlePageChange = (event, page) => {
 		setPage(page);
 	};
-	const [search, setSearch] = React.useState(null);
+	const [setSearch] = React.useState(null);
 	
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {

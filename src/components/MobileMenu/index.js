@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
 import { Collapse, List, ListItem } from '@material-ui/core';
+import clsx from 'clsx';
+import React, { useState } from 'react';
 
-export default (props) => {
+const MobileMenu = (props) => {
 	const [collapse, setCollapse] = useState(false);
 	const toggle = () => setCollapse(!collapse);
 
@@ -62,5 +62,6 @@ export default (props) => {
         </div>
     </>
     );
-}
-      
+};
+
+export default MobileMenu;

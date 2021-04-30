@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import React from 'react';
+
 import OrganizationAddForm from 'components/OrganizationAddForm';
 import SectionHeader from 'components/SectionHeader';
-import React from 'react';
 
 const OrganizationAddPage = (props) => {
     return (

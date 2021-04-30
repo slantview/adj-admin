@@ -1,9 +1,11 @@
+import { Grid } from '@material-ui/core';
 import React from 'react';
-import { Container, Grid } from '@material-ui/core';
-import UsersGraph from '../UsersGraph';
-import SitesGraph from '../SitesGraph';
-import OrganizationsGraph from '../OrganizationsGraph';
+
 import SectionHeader from 'components/SectionHeader';
+
+import OrganizationsGraph from '../OrganizationsGraph';
+import SitesGraph from '../SitesGraph';
+import UsersGraph from '../UsersGraph';
 
 export default function ContentDashboardPage() {
     return (

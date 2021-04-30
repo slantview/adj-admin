@@ -1,7 +1,6 @@
+import moment from 'moment-timezone';
 import React from 'react';
 import Chart from 'react-apexcharts';
-import moment from 'moment-timezone';
-import _ from 'lodash';
 
 const SeriesHeaderAnalytics = (props) => {
     const {
@@ -10,7 +9,7 @@ const SeriesHeaderAnalytics = (props) => {
     } = props;
 
     const getDateArray = () => {
-        let dateArray = new Array();
+        let dateArray = [];
         for (let i = 0; i <= 6; i++) {
             const day = moment().tz(timezone).subtract(i, 'd');
             dateArray[i] = day;
@@ -22,9 +21,9 @@ const SeriesHeaderAnalytics = (props) => {
         if (typeof analytics === 'undefined' || analytics === null || dates.length === 0) {
             return [0,0,0,0,0,0,0];
         }
-        let analyticsArray = new Array();
+        let analyticsArray = [];
         let i = 0;
-        dates.map(d => {
+        dates.forEach(d => {
             const currentDayStats = analytics[d.format('YYYY-MM-DD')];
             if (typeof currentDayStats !== 'undefined' && currentDayStats !== null) {
                 analyticsArray[i] = currentDayStats[type] ? currentDayStats[type] : 0;

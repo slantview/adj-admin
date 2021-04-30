@@ -1,8 +1,4 @@
-import {
-	Container,
-	Grid,
-	InputAdornment
-} from '@material-ui/core';
+import { Grid, InputAdornment } from '@material-ui/core';
 import { Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import React from 'react';

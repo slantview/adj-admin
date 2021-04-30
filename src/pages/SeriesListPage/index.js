@@ -1,28 +1,26 @@
-import { NetworkStatus, useQuery } from '@apollo/client';
-import { Button, Container, Grid } from '@material-ui/core';
-import EventsUpcomingCard from 'components/EventsUpcomingCard';
+import { useQuery } from '@apollo/client';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Grid } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import SectionHeader from 'components/SectionHeader';
-import { SiteContext } from 'providers/SiteProvider';
-import React, { useContext } from 'react';
+
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
 import { GET_ALL_SERIES } from '../../queries/series';
 import AddNewSeriesCard from './AddNewSeriesCard';
 import SeriesListItem from './SeriesListItem';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function SeriesListPage() {
-	const siteCtx = useContext(SiteContext);
-	const { loading, error, data, refetch, networkStatus } = useQuery(
+const SeriesListPage = () => {
+	const { loading, error, data, refetch } = useQuery(
 		GET_ALL_SERIES, 
 		{ 
 			notifyOnNetworkStatusChange: true 
 		});
 	const seriesData = loading || error ? [] : data ? data.seriesItems : [];
-	const [isLoading, setLoading] = React.useState(loading);
-	const [series, setSeries] = React.useState(seriesData);
-	const isRefetching = networkStatus === NetworkStatus.refetch;
+	const [isLoading, setLoading] = useState(loading);
+	const [series, setSeries] = useState(seriesData);
 
 	const refreshSeries = () => {
 		setLoading(true);
@@ -100,4 +98,6 @@ export default function SeriesListPage() {
 			</div>
 		</>
 	);
-}
+};
+
+export default SeriesListPage;

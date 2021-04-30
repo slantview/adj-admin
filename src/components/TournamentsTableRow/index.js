@@ -1,9 +1,8 @@
-
-import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
-import { Button, Checkbox, Divider } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import moment from 'moment';
+import React from "react";
+import { Link } from 'react-router-dom';
 
 const TournamentsTableRow = (props) => {
     const {

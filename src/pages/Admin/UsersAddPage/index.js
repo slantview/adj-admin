@@ -1,22 +1,20 @@
-import React, { useContext, useState } from 'react';
-import { 
-	Card, 
-	CardContent,
-	Grid
- } from '@material-ui/core';
-import Loading from '../../../components/Loading';
-import UserAddForm from './UserAddForm';
-import { registerUser } from '../../../utils/api';
-import { useHistory } from 'react-router-dom';
+import { Card, CardContent, Grid } from '@material-ui/core';
 import _ from 'lodash';
-import { NotificationContext } from 'providers/NotificationProvider';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import SectionHeader from 'components/SectionHeader';
+import { NotificationContext } from 'providers/NotificationProvider';
+
+import Loading from '../../../components/Loading';
+import { registerUser } from '../../../utils/api';
+import UserAddForm from './UserAddForm';
 
 export default function UsersListPage() {
 	const notify = useContext(NotificationContext).notify;
 	const history = useHistory();
 
-	const [isLoading, setLoading] = useState(false);
+	const [isLoading] = useState(false);
 
     const submit = (values, { setErrors }) => {
 		return registerUser(values)
@@ -29,7 +27,9 @@ export default function UsersListPage() {
 					});
 					history.push("/admin/users")
 					return true;
-				} else {
+				} else if (response.status === 401) {
+                    window.location.pathname = '/login';
+                } else {
 					setErrors({api: _.get(userData, ["error"])});
 					return false;
 				}

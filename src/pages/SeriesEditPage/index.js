@@ -1,17 +1,18 @@
+import { useQuery } from '@apollo/client';
 import { Grid } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
 import SeriesEditForm from 'components/SeriesEditForm';
 import { GET_SERIES } from 'queries/series';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import Loading from 'components/Loading';
 
 const SeriesEditPage = (props) => {
     // @ts-ignore
     const { seriesId } = useParams();
 
-    const { loading, error, data, refetch, networkStatus } = useQuery(
+    const { loading, error, data } = useQuery(
 		GET_SERIES, 
 		{ 
             variables: { id: seriesId, limit: 1000 },

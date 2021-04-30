@@ -1,8 +1,9 @@
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Dialog, List, ListItem, Menu } from '@material-ui/core';
-import { NotificationContext } from "providers/NotificationProvider";
 import React, { useContext, useState } from "react";
+
+import { NotificationContext } from "providers/NotificationProvider";
+
 import { UserContext } from '../../providers/UserProvider';
 import { deleteOrganization } from "../../utils/api";
 
@@ -55,8 +56,9 @@ const OrganizationListTableRow = (props) => {
                         type: 'success',
                         message: "Sucessfully deleted organization."
                     });
+                } else if (response.status === 401) {
+                    window.location.pathname = '/login';
                 } else {
-                    const result = response.json();
                     notify({
                         type: 'danger',
                         message: "Unable to delete organization."

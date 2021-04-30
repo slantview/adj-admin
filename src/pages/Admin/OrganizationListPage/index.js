@@ -1,42 +1,27 @@
-import React, { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-	Table, 
-	Card, 
-	CardContent, 
-	Button,
-	FormControl,
-	Select,
-	MenuItem,
-	TextField,
-	Collapse,
-    InputAdornment,
-    Snackbar,
-	Container,
-	Grid
- } from '@material-ui/core';
+import { Button, Card, CardContent, Collapse, FormControl, Grid, InputAdornment, MenuItem, Select, Table, TextField } from '@material-ui/core';
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import RefreshTwoToneIcon from '@material-ui/icons/RefreshTwoTone';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Loading from '../../../components/Loading';
-import { getOrganizations } from '../../../utils/api';
-import { UserContext } from '../../../providers/UserProvider';
-import OrganizationListTableRow from '../../../components/OrganizationListTableRow';
-import { useHistory } from 'react-router-dom';
+
 import SectionHeader from 'components/SectionHeader';
+
+import Loading from '../../../components/Loading';
+import OrganizationListTableRow from '../../../components/OrganizationListTableRow';
+import { UserContext } from '../../../providers/UserProvider';
+import { getOrganizations } from '../../../utils/api';
 
 export default function OrganizationListPage() {
     const userCtx = useContext(UserContext);
-	const history = useHistory();
 
 	let orgData = [];
 
-	const [isLoading, setLoading] = React.useState(true);
-    const [entries, setEntries] = React.useState(10);
-    const [search, setSearch] = React.useState(null);
-    const [organizations, setOrganizations] = React.useState(orgData);
-    const [page, setPage] = React.useState(1);
+	const [isLoading, setLoading] = useState(true);
+    const [entries, setEntries] = useState(10);
+    const [setSearch] = useState(null);
+    const [organizations, setOrganizations] = useState(orgData);
+    const [page, setPage] = useState(1);
    
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
@@ -64,11 +49,9 @@ export default function OrganizationListPage() {
 					if (response.ok) {
 						const fetchedData = await response.json();
 						setOrganizations(fetchedData);
-						orgData = fetchedData;
 						setLoading(false);
 					} else if (response.status === 401) {
-						console.log('needs authentication.');
-						history.push('/login', { from: window.location.pathname });
+						window.location.pathname = '/login';
 					}
                 })
 				.catch(e => {

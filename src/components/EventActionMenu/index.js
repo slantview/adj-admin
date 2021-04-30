@@ -1,12 +1,13 @@
 import { useMutation } from '@apollo/client';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
 import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
-import EventCloneDialog from 'components/EventCloneDialog';
 import moment from 'moment-timezone';
+import React, { useContext, useState } from 'react';
+
+import EventCloneDialog from 'components/EventCloneDialog';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
 import { DELETE_EVENT, UPDATE_EVENT } from 'queries/events';
-import React, { useContext, useState } from 'react';
 
 const EventActionMenu = (props) => {
     const {
@@ -18,24 +19,16 @@ const EventActionMenu = (props) => {
 
     const {
         id,
-        title,
-        subtitle,
-        starts_at,
         published_at,
-        seriesId,
     } = event;
 
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
     const timezone = siteCtx.getTimezone();
-
     const [anchorEl, setAnchorEl] = useState(null);
     const [cloneConfirmModal, setCloneConfirmModal] = useState(false);
-    const [deleteEvent, eventDeleteData] = useMutation(DELETE_EVENT);
-    const [updateEvent, eventUpdateData] = useMutation(UPDATE_EVENT);
-
-    const startsAt = moment(starts_at).tz(timezone).format("MM/DD/YYYY");
-    const isFuture = moment(starts_at).tz(timezone).isAfter(moment().tz(timezone));
+    const [deleteEvent] = useMutation(DELETE_EVENT);
+    const [updateEvent] = useMutation(UPDATE_EVENT);
     
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);

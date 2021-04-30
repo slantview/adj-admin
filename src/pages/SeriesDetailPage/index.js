@@ -1,20 +1,20 @@
 import { useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Grid } from '@material-ui/core';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+
+import Error from 'components/Error';
 import EventsUpcomingCard from 'components/EventsUpcomingCard';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
 import SeriesDetailBlock from 'components/SeriesDetailBlock';
 import SeriesHeaderAnalytics from 'components/SeriesHeaderAnalytics';
-import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
 import { UserContext } from 'providers/UserProvider';
 import { GET_SERIES } from 'queries/series';
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
 import { getSiteAnalytics } from 'utils/api';
 import { getSortedEvents } from 'utils/events';
-import Error from '../../components/Error';
 
 const SeriesDetailPage = (props) => {
     const siteCtx = useContext(SiteContext);
@@ -23,7 +23,7 @@ const SeriesDetailPage = (props) => {
 
     // @ts-ignore
     const { seriesId } = useParams();
-    const { loading, error, data, refetch, networkStatus } = useQuery(
+    const { loading, error, data, refetch } = useQuery(
 		GET_SERIES, 
 		{ 
             variables: { id: seriesId, limit: 1000 },
@@ -43,12 +43,7 @@ const SeriesDetailPage = (props) => {
     // @ts-ignore
     const refresh = location?.state?.refresh;
 
-    const nextEventFormatted = sortedEvents.next !== null ?
-        moment(sortedEvents.next.starts_at).tz(timezone)
-            .format("MMMM Do, YYYY") : "No Upcoming Events";
-
-
-   const refreshSeries = () => {
+    const refreshSeries = () => {
         setLoading(true);
         setSeriesData([]);
         refetch();

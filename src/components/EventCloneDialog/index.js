@@ -1,19 +1,15 @@
 import { useMutation } from '@apollo/client';
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent, DialogTitle
-} from '@material-ui/core';
-import Loading from 'components/Loading';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { Form, Formik } from 'formik';
-import _ from 'lodash';
+import React, { useContext, useState } from 'react';
+import * as Yup from 'yup';
+
+import Loading from 'components/Loading';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
-import React, { useContext, useState } from 'react';
+import { CREATE_EVENT, CREATE_TOURNAMENT } from 'queries/events';
 import { eventToNewEvent, tournamentToNewTournament } from 'utils/graphql';
-import * as Yup from 'yup';
-import { CREATE_EVENT, CREATE_TOURNAMENT } from '../../queries/events';
+
 import DialogErrorContent from './DialogErrorContent';
 import EventCloneDropdownButton from './EventCloneDropdownButton';
 import EventCloneForm from './EventCloneForm';
@@ -46,8 +42,8 @@ const EventCloneDialog = (props) => {
 
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState(null);
-    const [addEvent, eventData] = useMutation(CREATE_EVENT);
-    const [addTournament, tournamentData] = useMutation(CREATE_TOURNAMENT);
+    const [addEvent] = useMutation(CREATE_EVENT);
+    const [addTournament] = useMutation(CREATE_TOURNAMENT);
     const isLoading = processing && !error;
 
     const siteCtx = useContext(SiteContext);

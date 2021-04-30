@@ -1,6 +1,5 @@
 import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
-import _ from 'lodash';
 import React, { useContext, useState } from 'react';
 
 import { UserContext } from '../../providers/UserProvider';
@@ -18,17 +17,17 @@ const OrganizationAddForm = () => {
     const [error, setError] = useState(null);
 
     const handleSubmit = (values, actions) => {
-        const submitValues = _.pickBy(values, (value, key) => key !== 'logo');
-
         createOrganization(userCtx.token, values)
             .then(async (response) => {
                 if (response.ok) {
                     setSubmitted(true);
                     return true;
+                } else if (response.status === 401) {
+                    window.location.pathname = '/login';
                 }
                 const result = await response.json();
-                if (result.error) {
-                    setError(result.error);
+                if (result.message) {
+                    setError(result.message);
                 } else {
                     setError('Error adding Organization: ' + response.statusText);
                 }

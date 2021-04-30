@@ -1,16 +1,16 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
-import Finished from 'components/OrganizationAddForm/Finished';
 import { Form, Formik } from 'formik';
-import { NotificationContext } from 'providers/NotificationProvider';
-import { UPLOAD_FILE } from 'queries/files';
-import { UPDATE_SERIES } from 'queries/series';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
+
+import Error from 'components/Error';
+import Loading from 'components/Loading';
 import SeriesForm from 'components/SeriesForm';
+import { NotificationContext } from 'providers/NotificationProvider';
+import { UPLOAD_FILE } from 'queries/files';
+import { UPDATE_SERIES } from 'queries/series';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
@@ -27,7 +27,7 @@ const SeriesEditForm = ({ series }) => {
     const client = useApolloClient();
     const [updateSeries] = useMutation(UPDATE_SERIES);
     const [uploadFile] = useMutation(UPLOAD_FILE);
-    const [isSubmitted, setSubmitted] = useState(false);
+    const [isSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
     const initialData = {

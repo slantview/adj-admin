@@ -2,9 +2,9 @@ import { Button, Menu, MenuItem } from '@material-ui/core';
 import _ from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
 import defaultLogo from '../../assets/images/logo.png';
 import { SiteContext } from '../../providers/SiteProvider';
-
 
 const SiteSelector = () => {
     const siteCtx = useContext(SiteContext);
@@ -55,7 +55,7 @@ const SiteSelector = () => {
     return (
         <div className="px-3 w-100 font-weight-light">
                 <div className="text-center w-100">
-                    <a title="Select Site">
+                    <a href="#/" onClick={(e) => e.preventDefault()} title="Select Site">
                         <img alt="Select Site" src={logo} height={50} />
                         <span>
                             <Menu

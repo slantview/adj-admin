@@ -1,28 +1,25 @@
 import { useQuery } from '@apollo/client';
-import { Grid } from '@material-ui/core';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import Error from 'components/Error';
 import EventsList from 'components/EventsList';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
-import SeriesHeaderAnalytics from 'components/SeriesHeaderAnalytics';
-import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
 import { UserContext } from 'providers/UserProvider';
 import { GET_SERIES } from 'queries/series';
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { getSiteAnalytics } from 'utils/api';
 import { getSortedEvents } from 'utils/events';
-import Error from '../../components/Error';
 
 const SeriesDetailAllEventsPage = (props) => {
     const siteCtx = useContext(SiteContext);
     const userCtx = useContext(UserContext);
 
-    // const history = useHistory();
     // @ts-ignore
     const { seriesId } = useParams();
-    const [entries, setEntries] = React.useState(10);
-    const { loading, error, data, refetch, networkStatus } = useQuery(
+    const [entries, setEntries] = useState(10);
+    const { loading, error, data, refetch } = useQuery(
 		GET_SERIES, 
 		{ 
             variables: { id: seriesId, limit: 1000 },
@@ -30,22 +27,13 @@ const SeriesDetailAllEventsPage = (props) => {
 		});
     const [seriesData, setSeriesData] = useState(null);
     const [isLoading, setLoading] = useState(loading);
-
     const timezone = siteCtx.timezone ? siteCtx.timezone : Intl.DateTimeFormat().resolvedOptions().timeZone;
-
     const [sortedEvents, setSortedEvents] = useState(
        getSortedEvents(seriesData && seriesData.events ? seriesData.events : null, timezone)
     );
+    const [setAnalytics] = useState(null);
     
-    const [analytics, setAnalytics] = useState(null);
-
-
-    const nextEventFormatted = sortedEvents.next !== null ?
-        moment(sortedEvents.next.starts_at).tz(timezone)
-            .format("MMMM Do, YYYY") : "No Upcoming Events";
-
-
-   const refreshSeries = () => {
+    const refreshSeries = () => {
         setLoading(true);
         setSeriesData([]);
         refetch();
@@ -83,9 +71,7 @@ const SeriesDetailAllEventsPage = (props) => {
     useEffect(() => {
         if ((isLoading || !loading) && data && data.seriesItem) {
             setSeriesData(data.seriesItem);
-            
-            const sortedEvents = getSortedEvents(data.seriesItem.events, timezone);
-            setSortedEvents(sortedEvents);
+            setSortedEvents(getSortedEvents(data.seriesItem.events, timezone));
             setLoading(loading);
         }
     }, [loading, data, error]);

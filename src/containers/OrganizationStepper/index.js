@@ -1,14 +1,17 @@
-import React, { useState, useContext, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  Card,
-  Button
-} from '@material-ui/core';
-import Stepper from '@material-ui/core/Stepper';
+import { Button, Card } from '@material-ui/core';
 import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
 import StepConnector from '@material-ui/core/StepConnector';
+import StepLabel from '@material-ui/core/StepLabel';
+import Stepper from '@material-ui/core/Stepper';
+import { Form, Formik } from 'formik';
+import _ from 'lodash';
+import React, { useContext, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import Error from '../../components/Error';
+import { UserContext } from '../../providers/UserProvider';
+import { createOrganization } from '../../utils/api';
 import Step1 from './Step1';
 import Step1InitialData from './Step1.initialData';
 import Step1Schema from './Step1.schema';
@@ -16,11 +19,6 @@ import Step2 from './Step2';
 import Step2InitialData from './Step2.initialData';
 import Step2Schema from './Step2.schema';
 import StepIcon from './StepIcon';
-import { createOrganization } from '../../utils/api';
-import { UserContext } from '../../providers/UserProvider';
-import Error from '../../components/Error';
-import { Formik, Form } from 'formik';
-import _ from 'lodash';
 
 const getSteps = () => {
   	return ['Organization Info', 'Social Media'];
@@ -109,7 +107,9 @@ const OrganizationStepper = () => {
 				if (response.ok) {
 					const result = response.json();
 					return true;
-				}
+				} else if (response.status === 401) {
+                    window.location.pathname = '/login';
+                }
 				return false;
 			})
 			.catch(e => {

@@ -1,49 +1,40 @@
-import React, { useContext } from 'react';
+import { useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-	Table, 
-	Card, 
-	CardContent, 
-	Button,
-	FormControl,
-	Select,
-	MenuItem,
-	TextField,
-	Collapse,
-	InputAdornment,
-	Container
- } from '@material-ui/core';
+import { Button, Card, CardContent, Collapse, Container, FormControl, InputAdornment, MenuItem, Select, Table, TextField } from '@material-ui/core';
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import GamesTableRow from '../../components/GamesTableRow';
-import { useQuery } from '@apollo/client';
-import { GET_ALL_GAMES } from '../../queries/games';
-import Loading from '../../components/Loading';
-import Error from '../../components/Error';
-import { SiteContext } from 'providers/SiteProvider';
-import SectionHeader from 'components/SectionHeader';
 
-export default function GamesListPage() {
+import SectionHeader from 'components/SectionHeader';
+import { SiteContext } from 'providers/SiteProvider';
+
+import Error from '../../components/Error';
+import GamesTableRow from '../../components/GamesTableRow';
+import Loading from '../../components/Loading';
+import { GET_ALL_GAMES } from '../../queries/games';
+
+const GamesListPage = () => {
 	const siteCtx = useContext(SiteContext);
-	const { loading, error, data,  refetch, networkStatus } = useQuery(
+	const { loading, error, data,  refetch } = useQuery(
 		GET_ALL_GAMES,
 		{ 
 			notifyOnNetworkStatusChange: true 
 		});
 	const gamesData = loading || error ? [] : data ? data.games : [];
-	const [isLoading, setLoading] = React.useState(loading);
+	const [isLoading, setLoading] = useState(loading);
 
-	const [entries, setEntries] = React.useState(5);
+	const [entries, setEntries] = useState(5);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};
-	const [page, setPage] = React.useState(1);
+	const [page, setPage] = useState(1);
 	const handlePageChange = (event, page) => {
 		setPage(page);
 	};
-	const [search, setSearch] = React.useState(null);
-	const [games, setGames] = React.useState(gamesData);
+	const [setSearch] = useState(null);
+	const [games, setGames] = useState(gamesData);
+	
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
 			setGames(data);
@@ -193,4 +184,6 @@ export default function GamesListPage() {
 			</Container>
 		</>
 	);
-}
+};
+
+export default GamesListPage;

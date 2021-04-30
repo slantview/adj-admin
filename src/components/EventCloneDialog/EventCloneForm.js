@@ -1,4 +1,4 @@
-import { Grid, Switch, TextField as MTextField } from '@material-ui/core';
+import { Grid, Switch } from '@material-ui/core';
 import { Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import React from 'react';

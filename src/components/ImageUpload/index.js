@@ -53,7 +53,7 @@ const ImageUpload = (props) => {
 		if (files && files.length === 0 && value && value.length === 1) {
 			setFiles(value);
 		}
-	}, [])
+	}, [files, value])
 
 	useEffect(
 		() => () => {

@@ -1,24 +1,24 @@
-
-import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
-import { Button, Checkbox, Divider } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import moment from 'moment';
+import React from "react";
+import { Link } from 'react-router-dom';
 
 const PlacesTableRow = (props) => {
     const {
         id,
         name,
-        description,
         logo,
         events,
         created_at,
         updated_at,
         published_at
     } = props;
+    
     const createdAt = moment(created_at).format("MM/DD/YYYY");
     const updatedAt = moment(updated_at).format("MM/DD/YYYY");
     const tournaments = events.flatMap(e => e.tournaments);
+
 	return (
         <tr>
             <td>

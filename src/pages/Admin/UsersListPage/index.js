@@ -1,22 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	Button,
-	Card,
-	CardContent,
-	Collapse,
-	FormControl,
-	Grid,
-	InputAdornment,
-	MenuItem,
-	Select,
-	Table,
-	TextField
-} from '@material-ui/core';
+import { Button, Card, CardContent, Collapse, FormControl, Grid, InputAdornment, MenuItem, Select, Table, TextField } from '@material-ui/core';
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import SectionHeader from 'components/SectionHeader';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import SectionHeader from 'components/SectionHeader';
+
 import Loading from '../../../components/Loading';
 import UsersListTableRow from '../../../components/UsersListTableRow';
 import { UserContext } from '../../../providers/UserProvider';
@@ -28,7 +18,7 @@ export default function UsersListPage() {
 
 	const [isLoading, setLoading] = React.useState(true);
     const [entries, setEntries] = React.useState(10);
-    const [search, setSearch] = React.useState(null);
+    const [setSearch] = React.useState(null);
     const [users, setUsers] = React.useState(usersData);
     const [page, setPage] = React.useState(1);
    
@@ -60,7 +50,6 @@ export default function UsersListPage() {
                 .then(async response => {
                     const fetchedData = await response.json();
 					setUsers(fetchedData);
-					usersData = fetchedData;
                     setLoading(false);
                 });
         }

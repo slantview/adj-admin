@@ -1,13 +1,14 @@
 import { useMutation } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
-import _ from 'lodash';
 import moment from 'moment';
-import { NotificationContext } from 'providers/NotificationProvider';
-import { SiteContext } from 'providers/SiteProvider';
-import { UPDATE_EVENT, DELETE_EVENT } from 'queries/events';
 import React, { useContext, useState } from "react";
 import { Link } from 'react-router-dom';
+
+import { NotificationContext } from 'providers/NotificationProvider';
+import { SiteContext } from 'providers/SiteProvider';
+import { DELETE_EVENT, UPDATE_EVENT } from 'queries/events';
+
 import EventCloneDialog from '../EventCloneDialog';
 
 const EventsTableRow = (props) => {
@@ -35,8 +36,8 @@ const EventsTableRow = (props) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [cloneConfirmModal, setCloneConfirmModal] = useState(false);
-    const [deleteEvent, eventDeleteData] = useMutation(DELETE_EVENT);
-    const [updateEvent, eventUpdateData] = useMutation(UPDATE_EVENT);
+    const [deleteEvent] = useMutation(DELETE_EVENT);
+    const [updateEvent] = useMutation(UPDATE_EVENT);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);

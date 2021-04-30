@@ -1,49 +1,38 @@
 import { useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	Button,
-	Card,
-	CardContent,
-	Collapse,
-	FormControl,
-	Grid,
-	InputAdornment,
-	MenuItem,
-	Select,
-	Table,
-	TextField
-} from '@material-ui/core';
+import { Button, Card, CardContent, Collapse, FormControl, Grid, InputAdornment, MenuItem, Select, Table, TextField } from '@material-ui/core';
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import SectionHeader from 'components/SectionHeader';
 import { SiteContext } from 'providers/SiteProvider';
-import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
 import PlacesTableRow from '../../components/PlacesTableRow';
 import { GET_ALL_PLACES } from '../../queries/places';
 
-export default function PlacesListPage() {
+const PlacesListPage = () => {
 	const siteCtx = useContext(SiteContext);
-	const { loading, error, data, refetch, networkStatus } = useQuery(
+	const { loading, error, data, refetch } = useQuery(
 		GET_ALL_PLACES, 
 		{ 
 			notifyOnNetworkStatusChange: true 
 		});
 	const placesData = loading || error ? [] : data ? data.places : [];
-	const [isLoading, setLoading] = React.useState(loading);
+	const [isLoading, setLoading] = useState(loading);
 
-	const [entries, setEntries] = React.useState(5);
+	const [entries, setEntries] = useState(5);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};
-	const [page, setPage] = React.useState(1);
-	const handlePageChange = (event, page) => {
-		setPage(page);
-	};
-	const [search, setSearch] = React.useState(null);
-	const [places, setPlaces] = React.useState(placesData);
+	const [page] = useState(1);
+
+	const [setSearch] = useState(null);
+	const [places, setPlaces] = useState(placesData);
+
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
 			setPlaces(placesData);
@@ -206,4 +195,6 @@ export default function PlacesListPage() {
 			</div>
 		</>
 	);
-}
+};
+
+export default PlacesListPage;

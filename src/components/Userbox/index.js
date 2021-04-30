@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, Divider, Grid, List, ListItem, Menu } from '@material-ui/core';
+import { Card, Divider, Grid, List, ListItem, Menu } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/PersonTwoTone';
 import React, { useContext, useRef, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 import avatar from '../../assets/images/icon.png';
 import { UserContext } from "../../providers/UserProvider";
 import { auth } from '../../utils/firebase';
@@ -13,7 +13,6 @@ const ListItemLink = (props) => {
 
 const Userbox = () => {
     const userCtx = useContext(UserContext);
-	const history = useHistory();
 	const menuRef = useRef(null);
 	const [open, setOpen] = useState(false);
 

@@ -1,23 +1,25 @@
-import { Button, ButtonGroup, Card, CardActions, CardContent, Container, Grid } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, Grid } from '@material-ui/core';
+import { Form, Formik } from 'formik';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
+import * as Yup from 'yup';
+
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
 import SiteAddForm from 'components/SiteAddForm';
-import { Form, Formik } from 'formik';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
 import { UserContext } from 'providers/UserProvider';
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router';
 import { createSite } from 'utils/api';
-import * as Yup from 'yup';
-import blockedWords from './blocked_words';
+
+// import blockedWords from './blocked_words';
 
 const initialData = {
 	siteUrl: ''
 };
 const urlSuffix = ".beacons.gg";
-const blockedWordsRegex = new RegExp(`^((?!${blockedWords.join('|')}).)*$`);
+// const blockedWordsRegex = new RegExp(`^((?!${blockedWords.join('|')}).)*$`);
 const validationSchema = Yup.object({
 	siteUrl: Yup.string()
 		// TODO(smfr): Turn off until we can do this better.

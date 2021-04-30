@@ -1,5 +1,4 @@
-import { Button, Collapse, Divider, Drawer, Link, Menu, SwipeableDrawer } from '@material-ui/core';
-import { OpenInBrowser } from '@material-ui/icons';
+import { Button, Collapse, Divider } from '@material-ui/core';
 import BusinessIcon from '@material-ui/icons/BusinessTwoTone';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 import DashboardIcon from '@material-ui/icons/DashboardTwoTone';
@@ -7,9 +6,10 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import LanguageIcon from '@material-ui/icons/LanguageTwoTone';
 import PeopleIcon from '@material-ui/icons/PeopleTwoTone';
-import { UserContext } from 'providers/UserProvider';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+
+import { UserContext } from 'providers/UserProvider';
 
 const AdminMenu = (props) => {
     const userCtx = useContext(UserContext);

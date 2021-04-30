@@ -1,11 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    Button,
-    Grid
-} from '@material-ui/core';
-import SectionHeader from 'components/SectionHeader';
+import { Grid } from '@material-ui/core';
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import SectionHeader from 'components/SectionHeader';
 
 const PlacesAddPage = () => {
     return (

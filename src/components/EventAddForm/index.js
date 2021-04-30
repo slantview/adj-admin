@@ -1,10 +1,11 @@
 import { Button, Card } from '@material-ui/core';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
-import Finished from 'components/OrganizationAddForm/Finished';
 import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
+
+import Error from 'components/Error';
+import Loading from 'components/Loading';
+
 import EventForm from './EventForm';
 
 const initialData = {
@@ -26,11 +27,14 @@ const validationSchema = Yup.object({
 });
 
 function EventAddForm(props) {
+    // @ts-ignore
     const [isSubmitted, setSubmitted] = useState(false);
+    // @ts-ignore
     const [error, setError] = useState(null);
 
     const handleSubmit = (values, actions) => {
         // setSubmitted(true);
+        console.log(values);
     };
 
     return (
@@ -43,14 +47,6 @@ function EventAddForm(props) {
 
                     { error && <Error message={error} /> }
 
-
-                    { isSubmitted &&
-                        <Finished 
-                            title="You are all done!"
-                            buttonText="Continue"
-                            redirect="/events"
-                        />
-                    }
                     { !isSubmitted &&
                         <Formik
                             initialValues={initialData}

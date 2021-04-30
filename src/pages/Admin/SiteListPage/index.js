@@ -1,23 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	Button,
-	Card,
-	CardContent,
-	Collapse,
-	FormControl,
-	Grid,
-	InputAdornment,
-	MenuItem,
-	Select,
-	Table,
-	TextField
-} from '@material-ui/core';
+import { Button, Card, CardContent, Collapse, FormControl, Grid, InputAdornment, MenuItem, Select, Table, TextField } from '@material-ui/core';
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import SectionHeader from 'components/SectionHeader';
-import { SiteContext } from 'providers/SiteProvider';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import SectionHeader from 'components/SectionHeader';
+
 import Loading from '../../../components/Loading';
 import SiteListTableRow from '../../../components/SiteListTableRow';
 import { UserContext } from '../../../providers/UserProvider';
@@ -25,11 +14,10 @@ import { getSites } from '../../../utils/api';
 
 export default function SiteListPage() {
     const userCtx = useContext(UserContext);
-	const siteCtx = useContext(SiteContext);
 	
 	const [isLoading, setLoading] = React.useState(true);
     const [entries, setEntries] = React.useState(10);
-    const [search, setSearch] = React.useState(null);
+    const [setSearch] = React.useState(null);
     const [sites, setSites] = React.useState([]);
     const [allSites, setAllSites] = React.useState([]);
     const [page, setPage] = React.useState(1);

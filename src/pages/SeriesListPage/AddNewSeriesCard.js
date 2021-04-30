@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, CardContent } from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
 import EventBusyTwoToneIcon from '@material-ui/icons/EventBusyTwoTone';
 import React from 'react';
 import { Link } from 'react-router-dom';

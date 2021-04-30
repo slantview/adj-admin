@@ -1,21 +1,15 @@
+import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@material-ui/core';
+import { Form, Formik } from 'formik';
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  Grid,
-  Button,
-  TextField,
-  FormControlLabel,
-  Checkbox
-} from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
-import { Formik, Form } from 'formik';
+
 import Error from '../../../components/Error';
 
 function equalTo(ref, msg) {
 	return Yup.mixed().test({
 	  name: 'equalTo',
 	  exclusive: false,
+      // @ts-ignore
 	  message: msg || '${path} must be the same as ${reference}',
 	  params: {
 		reference: ref.path,
@@ -44,10 +38,7 @@ const RegisterPage1Form = (props) => {
 		touched,
 		handleChange,
 		handleSubmit,
-		isValid,
 		isSubmitting,
-		setFieldTouched,
-		submitCount
 	} = props;
 
 	return (
@@ -193,7 +184,6 @@ const RegisterPage1Form = (props) => {
 export default function RegisterPage1(props) {
 	const { 
 		submit,
-		error
 	 } = props;
 
 	return (

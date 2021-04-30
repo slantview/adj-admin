@@ -1,9 +1,6 @@
 import firebase from 'firebase/app';
 import moment from 'moment';
 import React, { Component, createContext } from "react";
-import { useHistory } from 'react-router-dom';
-
-import Loading from 'components/Loading';
 
 export const UserContext = createContext({ user: null, token: null, admin: false, expires: null });
 
@@ -28,7 +25,6 @@ class UserProvider extends Component {
     }
 
     componentDidMount = () => {
-        
         const auth = firebase.auth();
 
         auth.onAuthStateChanged(async userAuth => {

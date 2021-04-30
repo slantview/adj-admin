@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Breadcrumbs, Button, CardMedia, Grid, Paper, Link } from '@material-ui/core';
+import { Breadcrumbs, CardMedia, Grid, Paper } from '@material-ui/core';
 import clsx from 'clsx';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';

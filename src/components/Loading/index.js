@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
 import { Container } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { HashLoader } from 'react-spinners';
-import { truncate } from 'lodash';
 
 const Loading = (props) => {
     const { 
         center,
         centerInPage,
-        showTimeout,
-        bgColor
+        showTimeout
     } = props;
 
     const useTimeout = showTimeout ? showTimeout : true;

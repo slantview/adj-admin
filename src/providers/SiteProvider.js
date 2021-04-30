@@ -1,10 +1,9 @@
+import { getSiteMetadata, getSites } from '../utils/api';
 import firebase from 'firebase/app';
 import _ from "lodash";
 import React, { Component, createContext } from "react";
 
 import Loading from "components/Loading";
-
-import { getSiteMetadata, getSites } from '../utils/api';
 
 export const SiteContext = createContext({ 
     loading: true,
@@ -100,6 +99,8 @@ class SiteProvider extends Component {
                             loading: false
                         });
                         this.siteDidChange();
+                    } else if (response.status === 401) {
+                        window.location.pathname = '/login';
                     } else {
                         // If we don't get an ok here, we have to go to failure mode.
                         window.location.pathname = '/failure';

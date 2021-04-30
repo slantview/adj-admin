@@ -15,7 +15,7 @@ export const BackendProvider = (props) => {
     const backendClient = site ? getClient(site.backend_url + "/graphql", userCtx.token) : client;
     const isLoaded = (siteCtx.selected !== null && userCtx.user !== null && site !== null);
     console.log('isLoaded', isLoaded);
-    
+
      // @ts-ignore
      useEffect(() => {
         if (siteCtx.onSiteChanged) {
@@ -26,7 +26,7 @@ export const BackendProvider = (props) => {
                 });
             });
         }
-    }, [])
+    }, []);
 
     return (
         <ApolloProvider client={backendClient}>

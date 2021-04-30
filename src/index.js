@@ -6,6 +6,7 @@ import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-d
 
 import OrganizationAddPage from 'pages/Admin/OrganizationAddPage';
 import SiteAddPage from 'pages/Admin/SiteAddPage';
+import FailPage from 'pages/FailPage';
 import SeriesAddPage from 'pages/SeriesAddPage';
 import SeriesDetailAllEventsPage from 'pages/SeriesDetailAllEventsPage';
 import SeriesDetailPage from 'pages/SeriesDetailPage';
@@ -35,7 +36,6 @@ import BackendProvider from './providers/BackendProvider';
 import SiteProvider from './providers/SiteProvider';
 import UserProvider from './providers/UserProvider';
 import store from './state/store.js';
-import FailPage from 'pages/FailPage';
 
 const pageVariants = {
     initial: {

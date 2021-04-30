@@ -1,22 +1,17 @@
-import { ListItem } from '@material-ui/core';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 import EventNoteIcon from '@material-ui/icons/EventNoteTwoTone';
 import GamesIcon from '@material-ui/icons/GamesTwoTone';
 import PeopleIcon from '@material-ui/icons/PeopleTwoTone';
 import PlaceIcon from '@material-ui/icons/PlaceTwoTone';
+import React, { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import AdminMenu from 'pages/Admin/AdminMenu';
-import React, { useContext, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { UserContext } from '../../providers/UserProvider';
+
 import SiteSelector from '../SiteSelector';
 import Userbox from '../Userbox/index';
 
-const ListItemLink = (props) => {
-    return <ListItem button component={Link} {...props} />;
-}
-
 const Sidebar = (props) => {
-    const userCtx = useContext(UserContext);
     const [category, setCategory] = React.useState('');
     const [page, setPage] = React.useState(null);
 
@@ -28,14 +23,9 @@ const Sidebar = (props) => {
             setPage(null);
         }
     };
-    const handlePageClick = (name) => {
-        setPage(name);
-    }
+
     const isNavCategory = (name, checkPage = true) => {
         return name === category && (checkPage ? page === null : true);
-    }
-    const isNavPage = (name) => {
-        return name === page;
     }
 
     useEffect(() => {

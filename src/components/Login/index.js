@@ -6,6 +6,7 @@ import _ from 'lodash';
 import React, { useContext, useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
+
 import hero from '../../assets/images/hero-bg/hero-arena.jpg';
 import logo from '../../assets/images/logo.png';
 import { UserContext } from '../../providers/UserProvider';
@@ -30,7 +31,7 @@ export default function Login(props) {
 		if (userCtx.user) {
 			history.push(redirect);
 		}
-	}, [userCtx.expires, userCtx.user])
+	}, [userCtx.expires, userCtx.user, redirect, history])
 
     const signInHandler = (values, { setErrors }) => {
 		auth.signInWithEmailAndPassword(values.email, values.password)

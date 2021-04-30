@@ -2,18 +2,14 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab, faDiscord, faDribbble, faFacebook, faGithub, faGoogle, faHtml5, faInstagram, faPinterest, faReact, faSlack, faTwitter, faVuejs, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faAddressCard, faBell, faBuilding, faCalendarAlt, faChartBar, faCheckCircle, faClock, faCommentDots, faComments, faDotCircle, faEnvelope, faEye, faFileAlt, faFileArchive, faFileAudio, faFileCode, faFileExcel, faFileImage, faFilePdf, faFileVideo, faFileWord, faFolder, faFolderOpen, faGem, faImages, faKeyboard, faLifeRing, faLightbulb, faMap, faObjectGroup, faQuestionCircle, far, faSquare, faThumbsUp, faTimesCircle, faTrashAlt, faUser, faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { faAlignCenter, faAngleDoubleLeft, faAngleDoubleRight, faAngleDown, faAngleLeft, faAngleRight, faAngleUp, faArrowDown, faArrowLeft, faArrowRight, faArrowsAltH, faArrowUp, faAward, faBars, faBatteryEmpty, faBatteryFull, faBirthdayCake, faBomb, faBusAlt, faCameraRetro, faCarBattery, faCaretRight, faCheck, faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faCog, faCubes, faDownload, faEllipsisH, faEllipsisV, faExclamation, faExternalLinkAlt, faEyeDropper, faFilm, faHeart, faInfoCircle, faLemon, faLink, faMapMarkedAlt, faNetworkWired, faPager, faPlayCircle, faPlus, faPlusCircle, faPrint, faQuoteRight, faReply, fas, faSave, faSearch, faShapes, faShareSquare, faSignOutAlt, faSitemap, faSlidersH, faSmile, faStar, faStarHalfAlt, faSync, faTable, faTachometerAlt, faTimes, faUnlockAlt, faUpload } from '@fortawesome/free-solid-svg-icons';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
-import moment from 'moment-timezone';
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
 import Sidebar from '../../components/Sidebar';
 import { UserContext } from '../../providers/UserProvider';
 import MuiTheme from '../../theme';
-import useStyles from '../../theme/useStyles';
 
 import '../../assets/base.scss';
 

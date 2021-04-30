@@ -1,20 +1,11 @@
 import { useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	Button, Card,
-	CardContent,
-	Collapse,
-	FormControl,
-	InputAdornment,
-	MenuItem,
-	Select,
-	Table,
-	TextField
-} from '@material-ui/core';
+import { Button, Card, CardContent, Collapse, FormControl, InputAdornment, MenuItem, Select, Table, TextField } from '@material-ui/core';
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
 import TournamentsTableRow from '../../components/TournamentsTableRow';
@@ -23,18 +14,18 @@ import { GET_ALL_TOURNAMENTS } from '../../queries/tournaments';
 export default function TournamentsListPage() {
 	const { loading, error, data } = useQuery(GET_ALL_TOURNAMENTS);
 	const tournamentData = loading || error ? [] : data.tournaments;
-	const [isLoading, setLoading] = React.useState(loading);
+	const [isLoading, setLoading] = useState(loading);
 
-	const [entries, setEntries] = React.useState(5);
+	const [entries, setEntries] = useState(5);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};
-	const [page, setPage] = React.useState(1);
+	const [page, setPage] = useState(1);
 	const handlePageChange = (event, page) => {
 		setPage(page);
 	};
-	const [search, setSearch] = React.useState(null);
-	const [tournaments, setTournaments] = React.useState(tournamentData);
+	const [search, setSearch] = useState(null);
+	const [tournaments, setTournaments] = useState(tournamentData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
 			setTournaments(tournamentData);
