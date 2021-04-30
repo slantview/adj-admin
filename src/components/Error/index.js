@@ -1,9 +1,9 @@
-import React from 'react';
-import { 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
     Alert,
     Container
- } from '@material-ui/core';
- import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from '@material-ui/core';
+import React from 'react';
 
 const Error = ({message}) => {
     return (

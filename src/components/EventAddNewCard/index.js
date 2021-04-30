@@ -10,9 +10,7 @@ function EventAddNewCard({ id }) {
             </div>
             <h4 className="font-size-lg">No Upcoming Events</h4>
             <p>To get started,&nbsp;
-                <Link className="text-first" to={"/events/" + id + "/add"}>add a new event</Link>,
-                or&nbsp;
-                <Link className="text-first" to={"/events/" + id + "/add"}>clone the last event</Link>.
+                <Link className="text-first" to={"/events/" + id + "/add"}>add a new event</Link>.
                 </p>
         </div>
     )

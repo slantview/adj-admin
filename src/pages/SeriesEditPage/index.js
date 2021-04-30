@@ -42,6 +42,7 @@ const SeriesEditPage = (props) => {
                 breadcrumbs={[
                     { title: "Home", to: "/" },
                     { title: "Events", to: "/events" },
+                    { title: seriesData.title, to: "/series/view/" + seriesData.id },
                     { title: "Edit " + seriesData.title, to: null }
                 ]}
                 minHeight="20vh"

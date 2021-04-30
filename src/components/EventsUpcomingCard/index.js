@@ -165,14 +165,16 @@ const EventsUpcomingCard = (props) => {
 								</div>
 							</CardContent>
 						}
-						<CardContent>
-							<Link 
-								to={"/series/view/" + series.id + "/all"} 
-								style={{textDecoration: 'underline'}} 
-								className="font-weight-bold text-first">
-									See all events
-							</Link> 
-						</CardContent>
+						{ series.events.length > 0 &&
+							<CardContent>
+								<Link 
+									to={"/series/view/" + series.id + "/all"} 
+									style={{textDecoration: 'underline'}} 
+									className="font-weight-bold text-first">
+										See all events
+								</Link> 
+							</CardContent>
+						}
 					</Card>
 				</Grid>
 			</Grid>
