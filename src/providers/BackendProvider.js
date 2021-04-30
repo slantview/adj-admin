@@ -14,7 +14,6 @@ export const BackendProvider = (props) => {
     const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
     const backendClient = site ? getClient(site.backend_url + "/graphql", userCtx.token) : client;
     const isLoaded = (siteCtx.selected !== null && userCtx.user !== null && site !== null);
-    console.log('isLoaded', isLoaded);
 
      // @ts-ignore
      useEffect(() => {

@@ -340,3 +340,13 @@ export const UPDATE_SERIES = gql`
         }
     }
 `
+
+export const DELETE_SERIES = gql`
+    mutation DeleteSeries($payload: deleteSeriesItemInput) {
+        deleteSeriesItem(input: $payload) {
+            seriesItem {
+                title
+            }
+        }
+    }
+`

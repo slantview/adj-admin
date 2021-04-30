@@ -5,12 +5,13 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import ConfirmationDialog from 'components/ConfirmationDialog';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import SeriesForm from 'components/SeriesForm';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { UPLOAD_FILE } from 'queries/files';
-import { UPDATE_SERIES } from 'queries/series';
+import { DELETE_SERIES, UPDATE_SERIES } from 'queries/series';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
@@ -27,8 +28,10 @@ const SeriesEditForm = ({ series }) => {
     const client = useApolloClient();
     const [updateSeries] = useMutation(UPDATE_SERIES);
     const [uploadFile] = useMutation(UPLOAD_FILE);
+    const [deleteSeries] = useMutation(DELETE_SERIES);
     const [isSubmitted] = useState(false);
     const [error, setError] = useState(null);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
     const initialData = {
         title: series.title,
@@ -93,6 +96,24 @@ const SeriesEditForm = ({ series }) => {
             });
     };
 
+    const handleDelete = () => {
+        deleteSeries({ variables: { payload: { where: { id: series.id }}}})
+            .then((ret) => {
+                const deleteSeries = ret.data.deleteSeriesItem.seriesItem;
+                client.resetStore()
+                    .then(() => {
+                        notify({
+                            type: 'success',
+                            message: "Successfully deleted series: " + deleteSeries.title
+                        });
+                        history.push('/events');
+                    });
+            }).catch(e  => {
+                setError(e.toString());
+            });
+        setShowDeleteConfirmation(false);
+    };
+
     return (
         <>
             <div className="text-white mt-2 mb-5">
@@ -122,6 +143,13 @@ const SeriesEditForm = ({ series }) => {
                                                             type="submit">
                                                                 Update Series
                                                         </Button>
+                                                        <div className="text-right">
+                                                        <Button
+                                                            onClick={() => setShowDeleteConfirmation(true)}
+                                                            className="btn-danger font-weight-bold">
+                                                                Delete Series
+                                                        </Button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             )}
@@ -132,6 +160,18 @@ const SeriesEditForm = ({ series }) => {
                     </div>
                 </Card>
             </div>
+            <ConfirmationDialog
+                open={showDeleteConfirmation}
+                onCancel={() => setShowDeleteConfirmation(false)}
+                onConfirm={handleDelete}
+                onClose={() => setShowDeleteConfirmation(false)}
+                title={"Are you sure you want to delete " + series.title + "?"}
+                description="This action cannot be undone."
+                iconName="times"
+                cancelText="Cancel"
+                confirmText="Delete"
+                color="danger"
+            />
         </>
     )
 }
