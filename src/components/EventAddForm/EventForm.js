@@ -1,11 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Grid, TextField as MTextField } from '@material-ui/core';
 import MDEditor, { commands } from '@uiw/react-md-editor';
-import 'date-fns';
 import { Field } from 'formik';
 import { Switch, TextField } from 'formik-material-ui';
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { SiteContext } from 'providers/SiteProvider';
+
 import ImageUpload from '../../components/ImageUpload';
+
+import 'date-fns';
 
 const EventForm = (props) => {
     const { 
@@ -13,6 +17,11 @@ const EventForm = (props) => {
 		errors,
         setFieldValue
 	} = props;
+
+	const siteCtx = useContext(SiteContext);
+	const timezone = siteCtx.getTimezone();
+
+	console.log(errors);
 
     return (
         <Container>
@@ -71,8 +80,19 @@ const EventForm = (props) => {
 								/>
                             </Grid>
 							<Grid item md={12} lg={12} className="mt-1 pt-0">
-								<span className="text-black-50 font-size-xs font-italic">Using default timezone of GMT-7</span>
+								<span className="text-black-50 font-size-xs font-italic">Using default timezone of {timezone}</span>
 							</Grid>
+
+							<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                                <Field
+                                    component={TextField}
+                                    fullWidth
+                                    name="sign_up_link"
+                                    label="Signup Link"
+                                    type="text"
+                                    variant="outlined"
+                                />
+                            </Grid>
                         </Grid>
                     </Grid>
 				</Grid>

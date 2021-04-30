@@ -35,7 +35,7 @@ class UserProvider extends Component {
             }
             const token = await userAuth.getIdToken();
             const { claims, expirationTime } = await userAuth.getIdTokenResult();
-
+            
             this.setState({ 
                 user: userAuth, 
                 token: token, 

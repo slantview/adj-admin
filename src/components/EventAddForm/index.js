@@ -26,7 +26,7 @@ const validationSchema = Yup.object({
     sign_up_link: Yup.string().required('Sign Up Link is required'),
 });
 
-function EventAddForm(props) {
+const EventAddForm = (props) => {
     // @ts-ignore
     const [isSubmitted, setSubmitted] = useState(false);
     // @ts-ignore
@@ -34,7 +34,7 @@ function EventAddForm(props) {
 
     const handleSubmit = (values, actions) => {
         // setSubmitted(true);
-        console.log(values);
+        console.log('values', values);
     };
 
     return (
@@ -80,6 +80,6 @@ function EventAddForm(props) {
 			</Card>
 		</div>
     )
-}
+};
 
 export default EventAddForm;

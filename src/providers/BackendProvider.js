@@ -1,5 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import _ from 'lodash';
+import moment from "moment-timezone";
 import React, { useContext, useEffect } from "react";
 
 import Loading from "components/Loading";
@@ -14,7 +15,14 @@ export const BackendProvider = (props) => {
     const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
     const backendClient = site ? getClient(site.backend_url + "/graphql", userCtx.token) : client;
     const isLoaded = (siteCtx.selected !== null && userCtx.user !== null && site !== null);
+    const userExpired = moment(userCtx.expires).isBefore(moment());
 
+    if (userExpired) {
+        if (!userCtx.user) {
+            window.location.pathname = '/login';
+        }
+        userCtx.user.reload();
+    }
      // @ts-ignore
      useEffect(() => {
         if (siteCtx.onSiteChanged) {
