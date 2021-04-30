@@ -6,6 +6,7 @@ import WebAssetTwoToneIcon from '@material-ui/icons/WebAssetTwoTone';
 import FontDownloadTwoToneIcon from '@material-ui/icons/FontDownloadTwoTone';
 import ViewHeadlineTwoToneIcon from '@material-ui/icons/ViewHeadlineTwoTone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactMarkdown from 'react-markdown';
 
 const SeriesDetailBlock = ({ series }) => {
     console.log(series);
@@ -13,7 +14,7 @@ const SeriesDetailBlock = ({ series }) => {
         <div className="mb-5">
             {/* <Card elevation={0}>
                 <CardContent> */}
-                    <Grid container alignItems="center" spacing={1}>
+                    <Grid container alignItems="flex-start" spacing={1}>
                         <Grid item xs={8} sm={8} md={8} lg={10} xl={1}>
                             <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">Series Information</h3>
                         </Grid>
@@ -46,7 +47,7 @@ const SeriesDetailBlock = ({ series }) => {
                             </div>
                         </Grid>
                         <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                            <div className="text-black font-weight-light pr-4 ml-5 text-right">
+                            <div className="text-black font-weight-regular pr-4 ml-5 text-left">
                                 {series.slug}
                             </div>
                         </Grid>
@@ -54,13 +55,13 @@ const SeriesDetailBlock = ({ series }) => {
                         <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                             <div className="ml-2">
                                 {/* <FontDownloadTwoToneIcon fontSize="large" /> */}
-                                <span className="text-black-50 text-uppercase font-size-lg font-weight-bold mt-2 ml-2">
+                                <span className="text-black-50 text-uppercase font-size-xl font-weight-bold mt-2 ml-2">
                                     Subtitle
                                 </span>
                             </div>
                         </Grid>
                         <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                            <div className="text-black font-weight-light pr-4 ml-5 text-right">
+                            <div className="text-black font-weight-regular pr-4 ml-5 text-left">
                                 {series.subtitle}
                             </div>
                         </Grid>
@@ -69,14 +70,14 @@ const SeriesDetailBlock = ({ series }) => {
                         <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                             <div className="ml-2">
                                 {/* <ViewHeadlineTwoToneIcon fontSize="large" /> */}
-                                <span className="text-black-50 text-uppercase font-size-lg font-weight-bold mt-2 ml-2">
+                                <span className="text-black-50 text-uppercase font-size-xl font-weight-bold mt-2 ml-2">
                                     Description
                                 </span>
                             </div>
                         </Grid>
                         <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                            <div className="text-black font-weight-light pr-4 ml-5 text-right">
-                                {series.description}
+                            <div className="text-black font-weight-regular pr-4 ml-5 text-left">
+                                <ReactMarkdown>{series.description}</ReactMarkdown>
                             </div>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}><Divider /></Grid>
@@ -84,13 +85,13 @@ const SeriesDetailBlock = ({ series }) => {
                         <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                             <div className="ml-2">
                                 {/* <ViewHeadlineTwoToneIcon fontSize="large" /> */}
-                                <span className="text-black-50 text-uppercase font-size-lg font-weight-bold mt-2 ml-2">
+                                <span className="text-black-50 text-uppercase font-size-xl font-weight-bold mt-2 ml-2">
                                     Cadence
                                 </span>
                             </div>
                         </Grid>
                         <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
-                            <div className="text-black font-weight-light pr-4 ml-5 text-right text-capitalize">
+                            <div className="text-black font-weight-regular pr-4 ml-5 text-left text-capitalize">
                                 {series.cadence}
                             </div>
                         </Grid>

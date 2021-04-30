@@ -1,7 +1,9 @@
-import Loading from "components/Loading";
 import firebase from 'firebase/app';
 import _ from "lodash";
 import React, { Component, createContext } from "react";
+
+import Loading from "components/Loading";
+
 import { getSiteMetadata, getSites } from '../utils/api';
 
 export const SiteContext = createContext({ 
@@ -85,7 +87,10 @@ class SiteProvider extends Component {
                             site.metadata = orgInfo;
                             sites[i] = site;
                         });
-
+                        // If sites is zero, then this user doesn't have a site assigned yet. Go to fail.
+                        if (sites.length === 0) {
+                            window.location.pathname = '/failure';
+                        }
                         const selectedSiteId = this.state.selected === null ? sites[0].id : this.state.selected;
                         const selectedSite = _.first(sites.filter(s => s.id === selectedSiteId));
                         this.setState({
@@ -95,6 +100,9 @@ class SiteProvider extends Component {
                             loading: false
                         });
                         this.siteDidChange();
+                    } else {
+                        // If we don't get an ok here, we have to go to failure mode.
+                        window.location.pathname = '/failure';
                     }
                 })
                 .catch(e => {

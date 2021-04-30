@@ -4,6 +4,7 @@ import { faAddressCard, faBell, faBuilding, faCalendarAlt, faChartBar, faCheckCi
 import { faAlignCenter, faAngleDoubleLeft, faAngleDoubleRight, faAngleDown, faAngleLeft, faAngleRight, faAngleUp, faArrowDown, faArrowLeft, faArrowRight, faArrowsAltH, faArrowUp, faAward, faBars, faBatteryEmpty, faBatteryFull, faBirthdayCake, faBomb, faBusAlt, faCameraRetro, faCarBattery, faCaretRight, faCheck, faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faCog, faCubes, faDownload, faEllipsisH, faEllipsisV, faExclamation, faExternalLinkAlt, faEyeDropper, faFilm, faHeart, faInfoCircle, faLemon, faLink, faMapMarkedAlt, faNetworkWired, faPager, faPlayCircle, faPlus, faPlusCircle, faPrint, faQuoteRight, faReply, fas, faSave, faSearch, faShapes, faShareSquare, faSignOutAlt, faSitemap, faSlidersH, faSmile, faStar, faStarHalfAlt, faSync, faTable, faTachometerAlt, faTimes, faUnlockAlt, faUpload } from '@fortawesome/free-solid-svg-icons';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
+import moment from 'moment-timezone';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -15,7 +16,6 @@ import MuiTheme from '../../theme';
 import useStyles from '../../theme/useStyles';
 
 import '../../assets/base.scss';
-import moment from 'moment-timezone';
 
 library.add(
   far,
@@ -152,9 +152,7 @@ const Layout = ({ children }) => {
 	return (
 		<ThemeProvider theme={MuiTheme}>
 			<div className="app-wrapper app-sidebar-fixed">
-				<div>
-					<Sidebar open={true} />
-				</div>
+				<Sidebar open={true} />
 				<div className="app-main">
 					<Header hidden={true} />
 					<div className="app-content">

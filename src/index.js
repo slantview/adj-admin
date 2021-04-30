@@ -1,4 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
 import OrganizationAddPage from 'pages/Admin/OrganizationAddPage';
 import SiteAddPage from 'pages/Admin/SiteAddPage';
 import SeriesAddPage from 'pages/SeriesAddPage';
@@ -6,10 +11,7 @@ import SeriesDetailAllEventsPage from 'pages/SeriesDetailAllEventsPage';
 import SeriesDetailPage from 'pages/SeriesDetailPage';
 import SeriesEditPage from 'pages/SeriesEditPage';
 import NotificationProvider from 'providers/NotificationProvider';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+
 import Layout from './containers/Layout';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminOrganizationListPage from './pages/Admin/OrganizationListPage';
@@ -33,6 +35,7 @@ import BackendProvider from './providers/BackendProvider';
 import SiteProvider from './providers/SiteProvider';
 import UserProvider from './providers/UserProvider';
 import store from './state/store.js';
+import FailPage from 'pages/FailPage';
 
 const pageVariants = {
     initial: {
@@ -62,6 +65,8 @@ ReactDOM.render(
 								<Route exact path="/login"><LoginPage /></Route>
 								{/* <Route exact path="/register"><RegistrationPage /></Route> */}
 								<Route exact path="/recover"><RecoverPage /></Route>
+								<Route exact path="/failure"><FailPage /></Route>
+
 								<motion.div
 									initial="initial"
 									animate="in"

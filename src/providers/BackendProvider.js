@@ -1,18 +1,21 @@
+import { ApolloProvider } from "@apollo/client";
+import _ from 'lodash';
 import React, { useContext, useEffect } from "react";
+
+import Loading from "components/Loading";
+
+import { client, getClient } from "../utils/graphql";
 import { SiteContext } from './SiteProvider';
 import { UserContext } from './UserProvider';
-import _ from 'lodash';
-import { ApolloProvider } from "@apollo/client";
-import { getClient, client } from "../utils/graphql";
-import Loading from "components/Loading";
 
 export const BackendProvider = (props) => {
     const siteCtx = useContext(SiteContext);
     const userCtx = useContext(UserContext);
     const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
     const backendClient = site ? getClient(site.backend_url + "/graphql", userCtx.token) : client;
-    const isLoaded = siteCtx.selected && userCtx.user && site;
-
+    const isLoaded = (siteCtx.selected !== null && userCtx.user !== null && site !== null);
+    console.log('isLoaded', isLoaded);
+    
      // @ts-ignore
      useEffect(() => {
         if (siteCtx.onSiteChanged) {

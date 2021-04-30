@@ -6,9 +6,7 @@ import PublishTwoToneIcon from '@material-ui/icons/PublishTwoTone';
 import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-export default function ImageUpload(props) {
-	
-
+const ImageUpload = (props) => {
 	const {
 		name,
 		title,
@@ -52,7 +50,7 @@ export default function ImageUpload(props) {
 	};
 
 	useEffect(() => {
-		if (files.length === 0 && value.length === 1) {
+		if (files && files.length === 0 && value && value.length === 1) {
 			setFiles(value);
 		}
 	}, [])
@@ -64,7 +62,7 @@ export default function ImageUpload(props) {
 		[files]
 	);
 
-	const thumbs = files.map((file) => {
+	const thumbs = files ? files.map((file) => {
 		return (
 			<div
 				key={file.name}
@@ -77,7 +75,7 @@ export default function ImageUpload(props) {
 					/>
 			</div>
 		);
-	});
+	}) : '';
 
 	return (
 		<>
@@ -134,3 +132,5 @@ export default function ImageUpload(props) {
 		</>
 	);
 }
+
+export default ImageUpload;
