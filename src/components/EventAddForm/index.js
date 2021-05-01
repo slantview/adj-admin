@@ -54,7 +54,7 @@ const EventAddForm = (props) => {
 
     const handleSubmit = async (values, actions) => {
         // setSubmitted(true);
-        console.log('values', values);
+        // console.log('values', values);
 
         const newEvent = {
             slug: '/' + slugify(values.title, {

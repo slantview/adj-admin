@@ -102,7 +102,7 @@ const EventForm = (props) => {
 		setFieldValue(name, moment(e.target.value).tz(timezone).format());
 	};
 
-	console.log(values, errors);
+	// console.log(values, errors);
 
     return (
         <Container>
