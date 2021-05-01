@@ -1,11 +1,12 @@
-import { Fade, Tooltip, Card, CardContent, CardMedia, Grid, Table } from '@material-ui/core';
-import headerBackground from 'assets/images/header-bg.jpg';
-import EventAddNewCard from 'components/EventAddNewCard';
+import { Card, CardContent, CardMedia, Fade, Grid, Table, Tooltip } from '@material-ui/core';
 import moment from 'moment-timezone';
-import { SiteContext } from 'providers/SiteProvider';
 import React, { useContext } from 'react';
-import EventActionMenu from 'components/EventActionMenu';
 import { Link } from 'react-router-dom';
+
+import headerBackground from 'assets/images/header-bg.jpg';
+import EventActionMenu from 'components/EventActionMenu';
+import EventAddNewCard from 'components/EventAddNewCard';
+import { SiteContext } from 'providers/SiteProvider';
 
 const EventsUpcomingCard = (props) => {
 	const {
@@ -20,7 +21,7 @@ const EventsUpcomingCard = (props) => {
 	const timezone = siteCtx.getTimezone();
 
 	const nextStartsAt = next && timezone ? moment(next.starts_at).tz(timezone) : null;
-	const bgImage = next ? next.header.formats.large.url : headerBackground;
+	const bgImage = next && next.header ? next.header.formats.large.url : headerBackground;
 	const gameImages = next?.tournaments?.flatMap(t => {
 		return {
 			title: t.game.title,
@@ -57,7 +58,8 @@ const EventsUpcomingCard = (props) => {
 																		<div className="mb-2 font-size-md text-uppercase font-weight-bold text-white-50">Games Played: </div>
 																	}
 																	{ gameImages && gameImages.length > 0 && gameImages.map(i => ( 
-																		<Tooltip 
+																		<Tooltip
+																			key={i.title} 
 																			TransitionComponent={Fade} 
 																			TransitionProps={{ timeout: 600 }} 
 																			title={i.title}>

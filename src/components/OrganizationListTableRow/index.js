@@ -167,7 +167,7 @@ const OrganizationListTableRow = (props) => {
                             <div className="pt-4">
                             <Button
                                 onClick={() => setErrorConfirmModal(false) }
-                                className="btn-neutral-secondary btn-pill mx-1">
+                                className="btn-neutral-secondary mx-1">
                                 <span className="btn-wrapper--label">Cancel</span>
                             </Button>
                             <Button onClick={handleDelete} className="btn-danger btn-pill mx-1">
@@ -175,7 +175,7 @@ const OrganizationListTableRow = (props) => {
                             </Button>
                             </div>
                         </div>
-                        </Dialog>
+                    </Dialog>
                 </div>
             </td>
         </tr>

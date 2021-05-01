@@ -1,15 +1,21 @@
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Container, Grid, TextField as MTextField } from '@material-ui/core';
+import { RuleSharp, StreamSharp } from '@material-ui/icons';
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import { Field } from 'formik';
 import { Switch, TextField } from 'formik-material-ui';
-import React, { useContext } from 'react';
+import moment from 'moment-timezone';
+import React, { useContext, useEffect, useState } from 'react';
 
+import AutocompleteSearchField from 'components/AutocompleteSearchField';
 import { SiteContext } from 'providers/SiteProvider';
+import { GET_ALL_PLACES } from 'queries/places';
+import { GET_ALL_GAME_RULE_LISTS } from 'queries/rules';
+import { GET_ALL_STREAMS } from 'queries/streams';
+import { GET_ALL_TOURNAMENTS } from 'queries/tournaments';
 
 import ImageUpload from '../../components/ImageUpload';
-
-import 'date-fns';
 
 const EventForm = (props) => {
     const { 
@@ -20,8 +26,83 @@ const EventForm = (props) => {
 
 	const siteCtx = useContext(SiteContext);
 	const timezone = siteCtx.getTimezone();
+	const tournamentsData = useQuery(GET_ALL_TOURNAMENTS);
+	const [tournaments, setTournaments] = useState([]);
+	const gameRulesData = useQuery(GET_ALL_GAME_RULE_LISTS);
+	const [rules, setRules] = useState([]);
+	const placesData = useQuery(GET_ALL_PLACES);
+	const [places, setPlaces] = useState([]);
+	const streamsData = useQuery(GET_ALL_STREAMS);
+	const [streams, setStreams] = useState([]);
 
-	console.log(errors);
+	const resultsToData = (results) => {
+		if (results === null || typeof results === 'undefined' || results.length === 0) {
+			return [];
+		}
+		return results.map(r => {
+			return {
+				name: `${r.title ? r.title : (r.name ? r.name : 'undefined')}`,
+				value: r.id
+			};
+		})
+	};
+
+	useEffect(() => {
+		if (!tournamentsData.loading) {
+			setTournaments(resultsToData(tournamentsData?.data?.tournaments));
+		}
+		if (!gameRulesData.loading) {
+			setRules(resultsToData(gameRulesData?.data?.gameRuleLists));
+		}
+		if (!placesData.loading) {
+			setPlaces(resultsToData(placesData?.data?.places));
+		}
+		if (!streamsData.loading) {
+			setStreams(resultsToData(streamsData?.data?.streams));
+		}
+	}, [tournamentsData, gameRulesData, placesData, streamsData]);
+
+	const handleTournamentAutocompleteRequest = (request, callback) => {
+		if (tournaments.length === 0) {
+			callback([]);
+		}
+		callback(tournaments?.filter(t => {
+			return t.name?.toLowerCase().includes(request.input?.toLowerCase());
+		}));
+	};
+
+	const handleRulesAutocompleteRequest = (request, callback) => {
+		if (rules.length === 0) {
+			callback([]);
+		}
+		callback(rules?.filter(r => {
+			return r.name?.toLowerCase().includes(request.input?.toLowerCase());
+		}));
+	};
+
+	const handlePlacesAutocompleteRequest = (request, callback) => {
+		if (places.length === 0) {
+			callback([]);
+		}
+		callback(places?.filter(r => {
+			return r.name?.toLowerCase().includes(request.input?.toLowerCase());
+		}));
+	};
+
+	const handleStreamsAutocompleteRequest = (request, callback) => {
+		if (streams.length === 0) {
+			callback([]);
+		}
+		callback(streams?.filter(r => {
+			return r.name?.toLowerCase().includes(request.input?.toLowerCase());
+		}));
+	};
+
+	const handleTimeFieldChange = (name, e) => {
+		setFieldValue(name, moment(e.target.value).tz(timezone).format());
+	};
+
+	console.log(values, errors);
 
     return (
         <Container>
@@ -61,6 +142,7 @@ const EventForm = (props) => {
 									label="Starts At"
 									placeholder=""
 									fullWidth
+									onChange={(e) => handleTimeFieldChange('starts_at', e)}
 									InputLabelProps={{
 										shrink: true,
 									}}
@@ -74,6 +156,7 @@ const EventForm = (props) => {
 									label="Ends At"
 									placeholder=""
 									fullWidth
+									onChange={(e) => handleTimeFieldChange('ends_at', e)}
 									InputLabelProps={{
 										shrink: true,
 									}}
@@ -82,19 +165,27 @@ const EventForm = (props) => {
 							<Grid item md={12} lg={12} className="mt-1 pt-0">
 								<span className="text-black-50 font-size-xs font-italic">Using default timezone of {timezone}</span>
 							</Grid>
-
-							<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                                <Field
-                                    component={TextField}
-                                    fullWidth
-                                    name="sign_up_link"
-                                    label="Signup Link"
-                                    type="text"
-                                    variant="outlined"
-                                />
-                            </Grid>
                         </Grid>
                     </Grid>
+				</Grid>
+			</div>
+			<div className="p-4">
+				<div className="divider mt-3 mb-2" />
+				<h5 className="font-size-xl mb-1 font-weight-bold">
+					Signup
+				</h5>
+				<p className="text-black-50 mb-4">Enter your signup information.</p>
+				<Grid container spacing={2}>
+					<Grid item md={12} lg={12}>
+						<Field
+							component={TextField}
+							fullWidth
+							name="sign_up_link"
+							label="Sign Up Link"
+							type="text"
+							variant="outlined"
+						/>
+					</Grid>
 				</Grid>
 			</div>
 			<div className="p-4">
@@ -108,12 +199,12 @@ const EventForm = (props) => {
 					</Grid>
                     <Grid item md={6} lg={6}> 
                         <ImageUpload 
-                            name="logo"
+                            name="header"
                             title="Header Image" 
                             subtitle="Upload your header image" 
                             description="1280x640"
                             setFieldValue={setFieldValue}
-                            error={errors.logo}
+                            error={errors.header}
                         />
                     </Grid>
                     <Grid item md={6} lg={6}> 
@@ -149,13 +240,12 @@ const EventForm = (props) => {
 						
 					</Grid>
                     <Grid item md={12} lg={12}>
-						<Field
-							component={TextField}
-							fullWidth
+						<AutocompleteSearchField
 							name="tournaments"
-							label="Search Tournaments"
-							type="text"
-							variant="outlined"
+							inputLabel="Search Tournaments"
+							getOptions={handleTournamentAutocompleteRequest}
+							setFieldValue={setFieldValue}
+							initialOptions={resultsToData(tournamentsData?.data?.tournaments)}
 						/>
                     </Grid>
                 </Grid>
@@ -181,13 +271,12 @@ const EventForm = (props) => {
 						
 					</Grid>
                     <Grid item md={12} lg={12}>
-						<Field
-							component={TextField}
-							fullWidth
-							name="tournaments"
-							label="Search Rules"
-							type="text"
-							variant="outlined"
+						<AutocompleteSearchField
+							name="rules"
+							inputLabel="Search Rules"
+							getOptions={handleRulesAutocompleteRequest}
+							setFieldValue={setFieldValue}
+							initialOptions={resultsToData(gameRulesData?.data?.gameRules)}
 						/>
                     </Grid>
                 </Grid>
@@ -228,13 +317,12 @@ const EventForm = (props) => {
 						/>
 					</Grid>
                     <Grid item md={12} lg={12}>
-						<Field
-							component={TextField}
-							fullWidth
+						<AutocompleteSearchField
 							name="venue"
-							label="Search Places"
-							type="text"
-							variant="outlined"
+							inputLabel="Search Places"
+							getOptions={handlePlacesAutocompleteRequest}
+							setFieldValue={setFieldValue}
+							initialOptions={resultsToData(placesData?.data?.setPlaces)}
 						/>
                     </Grid>
                 </Grid>
@@ -260,33 +348,12 @@ const EventForm = (props) => {
 						</div>
 					</Grid>
                     <Grid item md={12} lg={12}>
-						<Field
-							component={TextField}
-							fullWidth
+						<AutocompleteSearchField
 							name="streams"
-							label="Search Streams"
-							type="text"
-							variant="outlined"
-						/>
-                    </Grid>
-                </Grid>
-            </div>
-            <div className="p-4">
-				<div className="divider mt-3 mb-2" />
-                <h5 className="font-size-xl mb-1 font-weight-bold">
-                    Signup
-                </h5>
-                <p className="text-black-50 mb-4">Enter your signup information.</p>
-                <Grid container spacing={2}>
-                    <Grid item md={12} lg={12}>
-						<Field
-							component={TextField}
-							fullWidth
-							name="sign_up_link"
-							label="Sign Up Link"
-							type="text"
-							variant="outlined"
-							placeholder="https://signup.url/"
+							inputLabel="Search Streams"
+							getOptions={handleStreamsAutocompleteRequest}
+							setFieldValue={setFieldValue}
+							initialOptions={resultsToData(streamsData?.data?.streams)}
 						/>
                     </Grid>
                 </Grid>

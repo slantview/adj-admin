@@ -55,12 +55,12 @@ const ImageUpload = (props) => {
 		}
 	}, [files, value])
 
-	useEffect(
-		() => () => {
-			files.forEach((file) => URL.revokeObjectURL(file.preview));
-		},
-		[files]
-	);
+	// useEffect(
+	// 	() => () => {
+	// 		files.forEach((file) => URL.revokeObjectURL(file.preview));
+	// 	},
+	// 	[files]
+	// );
 
 	const thumbs = files ? files.map((file) => {
 		return (
@@ -79,15 +79,16 @@ const ImageUpload = (props) => {
 
 	return (
 		<>
-			<div className="py-4 d-flex align-items-center justify-content-center">
+			<div className="d-flex align-items-center justify-content-center">
 				<div className="dropzone rounded border-0 w-100 text-center">
 					<div {...getRootProps({ className: 'dropzone-upload-wrapper' })}>
 						<input {...getInputProps()} />
 						<div className="dropzone-inner-wrapper rounded align-items-center dropzone-avatar">
-							<div className="rounded m-5 align-items-center">
+							<div className="rounded m-2 align-items-center">
 							
 								{ thumbs.length > 0 && 
 									<div>
+										<div className="text-black-50 mb-2 font-size-lg font-weight-bold">{title}</div>
 										{thumbs}
 										<div><a href="#/" onClick={reset}>(clear)</a></div>
 									</div>
@@ -109,7 +110,7 @@ const ImageUpload = (props) => {
 										<div className="rounded overflow-hidden bg-neutral-dark text-centerfont-weight-bold text-black-50 d-flex justify-content-center align-items-center">
 											<PhotoIcon className="d-140" />
 											<div className="card-header--title text-center d-block">
-												<small>{title}</small>
+												<small className="text-second">{title}</small>
 												<b>{subtitle}</b>
 												<p className="font-size-xs text-black-50">{description}</p>
 												{ isError && <span className="text-danger text-center">{error}</span> }

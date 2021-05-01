@@ -64,7 +64,7 @@ const SeriesAddPage = () => {
                 breadcrumbs={[
                     { title: "Home", to: "/" },
                     { title: "Events", to: "/events" },
-                    { title: seriesData.title, to: "/series/" + seriesId },
+                    { title: seriesData.title, to: "/series/view/" + seriesId },
                     { title: "Add Event", to: null }
                 ]}
                 minHeight="10vh"

@@ -4,7 +4,7 @@ import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
 import { Form, Formik } from 'formik';
 import _ from 'lodash';
 import React, { useContext, useEffect } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import hero from '../../assets/images/hero-bg/hero-arena.jpg';
@@ -21,7 +21,6 @@ let validationSchema = Yup.object({
 
 export default function Login(props) {
 	const history = useHistory();
-	const location = useLocation();
 	const userCtx = useContext(UserContext);
 	// @ts-ignore
 	const fromUrl = location.state && location.state.from;
