@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Fade, Grid, Table, Tooltip } from '@material-ui/core';
+import { Button, Card, CardContent, CardMedia, Fade, Grid, Table, Tooltip } from '@material-ui/core';
 import moment from 'moment-timezone';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import headerBackground from 'assets/images/header-bg.jpg';
 import EventActionMenu from 'components/EventActionMenu';
 import EventAddNewCard from 'components/EventAddNewCard';
 import { SiteContext } from 'providers/SiteProvider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EventsUpcomingCard = (props) => {
 	const {
@@ -169,12 +170,35 @@ const EventsUpcomingCard = (props) => {
 						}
 						{ series.events.length > 0 &&
 							<CardContent>
-								<Link 
-									to={"/series/view/" + series.id + "/all"} 
-									style={{textDecoration: 'underline'}} 
-									className="font-weight-bold text-first">
-										See all events
-								</Link> 
+								<Grid container>
+									<Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+										{ series.events.length > 0 &&
+											<div className="mt-2">
+												<Link 
+													to={"/series/view/" + series.id + "/all"} 
+													style={{textDecoration: 'underline'}} 
+													className="font-weight-bold text-first">
+														See all events
+												</Link> 
+											</div>
+										}
+									</Grid>
+									<Grid item md={6} lg={6} xl={6}>
+										<div className="text-right">
+											<Button
+												component={Link}
+												to={'/events/' + series.id + '/add'}
+												// variant="contained"
+												size="small"
+												className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
+													<span className="btn-wrapper--icon mr-2">
+														<FontAwesomeIcon icon={['fas', 'plus']} className="opacity-8" />
+													</span>
+													Add Event
+											</Button>
+										</div>
+									</Grid>
+								</Grid>
 							</CardContent>
 						}
 					</Card>

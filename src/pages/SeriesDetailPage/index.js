@@ -1,9 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Grid } from '@material-ui/core';
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
-
+import { Button, Collapse, Grid } from '@material-ui/core';
+import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
 import Error from 'components/Error';
 import EventsUpcomingCard from 'components/EventsUpcomingCard';
 import Loading from 'components/Loading';
@@ -13,6 +11,8 @@ import SeriesHeaderAnalytics from 'components/SeriesHeaderAnalytics';
 import { SiteContext } from 'providers/SiteProvider';
 import { UserContext } from 'providers/UserProvider';
 import { GET_SERIES } from 'queries/series';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { getSiteAnalytics } from 'utils/api';
 import { getSortedEvents } from 'utils/events';
 
@@ -31,6 +31,7 @@ const SeriesDetailPage = (props) => {
 		});
     const [seriesData, setSeriesData] = useState(null);
     const [isLoading, setLoading] = useState(loading);
+    const [showSeriesDetails, setShowSeriesDetails] = useState(false);
 
     const timezone = siteCtx.timezone ? siteCtx.timezone : Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -83,7 +84,6 @@ const SeriesDetailPage = (props) => {
         refreshSiteAnalytics();
     }, [seriesData])
 
-
     useEffect(() => {
         if ((isLoading || !loading) && data && data.seriesItem) {
             setSeriesData(data.seriesItem);
@@ -93,6 +93,10 @@ const SeriesDetailPage = (props) => {
             setLoading(loading);
         }
     }, [loading, data, error]);
+
+    const toggleSeriesDetails = () => {
+        setShowSeriesDetails(!showSeriesDetails);
+    }
 
 	if (isLoading || seriesData === null) {
 		return (<Loading centerInPage={true} center={true} />);
@@ -130,30 +134,28 @@ const SeriesDetailPage = (props) => {
                 </Grid>
             </SectionHeader>
 
-            <div className="mx-4 mt-4">
+            <Grid container>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <div className="text-right mr-4">
+                        <Button
+                            component={Link}
+                            to={'/series/edit/' + seriesId}
+                            size="small"
+                            className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
+                                <span className="btn-wrapper--icon mr-2">
+                                    <SettingsTwoToneIcon fontSize="small" className="opacity-8" />
+                                </span>
+                                Edit Series
+                        </Button>
+                    </div>
+                </Grid> 
+            </Grid>
+            <div className="mx-4 mt-1">
                 <Grid container>
-                    <Grid item md={12} lg={12} xl={12}>
-                        <SeriesDetailBlock series={seriesData} />
-                    </Grid>
-
-                    <Grid item md={6} lg={6} xl={6}>
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                         <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">Upcoming Events</h3>
                     </Grid>
-                    <Grid item md={6} lg={6} xl={6}>
-                        <div className="text-right">
-                            <Button
-                                component={Link}
-                                to={'/events/' + seriesId + '/add'}
-                                // variant="contained"
-                                size="small"
-                                className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
-                                    <span className="btn-wrapper--icon mr-2">
-                                        <FontAwesomeIcon icon={['fas', 'plus']} className="opacity-8" />
-                                    </span>
-                                    Add Event
-                            </Button>
-                        </div>
-                    </Grid>
+                   
                     <Grid item md={12} lg={12} xl={12}>
                         <EventsUpcomingCard 
                             series={seriesData} 
@@ -161,6 +163,24 @@ const SeriesDetailPage = (props) => {
                             next={sortedEvents.next}
                             refreshSeries={refreshSeries}
                         />
+                    </Grid>
+
+                    <Grid item md={12} lg={12} xl={12}>
+                        <div className="text-right mr-4">
+                            <a 
+                                href="#/" 
+                                onClick={toggleSeriesDetails}
+                                className="text-first text-underline font-weight-bold"
+								style={{textDecoration: "underline"}}>
+                                    See Series Details
+                            </a>
+                        </div>
+                        <Collapse
+                            in={showSeriesDetails}
+                        >
+
+                            <SeriesDetailBlock series={seriesData} />
+                        </Collapse>
                     </Grid>
                 </Grid>
             </div>
