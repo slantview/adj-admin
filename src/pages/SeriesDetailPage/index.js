@@ -172,7 +172,7 @@ const SeriesDetailPage = (props) => {
                                 onClick={toggleSeriesDetails}
                                 className="text-first text-underline font-weight-bold"
 								style={{textDecoration: "underline"}}>
-                                    See Series Details
+                                    {showSeriesDetails ? "Hide" : "See"} Series Details
                             </a>
                         </div>
                         <Collapse
