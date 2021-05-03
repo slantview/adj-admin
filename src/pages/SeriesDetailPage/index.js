@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Collapse, Grid } from '@material-ui/core';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
 import Error from 'components/Error';
 import EventsUpcomingCard from 'components/EventsUpcomingCard';
@@ -166,13 +167,20 @@ const SeriesDetailPage = (props) => {
                     </Grid>
 
                     <Grid item md={12} lg={12} xl={12}>
-                        <div className="text-right mr-4">
+                        <div className="mt-3">
                             <a 
                                 href="#/" 
                                 onClick={toggleSeriesDetails}
                                 className="text-first text-underline font-weight-bold"
 								style={{textDecoration: "underline"}}>
                                     {showSeriesDetails ? "Hide" : "See"} Series Details
+                                    <span className="text-first text-underline font-weight-bold">
+                                        { showSeriesDetails ? (
+                                            <KeyboardArrowUpIcon />
+                                        ) : (
+                                            <KeyboardArrowDownIcon />
+                                        )}
+                                    </span>
                             </a>
                         </div>
                         <Collapse
