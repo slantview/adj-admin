@@ -66,36 +66,52 @@ const EventForm = (props) => {
 		if (tournaments.length === 0) {
 			callback([]);
 		}
-		callback(tournaments?.filter(t => {
-			return t.name?.toLowerCase().includes(request.input?.toLowerCase());
-		}));
+		if (request?.input === null || request?.input === '') {
+			callback(tournaments);
+		} else {
+			callback(tournaments?.filter(t => {
+				return t.name?.toLowerCase().includes(request.input?.toLowerCase());
+			}));
+		}
 	};
 
 	const handleRulesAutocompleteRequest = (request, callback) => {
 		if (rules.length === 0) {
 			callback([]);
 		}
-		callback(rules?.filter(r => {
-			return r.name?.toLowerCase().includes(request.input?.toLowerCase());
-		}));
+		if (request?.input === null || request?.input === '') {
+			callback(rules);
+		} else {
+			callback(rules?.filter(r => {
+				return r.name?.toLowerCase().includes(request.input?.toLowerCase());
+			}));
+		}
 	};
 
 	const handlePlacesAutocompleteRequest = (request, callback) => {
 		if (places.length === 0) {
 			callback([]);
 		}
-		callback(places?.filter(r => {
-			return r.name?.toLowerCase().includes(request.input?.toLowerCase());
-		}));
+		if (request?.input === null || request?.input === '') {
+			callback(places);
+		} else {
+			callback(places?.filter(r => {
+				return r.name?.toLowerCase().includes(request.input?.toLowerCase());
+			}));
+		}
 	};
 
 	const handleStreamsAutocompleteRequest = (request, callback) => {
 		if (streams.length === 0) {
 			callback([]);
 		}
-		callback(streams?.filter(r => {
-			return r.name?.toLowerCase().includes(request.input?.toLowerCase());
-		}));
+		if (request?.input === null || request?.input === '') {
+			callback(streams);
+		} else {
+			callback(streams?.filter(r => {
+				return r.name?.toLowerCase().includes(request.input?.toLowerCase());
+			}));
+		}
 	};
 
 	const handleTimeFieldChange = (name, e) => {

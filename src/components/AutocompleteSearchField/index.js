@@ -19,9 +19,14 @@ const AutocompleteSearchField = (props) => {
 	const [inputValue, setInputValue] = useState('');
 	
 	useEffect(() => {
+		setOptions(initialOptions);
+	}, [initialOptions]);
+
+	useEffect(() => {
 		let active = true;
 	
 		getOptions({ input: value }, (results) => {
+			console.log('results', results);
 			if (results) {
 				setOptions(results);
 			}
@@ -30,7 +35,7 @@ const AutocompleteSearchField = (props) => {
 		return () => {
 		  active = false;
 		};
-	}, [value, inputValue, initialOptions]);
+	}, [value, inputValue]);
 
 	
 

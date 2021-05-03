@@ -146,7 +146,7 @@ const SeriesEditForm = ({ series }) => {
                                                         <div className="text-right">
                                                             <a
                                                                 href="#/"
-                                                                onClick={(e) => setShowDeleteConfirmation(true) && e.preventDefault()}
+                                                                onClick={(e) => { setShowDeleteConfirmation(true); return e.preventDefault()}}
                                                                 className="text-danger font-size-xs text-underline font-weight-bold"
                                                                 style={{textDecoration: "underline"}}>
                                                                     Delete Series
