@@ -19,7 +19,7 @@ const AutocompleteSearchField = (props) => {
 	const [value, setValue] = React.useState(initialValue);
 	const [options, setOptions] = useState(initialOptions);
 	const [inputValue, setInputValue] = useState('');
-	
+
 	useEffect(() => {
 		setOptions(initialOptions);
 		setValue(initialValue);
@@ -28,25 +28,26 @@ const AutocompleteSearchField = (props) => {
 	useEffect(() => {
 		let active = true;
 	
-		getOptions({ input: value }, (results) => {
-			if (results) {
-				setOptions(results);
-			}
-		});
-	
+		if (active) {
+			getOptions({ input: inputValue }, (results) => {
+				if (results) {
+					setOptions(results);
+				}
+			});
+		}
+
 		return () => {
 		  active = false;
 		};
 	}, [value, inputValue]);
 
-	
-
 	const handleChange = (event, newValue) => {
 		setFieldValue(name, newValue);
+		setValue(newValue);
 	};
 
 	const handleInputChange = (event, newInputValue) => {
-		setValue(newInputValue);
+		setInputValue(newInputValue);
 	}
 
 	const renderInput = (params) => {
@@ -70,7 +71,7 @@ const AutocompleteSearchField = (props) => {
 	};
 
 	const getOptionSelected = (o, v) => {
-		console.log('getOptionSelected', o, v);
+		// console.log('getOptionSelected', o, v);
 		if (typeof v === 'string') {
 			return v === o.name;
 		} else {

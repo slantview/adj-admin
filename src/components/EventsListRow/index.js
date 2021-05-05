@@ -1,8 +1,9 @@
-import EventActionMenu from 'components/EventActionMenu';
 import moment from 'moment';
-import { SiteContext } from 'providers/SiteProvider';
 import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
+
+import EventActionMenu from 'components/EventActionMenu';
+import { SiteContext } from 'providers/SiteProvider';
 
 const EventsListRow = (props) => {
     const {
@@ -11,69 +12,43 @@ const EventsListRow = (props) => {
         refreshSeries
     } = props;
 
-    const {
-        id,
-        title,
-        starts_at,
-        published_at,
-        seriesId,
-        card
-    } = event;
-
-    const startsAt = moment(starts_at).format("MM/DD/YYYY");
-    const isFuture = moment(starts_at).isAfter(moment());
-
     const siteCtx = useContext(SiteContext);
     const timezone = siteCtx.getTimezone();
-
+    const startsAtFormatted = moment(event.starts_at).tz(timezone).format("MM/DD/YYYY");
+    
 	return (
-        <tr >
-            <td>
+        <tr key={event.id}>
+            <td style={{width: "60%"}}>
                 <div className="d-flex align-items-center">
-                    <div className="avatar-icon-wrapper mr-2">
-                        <div className="avatar-icon">
-                            <img alt={title} src={card.formats.thumbnail.url} />
-                        </div>
-                    </div>
                     <div>
                         <Link
-                            to={"/events/" + seriesId + "/" + id}
-                            onClick={(e) => e.preventDefault()}
+                            to={'/events/edit/' + event.id}
                             className="font-weight-bold text-black"
-                            title={title}>
-                                {title}
+                            title={event.title}>
+                                {event.title}
                         </Link>
-                        <span className="text-black-50 font-weight-light d-block">
-                            {moment(starts_at).tz(timezone).format("MM/DD/YYYY h:mmA")}
-                        </span>
                     </div>
                 </div>
             </td>
             <td className="text-left">
-                {startsAt}
+                <span className="font-weight-bold d-block">
+                    {startsAtFormatted}
+                </span>
             </td>
             <td className="text-left">
-                { published_at && isFuture &&
+                { event.published_at &&
                     <span className="badge text-uppercase badge-success">Published</span>
                 }
-                { !isFuture && published_at &&
-                    <span className="badge text-uppercase badge-neutral-success text-black-50">Archived</span>
-                }
-                { !published_at && isFuture &&
+                { !event.published_at &&
                     <span className="badge text-uppercase badge-neutral-first text-first">Draft</span>
                 }
-                 { !isFuture && !published_at &&
-                    <span className="badge text-uppercase badge-neutral-success text-black-50">Draft</span>
-                }
             </td>
-            <td className="text-right">
-                <div className="d-flex align-items-center justify-content-end pr-3">
-                    <EventActionMenu 
-                        event={event} 
-                        refreshSeries={refreshSeries} 
-                        setLoading={setLoading} 
-                        iconClassName="text-black-50" />
-                </div>
+            <td className="text-right text-black-50">
+                <EventActionMenu 
+                    event={event} 
+                    refreshSeries={refreshSeries} 
+                    setLoading={setLoading} 
+                    iconClassName="text-black-50" />
             </td>
         </tr>
 	);

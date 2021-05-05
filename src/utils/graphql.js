@@ -1,9 +1,4 @@
-import {
-    ApolloClient,
-    HttpLink, 
-    InMemoryCache,
-    from
-} from '@apollo/client';
+import { ApolloClient, from, HttpLink, InMemoryCache } from '@apollo/client';
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
 import moment from 'moment-timezone';
@@ -18,6 +13,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
         graphQLErrors.forEach(({ message, locations, path }) => {
             console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+            console.log(networkError);
         })       
     }
 });

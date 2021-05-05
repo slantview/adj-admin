@@ -216,38 +216,6 @@ export const CREATE_EVENT = gql`
     }
 `
 
-export const CREATE_TOURNAMENT = gql`
-    mutation CreateNewTournament($payload: createTournamentInput) {
-        createTournament(input: $payload) {
-           tournament {
-               id
-           }
-        }
-    }
-`
-
-export const DELETE_EVENT = gql`
-    mutation DeleteEvent($id: ID!) {
-        deleteEvent(input: { where: { id: $id } }) {
-            event {
-                id
-                title
-            }
-        }
-    }
-`
-
-export const DELETE_TOURNAMENT = gql`
-    mutation DeleteTournament($id: Int!) {
-        deleteTournament(input: { where: { id: $id } }) {
-            tournament {
-                id
-                title
-            }
-        }
-    }
-`
-
 export const UPDATE_EVENT = gql`
     mutation UpdateEvent($id: ID!, $data: editEventInput) {
         updateEvent(input: { 
@@ -260,6 +228,17 @@ export const UPDATE_EVENT = gql`
                 series_item {
                     id
                 }
+            }
+        }
+    }
+`
+
+export const DELETE_EVENT = gql`
+    mutation DeleteEvent($id: ID!) {
+        deleteEvent(input: { where: { id: $id } }) {
+            event {
+                id
+                title
             }
         }
     }

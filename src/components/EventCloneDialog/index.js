@@ -7,7 +7,8 @@ import * as Yup from 'yup';
 import Loading from 'components/Loading';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
-import { CREATE_EVENT, CREATE_TOURNAMENT } from 'queries/events';
+import { CREATE_EVENT } from 'queries/events';
+import { CREATE_TOURNAMENT } from 'queries/tournaments';
 import { eventToNewEvent, tournamentToNewTournament } from 'utils/graphql';
 
 import DialogErrorContent from './DialogErrorContent';

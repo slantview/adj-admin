@@ -8,6 +8,7 @@ const EventsList = (props) => {
     const {
         events,
         refreshSeries,
+        setLoading,
         entries,
         setEntries,
         headerTitle
@@ -40,10 +41,6 @@ const EventsList = (props) => {
     return (
         <Card className="card-box mb-spacing-6-x2" elevation={1}>
             <div className="card-header">
-                <div className="card-header--title">
-                    <small className="d-block text-uppercase mt-1">{headerTitle}</small>
-                    <b>Events</b>
-                </div>
                 <div className="card-header--actions">
                     <div className="search-wrapper">
                         <TextField
@@ -74,7 +71,7 @@ const EventsList = (props) => {
                     </thead>
                     <tbody>
                         {  eventsList && eventsList.length > 0 && eventsList.slice((page-1)*entries, ((page-1)*entries)+entries).map(event => (
-                            <EventsListRow event={event} refreshSeries={refreshSeries} />
+                            <EventsListRow event={event} refreshSeries={refreshSeries} setLoading={setLoading} />
                         ))}
                     </tbody>
                 </Table>

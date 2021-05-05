@@ -123,3 +123,36 @@ export const GET_ALL_SERIES_TOURNAMENTS = gql`
 //         }
 //     }
 // `
+
+export const CREATE_TOURNAMENT = gql`
+    mutation CreateNewTournament($payload: createTournamentInput) {
+        createTournament(input: $payload) {
+           tournament {
+               id
+               title
+           }
+        }
+    }
+`
+
+export const UPDATE_TOURNAMENT = gql`
+    mutation UpdateTournament($payload: updateTournamentInput) {
+        updateTournament(input: $payload) {
+           tournament {
+               id
+               title
+           }
+        }
+    }
+`
+
+export const DELETE_TOURNAMENT = gql`
+    mutation DeleteTournament($id: Int!) {
+        deleteTournament(input: { where: { id: $id } }) {
+            tournament {
+                id
+                title
+            }
+        }
+    }
+`

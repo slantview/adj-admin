@@ -4,16 +4,24 @@ import moment from 'moment';
 import React from "react";
 import { Link } from 'react-router-dom';
 
+import TournamentActionMenu from 'components/TournamentActionMenu';
+
 const TournamentsTableRow = (props) => {
+    const {
+        refreshTournaments,
+        setLoading,
+        tournament
+    } = props;
+
     const {
         id,
         title,
         subtitle,
-        header,
         created_at,
         updated_at,
         published_at
-    } = props;
+    } = tournament;
+
     const createdAt = moment(created_at).format("MM/DD/YYYY");
     const updatedAt = moment(updated_at).format("MM/DD/YYYY");
 
@@ -21,15 +29,6 @@ const TournamentsTableRow = (props) => {
         <tr>
             <td>
                 <div className="d-flex">
-                    <div>
-                        <Link to={"/tournaments/"+id}>
-                            <img 
-                                src={header.formats.thumbnail.url} 
-                                width="60px" 
-                                alt={title} 
-                                className="mr-3" />
-                        </Link>
-                    </div>
                     <div>
                         <Link to={"/tournaments/"+id}>
                             <span className="font-weight-bold text-black" title={title}>
@@ -53,14 +52,12 @@ const TournamentsTableRow = (props) => {
             </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">
-                    <Button
-                        size="small"
-                        className="btn-link d-30 p-0 btn-icon hover-scale-sm">
-                        <FontAwesomeIcon
-                            icon={['fas', 'ellipsis-h']}
-                            className="font-size-lg"
-                        />
-                    </Button>
+                    <TournamentActionMenu 
+                        tournament={props.tournament} 
+                        refreshTournaments={refreshTournaments} 
+                        setLoading={setLoading} 
+                        iconClassName="text-black-50" 
+                    />
                 </div>
             </td>
         </tr>

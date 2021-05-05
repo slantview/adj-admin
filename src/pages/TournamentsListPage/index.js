@@ -4,16 +4,18 @@ import { Button, Card, CardContent, Collapse, FormControl, Grid, InputAdornment,
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
-import SectionHeader from 'components/SectionHeader';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import SectionHeader from 'components/SectionHeader';
+
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
 import TournamentsTableRow from '../../components/TournamentsTableRow';
 import { GET_ALL_TOURNAMENTS } from '../../queries/tournaments';
 
 const TournamentsListPage = (props) => {
-	const { loading, error, data } = useQuery(GET_ALL_TOURNAMENTS);
+	const { loading, error, data, refetch } = useQuery(GET_ALL_TOURNAMENTS);
 	const tournamentData = loading || error ? [] : data.tournaments;
 	const [isLoading, setLoading] = useState(loading);
 
@@ -38,6 +40,12 @@ const TournamentsListPage = (props) => {
 			})
 			setTournaments(newData);
 		}
+	};
+
+	const refreshTournaments = () => {
+		setLoading(true);
+		setTournaments([]);
+		refetch();
 	};
 
 	useEffect(() => {
@@ -131,7 +139,11 @@ const TournamentsListPage = (props) => {
 						</thead>
 						<tbody>
 							{ tournaments.map(t => (
-								<TournamentsTableRow {...t} />
+								<TournamentsTableRow 
+									key={t.id} 
+									tournament={t} 
+									refreshTournaments={refreshTournaments} 
+								/>
 							))}
 						</tbody>
 					</Table>

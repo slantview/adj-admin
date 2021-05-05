@@ -1,39 +1,34 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
+import { Form, Formik } from 'formik';
+import { CREATE_TOURNAMENT } from 'queries/tournaments';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
+
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
 import TournamentForm from 'components/TournamentForm';
-import { Form, Formik } from 'formik';
-import moment from 'moment';
 import { NotificationContext } from 'providers/NotificationProvider';
-import { CREATE_TOURNAMENT } from 'queries/events';
-import { UPLOAD_FILE } from 'queries/files';
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import * as Yup from 'yup';
 
 const initialData = {
     title: '',
     description: '',
     header: [],
     registration_cap: 100,
-    registration_cutoff: "07:00:00",
-    start_time: "08:00",
     fee: 0,
     matcherino_code: '',
     matcherino_coupon_amount: '',
-    game: null,
-    game_mode: null,
+    game: '',
+    game_mode: '',
     game_rules: [],
-    game_platform: null,
+    game_platform: '',
     bracket_format: []
 };
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
     description: Yup.string().required('Description is required'),
-    registration_cap: Yup.number().required('Registration Cap is required'),
-    fee: Yup.number().required('Fee is required'),
     game: Yup.object().required('Game is required'),
     game_mode: Yup.object().required('Game mode is required'),
     game_rules: Yup.array().required('Game rules are required'),
@@ -46,28 +41,27 @@ const TournamentAddForm = (props) => {
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
     const [addTournament] = useMutation(CREATE_TOURNAMENT);
-    const [uploadFile] = useMutation(UPLOAD_FILE);
-    const [isSubmitted] = useState(false);
+    const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
     const handleSubmit = async (values, actions) => {
-        let newTournament = values;
+        setSubmitted(true);
+        let newTournament = Object.assign({}, values);
 
         delete newTournament.header;
         delete newTournament.start_time;
         delete newTournament.game_platform;
 
-        newTournament.registration_cutoff = moment(values.registration_cutoff).format();
-        newTournament.tournament_start_time = moment(values.start_time).format();
-        newTournament.game_rules = values.game_rules.map(g => g.value);
-        newTournament.fee = 0;
+        newTournament.fee = "0";
         newTournament.game = values.game.value;
-        newTournament.bracket_format = values.bracket_format.map(b => b.value);
+        newTournament.game_rules = values.game_rules.map(g => g.value);
         newTournament.platforms = [values.game_platform.value];
         newTournament.game_mode = [values.game_mode.value];
-        
+        newTournament.bracket_format = values.bracket_format.value;
+
         addTournament({ variables: { payload: { data: newTournament }}})
             .then((ret) => {
+                console.log(ret);
                 const createdTournament = ret.data.createTournament.tournament;
                 client.resetStore()
                     .then(() => {
@@ -81,6 +75,15 @@ const TournamentAddForm = (props) => {
                 setError(e.toString());
             });
     };
+
+    if (isSubmitted) {
+        return (
+            <div className="text-center m-5">
+                <Loading center={true} showTimeout={false} />
+                <h3 className="mt-3">Creating Tournament...</h3>
+            </div>
+        );
+    }
 
     return (
         <>

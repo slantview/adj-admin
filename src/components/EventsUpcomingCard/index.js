@@ -1,13 +1,14 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card, CardContent, CardMedia, Fade, Grid, Table, Tooltip } from '@material-ui/core';
-import moment from 'moment-timezone';
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-
 import headerBackground from 'assets/images/header-bg.jpg';
 import EventActionMenu from 'components/EventActionMenu';
 import EventAddNewCard from 'components/EventAddNewCard';
+import EventsListRow from 'components/EventsListRow';
+import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+
 
 const EventsUpcomingCard = (props) => {
 	const {
@@ -50,9 +51,12 @@ const EventsUpcomingCard = (props) => {
 																	<span className="text-uppercase text-white-50">Next Event: </span>
 																</h5>
 																<h4>
-																	<span className="font-weight-bolder">
-																		{next?.title}
-																	</span>
+																	<Link
+																		to={'/events/edit/' + next.id}
+																		className="font-weight-bolder text-hover-first text-white"
+																		title={next.title}>
+																			{next?.title}
+																	</Link>
 																</h4>
 																<div className="mt-2">
 																	{ gameImages &&
@@ -110,53 +114,17 @@ const EventsUpcomingCard = (props) => {
 								</CardContent>
 							</div>
 						</CardMedia>
-						{ events && events.length > 0 &&
+						{ events && events.length > 1 &&
 							<CardContent>
 								<div className="">
 									<Table className="table table-borderless table-hover text-nowrap text-left mb-0">
-										{/* <thead>
-											<tr>
-												<th className="pt-0" style={{ width: '40%' }}>Title</th>
-												<th className="pt-0 text-center">Status</th>
-												<th className="pt-0 text-center">Actions</th>
-											</tr>
-										</thead> */}
 										<tbody>
 											{ events && events.filter(e => e.id !== next.id).reverse().map(event => (
-												<tr key={event.id}>
-													<td style={{width: "60%"}}>
-														<div className="d-flex align-items-center">
-															<div>
-																<Link
-																	to={'/events/edit/' + event.id}
-																	className="font-weight-bold text-black"
-																	title={event.title}>
-																		{event.title}
-																</Link>
-															</div>
-														</div>
-													</td>
-													<td className="text-left">
-														<span className="font-weight-bold d-block">
-															{moment(event.starts_at).tz(timezone).format("MM/DD/YYYY")}
-														</span>
-													</td>
-													<td className="text-left">
-														{ event.published_at &&
-															<span className="badge text-uppercase badge-success">Published</span>
-														}
-														{ !event.published_at &&
-															<span className="badge text-uppercase badge-neutral-first text-first">Draft</span>
-														}
-													</td>
-													<td className="text-right text-black-50">
-														<EventActionMenu 
-															event={event} 
-															refreshSeries={refreshSeries} 
-															setLoading={setLoading} 
-															iconClassName="text-black-50" />
-													</td>
-												</tr>
+												<EventsListRow 
+													event={event} 
+													refreshSeries={refreshSeries}
+													setLoading={setLoading}
+												/>
 											))}
 										</tbody>
 									</Table>

@@ -56,12 +56,18 @@ const GamesListPage = () => {
 
 	// Register to be notified of a site change.
 	React.useEffect(() => {
+		let active = true;
 		siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
-				refreshGames();
+				if (active) {
+					refreshGames();
+				}
 				resolve();
 			});
 		});
+		return () => {
+			active = false;
+		};
 	}, [])
 
 	React.useEffect(() => {
