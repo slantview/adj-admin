@@ -1,10 +1,11 @@
 import { useQuery } from '@apollo/client';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
+
 import EventEditForm from 'components/EventEditForm';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
 import { GET_EVENT } from 'queries/events';
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
 
 const EventsEditPage = (props) => {
     // @ts-ignore

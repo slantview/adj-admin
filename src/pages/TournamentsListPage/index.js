@@ -71,10 +71,6 @@ const TournamentsListPage = (props) => {
                 subtitle="Manage Tournaments"
                 subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
-                // backgroundImage={seriesData.header.formats.large.url}
-                // linkText="Add Event"
-                // linkTo={"/events/" + seriesId + "/add"}
-                // linkIconName="plus"
                 breadcrumbs={[
                     { title: "Home", to: "/" },
                     { title: "Tournaments", to: null }
@@ -105,7 +101,7 @@ const TournamentsListPage = (props) => {
                     </div>
                 </Grid> 
             </Grid>
-			<Card className="card-box mb-spacing-6-x2 mx-4 mt-4">
+			<Card className="card-box mx-4 mt-4 pb-0">
 				<div className="card-header">
 					<div className="card-header--title">
 						<div className="search-wrapper">
@@ -147,8 +143,7 @@ const TournamentsListPage = (props) => {
 							))}
 						</tbody>
 					</Table>
-					<div className="divider mb-3" />
-					<div className="card-footer py-3 d-flex justify-content-between">
+					<div className="card-footer d-flex justify-content-between">
 						<Collapse in={tournaments.length > entries}>
 							<Pagination
 								className="pagination-second"
@@ -166,17 +161,17 @@ const TournamentsListPage = (props) => {
 									id="select-entries"
 									value={entries}
 									onChange={handleEntriesChange}>
-									<MenuItem className="mx-2" value={1}>
-										All
-									</MenuItem>
-									<MenuItem className="mx-2" value={5}>
+									<MenuItem className="mx-2 font-size-xs" value={5}>
 										5
 									</MenuItem>
-									<MenuItem className="mx-2" value={10}>
+									<MenuItem className="mx-2 font-size-xs" value={10}>
 										10
 									</MenuItem>
-									<MenuItem className="mx-2" value={20}>
+									<MenuItem className="mx-2 font-size-sm" value={20}>
 										20
+									</MenuItem>
+									<MenuItem className="mx-2 font-size-xs" value={50}>
+										50
 									</MenuItem>
 								</Select>
 							</FormControl>

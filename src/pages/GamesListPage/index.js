@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, CardContent, Collapse, Container, FormControl, InputAdornment, MenuItem, Select, Table, TextField } from '@material-ui/core';
+import { Button, Card, CardContent, Collapse, Container, FormControl, Grid, InputAdornment, MenuItem, Select, Table, TextField } from '@material-ui/core';
 import Pagination from '@material-ui/core/Pagination';
 import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import React, { useContext, useState } from 'react';
@@ -93,14 +93,12 @@ const GamesListPage = () => {
 				subtitle="Manage all your games and customize the display."
 				subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
-				linkText="Add Game"
-				linkTo="/games/add"
-				linkIconName="plus"
 				breadcrumbs={[
                     { title: "Home", to: "/" },
                     { title: "Games", to: null }
                 ]}
 			/>
+			
 			<Container className="mt-5">
 				<Card className="card-box mb-spacing-6-x2">
 					<div className="card-header">
@@ -119,17 +117,6 @@ const GamesListPage = () => {
 										)
 									}}
 								/>
-							</div>
-						</div>
-
-						<div className="card-header--actions">
-							<div>
-							<Button to="/series/add" component={Link} size="small" className="btn-neutral-primary">
-								<span className="btn-wrapper--icon">
-									<FontAwesomeIcon icon={['fas', 'plus-circle']} />
-								</span>
-								<span className="btn-wrapper--label">Add Game</span>
-							</Button>
 							</div>
 						</div>
 					</div>

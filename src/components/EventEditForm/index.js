@@ -1,17 +1,18 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
-import Error from 'components/Error';
-import EventForm from 'components/EventForm';
-import Loading from 'components/Loading';
 import { Form, Formik } from 'formik';
 import _ from 'lodash';
-import { NotificationContext } from 'providers/NotificationProvider';
-import { UPDATE_EVENT } from 'queries/events';
-import { UPLOAD_FILE } from 'queries/files';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import slugify from 'slugify';
 import * as Yup from 'yup';
+
+import Error from 'components/Error';
+import EventForm from 'components/EventForm';
+import Loading from 'components/Loading';
+import { NotificationContext } from 'providers/NotificationProvider';
+import { UPDATE_EVENT } from 'queries/events';
+import { UPLOAD_FILE } from 'queries/files';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
@@ -85,6 +86,8 @@ const EventEditForm = (props) => {
     }, [event, loading]);
 
     const handleSubmit = async (values, actions) => {
+        setSubmitted(true);
+
         let eventPayload = {
             title: values.title,
             slug: values.slug,
@@ -170,6 +173,17 @@ const EventEditForm = (props) => {
 
     if (loading || typeof event === undefined || event === null) {
         return (<Loading centerInPage={true} center={true} />);
+    }
+
+    if (isSubmitted) {
+        return (
+            <Card className="card-box mx-4">
+                <div className="text-center m-5">
+                    <Loading center={true} />
+                    <h3 className="mt-3">Updating Event...</h3>
+                </div>
+            </Card>
+        )
     }
     
     return (

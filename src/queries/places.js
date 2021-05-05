@@ -26,9 +26,9 @@ export const GET_ALL_PLACES = gql`
                     title
                 }
             }
-            # created_at
-            # updated_at
-            # published_at
+            created_at
+            updated_at
+            published_at
         }
     }
 `;
