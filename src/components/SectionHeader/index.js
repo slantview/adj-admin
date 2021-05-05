@@ -1,9 +1,8 @@
 import { Breadcrumbs, CardMedia, Grid, Paper } from '@material-ui/core';
+import headerBackground from 'assets/images/header-bg.jpg';
 import clsx from 'clsx';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-
-import headerBackground from 'assets/images/header-bg.jpg';
 
 const SectionHeader = (props) => {
 	const {
@@ -61,13 +60,13 @@ const SectionHeader = (props) => {
 						{ breadcrumbs && breadcrumbs.length > 0 &&
 							<>
 								<Breadcrumbs separator="›" className="text-black-50 font-weight-regular">
-									{ breadcrumbs.map(b => 
+									{ breadcrumbs.map((b, i) => 
 										{ return b.to === null ? (
-											<span className="font-weight-bold" key={b.title}>{b.title}</span>
+											<span key={i} className="font-weight-bold">{b.title}</span>
 										):(
 											<RouterLink 
-												key={b.title} 
-												to={b.to ? b.to : ''} 
+												key={i} 
+												to={b.to ? b.to : b.title} 
 												className="text-first text-underline font-weight-bold"
 												style={{textDecoration: "underline"}}>
 													{b.title}

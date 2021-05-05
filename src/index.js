@@ -36,6 +36,7 @@ import BackendProvider from './providers/BackendProvider';
 import SiteProvider from './providers/SiteProvider';
 import UserProvider from './providers/UserProvider';
 import store from './state/store.js';
+import EventsEditPage from 'pages/EventsEditPage';
 
 const pageVariants = {
     initial: {
@@ -87,6 +88,7 @@ ReactDOM.render(
 															<Route exact path="/events"><SeriesListPage /></Route>
 															<Route exact path="/events/list"><EventsListPage /></Route>
 															<Route exact path="/events/:seriesId/add"><EventsAddPage /></Route>
+															<Route exact path="/events/edit/:eventId"><EventsEditPage /></Route>
 															{/* <Route exact path="/events/template"><EventsTemplateListPage /></Route>
 															<Route exact path="/events/template/add"><EventsTemplateAddPage /></Route> */}
 															{/* Tournaments Pages */}

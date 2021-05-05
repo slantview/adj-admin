@@ -5,7 +5,7 @@ import React, { useContext, useEffect } from "react";
 
 import Loading from "components/Loading";
 
-import { client, getClient } from "../utils/graphql";
+import { getClient } from "../utils/graphql";
 import { SiteContext } from './SiteProvider';
 import { UserContext } from './UserProvider';
 
@@ -13,9 +13,9 @@ export const BackendProvider = (props) => {
     const siteCtx = useContext(SiteContext);
     const userCtx = useContext(UserContext);
     const site = _.first(siteCtx.sites.filter(s => s.id === siteCtx.selected));
-    const backendClient = site ? getClient(site.backend_url + "/graphql", userCtx.token) : client;
+    const backendClient = getClient(site?.backend_url + "/graphql", userCtx.token);
     const isLoaded = (siteCtx.selected !== null && userCtx.user !== null && site !== null);
-    const userExpired = moment(userCtx.expires).isBefore(moment());
+    const userExpired = userCtx?.expires?.isBefore(moment());
 
     if (userExpired) {
         if (!userCtx.user) {
@@ -23,6 +23,8 @@ export const BackendProvider = (props) => {
         }
         userCtx.user.reload();
     }
+
+    
      // @ts-ignore
      useEffect(() => {
         if (siteCtx.onSiteChanged) {

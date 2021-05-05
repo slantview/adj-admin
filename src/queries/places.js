@@ -5,19 +5,19 @@ export const GET_ALL_PLACES = gql`
         places(publicationState: PREVIEW) {
             id
             name
-            description
-            city
-            state
-            postal_code
-            country
-            lat
-            long
+            # description
+            # city
+            # state
+            # postal_code
+            # country
+            # lat
+            # long
             logo {
                 formats
             }
-            promotional_images {
-                formats
-            }
+            # promotional_images {
+            #     formats
+            # }
             events {
                 id
                 title
@@ -26,9 +26,18 @@ export const GET_ALL_PLACES = gql`
                     title
                 }
             }
-            created_at
-            updated_at
-            published_at
+            # created_at
+            # updated_at
+            # published_at
+        }
+    }
+`;
+
+export const GET_ALL_PLACES_NAME_ONLY = gql`
+    query GetAllPlaces {
+        places(publicationState: PREVIEW) {
+            id
+            name
         }
     }
 `;

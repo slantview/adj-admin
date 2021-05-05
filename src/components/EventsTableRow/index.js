@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
 import moment from 'moment';
 import React, { useContext, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
@@ -30,6 +30,7 @@ const EventsTableRow = (props) => {
     const startsAt = moment(starts_at).format("MM/DD/YYYY");
     const isFuture = moment(starts_at).isAfter(moment());
 
+    const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
     const timezone = siteCtx.timezone;
@@ -46,10 +47,7 @@ const EventsTableRow = (props) => {
 		setAnchorEl(null);
 	};
     const handleEdit = () => {
-		notify({
-			type: 'primary',
-			message: "TODO: Allow users to edit."
-		});
+		history.push('/events/edit/'+id);
 		handleClose();
     };
     const handleClone = () => {

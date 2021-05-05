@@ -3,7 +3,6 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 const SeriesDetailBlock = ({ series }) => {
-    // console.log(series);
     return (
         <div className="mb-5">
             <Grid container alignItems="flex-start" spacing={1}>

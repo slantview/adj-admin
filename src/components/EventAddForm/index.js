@@ -1,20 +1,18 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
+import Error from 'components/Error';
+import EventForm from 'components/EventForm';
+import Loading from 'components/Loading';
 import { Form, Formik } from 'formik';
 import moment from 'moment-timezone';
+import { NotificationContext } from 'providers/NotificationProvider';
+import { CREATE_EVENT } from 'queries/events';
+import { UPLOAD_FILE } from 'queries/files';
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import slugify from 'slugify';
 import * as Yup from 'yup';
-
-import Error from 'components/Error';
-import Loading from 'components/Loading';
-import { NotificationContext } from 'providers/NotificationProvider';
-import { CREATE_EVENT } from 'queries/events';
-import { UPLOAD_FILE } from 'queries/files';
-
-import EventForm from './EventForm';
 
 const initialData = {
     title: '',
@@ -53,8 +51,6 @@ const EventAddForm = (props) => {
     const [uploadFile] = useMutation(UPLOAD_FILE);
 
     const handleSubmit = async (values, actions) => {
-        // setSubmitted(true);
-        // console.log('values', values);
 
         const newEvent = {
             slug: '/' + slugify(values.title, {
@@ -91,8 +87,6 @@ const EventAddForm = (props) => {
             }
         });
         newEvent.card = cardResponse.data.upload.id;
-        
-        console.log(newEvent);
 
         createEvent({ variables: { payload: { data: newEvent }}})
             .then((ret) => {

@@ -1,7 +1,7 @@
-import { Autocomplete, Grid, TextField as MTextField } from '@material-ui/core';
+import { Autocomplete, Grid, TextField } from '@material-ui/core';
+import { OpacityTwoTone } from '@material-ui/icons';
 import parse from 'autosuggest-highlight/parse';
 import { Field } from 'formik';
-import { TextField } from 'formik-material-ui';
 import { throttle } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
@@ -11,22 +11,24 @@ const AutocompleteSearchField = (props) => {
 		inputLabel,
 		getOptions,
 		setFieldValue,
-		initialOptions
+		initialOptions,
+		initialValue,
+		multiple
 	} = props;
 
-	const [value, setValue] = React.useState();
+	const [value, setValue] = React.useState(initialValue);
 	const [options, setOptions] = useState(initialOptions);
 	const [inputValue, setInputValue] = useState('');
 	
 	useEffect(() => {
 		setOptions(initialOptions);
-	}, [initialOptions]);
+		setValue(initialValue);
+	}, [initialOptions, initialValue]);
 
 	useEffect(() => {
 		let active = true;
 	
 		getOptions({ input: value }, (results) => {
-			console.log('results', results);
 			if (results) {
 				setOptions(results);
 			}
@@ -49,8 +51,7 @@ const AutocompleteSearchField = (props) => {
 
 	const renderInput = (params) => {
 		return (
-			<Field
-				component={TextField}
+			<TextField
 				fullWidth
 				name={name}
 				label={inputLabel}
@@ -68,14 +69,21 @@ const AutocompleteSearchField = (props) => {
 		);
 	};
 
-	console.log('options', options);
+	const getOptionSelected = (o, v) => {
+		if (typeof v === 'string') {
+			return v === o.name;
+		} else {
+			return v.value === o.value;
+		};
+	}
+
 	return (
 		<>
 			<Autocomplete
 				id={"autocomplete-"+name}
-				multiple
+				multiple={multiple}
 				getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
-				filterOptions={(x) => x}
+				getOptionSelected={getOptionSelected}
 				options={options}
 				autoComplete
 				includeInputInList

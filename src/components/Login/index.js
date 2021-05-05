@@ -3,6 +3,7 @@ import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
 import { Form, Formik } from 'formik';
 import _ from 'lodash';
+import moment from 'moment';
 import React, { useContext, useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -19,7 +20,7 @@ let validationSchema = Yup.object({
 	email: Yup.string().email('Email must be a valid format (e.g. user@example.com)').required('Email is required')
 });
 
-export default function Login(props) {
+const Login =(props) => {
 	const history = useHistory();
 	const location = useLocation();
 	const userCtx = useContext(UserContext);
@@ -28,7 +29,7 @@ export default function Login(props) {
 	const redirect = fromUrl && fromUrl !== '/login' ? fromUrl : '/';
 	
 	useEffect(() => {
-		if (userCtx.user) {
+		if (userCtx.user && userCtx.expires.isBefore(moment())) {
 			history.push(redirect);
 		}
 	}, [userCtx.expires, userCtx.user, redirect, history])
@@ -215,3 +216,5 @@ const LoginForm = (props) => {
 		</Form>
 	);
 }
+
+export default Login;

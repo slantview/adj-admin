@@ -8,6 +8,7 @@ import EventCloneDialog from 'components/EventCloneDialog';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
 import { DELETE_EVENT, UPDATE_EVENT } from 'queries/events';
+import { useHistory } from 'react-router-dom';
 
 const EventActionMenu = (props) => {
     const {
@@ -22,6 +23,7 @@ const EventActionMenu = (props) => {
         published_at,
     } = event;
 
+    const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
     const timezone = siteCtx.getTimezone();
@@ -37,10 +39,7 @@ const EventActionMenu = (props) => {
 		setAnchorEl(null);
 	};
     const handleEdit = () => {
-		notify({
-			type: 'primary',
-			message: "TODO: Allow users to edit."
-		});
+		history.push('/events/edit/'+id);
 		handleClose();
     };
     const handleClone = () => {
@@ -131,6 +130,9 @@ const EventActionMenu = (props) => {
                 <div className="dropdown-menu-lg overflow-hidden p-0">
                     <div className="dropdown-menu-lg overflow-hidden p-0">
                         <List component="div" className="nav-neutral-primary font-size-sm text-left">
+                            <ListItem onClick={handleEdit} button className="text-left">
+                                Edit
+                            </ListItem>
                             <ListItem onClick={handleClone} button className="text-left">
                                 Clone
                             </ListItem>
@@ -139,9 +141,6 @@ const EventActionMenu = (props) => {
                                 button 
                                 className="text-left">
                                     {published_at === null ? 'Publish' : 'Unpublish'}
-                            </ListItem>
-                            <ListItem onClick={handleEdit} button className="text-left">
-                                Edit
                             </ListItem>
                             <ListItem onClick={handleDelete} button className="text-left">
                                 Delete

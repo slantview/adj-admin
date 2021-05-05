@@ -36,7 +36,7 @@ export const GET_ALL_EVENTS = gql`
                     ]
             }) {
                 id
-                Title
+                title
                 description
                 header {
                     id
@@ -72,6 +72,94 @@ export const GET_ALL_EVENTS = gql`
             }
             games {
                 id
+            }
+            starts_at
+            ends_at
+            created_at
+            updated_at
+            published_at
+        }
+    }
+`;
+
+export const GET_EVENT = gql`
+    query GetEvent($id: ID!) {
+        event(id: $id) {
+            id
+            title
+            slug
+            description
+            is_online
+            is_offline
+            series_item {
+                id
+                title
+            }
+            sign_up_link
+            checkin_instructions
+            stream_rules
+            streams {
+                id
+                name
+            }
+            venue {
+                id
+                name
+            }
+            cadence
+            card {
+                id
+                formats
+            }
+            header {
+                id
+                formats
+            }
+            tournaments(
+                where: {
+                    _or: [{ published_at_null: true }, { published_at_null: false }]
+                }
+            ) {
+                id
+                title
+                description
+                header {
+                    id
+                    formats
+                }
+                registration_cap
+                registration_cutoff
+                tournament_start_time
+                event {
+                    id
+                }
+                fee
+                matcherino_code
+                matcherino_coupon_amount
+                game {
+                    id
+                }
+                game_rules {
+                    id
+                    title
+                }
+                platforms {
+                    id
+                }
+                geo_regions {
+                    id
+                    title
+                }
+                game_mode {
+                    id
+                }
+                bracket_format {
+                    id
+                }
+            }
+            games {
+                id
+                title
             }
             starts_at
             ends_at
@@ -169,6 +257,9 @@ export const UPDATE_EVENT = gql`
             event {
                 id
                 title
+                series_item {
+                    id
+                }
             }
         }
     }

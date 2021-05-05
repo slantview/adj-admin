@@ -126,14 +126,9 @@ const EventsUpcomingCard = (props) => {
 												<tr key={event.id}>
 													<td style={{width: "60%"}}>
 														<div className="d-flex align-items-center">
-															{/* <div className="avatar-icon-wrapper mr-2">
-																<div className="avatar-icon">
-																	<img alt={event.title} src={event.card.formats.thumbnail.url} />
-																</div>
-															</div> */}
 															<div>
 																<Link
-																	to={'/events/' + series.id + '/' + event.id}
+																	to={'/events/edit/' + event.id}
 																	className="font-weight-bold text-black"
 																	title={event.title}>
 																		{event.title}

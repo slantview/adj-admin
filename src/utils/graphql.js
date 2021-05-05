@@ -1,8 +1,10 @@
 import {
     ApolloClient,
     HttpLink, 
-    InMemoryCache
+    InMemoryCache,
+    from
 } from '@apollo/client';
+import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
 import moment from 'moment-timezone';
 import slugify from 'slugify';
@@ -11,9 +13,13 @@ const httpLink = new HttpLink({
   	uri: 'http://localhost:8081/graphql'
 });
 
-export const client = new ApolloClient({
-	link: httpLink,
-	cache: new InMemoryCache()
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+        graphQLErrors.forEach(({ message, locations, path }) => {
+            console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+        })       
+    }
 });
 
 export const getClient = (backend, token) => {
@@ -24,21 +30,9 @@ export const getClient = (backend, token) => {
         }
     });
 
-    // const httpAuthBackendLink = new HttpLink({ 
-    //     uri: backend,
-    //     headers: {
-    //         authorization: `Bearer ${token}`
-    //     }
-    // });
-    // const httpNoAuthBackendLink = new HttpLink({ 
-    //     uri: backend,
-    //     headers: {
-    //         authorization: `Bearer ${token}`
-    //     }
-    // });
     return new ApolloClient({
         // @ts-ignore
-        link: httpUploadLink,
+        link: from([errorLink, httpUploadLink]),
         cache: new InMemoryCache()
     });
 };

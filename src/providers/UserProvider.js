@@ -3,7 +3,6 @@ import moment from 'moment';
 import React, { Component, createContext } from "react";
 
 export const UserContext = createContext({ user: null, token: null, admin: false, expires: null });
-
 class UserProvider extends Component {
     constructor(props) {
         super(props);
@@ -40,7 +39,7 @@ class UserProvider extends Component {
                 user: userAuth, 
                 token: token, 
                 admin: claims ? claims.admin : false,
-                expires: moment(expirationTime).unix()
+                expires: moment(expirationTime)
             });
         });
 
@@ -57,7 +56,7 @@ class UserProvider extends Component {
                     user: userAuth, 
                     token: token, 
                     admin: claims ? claims.admin : false,
-                    expires: moment(expirationTime).unix()
+                    expires: moment(expirationTime)
                 });
             }
         });

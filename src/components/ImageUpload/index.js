@@ -17,7 +17,8 @@ const ImageUpload = (props) => {
 		value
 	} = props;
 
-	const [files, setFiles] = useState([]);
+	const [files, setFiles] = useState(value);
+	const [thumbs, setThumbs] = useState([])
 	const isError = error !== null;
 
 	const {
@@ -51,31 +52,35 @@ const ImageUpload = (props) => {
 
 	useEffect(() => {
 		if (files && files.length === 0 && value && value.length === 1) {
-			setFiles(value);
+			setFiles(value.map(f => {
+				if (f.__typename === 'UploadFile') {
+					return {
+						preview: f.formats.small.url
+					}
+				}
+			}));
 		}
-	}, [files, value])
+		if (thumbs.length !== value.length) {
+			let i=0;
+			const newThumbs = files ? files.map((file) => {
+				return (
+					<div
+						key={file.name+i}
+						className="overflow-hidden text-center font-weight-bold text-success d-flex justify-content-center align-items-center">
+							<img
+								className="img-fluid rounded-sm"
+								src={file.preview}
+								alt={file.name}
+								style={{maxWidth: "80%"}}
+							/>
+					</div>
+				);
+				i++;
+			}) : [];
+			setThumbs(newThumbs);
+		}
+	}, [error, files, value])
 
-	// useEffect(
-	// 	() => () => {
-	// 		files.forEach((file) => URL.revokeObjectURL(file.preview));
-	// 	},
-	// 	[files]
-	// );
-
-	const thumbs = files ? files.map((file) => {
-		return (
-			<div
-				key={file.name}
-				className="overflow-hidden text-center font-weight-bold text-success d-flex justify-content-center align-items-center">
-					<img
-						className="img-fluid rounded-sm"
-						src={file.preview}
-						alt={file.name}
-						style={{maxWidth: "80%"}}
-					/>
-			</div>
-		);
-	}) : '';
 
 	return (
 		<>
