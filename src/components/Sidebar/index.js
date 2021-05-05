@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 import EventNoteIcon from '@material-ui/icons/EventNoteTwoTone';
 import GamesIcon from '@material-ui/icons/GamesTwoTone';
@@ -5,7 +6,6 @@ import PeopleIcon from '@material-ui/icons/PeopleTwoTone';
 import PlaceIcon from '@material-ui/icons/PlaceTwoTone';
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import AdminMenu from 'pages/Admin/AdminMenu';
 
@@ -73,7 +73,7 @@ const Sidebar = (props) => {
                                 className="nav-link-simple"
                                 to="/events">
                                     <span className="sidebar-icon">
-                                        <EventNoteIcon />
+                                        <FontAwesomeIcon icon={['fas', 'calendar-alt']} />
                                     </span>
                                     Events
                                     <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
@@ -105,7 +105,7 @@ const Sidebar = (props) => {
                                 className="nav-link-simple"
                                 to="/games">
                                     <span className="sidebar-icon">
-                                        <GamesIcon />
+                                        <FontAwesomeIcon icon={['fas', 'gamepad']} />
                                     </span>
                                     Games
                                     <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
@@ -121,7 +121,7 @@ const Sidebar = (props) => {
                                 className="nav-link-simple"
                                 to="/places">
                                     <span className="sidebar-icon">
-                                        <PlaceIcon />
+                                        <FontAwesomeIcon icon={['fas', 'map-pin']} />
                                     </span>
                                     Venues
                                     <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
@@ -137,7 +137,7 @@ const Sidebar = (props) => {
                                 className="nav-link-simple"
                                 to="/team">
                                     <span className="sidebar-icon">
-                                        <PeopleIcon />
+                                        <FontAwesomeIcon icon={['fas', 'users']} />
                                     </span>
                                     Team
                                     <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
