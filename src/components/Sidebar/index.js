@@ -5,6 +5,7 @@ import PeopleIcon from '@material-ui/icons/PeopleTwoTone';
 import PlaceIcon from '@material-ui/icons/PlaceTwoTone';
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import AdminMenu from 'pages/Admin/AdminMenu';
 
@@ -75,6 +76,22 @@ const Sidebar = (props) => {
                                         <EventNoteIcon />
                                     </span>
                                     Events
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                activeClassName={isNavCategory('tournaments') ? "active" : null} 
+                                key="tournaments" 
+                                onClick={() => handleCategoryClick('tournaments')}
+                                className="nav-link-simple"
+                                to="/tournaments">
+                                    <span className="sidebar-icon">
+                                        <FontAwesomeIcon icon={['fas', 'trophy']} />
+                                    </span>
+                                    Tournaments
                                     <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
                                         <ChevronRightTwoToneIcon />
                                     </span>
