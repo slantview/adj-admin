@@ -78,7 +78,7 @@ const TournamentEditForm = (props) => {
         newTournament.game_mode = [values.game_mode.value];
         newTournament.bracket_format = values.bracket_format.map(b => b.value);
 
-        updateTournament({ variables: { id: tournament.id, payload: { data: newTournament }}})
+        updateTournament({ variables: { id: tournament.id, data: newTournament }})
             .then((ret) => {
                 const updatedTournament = ret.data.updateTournament.tournament;
                 client.resetStore()

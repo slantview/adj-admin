@@ -46,7 +46,7 @@ const RulesEditForm = (props) => {
         let newRule = Object.assign({}, values);
         newRule.games = values.games.map(g => g.value);
 
-        updateRule({ variables: { id: rule.id, payload: { data: newRule }}})
+        updateRule({ variables: { id: rule.id, data: newRule }})
             .then((ret) => {
                 const createdRule = ret.data.createGameRuleList.gameRuleList;
                 client.resetStore()
