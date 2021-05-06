@@ -149,7 +149,7 @@ const GamesListPage = () => {
 											variant="outlined"
 											page={page}
 											onChange={handlePageChange}
-											count={ Math.round((games.length/entries)) + (games.length%entries === 0 ? 0 : 1)}
+											count={ Math.floor((games.length/entries)) + (games.length%entries === 0 ? 0 : 1)}
 										/>
 									</Collapse>
 									<div className="d-flex align-items-center">

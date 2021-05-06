@@ -166,7 +166,7 @@ const PlacesListPage = () => {
 											className="pagination-second"
 											variant="outlined"
 											page={page}
-											count={ Math.round((places.length/entries)) + (places.length%entries === 0 ? 0 : 1)}
+											count={ Math.floor((places.length/entries)) + (places.length%entries === 0 ? 0 : 1)}
 										/>
 									</Collapse>
 									<div className="d-flex align-items-center">

@@ -145,7 +145,7 @@ export default function SiteListPage() {
 											variant="outlined"
 											page={page}
 											onChange={handlePageChange}
-											count={ Math.round((sites.length/entries)) + (sites.length%entries === 0 ? 0 : 1)}
+											count={ Math.floor((sites.length/entries)) + (sites.length%entries === 0 ? 0 : 1)}
 										/>
 									</Collapse>
 									<div className="d-flex align-items-center">

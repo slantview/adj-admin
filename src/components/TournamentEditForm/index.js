@@ -27,8 +27,6 @@ const TournamentEditForm = (props) => {
         tournament
     } = props;
 
-    console.log('tournament', tournament);
-
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
@@ -121,7 +119,6 @@ const TournamentEditForm = (props) => {
                                         <Form id="tournament-add-form"> 
                                             { !FormProps.isSubmitting &&
                                                 <div>
-                                                    { console.log('after isSubmitting') }
                                                     <TournamentForm {...FormProps} />
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
                                                         <Button

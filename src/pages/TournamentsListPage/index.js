@@ -8,16 +8,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import SectionHeader from 'components/SectionHeader';
+import { SiteContext } from 'providers/SiteProvider';
 
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
 import TournamentsTableRow from '../../components/TournamentsTableRow';
 import { GET_ALL_TOURNAMENTS } from '../../queries/tournaments';
-import { SiteContext } from 'providers/SiteProvider';
 
 const TournamentsListPage = (props) => {
 	const siteCtx = useContext(SiteContext);
-	const { loading, error, data, refetch } = useQuery(GET_ALL_TOURNAMENTS);
+	const { loading, error, data, refetch } = useQuery(
+		GET_ALL_TOURNAMENTS,
+		{ 
+			notifyOnNetworkStatusChange: true 
+		});
 	const tournamentData = loading || error ? [] : data.tournaments;
 	const [isLoading, setLoading] = useState(loading);
 
@@ -29,12 +33,12 @@ const TournamentsListPage = (props) => {
 	const handlePageChange = (event, page) => {
 		setPage(page);
 	};
-	const [search, setSearch] = useState(null);
+	const [search, setSearch] = useState('');
 	const [tournaments, setTournaments] = useState(tournamentData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
 			setTournaments(tournamentData);
-			setSearch(null);
+			setSearch('');
 		} else {
 			setSearch(e.target.value);
 			const newData = tournamentData.filter(g => {
@@ -144,8 +148,7 @@ const TournamentsListPage = (props) => {
 						<thead>
 							<tr>
 								<th>Title</th>
-								<th className="text-center">Created At</th>
-								<th className="text-center">Updated At</th>
+								<th className="text-left">Last Updated</th>
 								<th className="text-center">Status</th>
 								<th className="text-right">Actions</th>
 							</tr>
@@ -167,7 +170,7 @@ const TournamentsListPage = (props) => {
 								variant="outlined"
 								page={page}
 								onChange={handlePageChange}
-								count={ Math.round((tournaments.length/entries)) + (tournaments.length%entries === 0 ? 0 : 1)}
+								count={ Math.floor((tournaments.length/entries)) + (tournaments.length%entries === 0 ? 0 : 1)}
 							/>
 						</Collapse>
 						<div className="d-flex align-items-center">

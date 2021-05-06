@@ -1,10 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@material-ui/core';
-import moment from 'moment';
-import React from "react";
+import moment from 'moment-timezone';
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
 
 import TournamentActionMenu from 'components/TournamentActionMenu';
+import { SiteContext } from 'providers/SiteProvider';
 
 const TournamentsTableRow = (props) => {
     const {
@@ -13,41 +12,33 @@ const TournamentsTableRow = (props) => {
         tournament
     } = props;
 
-    const {
-        id,
-        title,
-        subtitle,
-        created_at,
-        updated_at,
-        published_at
-    } = tournament;
+    const siteCtx = useContext(SiteContext);
+    const timezone = siteCtx.getTimezone();
 
-    const createdAt = moment(created_at).format("MM/DD/YYYY");
-    const updatedAt = moment(updated_at).format("MM/DD/YYYY");
+    const updatedAt = moment(tournament.updated_at).tz(timezone).format("M/DD/YYYY  h:mm A");
 
 	return (
         <tr>
             <td>
                 <Link
-                    to={"/tournaments/edit/"+id}
+                    to={"/tournaments/edit/"+tournament.id}
                     className="font-weight-bold text-black"
-                    title={title}>
-                        {title}
+                    title={tournament.title}>
+                        {tournament.title}
                 </Link>
             </td>
-            <td className="text-center">
-                <span className="">{createdAt}</span>
-            </td>
-            <td className="text-center">
+            <td className="text-left">
                 <div className="">{updatedAt}</div>
             </td>
             <td className="text-center">
-                <span className={"badge text-uppercase " + (published_at ? "badge-success" : "badge-first")}>{(published_at ? "Published" : "Draft")}</span>
+                <span className={"badge text-uppercase " + (tournament.published_at ? "badge-success" : "badge-first")}>
+                    {(tournament.published_at ? "Published" : "Draft")}
+                </span>
             </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">
                     <TournamentActionMenu 
-                        tournament={props.tournament} 
+                        tournament={tournament} 
                         refreshTournaments={refreshTournaments} 
                         setLoading={setLoading} 
                         iconClassName="text-black-50" 

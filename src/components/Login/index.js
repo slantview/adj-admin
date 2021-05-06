@@ -28,13 +28,6 @@ const Login =(props) => {
 	// @ts-ignore
 	const fromUrl = location.state && location.state.from;
 	const redirect = fromUrl && fromUrl !== '/login' ? fromUrl : '/';
-	
-	// useEffect(() => {
-	// 	if (userCtx.expires && userCtx.expires.isBefore(moment())) {
-	// 		console.log("user is expired. redirecting to login.")
-	// 		history.push("/login");
-	// 	}
-	// }, [userCtx.expires, userCtx.user, redirect, history])
 
     const signInHandler = (values, { setErrors }) => {
 		if (!values.checked) {
@@ -43,8 +36,6 @@ const Login =(props) => {
 
 		auth.signInWithEmailAndPassword(values.email, values.password)
 			.then(result => {
-				console.log(result);
-				console.log('redirecting to /events...');
 				history.push("/events");
 				return true;
 			})

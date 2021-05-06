@@ -183,7 +183,7 @@ export const UPDATE_TOURNAMENT = gql`
 `
 
 export const DELETE_TOURNAMENT = gql`
-    mutation DeleteTournament($id: Int!) {
+    mutation DeleteTournament($id: ID!) {
         deleteTournament(input: { where: { id: $id } }) {
             tournament {
                 id

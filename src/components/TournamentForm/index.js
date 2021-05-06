@@ -19,7 +19,7 @@ const TournamentForm = (props) => {
 		errors,
         setFieldValue
 	} = props;
-	console.log('values', values);
+
 	const siteCtx = useContext(SiteContext);
 	const gamesData = useQuery(GET_ALL_GAMES);
 	const [games, setGames] = useState([]);
@@ -94,7 +94,7 @@ const TournamentForm = (props) => {
 			callback(arr);
 		}
     }
-	// console.log('here again');
+	
     return (
         <>
             <div className="p-4">

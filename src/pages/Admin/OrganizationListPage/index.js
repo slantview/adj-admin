@@ -152,7 +152,7 @@ export default function OrganizationListPage() {
 											variant="outlined"
 											page={page}
 											onChange={handlePageChange}
-											count={ Math.round((organizations.length/entries)) + (organizations.length%entries === 0 ? 0 : 1)}
+											count={ Math.floor((organizations.length/entries)) + (organizations.length%entries === 0 ? 0 : 1)}
 										/>
 									</Collapse>
 									<div className="d-flex align-items-center">

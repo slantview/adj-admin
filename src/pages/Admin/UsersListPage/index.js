@@ -153,7 +153,7 @@ export default function UsersListPage() {
 											variant="outlined"
 											page={page}
 											onChange={handlePageChange}
-											count={ Math.round((users.length/entries)) + (users.length%entries === 0 ? 0 : 1)}
+											count={ Math.floor((users.length/entries)) + (users.length%entries === 0 ? 0 : 1)}
 										/>
 									</Collapse>
 									<div className="d-flex align-items-center">

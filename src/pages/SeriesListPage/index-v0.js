@@ -139,7 +139,7 @@ export default function SeriesListPage() {
 									variant="outlined"
 									page={page}
 									onChange={handlePageChange}
-									count={ Math.round((series.length/entries)) + (series.length%entries === 0 ? 0 : 1)}
+									count={ Math.floor((series.length/entries)) + (series.length%entries === 0 ? 0 : 1)}
 								/>
 							</Collapse>
 							<div className="d-flex align-items-center">
