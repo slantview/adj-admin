@@ -111,18 +111,51 @@ export const GET_ALL_SERIES_TOURNAMENTS = gql`
         }
     }
 `;
-// export const SEARCH_TOURNAMENTS = gql`
-//     query SearchTournaments($name
-//         tournaments(
-//             where
-//             sort
-//             limit
-//         ) {
-//             id
-//             title
-//         }
-//     }
-// `
+
+
+export const GET_TOURNAMENT = gql`
+    query GetTournament($id: ID!) {
+        tournament(id: $id) {
+            id
+            title
+            description
+            registration_cap
+            registration_cutoff
+            tournament_start_time
+            event {
+                id
+                title
+            }
+            fee
+            matcherino_code
+            matcherino_coupon_amount
+            game {
+                id
+                title
+            }
+            game_rules {
+                id
+                title
+            }
+            platforms {
+                id
+                name
+                description
+            }
+            game_mode {
+                id
+                title
+            }
+            bracket_format {
+                id
+                title
+            }
+            created_at
+            updated_at
+            published_at
+        }
+    }
+`;
 
 export const CREATE_TOURNAMENT = gql`
     mutation CreateNewTournament($payload: createTournamentInput) {
@@ -136,9 +169,12 @@ export const CREATE_TOURNAMENT = gql`
 `
 
 export const UPDATE_TOURNAMENT = gql`
-    mutation UpdateTournament($payload: updateTournamentInput) {
-        updateTournament(input: $payload) {
-           tournament {
+     mutation UpdateTournament($id: ID!, $data: editTournamentInput) {
+        updateTournament(input: { 
+            where: { id: $id },
+            data: $data
+        }) {
+            tournament {
                id
                title
            }

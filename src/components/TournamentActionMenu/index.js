@@ -2,12 +2,12 @@ import { useMutation } from '@apollo/client';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
 import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
 import moment from 'moment-timezone';
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
 import { DELETE_TOURNAMENT, UPDATE_TOURNAMENT } from 'queries/tournaments';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 
 const TournamentActionMenu = (props) => {
     const {

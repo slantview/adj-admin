@@ -1,6 +1,7 @@
 import { Button, Checkbox, FormControlLabel, Grid, Hidden, InputAdornment, TextField } from '@material-ui/core';
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
+import firebase from 'firebase';
 import { Form, Formik } from 'formik';
 import _ from 'lodash';
 import moment from 'moment';
@@ -28,16 +29,23 @@ const Login =(props) => {
 	const fromUrl = location.state && location.state.from;
 	const redirect = fromUrl && fromUrl !== '/login' ? fromUrl : '/';
 	
-	useEffect(() => {
-		if (userCtx.user && userCtx.expires.isBefore(moment())) {
-			history.push(redirect);
-		}
-	}, [userCtx.expires, userCtx.user, redirect, history])
+	// useEffect(() => {
+	// 	if (userCtx.expires && userCtx.expires.isBefore(moment())) {
+	// 		console.log("user is expired. redirecting to login.")
+	// 		history.push("/login");
+	// 	}
+	// }, [userCtx.expires, userCtx.user, redirect, history])
 
     const signInHandler = (values, { setErrors }) => {
+		if (!values.checked) {
+			auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+		}
+
 		auth.signInWithEmailAndPassword(values.email, values.password)
 			.then(result => {
-				history.push(redirect);
+				console.log(result);
+				console.log('redirecting to /events...');
+				history.push("/events");
 				return true;
 			})
 			.catch(e => {
@@ -51,7 +59,7 @@ const Login =(props) => {
 			initialValues={{
 				email: '',
 				password: '',
-				checked: true
+				checked: false
 			}}
 			validationSchema={validationSchema}
 			onSubmit={signInHandler}>
@@ -148,12 +156,12 @@ const LoginForm = (props) => {
 											<div className="d-flex justify-content-between align-items-center font-size-md mx-4">
 												<FormControlLabel
 													control={
-													<Checkbox
-														checked={values.checked}
-														onChange={handleChange}
-														value="checked"
-														color="primary"
-													/>
+														<Checkbox
+															name="checked"
+															checked={values.checked}
+															onChange={handleChange}
+															color="primary"
+														/>
 													}
 													label="Remember me"
 												/>

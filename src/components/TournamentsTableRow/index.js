@@ -28,18 +28,12 @@ const TournamentsTableRow = (props) => {
 	return (
         <tr>
             <td>
-                <div className="d-flex">
-                    <div>
-                        <Link to={"/tournaments/"+id}>
-                            <span className="font-weight-bold text-black" title={title}>
-                                {title}
-                            </span>
-                            <span className="text-black-50 d-block">
-                                {subtitle}
-                            </span>
-                        </Link>
-                    </div>
-                </div>
+                <Link
+                    to={"/tournaments/edit/"+id}
+                    className="font-weight-bold text-black"
+                    title={title}>
+                        {title}
+                </Link>
             </td>
             <td className="text-center">
                 <span className="">{createdAt}</span>

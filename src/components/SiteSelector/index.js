@@ -45,7 +45,6 @@ const SiteSelector = () => {
         siteCtx.setSite(siteId);
         updateSelectedSite(siteId);
         handleClose();
-        history.push('/');
     };
 
     if (loading) {

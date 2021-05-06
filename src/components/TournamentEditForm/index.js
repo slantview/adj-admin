@@ -1,31 +1,17 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
+import _ from 'lodash';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Error from 'components/Error';
 import Loading from 'components/Loading';
-import Finished from 'components/OrganizationAddForm/Finished';
 import TournamentForm from 'components/TournamentForm';
 import { NotificationContext } from 'providers/NotificationProvider';
-import { CREATE_TOURNAMENT } from 'queries/tournaments';
+import { UPDATE_TOURNAMENT } from 'queries/tournaments';
 
-const initialData = {
-    title: '',
-    description: '',
-    header: [],
-    registration_cap: 100,
-    fee: 0,
-    matcherino_code: '',
-    matcherino_coupon_amount: '',
-    game: '',
-    game_mode: '',
-    game_rules: [],
-    game_platform: '',
-    bracket_format: []
-};
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
     description: Yup.string().required('Description is required'),
@@ -36,13 +22,48 @@ const validationSchema = Yup.object({
     bracket_format: Yup.array().required('Bracket Format is required')
 });
 
-const TournamentAddForm = (props) => {
+const TournamentEditForm = (props) => {
+    const {
+        tournament
+    } = props;
+
+    console.log('tournament', tournament);
+
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
-    const [addTournament] = useMutation(CREATE_TOURNAMENT);
+    const [updateTournament] = useMutation(UPDATE_TOURNAMENT);
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
+
+    const game = tournament.game ? { name: tournament.game.title, value: tournament.game.id } : null;
+    const gameMode = tournament.game_mode && tournament.game_mode.length > 0
+         ? { name: _.first(tournament.game_mode).title, value: _.first(tournament.game_mode).id } 
+         : '';
+    const gameRules = tournament.game_rules && tournament.game_rules.length > 0
+        ? tournament.game_rules.map(g => ({ name: g.title, value: g.id }))
+        : [];
+    const gamePlatform = tournament.platforms && tournament.platforms.length > 0
+        ? { name: _.first(tournament.platforms)?.name, value: _.first(tournament.platforms)?.id }
+        : '';
+    const bracketFormat = tournament.bracket_format && tournament.bracket_format.length > 0
+        ? { name: _.first(tournament.bracket_format)?.title, value: _.first(tournament.bracket_format)?.id }
+        : [];
+
+    const initialData = {
+        title: tournament.title,
+        description: tournament.description,
+        header: [],
+        registration_cap: 0,
+        fee: 0,
+        matcherino_code: '',
+        matcherino_coupon_amount: '',
+        game: game,
+        game_mode: gameMode,
+        game_rules: gameRules,
+        game_platform: gamePlatform,
+        bracket_format: bracketFormat
+    };
 
     const handleSubmit = async (values, actions) => {
         setSubmitted(true);
@@ -59,14 +80,14 @@ const TournamentAddForm = (props) => {
         newTournament.game_mode = [values.game_mode.value];
         newTournament.bracket_format = [values.bracket_format.value];
 
-        addTournament({ variables: { payload: { data: newTournament }}})
+        updateTournament({ variables: { id: tournament.id, payload: { data: newTournament }}})
             .then((ret) => {
-                const createdTournament = ret.data.createTournament.tournament;
+                const updatedTournament = ret.data.updateTournament.tournament;
                 client.resetStore()
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully added event: " + createdTournament.title
+                            message: "Successfully updated tournament: " + updatedTournament.title
                         });
                         history.push('/tournaments', { refresh: true });
                     });
@@ -79,7 +100,7 @@ const TournamentAddForm = (props) => {
         return (
             <div className="text-center m-5">
                 <Loading center={true} showTimeout={false} />
-                <h3 className="mt-3">Creating Tournament...</h3>
+                <h3 className="mt-3">Updating Tournament...</h3>
             </div>
         );
     }
@@ -90,39 +111,27 @@ const TournamentAddForm = (props) => {
                 <Card className="card-box">
                     <div>
                         { error && <Error message={error} /> }
-
-                        { isSubmitted &&
-                            <Finished 
-                                title="You are all done!"
-                                buttonText="Continue"
-                                redirect="/events"
-                            />
-                        }
+                        
                         { !isSubmitted &&
                             <Formik
                                 initialValues={initialData}
                                 validationSchema={validationSchema}
                                 onSubmit={handleSubmit}>
                                     {(FormProps) => (
-                                        <Form id="organization-add-form"> 
-                                            { FormProps.isSubmitting ? (
-                                                <div className="text-center m-5">
-                                                    <Loading center={true} showTimeout={false} />
-                                                    <h3 className="mt-3">Creating Series...</h3>
-                                                </div>
-                                            ) : (
+                                        <Form id="tournament-add-form"> 
+                                            { !FormProps.isSubmitting &&
                                                 <div>
+                                                    { console.log('after isSubmitting') }
                                                     <TournamentForm {...FormProps} />
-
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
                                                         <Button
                                                             className="btn-primary font-weight-bold"
                                                             type="submit">
-                                                                Add Tournament
+                                                                Update Tournament
                                                         </Button>
                                                     </div>
                                                 </div>
-                                            )}
+                                            }
                                         </Form>
                                     )}
                             </Formik>
@@ -134,4 +143,4 @@ const TournamentAddForm = (props) => {
     )
 }
 
-export default TournamentAddForm;
+export default TournamentEditForm;

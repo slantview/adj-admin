@@ -2,16 +2,18 @@ import { useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Grid, TextField as MTextField } from '@material-ui/core';
 import MDEditor, { commands } from '@uiw/react-md-editor';
-import AutocompleteSearchField from 'components/AutocompleteSearchField';
 import { Field } from 'formik';
 import { Switch, TextField } from 'formik-material-ui';
 import moment from 'moment-timezone';
+import React, { useContext, useEffect, useState } from 'react';
+
+import AutocompleteSearchField from 'components/AutocompleteSearchField';
 import { SiteContext } from 'providers/SiteProvider';
 import { GET_ALL_PLACES_NAME_ONLY } from 'queries/places';
 import { GET_ALL_GAME_RULE_LISTS } from 'queries/rules';
 import { GET_ALL_STREAMS } from 'queries/streams';
 import { GET_ALL_TOURNAMENTS } from 'queries/tournaments';
-import React, { useContext, useEffect, useState } from 'react';
+
 import ImageUpload from '../../components/ImageUpload';
 
 const EventForm = (props) => {
@@ -246,39 +248,6 @@ const EventForm = (props) => {
                     </Grid>
                 </Grid>
             </div>
-			{/* <div className="p-4">
-				<div className="divider mt-3 mb-2" />
-                <Grid container spacing={2}>
-					<Grid item md={8} lg={8}>
-						<h5 className="font-size-xl mb-1 font-weight-bold">
-							Rules
-						</h5>
-						<p className="text-black-50">Select existing or add a new rules.</p>
-					</Grid>
-					<Grid item md={4} lg={4}>
-						<div className="text-right">
-							<Button onClick={(e) => e.preventDefault()} size="small" className="btn-neutral-primary">
-								<span className="btn-wrapper--icon">
-									<FontAwesomeIcon icon={['fas', 'plus-circle']} />
-								</span>
-								<span className="btn-wrapper--label">Add New Rules</span>
-							</Button>
-						</div>
-						
-					</Grid>
-                    <Grid item md={12} lg={12}>
-						<AutocompleteSearchField
-							name="rules"
-							inputLabel="Search Rules"
-							getOptions={handleRulesAutocompleteRequest}
-							setFieldValue={setFieldValue}
-							initialOptions={resultsToData(gameRulesData?.data?.gameRuleLists)}
-                            initialValue={values.rules}
-                            multiple
-						/>
-                    </Grid>
-                </Grid>
-            </div> */}
 			<div className="p-4">
 				<div className="divider mt-3 mb-2" />
                 <Grid container spacing={2}>

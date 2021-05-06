@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Grid, TextField as MTextField } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import { Field } from 'formik';
 import { TextField } from 'formik-material-ui';
@@ -20,7 +19,7 @@ const TournamentForm = (props) => {
 		errors,
         setFieldValue
 	} = props;
-
+	console.log('values', values);
 	const siteCtx = useContext(SiteContext);
 	const gamesData = useQuery(GET_ALL_GAMES);
 	const [games, setGames] = useState([]);
@@ -95,7 +94,7 @@ const TournamentForm = (props) => {
 			callback(arr);
 		}
     }
-
+	// console.log('here again');
     return (
         <>
             <div className="p-4">
@@ -132,15 +131,14 @@ const TournamentForm = (props) => {
 				</Grid>
 			</div>
 			<div className="p-4">
-				<div className="divider mt-3 mb-2" />
+				<div className="divider mb-2" />
                 <Grid container spacing={2}>
 					<Grid item md={12} lg={12}>
 						<h5 className="font-size-xl mb-1 font-weight-bold">
 							Game
 						</h5>
-						<p className="text-black-50">Select game and game mode to be played.</p>
+						<p className="text-black-50">Select game, platform, and mode to be played at this tournament.</p>
 					</Grid>
-					
                     <Grid item md={12} lg={12}>
 						<AutocompleteSearchField
 							name="game"
@@ -183,18 +181,7 @@ const TournamentForm = (props) => {
 						<h5 className="font-size-xl mb-1 font-weight-bold">
 							Rules
 						</h5>
-						<p className="text-black-50">Select existing or add a new rules.</p>
-					</Grid>
-					<Grid item md={4} lg={4}>
-						<div className="text-right">
-							<Button onClick={(e) => e.preventDefault()} size="small" className="btn-neutral-primary">
-								<span className="btn-wrapper--icon">
-									<FontAwesomeIcon icon={['fas', 'plus-circle']} />
-								</span>
-								<span className="btn-wrapper--label">Add New Rules</span>
-							</Button>
-						</div>
-						
+						<p className="text-black-50">Select rules and bracket for tournament.</p>
 					</Grid>
                     <Grid item md={6} lg={6}>
 						<AutocompleteSearchField
@@ -225,4 +212,4 @@ const TournamentForm = (props) => {
     )
 }
 
-export default TournamentForm
+export default TournamentForm;

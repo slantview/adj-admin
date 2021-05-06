@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import { Badge, Grid, IconButton, Menu, MenuItem } from '@material-ui/core';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import Userbox from '../Userbox/index2';
+import React, { useContext } from 'react';
+
 import { UserContext } from '../../providers/UserProvider';
-import { Badge, Grid, Menu, MenuItem, IconButton } from '@material-ui/core';
+import Userbox from '../Userbox';
 
 const TopMenu = () => {
     const userCtx = useContext(UserContext);

@@ -35,10 +35,11 @@ const PlacesTableRow = (props) => {
                         }
                     </div>
                     <div>
-                        <Link to={"/places/"+id}>
-                            <span className="font-weight-bold text-black" title={name}>
+                        <Link
+                            to={'/places/view/' + id}
+                            className="font-weight-bold text-black"
+                            title={name}>
                                 {name}
-                            </span>
                         </Link>
                     </div>
                 </div>

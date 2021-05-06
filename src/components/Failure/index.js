@@ -1,5 +1,6 @@
-import { Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import hero from '../../assets/images/hero-bg/hero-arena.jpg';
 
@@ -28,7 +29,12 @@ const Failure = () => {
                                     Something has gone very wrong. Sorry about that.<br/>If this continues, please contact support for help.
 								</p>
                                 <p>
-                                    { }
+									<Button 
+										component={Link}
+										className="btn btn-primary mt-4"
+										to="/login">
+										Click here to return to the login page
+									</Button>
                                 </p>
 								<div className="divider mx-auto border-1 my-5 border-light opacity-2 rounded w-25" />
 								</div>

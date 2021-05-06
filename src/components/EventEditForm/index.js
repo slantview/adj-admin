@@ -177,12 +177,10 @@ const EventEditForm = (props) => {
 
     if (isSubmitted) {
         return (
-            <Card className="card-box mx-4">
-                <div className="text-center m-5">
-                    <Loading center={true} />
-                    <h3 className="mt-3">Updating Event...</h3>
-                </div>
-            </Card>
+            <div className="text-center m-5">
+                <Loading center={true} />
+                <h3 className="mt-3">Updating Event...</h3>
+            </div>
         )
     }
     

@@ -1,14 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card, CardContent, CardMedia, Fade, Grid, Table, Tooltip } from '@material-ui/core';
+import moment from 'moment-timezone';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+
 import headerBackground from 'assets/images/header-bg.jpg';
 import EventActionMenu from 'components/EventActionMenu';
 import EventAddNewCard from 'components/EventAddNewCard';
 import EventsListRow from 'components/EventsListRow';
-import moment from 'moment-timezone';
 import { SiteContext } from 'providers/SiteProvider';
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-
 
 const EventsUpcomingCard = (props) => {
 	const {
