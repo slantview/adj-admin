@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card, CardContent, CardMedia, Fade, Grid, Table, Tooltip } from '@material-ui/core';
+import _ from 'lodash';
 import moment from 'moment-timezone';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
@@ -24,12 +25,12 @@ const EventsUpcomingCard = (props) => {
 
 	const nextStartsAt = next && timezone ? moment(next.starts_at).tz(timezone) : null;
 	const bgImage = next && next.header ? next.header.formats.large.url : headerBackground;
-	const gameImages = next?.tournaments?.flatMap(t => {
+	const gameImages = _.uniqBy(next?.tournaments?.flatMap(t => {
 		return {
 			title: t.game.title,
 			cover: t.game.cover.formats.thumbnail.url
 		};
-	});
+	}), 'cover');
 	
 	return (
 		<div className="mt-2">

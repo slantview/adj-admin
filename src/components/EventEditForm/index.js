@@ -215,7 +215,7 @@ const EventEditForm = (props) => {
                                                     <Button
                                                         className="btn-primary font-weight-bold"
                                                         type="submit">
-                                                            Save Event
+                                                            Update Event
                                                     </Button>
                                                 </div>
                                             </div>
