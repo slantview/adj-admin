@@ -99,22 +99,6 @@ const Sidebar = (props) => {
                         </li>
                         <li>
                             <NavLink
-                                activeClassName={isNavCategory('games') ? "active" : null} 
-                                key="games" 
-                                onClick={() => handleCategoryClick('games')}
-                                className="nav-link-simple"
-                                to="/games">
-                                    <span className="sidebar-icon">
-                                        <FontAwesomeIcon icon={['fas', 'gamepad']} />
-                                    </span>
-                                    Games
-                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
-                                        <ChevronRightTwoToneIcon />
-                                    </span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
                                 activeClassName={isNavCategory('rules') ? "active" : null} 
                                 key="rules" 
                                 onClick={() => handleCategoryClick('rules')}
@@ -124,6 +108,22 @@ const Sidebar = (props) => {
                                         <FontAwesomeIcon icon={['fas', 'copy']} />
                                     </span>
                                     Rules
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                activeClassName={isNavCategory('games') ? "active" : null} 
+                                key="games" 
+                                onClick={() => handleCategoryClick('games')}
+                                className="nav-link-simple"
+                                to="/games">
+                                    <span className="sidebar-icon">
+                                        <FontAwesomeIcon icon={['fas', 'gamepad']} />
+                                    </span>
+                                    Games
                                     <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
                                         <ChevronRightTwoToneIcon />
                                     </span>
