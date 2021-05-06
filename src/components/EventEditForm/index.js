@@ -185,7 +185,7 @@ const EventEditForm = (props) => {
     }
     
     return (
-        <div className="text-white px-0 px-lg-2 px-xl-4">
+        <div className="text-white px-0 px-lg-2 px-xl-4 mb-5">
 			<Card className="card-box">
 				<div>
 					<div className="bg-secondary mb-3">

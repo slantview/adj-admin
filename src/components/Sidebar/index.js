@@ -115,6 +115,22 @@ const Sidebar = (props) => {
                         </li>
                         <li>
                             <NavLink
+                                activeClassName={isNavCategory('rules') ? "active" : null} 
+                                key="rules" 
+                                onClick={() => handleCategoryClick('rules')}
+                                className="nav-link-simple"
+                                to="/rules">
+                                    <span className="sidebar-icon">
+                                        <FontAwesomeIcon icon={['fas', 'copy']} />
+                                    </span>
+                                    Rules
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
                                 activeClassName={isNavCategory('places') ? "active" : null} 
                                 key="places" 
                                 onClick={() => handleCategoryClick('places')}

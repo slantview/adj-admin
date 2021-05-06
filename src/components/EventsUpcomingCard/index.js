@@ -121,6 +121,7 @@ const EventsUpcomingCard = (props) => {
 										<tbody>
 											{ events && events.filter(e => e.id !== next.id).reverse().map(event => (
 												<EventsListRow 
+													key={event.id}
 													event={event} 
 													refreshSeries={refreshSeries}
 													setLoading={setLoading}
