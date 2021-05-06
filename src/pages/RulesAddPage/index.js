@@ -1,8 +1,8 @@
 import { Grid } from '@material-ui/core';
-import RulesAddForm from 'components/RulesAddForm';
-import SectionHeader from 'components/SectionHeader';
 import React from 'react';
 
+import RulesAddForm from 'components/RulesAddForm';
+import SectionHeader from 'components/SectionHeader';
 
 const RulesAddPage = (props) => {
     return (

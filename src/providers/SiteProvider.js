@@ -1,9 +1,10 @@
-import { getSiteMetadata, getSites } from '../utils/api';
 import firebase from 'firebase/app';
 import _ from "lodash";
 import React, { Component, createContext } from "react";
 
 import Loading from "components/Loading";
+
+import { getSiteMetadata, getSites } from '../utils/api';
 
 export const SiteContext = createContext({ 
     loading: true,
@@ -92,6 +93,7 @@ class SiteProvider extends Component {
                         }
                         const selectedSiteId = this.state.selected === null ? sites[0].id : this.state.selected;
                         const selectedSite = _.first(sites.filter(s => s.id === selectedSiteId));
+                        
                         this.setState({
                             selected: selectedSiteId,
                             sites: sites,

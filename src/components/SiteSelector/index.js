@@ -27,12 +27,18 @@ const SiteSelector = () => {
 
     // @ts-ignore
     useEffect(() => {
+        let active = true;
         siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
-                updateSelectedSite(siteCtx.selected);
+                if (active) {
+                    updateSelectedSite(siteCtx.selected);
+                }
 				resolve();
 			});
 		});
+        return () => {
+            active = false;
+        }
     }, [])
 
     const updateSelectedSite = (siteId) => {
@@ -50,6 +56,8 @@ const SiteSelector = () => {
     if (loading) {
         return (<span>Loading...</span>);
     }
+
+    const sites = _.sortBy(siteCtx.sites, ['name']);
 
     return (
         <div className="px-3 w-100 font-weight-light">
@@ -79,7 +87,7 @@ const SiteSelector = () => {
                                             <b className="text-uppercase font-size-sm">Select Site</b>
                                         </div>
                                         <span className="divider mb-1" />
-                                        { siteCtx.sites?.map(site => (
+                                        { sites.map(site => (
                                             <MenuItem
                                                 id={site.id}
                                                 key={site.id}
