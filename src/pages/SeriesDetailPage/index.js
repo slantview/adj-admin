@@ -3,6 +3,9 @@ import { Button, Collapse, Grid } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+
 import Error from 'components/Error';
 import EventsUpcomingCard from 'components/EventsUpcomingCard';
 import Loading from 'components/Loading';
@@ -12,8 +15,6 @@ import SeriesHeaderAnalytics from 'components/SeriesHeaderAnalytics';
 import { SiteContext } from 'providers/SiteProvider';
 import { UserContext } from 'providers/UserProvider';
 import { GET_SERIES } from 'queries/series';
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
 import { getSiteAnalytics } from 'utils/api';
 import { getSortedEvents } from 'utils/events';
 
@@ -65,14 +66,20 @@ const SeriesDetailPage = (props) => {
     };
 
     // First load only.
-	useEffect(() => {
+    useEffect(() => {
+        let active = true;
 		siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
-				refreshSeries();
-                refreshSiteAnalytics();
+                if (active) {
+                    refreshSeries();
+                    refreshSiteAnalytics();
+                }
 				resolve();
 			});
 		});
+        return () => {
+            active = false;
+        };
 	}, []);
 
     useEffect(() => {

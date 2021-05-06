@@ -53,13 +53,19 @@ const PlacesListPage = () => {
 	}
 
 	// Register to be notified of a site change.
-	useEffect(() => {
+	React.useEffect(() => {
+		let active = true;
 		siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
-				refreshPlaces();
+				if (active) {
+					refreshPlaces();
+				}
 				resolve();
 			});
 		});
+		return () => {
+			active = false;
+		};
 	}, [])
 
 	useEffect(() => {
