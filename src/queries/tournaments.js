@@ -22,6 +22,9 @@ export const GET_ALL_TOURNAMENTS = gql`
             game {
                 id
                 title
+                cover {
+                    formats
+                }
             }
             game_rules {
                 id

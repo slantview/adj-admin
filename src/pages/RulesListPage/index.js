@@ -6,22 +6,22 @@ import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import RulesTableRow from 'components/RulesTableRow';
 import SectionHeader from 'components/SectionHeader';
 import { SiteContext } from 'providers/SiteProvider';
+import { GET_ALL_GAME_RULE_LISTS } from 'queries/rules';
 
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
-import TournamentsTableRow from '../../components/TournamentsTableRow';
-import { GET_ALL_TOURNAMENTS } from '../../queries/tournaments';
 
-const TournamentsListPage = (props) => {
+const RulesListPage = (props) => {
 	const siteCtx = useContext(SiteContext);
 	const { loading, error, data, refetch } = useQuery(
-		GET_ALL_TOURNAMENTS,
+		GET_ALL_GAME_RULE_LISTS,
 		{ 
 			notifyOnNetworkStatusChange: true 
 		});
-	const tournamentData = loading || error ? [] : data.tournaments;
+	const gameRuleListData = loading || error ? [] : data.gameRuleLists;
 	const [isLoading, setLoading] = useState(loading);
 
 	const [entries, setEntries] = useState(5);
@@ -33,23 +33,23 @@ const TournamentsListPage = (props) => {
 		setPage(page);
 	};
 	const [search, setSearch] = useState('');
-	const [tournaments, setTournaments] = useState(tournamentData);
+	const [gameRuleLists, setGameRuleLists] = useState(gameRuleListData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
-			setTournaments(tournamentData);
+			setGameRuleLists(gameRuleListData);
 			setSearch('');
 		} else {
 			setSearch(e.target.value);
-			const newData = tournamentData.filter(g => {
+			const newData = gameRuleListData.filter(g => {
 				return g.title.toLowerCase().includes(e.target.value.toLowerCase()) || g.description.toLowerCase().includes(e.target.value);
 			})
-			setTournaments(newData);
+			setGameRuleLists(newData);
 		}
 	};
 
-	const refreshTournaments = () => {
+	const refreshRules = () => {
 		setLoading(true);
-		setTournaments([]);
+		setGameRuleLists([]);
 		refetch();
 	};
 
@@ -58,7 +58,7 @@ const TournamentsListPage = (props) => {
 		siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
                 if (active) {
-                    refreshTournaments();
+                    refreshRules();
                 }
 				resolve();
 			});
@@ -71,9 +71,9 @@ const TournamentsListPage = (props) => {
 	useEffect(() => {
 		if (isLoading && !loading) {
 			setLoading(loading);
-			setTournaments(tournamentData);
+			setGameRuleLists(gameRuleListData);
 		}
-	}, [loading, isLoading, tournamentData]);
+	}, [loading, isLoading, gameRuleListData]);
 
 	if (loading) {
 		return (<Loading centerInPage={true} center={true} />);
@@ -86,14 +86,14 @@ const TournamentsListPage = (props) => {
 	return (
 		<div>
             <SectionHeader 
-                title="Tournaments"
+                title="Rules"
                 titleColor="text-white"
-                subtitle="Manage Tournaments"
+                subtitle="Manage your game rules."
                 subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
                 breadcrumbs={[
                     { title: "Home", to: "/" },
-                    { title: "Tournaments", to: null }
+                    { title: "Rules", to: null }
                 ]}
             >
                 <Grid container alignItems="flex-end">
@@ -110,13 +110,13 @@ const TournamentsListPage = (props) => {
                     <div className="text-right mr-4">
                         <Button
                             component={Link}
-                            to={'/tournaments/add'}
+                            to={'/rules/add'}
                             size="small"
                             className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
                                 <span className="btn-wrapper--icon mr-2">
 									<FontAwesomeIcon icon={['fas', 'plus']} />
                                 </span>
-                                Add Tournament
+                                Add Rule
                         </Button>
                     </div>
                 </Grid> 
@@ -147,31 +147,29 @@ const TournamentsListPage = (props) => {
 						<thead>
 							<tr>
 								<th>Title</th>
-								<th className="text-center">Games Played</th>
-								<th className="text-left">Rules</th>
+                                <th>Games</th>
 								<th className="text-left">Last Updated</th>
-								<th className="text-center">Status</th>
 								<th className="text-right">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							{ tournaments.map(t => (
-								<TournamentsTableRow 
-									key={t.id} 
-									tournament={t} 
-									refreshTournaments={refreshTournaments} 
+							{ gameRuleLists.map(r => (
+								<RulesTableRow 
+									key={r.id} 
+									rule={r} 
+									refreshRules={refreshRules} 
 								/>
 							))}
 						</tbody>
 					</Table>
 					<div className="card-footer d-flex justify-content-between">
-						<Collapse in={tournaments.length > entries}>
+						<Collapse in={gameRuleLists.length > entries}>
 							<Pagination
 								className="pagination-second"
 								variant="outlined"
 								page={page}
 								onChange={handlePageChange}
-								count={ Math.floor((tournaments.length/entries)) + (tournaments.length%entries === 0 ? 0 : 1)}
+								count={ Math.floor((gameRuleLists.length/entries)) + (gameRuleLists.length%entries === 0 ? 0 : 1)}
 							/>
 						</Collapse>
 						<div className="d-flex align-items-center">
@@ -205,4 +203,4 @@ const TournamentsListPage = (props) => {
 	);
 }
 
-export default TournamentsListPage;
+export default RulesListPage;

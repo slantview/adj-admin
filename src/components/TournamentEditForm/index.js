@@ -33,7 +33,7 @@ const TournamentEditForm = (props) => {
     const [updateTournament] = useMutation(UPDATE_TOURNAMENT);
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
-
+    console.log(tournament);
     const game = tournament.game ? { name: tournament.game.title, value: tournament.game.id } : null;
     const gameMode = tournament.game_mode && tournament.game_mode.length > 0
          ? { name: _.first(tournament.game_mode).title, value: _.first(tournament.game_mode).id } 
@@ -45,7 +45,7 @@ const TournamentEditForm = (props) => {
         ? { name: _.first(tournament.platforms)?.name, value: _.first(tournament.platforms)?.id }
         : '';
     const bracketFormat = tournament.bracket_format && tournament.bracket_format.length > 0
-        ? { name: _.first(tournament.bracket_format)?.title, value: _.first(tournament.bracket_format)?.id }
+        ? tournament.bracket_format.map(b => ({ name: b.title, value: b.id }))
         : [];
 
     const initialData = {
@@ -76,7 +76,7 @@ const TournamentEditForm = (props) => {
         newTournament.game_rules = values.game_rules.map(g => g.value);
         newTournament.platforms = [values.game_platform.value];
         newTournament.game_mode = [values.game_mode.value];
-        newTournament.bracket_format = [values.bracket_format.value];
+        newTournament.bracket_format = values.bracket_format.map(b => b.value);
 
         updateTournament({ variables: { id: tournament.id, payload: { data: newTournament }}})
             .then((ret) => {

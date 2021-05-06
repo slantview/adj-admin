@@ -65,12 +65,15 @@ const EventsUpcomingCard = (props) => {
 																	}
 																	{ gameImages && gameImages.length > 0 && gameImages.map(i => ( 
 																		<Tooltip
+																			// @ts-ignore
 																			key={i.title} 
 																			TransitionComponent={Fade} 
 																			TransitionProps={{ timeout: 600 }} 
+																			// @ts-ignore
 																			title={i.title}>
 																			<div className="avatar-icon-wrapper mr-2">
 																				<div className="avatar-icon">
+																					{/* @ts-ignore */}
 																					<img key={i.title} alt={i.title} src={i.cover} />
 																				</div>
 																			</div>

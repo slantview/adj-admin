@@ -8,6 +8,9 @@ import OrganizationAddPage from 'pages/Admin/OrganizationAddPage';
 import SiteAddPage from 'pages/Admin/SiteAddPage';
 import EventsEditPage from 'pages/EventsEditPage';
 import FailPage from 'pages/FailPage';
+import RulesAddPage from 'pages/RulesAddPage';
+import RulesEditPage from 'pages/RulesEditPage';
+import RulesListPage from 'pages/RulesListPage';
 import SeriesAddPage from 'pages/SeriesAddPage';
 import SeriesDetailAllEventsPage from 'pages/SeriesDetailAllEventsPage';
 import SeriesDetailPage from 'pages/SeriesDetailPage';
@@ -92,6 +95,10 @@ ReactDOM.render(
 											{/* Places Pages */}
 											<Route exact path="/places"><PlacesListPage /></Route>
 											<Route exact path="/places/add"><PlacesAddPage /></Route>
+											{/* Rules Pages */}
+											<Route exact path="/rules"><RulesListPage /></Route>
+											<Route exact path="/rules/add"><RulesAddPage /></Route>
+											<Route exact path="/rules/edit/:ruleId"><RulesEditPage /></Route>
 											{/* Account Pages */}
 											<Route exact path="/user/account"><MyAccountPage /></Route>
 											<Route exact path="/user/profile"><ProfileSettings /></Route>

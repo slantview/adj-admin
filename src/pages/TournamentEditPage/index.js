@@ -1,25 +1,29 @@
 import { useQuery } from '@apollo/client';
 import { Grid } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
 import TournamentEditForm from 'components/TournamentEditForm';
+import { SiteContext } from 'providers/SiteProvider';
 import { GET_TOURNAMENT } from 'queries/tournaments';
 
 const TournamentEditPage = (props) => {
-     // @ts-ignore
-     const { tournamentId } = useParams();
+    // @ts-ignore
+    const { tournamentId } = useParams();
 
-     const { loading, error, data } = useQuery(
+    const siteCtx = useContext(SiteContext);
+    const history = useHistory();
+    const { loading, error, data } = useQuery(
          GET_TOURNAMENT, 
          { 
              variables: { id: tournamentId, limit: 1 },
              notifyOnNetworkStatusChange: true 
          });
-     const [tournamentData, setTournamentData] = useState(null);
-     const [isLoading, setLoading] = useState(loading);
+    const [tournamentData, setTournamentData] = useState(null);
+    const [isLoading, setLoading] = useState(loading);
  
      useEffect(() => {
          if ((isLoading || !loading) && data && data.tournament) {
@@ -28,6 +32,21 @@ const TournamentEditPage = (props) => {
          }
      }, [loading, data, error]);
  
+     useEffect(() => {
+        let active = true;
+		siteCtx.onSiteChanged(async () => {
+			return new Promise((resolve, reject) => {
+                if (active) {
+                    history.push('/tournaments')
+                }
+				resolve();
+			});
+		});
+        return () => {
+            active = false;
+        };
+	}, []);
+
      if (isLoading || tournamentData === null) {
          return (<Loading center={true} centerInPage={true} />);
      }

@@ -71,7 +71,6 @@ const AutocompleteSearchField = (props) => {
 	};
 
 	const getOptionSelected = (o, v) => {
-		// console.log('getOptionSelected', o, v);
 		if (typeof v === 'string') {
 			return v === o.name;
 		} else {

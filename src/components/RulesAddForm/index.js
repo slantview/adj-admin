@@ -8,67 +8,45 @@ import * as Yup from 'yup';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
-import TournamentForm from 'components/TournamentForm';
+import RuleForm from 'components/RuleForm';
 import { NotificationContext } from 'providers/NotificationProvider';
-import { CREATE_TOURNAMENT } from 'queries/tournaments';
+import { CREATE_GAME_RULE_LIST } from 'queries/rules';
 
 const initialData = {
     title: '',
     description: '',
-    header: [],
-    registration_cap: 100,
-    fee: 0,
-    matcherino_code: '',
-    matcherino_coupon_amount: '',
-    game: '',
-    game_mode: '',
-    game_rules: [],
-    game_platform: '',
-    bracket_format: []
+    games: []
 };
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
     description: Yup.string().required('Description is required'),
-    game: Yup.object().required('Game is required'),
-    game_mode: Yup.object().required('Game mode is required'),
-    game_rules: Yup.array().required('Game rules are required'),
-    game_platform: Yup.object().required('Game platform is required'),
-    bracket_format: Yup.array().required('Bracket Format is required')
+    games: Yup.array().required('Game is required')
 });
 
-const TournamentAddForm = (props) => {
+const RulesAddForm = (props) => {
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
-    const [addTournament] = useMutation(CREATE_TOURNAMENT);
+    const [addRule] = useMutation(CREATE_GAME_RULE_LIST);
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
     const handleSubmit = async (values, actions) => {
         setSubmitted(true);
-        let newTournament = Object.assign({}, values);
+        
+        let newRule = Object.assign({}, values);
+        newRule.games = values.games.map(g => g.value);
 
-        delete newTournament.header;
-        delete newTournament.start_time;
-        delete newTournament.game_platform;
-
-        newTournament.fee = "0";
-        newTournament.game = values.game.value;
-        newTournament.game_rules = values.game_rules.map(g => g.value);
-        newTournament.platforms = [values.game_platform.value];
-        newTournament.game_mode = [values.game_mode.value];
-        newTournament.bracket_format = values.bracket_format.map(b => b.value);
-
-        addTournament({ variables: { payload: { data: newTournament }}})
+        addRule({ variables: { payload: { data: newRule }}})
             .then((ret) => {
-                const createdTournament = ret.data.createTournament.tournament;
+                const createdRule = ret.data.createGameRuleList.gameRuleList;
                 client.resetStore()
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully added event: " + createdTournament.title
+                            message: "Successfully added rule: " + createdRule.title
                         });
-                        history.push('/tournaments', { refresh: true });
+                        history.push('/rules', { refresh: true });
                     });
             }).catch(e  => {
                 setError(e.toString());
@@ -79,7 +57,7 @@ const TournamentAddForm = (props) => {
         return (
             <div className="text-center m-5">
                 <Loading center={true} showTimeout={false} />
-                <h3 className="mt-3">Creating Tournament...</h3>
+                <h3 className="mt-3">Creating Rule...</h3>
             </div>
         );
     }
@@ -105,24 +83,19 @@ const TournamentAddForm = (props) => {
                                 onSubmit={handleSubmit}>
                                     {(FormProps) => (
                                         <Form id="organization-add-form"> 
-                                            { FormProps.isSubmitting ? (
-                                                <div className="text-center m-5">
-                                                    <Loading center={true} showTimeout={false} />
-                                                    <h3 className="mt-3">Creating Series...</h3>
-                                                </div>
-                                            ) : (
+                                            { !FormProps.isSubmitting && 
                                                 <div>
-                                                    <TournamentForm {...FormProps} />
+                                                    <RuleForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
                                                         <Button
                                                             className="btn-primary font-weight-bold"
                                                             type="submit">
-                                                                Add Tournament
+                                                                Add Rule
                                                         </Button>
                                                     </div>
                                                 </div>
-                                            )}
+                                            }
                                         </Form>
                                     )}
                             </Formik>
@@ -134,4 +107,4 @@ const TournamentAddForm = (props) => {
     )
 }
 
-export default TournamentAddForm;
+export default RulesAddForm;

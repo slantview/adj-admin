@@ -1,25 +1,15 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-	Table, 
-	Card, 
-	CardContent, 
-	Button,
-	FormControl,
-	Select,
-	MenuItem,
-	TextField,
-	InputAdornment,
-	Collapse
-} from '@material-ui/core';
-import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import Pagination from '@material-ui/core/Pagination';
-import { Link } from 'react-router-dom';
-import SeriesTableRow from '../../components/SeriesTableRow';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_SERIES } from '../../queries/series';
-import Loading from '../../components/Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Card, CardContent, Collapse, FormControl, InputAdornment, MenuItem, Select, Table, TextField } from '@material-ui/core';
+import Pagination from '@material-ui/core/Pagination';
+import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import Error from '../../components/Error';
+import Loading from '../../components/Loading';
+import SeriesTableRow from '../../components/SeriesTableRow';
+import { GET_ALL_SERIES } from '../../queries/series';
 
 export default function SeriesListPage() {
 	const { loading, error, data } = useQuery(GET_ALL_SERIES);
