@@ -20,13 +20,13 @@ import NotificationProvider from 'providers/NotificationProvider';
 
 import Layout from './containers/Layout';
 import AdminDashboard from './pages/Admin/AdminDashboard';
+import GamesAddPage from './pages/Admin/GamesAddPage';
 import AdminOrganizationListPage from './pages/Admin/OrganizationListPage';
 import SiteListPage from './pages/Admin/SiteListPage';
 import AdminUsersAddPage from './pages/Admin/UsersAddPage';
 import AdminUsersListPage from './pages/Admin/UsersListPage';
 import EventsAddPage from './pages/EventsAddPage';
 import EventsListPage from './pages/EventsListPage';
-import GamesAddPage from './pages/GamesAddPage';
 import GamesListPage from './pages/GamesListPage';
 import LoginPage from './pages/LoginPage';
 import MyAccountPage from './pages/MyAccountPage';
@@ -91,7 +91,6 @@ ReactDOM.render(
 											<Route exact path="/tournaments/edit/:tournamentId"><TournamentEditPage /></Route>
 											{/* Games Pages */}
 											<Route exact path="/games"><GamesListPage /></Route>
-											<Route exact path="/games/add"><GamesAddPage /></Route>
 											{/* Places Pages */}
 											<Route exact path="/places"><PlacesListPage /></Route>
 											<Route exact path="/places/add"><PlacesAddPage /></Route>
@@ -104,6 +103,9 @@ ReactDOM.render(
 											<Route exact path="/user/profile"><ProfileSettings /></Route>
 											{/* Admin Pages */}
 											<Route exact path="/admin/dashboard"><AdminDashboard /></Route>
+											{/* Admin Games */}
+											<Route exact path="/admin/games"><GamesListPage /></Route>
+											<Route exact path="/admin/games/add"><GamesAddPage /></Route>
 											{/* Admin Organization Pages */}
 											<Route exact path="/admin/organizations"><AdminOrganizationListPage /></Route>
 											<Route exact path="/admin/organizations/add"><OrganizationAddPage /></Route>

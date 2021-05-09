@@ -2,6 +2,7 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 
 import SectionHeader from 'components/SectionHeader';
+import PlacesAddForm from 'components/PlacesAddForm';
 
 const PlacesAddPage = () => {
     return (
@@ -26,7 +27,7 @@ const PlacesAddPage = () => {
                         <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">Add Venue</h3>
                     </Grid>
 					<Grid item md={12} lg={12} xl={12} className="mt-3">
-
+                        <PlacesAddForm />
                     </Grid>
                 </Grid>
             </div>

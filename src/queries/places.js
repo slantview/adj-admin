@@ -41,3 +41,14 @@ export const GET_ALL_PLACES_NAME_ONLY = gql`
         }
     }
 `;
+
+export const CREATE_PLACE = gql`
+    mutation CreateNewPlace($payload: createPlaceInput) {
+        createPlace(input: $payload) {
+            place {
+               id
+               name
+           }
+        }
+    }
+`

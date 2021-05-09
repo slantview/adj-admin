@@ -8,14 +8,13 @@ const RulesAddPage = (props) => {
     return (
         <div>
             <SectionHeader 
-                title="Add Game Rule"
+                title="Add Game"
                 titleColor="text-white"
                 subtitle="Create new game rules."
                 subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
                 breadcrumbs={[
                     { title: "Home", to: "/" },
-					{ title: "Tournaments", to: "/tournaments" },
                     { title: "Rules", to: "/rules" },
                     { title: "Add Rule", to: null }
                 ]}

@@ -2,6 +2,7 @@ import { Button, Collapse, Divider } from '@material-ui/core';
 import BusinessIcon from '@material-ui/icons/BusinessTwoTone';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 import DashboardIcon from '@material-ui/icons/DashboardTwoTone';
+import GamepadTwoToneIcon from '@material-ui/icons/GamepadTwoTone';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import LanguageIcon from '@material-ui/icons/LanguageTwoTone';
@@ -64,6 +65,22 @@ const AdminMenu = (props) => {
                                                 <DashboardIcon />
                                             </span>
                                             Dashboard
+                                            <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                                <ChevronRightTwoToneIcon />
+                                            </span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        activeClassName={isNavCategory('admin-games') ? "active" : null} 
+                                        key="admin-games" 
+                                        onClick={() => handleCategoryClick('admin-games')}
+                                        className="nav-link-simple"
+                                        to="/admin/games">
+                                            <span className="sidebar-icon">
+                                                <GamepadTwoToneIcon />
+                                            </span>
+                                            Games
                                             <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
                                                 <ChevronRightTwoToneIcon />
                                             </span>

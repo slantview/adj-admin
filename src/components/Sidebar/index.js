@@ -1,42 +1,53 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Collapse, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
-import EventNoteIcon from '@material-ui/icons/EventNoteTwoTone';
-import GamesIcon from '@material-ui/icons/GamesTwoTone';
-import PeopleIcon from '@material-ui/icons/PeopleTwoTone';
-import PlaceIcon from '@material-ui/icons/PlaceTwoTone';
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import AdminMenu from 'pages/Admin/AdminMenu';
+import useStyles from 'theme/useStyles';
 
 import SiteSelector from '../SiteSelector';
 import Userbox from '../Userbox/index';
 
+const ListItemLink = (props) => {
+    return <ListItem button component={Link} {...props} />;
+}
+
 const Sidebar = (props) => {
-    const [category, setCategory] = React.useState('');
-    const [page, setPage] = React.useState(null);
+    const [currentCategory, setCurrentCategory] = React.useState('');
+    const [currentPage, setCurrentPage] = React.useState('');
 
     const handleCategoryClick = (name) => {
-        if (name === category) {
-            setCategory(null);
+        if (name === currentCategory) {
+            setCurrentCategory(null);
         } else {
-            setCategory(name);
-            setPage(null);
+            setCurrentCategory(name);
+            setCurrentPage(null);
         }
     };
 
     const isNavCategory = (name, checkPage = true) => {
-        return name === category && (checkPage ? page === null : true);
+        return name === currentCategory;
     }
 
     useEffect(() => {
-        const firstPathElement = window.location.pathname.split('/').shift();
-        if (firstPathElement === '' || firstPathElement === null) {
-            setCategory('events');
-        } else {
-            setCategory(firstPathElement);
+        let active = true;
+        
+        if (active) {
+            const pathArr = window.location.pathname.split('/');
+            console.log(pathArr.length);
+            if (pathArr.length <= 1) {
+                setCurrentCategory('events');
+            } else {
+                setCurrentCategory(pathArr[1]);
+            }
         }
-    }, [])
+        
+        return () => {
+            active = false;
+        }
+    }, [currentCategory])
 
     return (
         <div className="app-sidebar app-sidebar--dark">
@@ -97,22 +108,24 @@ const Sidebar = (props) => {
                                     </span>
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink
-                                activeClassName={isNavCategory('rules') ? "active" : null} 
-                                key="rules" 
-                                onClick={() => handleCategoryClick('rules')}
-                                className="nav-link-simple"
-                                to="/rules">
-                                    <span className="sidebar-icon">
-                                        <FontAwesomeIcon icon={['fas', 'copy']} />
-                                    </span>
-                                    Rules
-                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
-                                        <ChevronRightTwoToneIcon />
-                                    </span>
-                            </NavLink>
-                        </li>
+                        <Collapse in={isNavCategory('tournaments', false) || isNavCategory('rules')} timeout="auto" unmountOnExit>
+                            <li>
+                                <NavLink
+                                    activeClassName={isNavCategory('rules') ? "active" : null} 
+                                    key="rules" 
+                                    onClick={() => handleCategoryClick('rules')}
+                                    className="nav-link-simple"
+                                    to="/rules">
+                                        <span className="sidebar-icon ml-4">
+                                            <FontAwesomeIcon icon={['fas', 'book-open']} />
+                                        </span>
+                                        Rules
+                                        <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                            <ChevronRightTwoToneIcon />
+                                        </span>
+                                </NavLink>
+                            </li>
+                        </Collapse>
                         <li>
                             <NavLink
                                 activeClassName={isNavCategory('games') ? "active" : null} 
@@ -129,6 +142,7 @@ const Sidebar = (props) => {
                                     </span>
                             </NavLink>
                         </li>
+                        
                         <li>
                             <NavLink
                                 activeClassName={isNavCategory('places') ? "active" : null} 

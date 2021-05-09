@@ -93,6 +93,7 @@ const RulesListPage = (props) => {
                 backgroundStyle='bg-beacons-gradient'
                 breadcrumbs={[
                     { title: "Home", to: "/" },
+					{ title: "Tournaments", to: "/tournaments" },
                     { title: "Rules", to: null }
                 ]}
             >
