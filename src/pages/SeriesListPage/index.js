@@ -1,10 +1,11 @@
 import { useQuery } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Grid } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import SectionHeader from 'components/SectionHeader';
+import { SiteContext } from 'providers/SiteProvider';
 
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
@@ -13,6 +14,7 @@ import AddNewSeriesCard from './AddNewSeriesCard';
 import SeriesListItem from './SeriesListItem';
 
 const SeriesListPage = () => {
+	const siteCtx = useContext(SiteContext);
 	const { loading, error, data, refetch } = useQuery(
 		GET_ALL_SERIES, 
 		{ 
@@ -27,6 +29,21 @@ const SeriesListPage = () => {
 		setSeries([]);
 		refetch();
 	};
+
+	useEffect(() => {
+        let active = true;
+		siteCtx.onSiteChanged(async () => {
+			return new Promise((resolve, reject) => {
+                if (active) {
+                    refreshSeries();
+                }
+				resolve();
+			});
+		});
+        return () => {
+            active = false;
+        };
+	}, []);
 
 	React.useEffect(() => {
 		if (isLoading && !loading && seriesData !== null) {
