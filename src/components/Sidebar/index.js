@@ -108,18 +108,18 @@ const Sidebar = (props) => {
                                     </span>
                             </NavLink>
                         </li>
-                        <Collapse in={isNavCategory('tournaments', false) || isNavCategory('rules')} timeout="auto" unmountOnExit>
+                        <Collapse in={isNavCategory('tournaments', false) || isNavCategory('brackets')} timeout="auto" unmountOnExit>
                             <li>
                                 <NavLink
-                                    activeClassName={isNavCategory('rules') ? "active" : null} 
-                                    key="rules" 
+                                    activeClassName={isNavCategory('brackets') ? "active" : null} 
+                                    key="brackets" 
                                     onClick={() => handleCategoryClick('rules')}
                                     className="nav-link-simple"
-                                    to="/rules">
+                                    to="/brackets">
                                         <span className="sidebar-icon ml-4">
-                                            <FontAwesomeIcon icon={['fas', 'book-open']} />
+                                            <FontAwesomeIcon icon={['fas', 'align-left']} />
                                         </span>
-                                        Rules
+                                        Bracket Formats
                                         <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
                                             <ChevronRightTwoToneIcon />
                                         </span>
@@ -142,7 +142,40 @@ const Sidebar = (props) => {
                                     </span>
                             </NavLink>
                         </li>
-                        
+                        <Collapse in={isNavCategory('games', false) || isNavCategory('rules')} timeout="auto" unmountOnExit>
+                            <li>
+                                <NavLink
+                                    activeClassName={isNavCategory('rules') ? "active" : null} 
+                                    key="rules" 
+                                    onClick={() => handleCategoryClick('rules')}
+                                    className="nav-link-simple"
+                                    to="/rules">
+                                        <span className="sidebar-icon ml-4">
+                                            <FontAwesomeIcon icon={['fas', 'book-open']} />
+                                        </span>
+                                        Rules
+                                        <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                            <ChevronRightTwoToneIcon />
+                                        </span>
+                                </NavLink>
+                            </li>
+                        </Collapse>
+                        <li>
+                            <NavLink
+                                activeClassName={isNavCategory('service-areas') ? "active" : null} 
+                                key="service-areas" 
+                                onClick={() => handleCategoryClick('service-areas')}
+                                className="nav-link-simple"
+                                to="/service-areas">
+                                    <span className="sidebar-icon">
+                                        <FontAwesomeIcon icon={['fas', 'map']} />
+                                    </span>
+                                    Service Areas
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
                         <li>
                             <NavLink
                                 activeClassName={isNavCategory('places') ? "active" : null} 
@@ -159,7 +192,7 @@ const Sidebar = (props) => {
                                     </span>
                             </NavLink>
                         </li>
-                        <li>
+                        {/* <li>
                             <NavLink
                                 activeClassName={isNavCategory('team') ? "active" : null} 
                                 key="team" 
@@ -174,7 +207,7 @@ const Sidebar = (props) => {
                                         <ChevronRightTwoToneIcon />
                                     </span>
                             </NavLink>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>
