@@ -48,12 +48,12 @@ const RulesEditForm = (props) => {
 
         updateRule({ variables: { id: rule.id, data: newRule }})
             .then((ret) => {
-                const createdRule = ret.data.createGameRuleList.gameRuleList;
+                const updatedRule = ret.data.updateGameRuleList.gameRuleList;
                 client.resetStore()
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully added rule: " + createdRule.title
+                            message: "Successfully added rule: " + updatedRule.title
                         });
                         history.push('/rules', { refresh: true });
                     });
