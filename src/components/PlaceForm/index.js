@@ -74,6 +74,7 @@ const PlaceForm = (props) => {
                             variant="outlined" 
                             name="type"
                             fullWidth 
+                            value={values.type}
                             multiple={false}>
                                 { typeOptions.map(t => 
                                     <MenuItem value={t}>{t}</MenuItem>

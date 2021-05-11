@@ -5,13 +5,18 @@ export const GET_ALL_PLACES = gql`
         places(publicationState: PREVIEW) {
             id
             name
-            # description
-            # city
-            # state
-            # postal_code
-            # country
-            # lat
-            # long
+            description
+            type
+            address_line_1
+            address_line_2
+            city
+            state
+            postal_code
+            country
+            lat
+            long
+            online_url
+            is_online
             logo {
                 formats
             }
@@ -49,6 +54,55 @@ export const CREATE_PLACE = gql`
                id
                name
            }
+        }
+    }
+`
+
+export const UPDATE_PLACE = gql`
+    mutation UpdatePlace($id: ID!, $data: editPlaceInput) {
+        updatePlace(input: { 
+            where: { id: $id },
+            data: $data
+        }) {
+            place {
+               id
+               name
+           }
+        }
+    }
+`
+
+export const GET_PLACE = gql`
+    query GetPlace($id: ID!) {
+        place(id: $id) {
+            id
+            name
+            description
+            type
+            address_line_1
+            address_line_2
+            city
+            state
+            postal_code
+            country
+            lat
+            long
+            is_online
+            online_url
+            logo {
+                formats
+            }
+            events {
+                id
+                title
+                tournaments {
+                    id
+                    title
+                }
+            }
+            created_at
+            updated_at
+            published_at
         }
     }
 `

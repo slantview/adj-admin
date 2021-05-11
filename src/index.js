@@ -1,13 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-
 import OrganizationAddPage from 'pages/Admin/OrganizationAddPage';
 import SiteAddPage from 'pages/Admin/SiteAddPage';
 import EventsEditPage from 'pages/EventsEditPage';
 import FailPage from 'pages/FailPage';
+import PlacesEditPage from 'pages/PlacesEditPage';
 import RulesAddPage from 'pages/RulesAddPage';
 import RulesEditPage from 'pages/RulesEditPage';
 import RulesListPage from 'pages/RulesListPage';
@@ -17,7 +13,10 @@ import SeriesDetailPage from 'pages/SeriesDetailPage';
 import SeriesEditPage from 'pages/SeriesEditPage';
 import TournamentEditPage from 'pages/TournamentEditPage';
 import NotificationProvider from 'providers/NotificationProvider';
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import Layout from './containers/Layout';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import GamesAddPage from './pages/Admin/GamesAddPage';
@@ -41,6 +40,8 @@ import BackendProvider from './providers/BackendProvider';
 import SiteProvider from './providers/SiteProvider';
 import UserProvider from './providers/UserProvider';
 import store from './state/store.js';
+
+
 
 const pageVariants = {
     initial: {
@@ -94,6 +95,7 @@ ReactDOM.render(
 											{/* Places Pages */}
 											<Route exact path="/places"><PlacesListPage /></Route>
 											<Route exact path="/places/add"><PlacesAddPage /></Route>
+											<Route exact path="/places/edit/:placeId"><PlacesEditPage /></Route>
 											{/* Rules Pages */}
 											<Route exact path="/rules"><RulesListPage /></Route>
 											<Route exact path="/rules/add"><RulesAddPage /></Route>
