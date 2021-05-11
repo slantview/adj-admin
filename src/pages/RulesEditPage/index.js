@@ -50,9 +50,6 @@ const RulesEditPage = (props) => {
             <div className="mx-4">
                 <Grid container>
                     <Grid item md={12} lg={12} xl={12}>
-                        <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">Create New Rule</h3>
-                    </Grid>
-                    <Grid item md={12} lg={12} xl={12}>
                         <RulesEditForm rule={ruleData} />
                     </Grid>
                 </Grid>

@@ -57,7 +57,7 @@ export const CREATE_GAME_RULE_LIST = gql`
 `
 
 export const UPDATE_GAME_RULE_LIST = gql`
-     mutation UpdateGameRuleList($id: ID!, $data: updateGameRuleListPayload) {
+     mutation UpdateGameRuleList($id: ID!, $data: editGameRuleListInput) {
         updateGameRuleList(input: { 
             where: { id: $id },
             data: $data
