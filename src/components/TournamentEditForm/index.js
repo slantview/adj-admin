@@ -33,7 +33,6 @@ const TournamentEditForm = (props) => {
     const [updateTournament] = useMutation(UPDATE_TOURNAMENT);
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
-    console.log(tournament);
     const game = tournament.game ? { name: tournament.game.title, value: tournament.game.id } : null;
     const gameMode = tournament.game_mode && tournament.game_mode.length > 0
          ? { name: _.first(tournament.game_mode).title, value: _.first(tournament.game_mode).id } 

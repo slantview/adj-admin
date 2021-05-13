@@ -1,75 +1,55 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import slugify from 'slugify';
 import * as Yup from 'yup';
 
+import BracketForm from 'components/BracketForm';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
-import PlaceForm from 'components/PlaceForm';
 import { NotificationContext } from 'providers/NotificationProvider';
-import { CREATE_PLACE, UPDATE_PLACE } from 'queries/places';
+import { UPDATE_BRACKET_FORMAT } from 'queries/bracket_format';
 
 const validationSchema = Yup.object({
-    name: Yup.string().required('Venue name is required'),
-    description: Yup.string().required('Description is required'),
-    online_url: Yup.string().required('URL is required')
+    title: Yup.string().required('Title is required'),
+    description: Yup.string().required('Description is required')
 });
 
-const PlacesEditForm = (props) => {
+const BracketsEditForm = (props) => {
     const {
-        place
+        bracket
     } = props;
-
+  
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
-    const [updatePlace] = useMutation(UPDATE_PLACE);
+    const [updateBracketFormat] = useMutation(UPDATE_BRACKET_FORMAT);
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
     const initialData = {
-        name: place?.name,
-        description: place?.description,
-        type: place?.type,
-        online_url: place?.online_url,
-        is_online: place?.is_online,
-        address_line_1: place?.address_line_1,
-        address_line_2: place?.address_line_2,
-        city: place?.city,
-        state: place?.state,
-        postal_code: place?.postal_code,
-        country: place?.country
+        title: bracket?.title,
+        description: bracket?.description
     };
+
 
     const handleSubmit = async (values, actions) => {
         setSubmitted(true);
-        let newPlace = Object.assign({}, values);
         
-        newPlace.slug =  '/' + slugify(values.name, {
-            replacement: '-', 
-            lower: true,
-            strict: true
-        });
-        
-        // lat: Float
-        // long: Float
-        // promotional_images: [ID]
-        // logo: ID
-      
-        updatePlace({ variables: { id: place.id, data: newPlace }})
+        let newBracket = Object.assign({}, values);
+
+        updateBracketFormat({ variables: { id: bracket.id, data: newBracket }})
             .then((ret) => {
-                const updatedPlace = ret.data.updatePlace.place;
+                const updatedBracket = ret.data.updateBracketFormat.bracketFormat;
                 client.resetStore()
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully added venue: " + updatedPlace.name
+                            message: "Successfully updated bracket format: " + updatedBracket.title
                         });
-                        history.push('/places', { refresh: true });
+                        history.push('/brackets', { refresh: true });
                     });
             }).catch(e  => {
                 setError(e.toString());
@@ -80,13 +60,15 @@ const PlacesEditForm = (props) => {
         return (
             <div className="text-center m-5">
                 <Loading center={true} showTimeout={false} />
-                <h3 className="mt-3">Updating Venue...</h3>
+                <h3 className="mt-3">Updating Bracket...</h3>
             </div>
         );
     }
 
-    if (typeof place === 'undefined' || place === null) {
-        return (<Loading center={true} showTimeout={false} />);
+    if (bracket === null) {
+        <div className="text-center m-5">
+            <Loading center={true} showTimeout={false} />
+        </div>
     }
 
     return (
@@ -110,24 +92,19 @@ const PlacesEditForm = (props) => {
                                 onSubmit={handleSubmit}>
                                     {(FormProps) => (
                                         <Form id="organization-add-form"> 
-                                            { FormProps.isSubmitting ? (
-                                                <div className="text-center m-5">
-                                                    <Loading center={true} showTimeout={false} />
-                                                    <h3 className="mt-3">Creating Series...</h3>
-                                                </div>
-                                            ) : (
+                                            { !FormProps.isSubmitting && 
                                                 <div>
-                                                    <PlaceForm {...FormProps} />
+                                                    <BracketForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
                                                         <Button
                                                             className="btn-primary font-weight-bold"
                                                             type="submit">
-                                                                Update Venue
+                                                                Update Bracket
                                                         </Button>
                                                     </div>
                                                 </div>
-                                            )}
+                                            }
                                         </Form>
                                     )}
                             </Formik>
@@ -139,4 +116,4 @@ const PlacesEditForm = (props) => {
     )
 }
 
-export default PlacesEditForm;
+export default BracketsEditForm;

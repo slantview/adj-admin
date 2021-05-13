@@ -36,7 +36,6 @@ const Sidebar = (props) => {
         
         if (active) {
             const pathArr = window.location.pathname.split('/');
-            console.log(pathArr.length);
             if (pathArr.length <= 1) {
                 setCurrentCategory('events');
             } else {

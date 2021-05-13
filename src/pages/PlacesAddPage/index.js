@@ -1,8 +1,8 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 
-import SectionHeader from 'components/SectionHeader';
 import PlacesAddForm from 'components/PlacesAddForm';
+import SectionHeader from 'components/SectionHeader';
 
 const PlacesAddPage = () => {
     return (

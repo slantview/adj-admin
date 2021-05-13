@@ -1,4 +1,3 @@
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@material-ui/core';
 import moment from 'moment';

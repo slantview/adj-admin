@@ -31,8 +31,6 @@ const PlacesEditPage = () => {
     if (isLoading || placeData === null) {
         return (<Loading center={true} centerInPage={true} />);
     }
-
-    console.log(placeData)
     
     return (
         <>
