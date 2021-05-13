@@ -6,24 +6,24 @@ import { useHistory } from 'react-router-dom';
 
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
-import { DELETE_GAME_RULE_LIST } from 'queries/rules';
+import { DELETE_BRACKET_FORMAT } from 'queries/bracket_format';
 
 const BracketsActionMenu = (props) => {
     const {
-        rule,
+        bracket,
         refreshBrackets,
         iconClassName
     } = props;
 
     const {
         id,
-    } = rule;
+    } = bracket;
 
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    const [deleteGameBracketList] = useMutation(DELETE_GAME_RULE_LIST);
+    const [deleteGameBracket] = useMutation(DELETE_BRACKET_FORMAT);
     
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -32,24 +32,24 @@ const BracketsActionMenu = (props) => {
 		setAnchorEl(null);
 	};
     const handleEdit = () => {
-		history.push('/rules/edit/'+id);
+		history.push('/brackets/edit/'+id);
 		handleClose();
     };
 
     const handleDelete = () => {
-        deleteGameBracketList({ variables: { id: id }})
+        deleteGameBracket({ variables: { id: id }})
             .then(result => {
-                const deletedGameBracketList = result.data.deleteGameBracketList.gameBracketList;
+                const deletedGameBracket = result.data.deleteGameBracket.gameBracket;
                 notify({
                     type: 'success',
-                    message: `Successfully deleted rule: ${deletedGameBracketList.title}.`
+                    message: `Successfully deleted bracket format: ${deletedGameBracket.title}.`
                 });
                 refreshBrackets();
             })
             .catch(e => {
                 notify({
                     type: 'danger',
-                    message: `Error deleting rule: ${e.toString()}`
+                    message: `Error deleting bracket format: ${e.toString()}`
                 });
             })
 		handleClose();

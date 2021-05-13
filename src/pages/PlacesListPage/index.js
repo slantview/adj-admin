@@ -24,7 +24,7 @@ const PlacesListPage = () => {
 	const placesData = loading || error ? [] : data ? data.places : [];
 	const [isLoading, setLoading] = useState(loading);
 
-	const [entries, setEntries] = useState(5);
+	const [entries, setEntries] = useState(10);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};

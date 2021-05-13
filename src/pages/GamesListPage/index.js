@@ -24,7 +24,7 @@ const GamesListPage = () => {
 	const gamesData = loading || error ? [] : data ? data.games : [];
 	const [isLoading, setLoading] = useState(loading);
 
-	const [entries, setEntries] = useState(5);
+	const [entries, setEntries] = useState(10);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};

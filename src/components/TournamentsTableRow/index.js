@@ -54,7 +54,7 @@ const TournamentsTableRow = (props) => {
             <td className="text-left">
                 <>
                     { tournament.game_rules.map((r, i) => (
-                        <span>
+                        <span key={i}>
                             <Link
                                 to={"/rules/edit/"+r.id}
                                 className="font-weight-bold text-black-50 font-size-xs"

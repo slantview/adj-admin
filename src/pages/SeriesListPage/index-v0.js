@@ -16,7 +16,7 @@ export default function SeriesListPage() {
 	const seriesData = loading || error ? [] : data ? data.seriesItems : [];
 	const [isLoading, setLoading] = React.useState(loading);
 
-	const [entries, setEntries] = React.useState(5);
+	const [entries, setEntries] = React.useState(10);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};

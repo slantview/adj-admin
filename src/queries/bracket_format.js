@@ -5,6 +5,9 @@ export const GET_ALL_BRACKET_FORMATS = gql`
         bracketFormats(sort: "title:ASC") {
             id
             title
+            description
+            created_at
+            updated_at
         }
     }
 `;

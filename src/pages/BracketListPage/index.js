@@ -24,7 +24,7 @@ const BracketsListPage = (props) => {
 	const bracketFormatsData = loading || error ? [] : data.bracketFormats;
 	const [isLoading, setLoading] = useState(loading);
 
-	const [entries, setEntries] = useState(5);
+	const [entries, setEntries] = useState(10);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
 	};
@@ -33,23 +33,23 @@ const BracketsListPage = (props) => {
 		setPage(page);
 	};
 	const [search, setSearch] = useState('');
-	const [gameBracketLists, setGameBracketLists] = useState(bracketFormatsData);
+	const [bracketFormats, setBracketFormats] = useState(bracketFormatsData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
-			setGameBracketLists(bracketFormatsData);
+			setBracketFormats(bracketFormatsData);
 			setSearch('');
 		} else {
 			setSearch(e.target.value);
 			const newData = bracketFormatsData.filter(g => {
 				return g.title.toLowerCase().includes(e.target.value.toLowerCase()) || g.description.toLowerCase().includes(e.target.value);
 			})
-			setGameBracketLists(newData);
+			setBracketFormats(newData);
 		}
 	};
 
 	const refreshBrackets = () => {
 		setLoading(true);
-		setGameBracketLists([]);
+		setBracketFormats([]);
 		refetch();
 	};
 
@@ -71,7 +71,7 @@ const BracketsListPage = (props) => {
 	useEffect(() => {
 		if (isLoading && !loading) {
 			setLoading(loading);
-			setGameBracketLists(bracketFormatsData);
+			setBracketFormats(bracketFormatsData);
 		}
 	}, [loading, isLoading, bracketFormatsData]);
 
@@ -145,23 +145,23 @@ const BracketsListPage = (props) => {
 							</tr>
 						</thead>
 						<tbody>
-							{ gameBracketLists.map(r => (
+							{ bracketFormats.slice((page-1)*entries, ((page-1)*entries)+entries).map(b => (
 								<BracketsTableRow 
-									key={r.id} 
-									rule={r} 
+									key={b.id} 
+									bracket={b} 
 									refreshBrackets={refreshBrackets} 
 								/>
 							))}
 						</tbody>
 					</Table>
 					<div className="card-footer d-flex justify-content-between">
-						<Collapse in={gameBracketLists.length > entries}>
+						<Collapse in={bracketFormats.length > entries}>
 							<Pagination
 								className="pagination-second"
 								variant="outlined"
 								page={page}
 								onChange={handlePageChange}
-								count={ Math.floor((gameBracketLists.length/entries)) + (gameBracketLists.length%entries === 0 ? 0 : 1)}
+								count={ Math.floor((bracketFormats.length/entries)) + (bracketFormats.length%entries === 0 ? 0 : 1)}
 							/>
 						</Collapse>
 						<div className="d-flex align-items-center">
