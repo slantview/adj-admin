@@ -116,7 +116,7 @@ const Sidebar = (props) => {
                                     className="nav-link-simple"
                                     to="/brackets">
                                         <span className="sidebar-icon ml-4">
-                                            <FontAwesomeIcon icon={['fas', 'align-left']} />
+                                            <FontAwesomeIcon icon={['fas', 'stream']} />
                                         </span>
                                         Bracket Formats
                                         <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
@@ -161,6 +161,22 @@ const Sidebar = (props) => {
                         </Collapse>
                         <li>
                             <NavLink
+                                activeClassName={isNavCategory('places') ? "active" : null} 
+                                key="places" 
+                                onClick={() => handleCategoryClick('places')}
+                                className="nav-link-simple"
+                                to="/places">
+                                    <span className="sidebar-icon">
+                                        <FontAwesomeIcon icon={['fas', 'map-pin']} />
+                                    </span>
+                                    Venues
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
                                 activeClassName={isNavCategory('service-areas') ? "active" : null} 
                                 key="service-areas" 
                                 onClick={() => handleCategoryClick('service-areas')}
@@ -177,36 +193,20 @@ const Sidebar = (props) => {
                         </li>
                         <li>
                             <NavLink
-                                activeClassName={isNavCategory('places') ? "active" : null} 
-                                key="places" 
-                                onClick={() => handleCategoryClick('places')}
-                                className="nav-link-simple"
-                                to="/places">
-                                    <span className="sidebar-icon">
-                                        <FontAwesomeIcon icon={['fas', 'map-pin']} />
-                                    </span>
-                                    Venues
-                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
-                                        <ChevronRightTwoToneIcon />
-                                    </span>
-                            </NavLink>
-                        </li>
-                        {/* <li>
-                            <NavLink
                                 activeClassName={isNavCategory('team') ? "active" : null} 
                                 key="team" 
                                 onClick={() => handleCategoryClick('team')}
                                 className="nav-link-simple"
                                 to="/team">
                                     <span className="sidebar-icon">
-                                        <FontAwesomeIcon icon={['fas', 'users']} />
+                                        <FontAwesomeIcon icon={['fas', 'tv']} />
                                     </span>
-                                    Team
+                                    Streams
                                     <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
                                         <ChevronRightTwoToneIcon />
                                     </span>
                             </NavLink>
-                        </li> */}
+                        </li>
                     </ul>
                 </div>
             </div>

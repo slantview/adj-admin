@@ -19,6 +19,9 @@ import SeriesAddPage from 'pages/SeriesAddPage';
 import SeriesDetailAllEventsPage from 'pages/SeriesDetailAllEventsPage';
 import SeriesDetailPage from 'pages/SeriesDetailPage';
 import SeriesEditPage from 'pages/SeriesEditPage';
+import ServiceAreaAddPage from 'pages/ServiceAreaAddPage';
+import ServiceAreaEditPage from 'pages/ServiceAreaEditPage';
+import ServiceAreaListPage from 'pages/ServiceAreaListPage';
 import TournamentEditPage from 'pages/TournamentEditPage';
 import NotificationProvider from 'providers/NotificationProvider';
 
@@ -107,6 +110,10 @@ ReactDOM.render(
 											<Route exact path="/brackets"><BracketsListPage /></Route>
 											<Route exact path="/brackets/add"><BracketsAddPage /></Route>
 											<Route exact path="/brackets/edit/:bracketId"><BracketsEditPage /></Route>
+											{/* ServiceArea Pages */}
+											<Route exact path="/service-areas"><ServiceAreaListPage /></Route>
+											<Route exact path="/service-areas/add"><ServiceAreaAddPage /></Route>
+											<Route exact path="/service-areas/edit/:regionId"><ServiceAreaEditPage /></Route>
 											{/* Account Pages */}
 											<Route exact path="/user/account"><MyAccountPage /></Route>
 											<Route exact path="/user/profile"><ProfileSettings /></Route>
