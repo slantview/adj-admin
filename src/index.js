@@ -22,6 +22,9 @@ import SeriesEditPage from 'pages/SeriesEditPage';
 import ServiceAreaAddPage from 'pages/ServiceAreaAddPage';
 import ServiceAreaEditPage from 'pages/ServiceAreaEditPage';
 import ServiceAreaListPage from 'pages/ServiceAreaListPage';
+import StreamsAddPage from 'pages/StreamsAddPage';
+import StreamsEditPage from 'pages/StreamsEditPage';
+import StreamsListPage from 'pages/StreamsListPage';
 import TournamentEditPage from 'pages/TournamentEditPage';
 import NotificationProvider from 'providers/NotificationProvider';
 
@@ -114,6 +117,10 @@ ReactDOM.render(
 											<Route exact path="/service-areas"><ServiceAreaListPage /></Route>
 											<Route exact path="/service-areas/add"><ServiceAreaAddPage /></Route>
 											<Route exact path="/service-areas/edit/:regionId"><ServiceAreaEditPage /></Route>
+											{/* Stream Pages */}
+											<Route exact path="/streams"><StreamsListPage /></Route>
+											<Route exact path="/streams/add"><StreamsAddPage /></Route>
+											<Route exact path="/streams/edit/:streamId"><StreamsEditPage /></Route>
 											{/* Account Pages */}
 											<Route exact path="/user/account"><MyAccountPage /></Route>
 											<Route exact path="/user/profile"><ProfileSettings /></Route>

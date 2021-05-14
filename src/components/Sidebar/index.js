@@ -193,11 +193,11 @@ const Sidebar = (props) => {
                         </li>
                         <li>
                             <NavLink
-                                activeClassName={isNavCategory('team') ? "active" : null} 
-                                key="team" 
-                                onClick={() => handleCategoryClick('team')}
+                                activeClassName={isNavCategory('streams') ? "active" : null} 
+                                key="streams" 
+                                onClick={() => handleCategoryClick('streams')}
                                 className="nav-link-simple"
-                                to="/team">
+                                to="/streams">
                                     <span className="sidebar-icon">
                                         <FontAwesomeIcon icon={['fas', 'tv']} />
                                     </span>
