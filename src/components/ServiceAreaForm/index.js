@@ -11,7 +11,7 @@ const ServiceAreaForm = (props) => {
 		errors,
         setFieldValue
 	} = props;
-    console.log(errors);
+    
     const [rows, setRows] = useState(values.places_geo_regions);
 
     const handleRowChange = (rowId, name, type) => {

@@ -21,7 +21,7 @@ const ServiceAreaEditForm = (props) => {
     const {
         region
     } = props;
-    console.log(region);
+    
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
