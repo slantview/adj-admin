@@ -87,8 +87,6 @@ const TournamentEditForm = (props) => {
         newTournament.tournament_start_time = moment('2021-03-04T' + values.tournament_start_time+':00').tz(timezone).format();
         newTournament.registration_cutoff = moment('2021-03-04T' + values.registration_cutoff+':00').tz(timezone).format();
         newTournament.registration_cap = parseInt(values.registration_cap);
-        
-        console.log(newTournament);
 
         updateTournament({ variables: { id: tournament.id, data: newTournament }})
             .then((ret) => {
