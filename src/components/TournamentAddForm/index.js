@@ -18,7 +18,7 @@ const initialData = {
     title: '',
     description: '',
     header: [],
-    registration_cap: 100,
+    registration_cap: 0,
     fee: 0,
     matcherino_code: '',
     matcherino_coupon_amount: '',
@@ -63,7 +63,8 @@ const TournamentAddForm = (props) => {
         newTournament.bracket_format = values.bracket_format.map(b => b.value);
         newTournament.tournament_start_time = moment('2021-03-04T' + values.tournament_start_time+':00').tz(timezone).format();
         newTournament.registration_cutoff = moment('2021-03-04T' + values.registration_cutoff+':00').tz(timezone).format();
-
+        newTournament.registration_cap = parseInt(values.registration_cap);
+        
         addTournament({ variables: { payload: { data: newTournament }}})
             .then((ret) => {
                 const createdTournament = ret.data.createTournament.tournament;

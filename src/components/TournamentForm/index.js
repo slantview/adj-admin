@@ -180,6 +180,17 @@ const TournamentForm = (props) => {
 							}}
 						/>
 					</Grid>
+					<Grid item md={6} lg={6}>
+						<Field
+							component={TextField}
+							fullWidth
+							name="registration_cap"
+							label="Registration Capacity"
+							type="text"
+							value={values.registration_cap ? values.registration_cap : ''}
+							variant="outlined"
+						/>
+					</Grid>
 				</Grid>
 			</div>
 			<div className="p-4">

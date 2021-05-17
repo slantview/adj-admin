@@ -58,7 +58,7 @@ const TournamentEditForm = (props) => {
         title: tournament.title,
         description: tournament.description,
         header: [],
-        registration_cap: 0,
+        registration_cap: tournament.registration_cap,
         fee: tournament.fee,
         matcherino_code: tournament.matcherino_code,
         matcherino_coupon_amount: tournament.matcherino_coupon_amount,
@@ -86,7 +86,8 @@ const TournamentEditForm = (props) => {
         newTournament.bracket_format = values.bracket_format.map(b => b.value);
         newTournament.tournament_start_time = moment('2021-03-04T' + values.tournament_start_time+':00').tz(timezone).format();
         newTournament.registration_cutoff = moment('2021-03-04T' + values.registration_cutoff+':00').tz(timezone).format();
-
+        newTournament.registration_cap = parseInt(values.registration_cap);
+        
         console.log(newTournament);
 
         updateTournament({ variables: { id: tournament.id, data: newTournament }})
