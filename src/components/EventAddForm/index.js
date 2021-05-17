@@ -1,4 +1,5 @@
 import { useApolloClient, useMutation } from '@apollo/client';
+import { faVenusDouble } from '@fortawesome/free-solid-svg-icons';
 import { Button, Card } from '@material-ui/core';
 import Error from 'components/Error';
 import EventForm from 'components/EventForm';
@@ -22,9 +23,11 @@ const initialData = {
     tournaments: [],
     header: [],
     card: [],
+    streams: [],
     sign_up_link: '',
-    starts_at: moment().format("YYYY-MM-DDThh:mm"),
-    ends_at: moment().format("YYYY-MM-DDThh:mm"),
+    venue: [],
+    starts_at: moment().format("YYYY-MM-DDThh:00"),
+    ends_at: moment().format("YYYY-MM-DDThh:00"),
 };
 
 const validationSchema = Yup.object({
@@ -35,6 +38,7 @@ const validationSchema = Yup.object({
     header: Yup.array().min(1, "Header Image is required").required('Header Image is required'),
     card: Yup.array().min(1, "Card Image is required").required('Card Image is required'),
     sign_up_link: Yup.string().required('Sign Up Link is required'),
+    streams: Yup.array().min(1, "Stream is required").required("Stream is required")
 });
 
 const EventAddForm = (props) => {
@@ -51,7 +55,7 @@ const EventAddForm = (props) => {
     const [uploadFile] = useMutation(UPLOAD_FILE);
 
     const handleSubmit = async (values, actions) => {
-
+        setError(null);
         const newEvent = {
             slug: '/' + slugify(values.title, {
                 replacement: '-', 
@@ -66,10 +70,8 @@ const EventAddForm = (props) => {
             sign_up_link: values.sign_up_link,
             checkin_instructions: values.checkin_instructions,
             stream_rules: values.stream_rules,
-            venue: null,
-            cadence: null,
+            venue: values.venue.value,
             tournaments: values.tournaments.map(t => t.value),
-            games: values.games,
             starts_at: values.starts_at,
             ends_at: values.ends_at
         };

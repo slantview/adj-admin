@@ -30,12 +30,13 @@ const validationSchema = Yup.object({
 });
 
 const SeriesAddForm = (props) => {
+    
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
     const [addSeries] = useMutation(CREATE_SERIES);
     const [uploadFile] = useMutation(UPLOAD_FILE);
-    const [isSubmitted] = useState(false);
+    const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
     const handleSubmit = async (values, actions) => {
@@ -58,10 +59,13 @@ const SeriesAddForm = (props) => {
 
         // TODO(smfr): Hard code this for now.
         newSeries.use_hero_title_text = false;
+        
+        actions.resetForm();
 
         addSeries({ variables: { payload: { data: newSeries }}})
             .then((ret) => {
                 const createdSeries = ret.data.createSeriesItem.seriesItem;
+                setSubmitted(true);
                 client.resetStore()
                     .then(() => {
                         notify({
@@ -96,7 +100,7 @@ const SeriesAddForm = (props) => {
                                 onSubmit={handleSubmit}>
                                     {(FormProps) => (
                                         <Form id="organization-add-form"> 
-                                            { FormProps.isSubmitting ? (
+                                            { FormProps.isSubmitting || isSubmitted ? (
                                                 <div className="text-center m-5">
                                                     <Loading center={true} showTimeout={false} />
                                                     <h3 className="mt-3">Creating Series...</h3>

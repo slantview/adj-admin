@@ -15,6 +15,7 @@ export const GET_ALL_TOURNAMENTS = gql`
             event {
                 id
                 title
+                starts_at
             }
             fee
             matcherino_code
@@ -74,6 +75,7 @@ export const GET_ALL_SERIES_TOURNAMENTS = gql`
             event {
                 id
                 title
+                starts_at
             }
             fee
             matcherino_code

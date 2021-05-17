@@ -60,7 +60,7 @@ const ImageUpload = (props) => {
 				}
 			}));
 		}
-		if (thumbs.length !== value.length) {
+		if (thumbs.length !== files.length && files.length > 0) {
 			let i=0;
 			const newThumbs = files ? files.map((file) => {
 				return (
@@ -79,6 +79,7 @@ const ImageUpload = (props) => {
 			}) : [];
 			setThumbs(newThumbs);
 		}
+		
 	}, [error, files, value])
 
 

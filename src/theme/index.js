@@ -1,5 +1,5 @@
-import { createMuiTheme } from '@material-ui/core';
 import shadows from './shadows';
+import { createMuiTheme } from '@material-ui/core';
 
 const MuiTheme = createMuiTheme({
   palette: {

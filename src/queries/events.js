@@ -70,9 +70,6 @@ export const GET_ALL_EVENTS = gql`
                     id
                 }
             }
-            games {
-                id
-            }
             starts_at
             ends_at
             created_at
@@ -157,10 +154,6 @@ export const GET_EVENT = gql`
                     id
                 }
             }
-            games {
-                id
-                title
-            }
             starts_at
             ends_at
             created_at
@@ -202,9 +195,6 @@ export const CREATE_EVENT = gql`
                 tournaments {
                     id
                     title
-                }
-                games {
-                    id
                 }
                 starts_at
                 ends_at

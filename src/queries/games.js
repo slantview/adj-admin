@@ -6,15 +6,12 @@ export const GET_ALL_GAMES = gql`
             id
             title
             description
+            enabled
             cover {
                 formats
             }
             header {
                 formats
-            }
-            events {
-                id
-                title
             }
             created_at
             updated_at

@@ -1,16 +1,16 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
-import Finished from 'components/OrganizationAddForm/Finished';
-import StreamForm from 'components/StreamForm';
 import { Form, Formik } from 'formik';
-import { NotificationContext } from 'providers/NotificationProvider';
-import { UPDATE_STREAM } from 'queries/streams';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import Error from 'components/Error';
+import Loading from 'components/Loading';
+import Finished from 'components/OrganizationAddForm/Finished';
+import StreamForm from 'components/StreamForm';
+import { NotificationContext } from 'providers/NotificationProvider';
+import { UPDATE_STREAM } from 'queries/streams';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Stream name is required'),

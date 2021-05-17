@@ -60,12 +60,6 @@ const StreamForm = (props) => {
                     </Grid>
 				</Grid>
 			</div>
-			<div className="p-4">
-				<div className="divider mb-2" />
-                <Grid container spacing={2}>
-                    
-                </Grid>
-            </div>
         </>
     )
 }

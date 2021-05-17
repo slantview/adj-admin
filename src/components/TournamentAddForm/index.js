@@ -1,6 +1,7 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
+import moment from 'moment-timezone';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -10,6 +11,7 @@ import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
 import TournamentForm from 'components/TournamentForm';
 import { NotificationContext } from 'providers/NotificationProvider';
+import { SiteContext } from 'providers/SiteProvider';
 import { CREATE_TOURNAMENT } from 'queries/tournaments';
 
 const initialData = {
@@ -37,6 +39,8 @@ const validationSchema = Yup.object({
 });
 
 const TournamentAddForm = (props) => {
+    const siteCtx = useContext(SiteContext);
+    const timezone = siteCtx.getTimezone();
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
@@ -49,7 +53,6 @@ const TournamentAddForm = (props) => {
         let newTournament = Object.assign({}, values);
 
         delete newTournament.header;
-        delete newTournament.start_time;
         delete newTournament.game_platform;
 
         newTournament.fee = "0";
@@ -58,6 +61,8 @@ const TournamentAddForm = (props) => {
         newTournament.platforms = [values.game_platform.value];
         newTournament.game_mode = [values.game_mode.value];
         newTournament.bracket_format = values.bracket_format.map(b => b.value);
+        newTournament.tournament_start_time = moment('2021-03-04T' + values.tournament_start_time+':00').tz(timezone).format();
+        newTournament.registration_cutoff = moment('2021-03-04T' + values.registration_cutoff+':00').tz(timezone).format();
 
         addTournament({ variables: { payload: { data: newTournament }}})
             .then((ret) => {

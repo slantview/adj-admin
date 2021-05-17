@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Grid } from '@material-ui/core';
+import { Grid, TextField as MTextField } from '@material-ui/core';
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import { Field } from 'formik';
 import { TextField } from 'formik-material-ui';
@@ -12,6 +12,7 @@ import { GET_ALL_GAME_MODES } from 'queries/game_modes';
 import { GET_ALL_GAME_PLATFORMS } from 'queries/game_platforms';
 import { GET_ALL_GAMES } from 'queries/games';
 import { GET_ALL_GAME_RULE_LISTS } from 'queries/rules';
+import { GET_ALL_GEO_REGION_LISTS } from 'queries/service_areas';
 
 const TournamentForm = (props) => {
     const { 
@@ -21,6 +22,7 @@ const TournamentForm = (props) => {
 	} = props;
 
 	const siteCtx = useContext(SiteContext);
+	const timezone = siteCtx.getTimezone();
 	const gamesData = useQuery(GET_ALL_GAMES);
 	const [games, setGames] = useState([]);
 	const gameRulesData = useQuery(GET_ALL_GAME_RULE_LISTS);
@@ -31,6 +33,8 @@ const TournamentForm = (props) => {
 	const [gamePlatforms, setGamePlatforms] = useState([]);
     const bracketFormatsData = useQuery(GET_ALL_BRACKET_FORMATS);
 	const [bracketFormats, setBracketFormats] = useState([]);
+	const serviceAreasData = useQuery(GET_ALL_GEO_REGION_LISTS);
+	const [serviceAreas, setServiceAreas] = useState([]);
 
 	const resultsToData = (results) => {
 		if (results === null || typeof results === 'undefined' || results.length === 0) {
@@ -60,7 +64,10 @@ const TournamentForm = (props) => {
         if (!bracketFormatsData.loading) {
 			setBracketFormats(resultsToData(bracketFormatsData?.data?.bracketFormats));
 		}
-	}, [gamesData, gameRulesData, gameModesData, gamePlatformsData, bracketFormatsData]);
+		if (!serviceAreasData.loading) {
+			setServiceAreas(resultsToData(serviceAreasData?.data?.geoRegionLists));
+		}
+	}, [gamesData, gameRulesData, gameModesData, gamePlatformsData, bracketFormatsData, serviceAreasData]);
 
 	const handleGameAutocompleteRequest = (request, callback) => {
 		filterForCallback(games, request, callback);
@@ -80,6 +87,10 @@ const TournamentForm = (props) => {
 
     const handleBracketFormatsAutocompleteRequest = (request, callback) => {
 		filterForCallback(bracketFormats, request, callback);
+	};
+
+	const handleServiceAreasAutocompleteRequest = (request, callback) => {
+		filterForCallback(serviceAreas, request, callback);
 	};
 
     const filterForCallback = (arr, request, callback) => {
@@ -128,6 +139,102 @@ const TournamentForm = (props) => {
                             </Grid>
                         </Grid>
                     </Grid>
+				</Grid>
+			</div>
+			<div className="p-4">
+				<div className="divider mb-2" />
+                <Grid container spacing={2}>
+					<Grid item md={12} lg={12}>
+						<h5 className="font-size-xl mb-1 font-weight-bold">
+							Details
+						</h5>
+						<p className="text-black-50">Choose a start time and registration cutoff time for this tournament.</p>
+					</Grid>
+                    <Grid item md={6} lg={6}>
+						<Field
+							component={TextField}
+							name="registration_cutoff"
+							type="time"
+							label="Registration Cutoff"
+							placeholder=""
+							fullWidth
+							// onChange={(e) => handleTimeFieldChange('ends_at', e)}
+							// value={moment(values?.ends_at).tz(timezone).format("YYYY-MM-DDTHH:mm")}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					</Grid>
+					<Grid item md={6} lg={6}>
+						<Field
+							component={TextField}
+							name="tournament_start_time"
+							type="time"
+							label="Starts At"
+							placeholder=""
+							fullWidth
+							// onChange={(e) => handleTimeFieldChange('starts_at', e)}
+							// value={moment(values?.starts_at).tz(timezone).format("YYYY-MM-DDTHH:mm")}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					</Grid>
+				</Grid>
+			</div>
+			<div className="p-4">
+				<div className="divider mb-2" />
+                <Grid container spacing={2}>
+					<Grid item md={12} lg={12}>
+						<h5 className="font-size-xl mb-1 font-weight-bold">
+							Fees
+						</h5>
+						<p className="text-black-50">Setup tournament fee.</p>
+					</Grid>
+                    <Grid item md={6} lg={6}>
+						<Field
+							component={TextField}
+							fullWidth
+							name="fee"
+							label="Tournament Fee"
+							type="text"
+							value={values.fee ? values.fee : ''}
+							variant="outlined"
+						/>
+					</Grid>
+				</Grid>
+			</div>
+			<div className="p-4">
+				<div className="divider mb-2" />
+                <Grid container spacing={2}>
+					<Grid item md={12} lg={12}>
+						<h5 className="font-size-xl mb-1 font-weight-bold">
+							Matcherino
+						</h5>
+						<p className="text-black-50">Setup matcherino code and discount.</p>
+					</Grid>
+                    <Grid item md={6} lg={6}>
+						<Field
+							component={TextField}
+							fullWidth
+							name="matcherino_code"
+							label="Matcherino Code"
+							type="text"
+							value={values.matcherino_code ? values.matcherino_code : ''}
+							variant="outlined"
+						/>
+					</Grid>
+					<Grid item md={6} lg={6}>
+						<Field
+							component={TextField}
+							fullWidth
+							name="matcherino_coupon_amount"
+							label="Matcherino Discount"
+							type="text"
+							value={values.matcherino_coupon_amount ? values.matcherino_coupon_amount : ''}
+							variant="outlined"
+						/>
+					</Grid>
 				</Grid>
 			</div>
 			<div className="p-4">

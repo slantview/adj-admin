@@ -2,6 +2,7 @@ import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import _ from 'lodash';
+import moment from 'moment-timezone';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -10,6 +11,7 @@ import Error from 'components/Error';
 import Loading from 'components/Loading';
 import TournamentForm from 'components/TournamentForm';
 import { NotificationContext } from 'providers/NotificationProvider';
+import { SiteContext } from 'providers/SiteProvider';
 import { UPDATE_TOURNAMENT } from 'queries/tournaments';
 
 const validationSchema = Yup.object({
@@ -27,6 +29,8 @@ const TournamentEditForm = (props) => {
         tournament
     } = props;
 
+    const siteCtx = useContext(SiteContext);
+    const timezone = siteCtx.getTimezone();
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
@@ -47,19 +51,24 @@ const TournamentEditForm = (props) => {
         ? tournament.bracket_format.map(b => ({ name: b.title, value: b.id }))
         : [];
 
+    const startsAt = moment(tournament.tournament_start_time).tz(timezone).format('HH:mm');
+    const registrationCutoff = moment(tournament.registration_cutoff).tz(timezone).format('HH:mm');
+    
     const initialData = {
         title: tournament.title,
         description: tournament.description,
         header: [],
         registration_cap: 0,
-        fee: 0,
-        matcherino_code: '',
-        matcherino_coupon_amount: '',
+        fee: tournament.fee,
+        matcherino_code: tournament.matcherino_code,
+        matcherino_coupon_amount: tournament.matcherino_coupon_amount,
         game: game,
         game_mode: gameMode,
         game_rules: gameRules,
         game_platform: gamePlatform,
-        bracket_format: bracketFormat
+        bracket_format: bracketFormat,
+        tournament_start_time: startsAt,
+        registration_cutoff: registrationCutoff
     };
 
     const handleSubmit = async (values, actions) => {
@@ -67,7 +76,6 @@ const TournamentEditForm = (props) => {
         let newTournament = Object.assign({}, values);
 
         delete newTournament.header;
-        delete newTournament.start_time;
         delete newTournament.game_platform;
 
         newTournament.fee = "0";
@@ -76,6 +84,10 @@ const TournamentEditForm = (props) => {
         newTournament.platforms = [values.game_platform.value];
         newTournament.game_mode = [values.game_mode.value];
         newTournament.bracket_format = values.bracket_format.map(b => b.value);
+        newTournament.tournament_start_time = moment('2021-03-04T' + values.tournament_start_time+':00').tz(timezone).format();
+        newTournament.registration_cutoff = moment('2021-03-04T' + values.registration_cutoff+':00').tz(timezone).format();
+
+        console.log(newTournament);
 
         updateTournament({ variables: { id: tournament.id, data: newTournament }})
             .then((ret) => {
