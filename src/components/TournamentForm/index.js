@@ -325,7 +325,28 @@ const TournamentForm = (props) => {
                     </Grid>
                 </Grid>
             </div>
-			
+			<div className="p-4">
+				<div className="divider mt-3 mb-2" />
+                <Grid container spacing={2}>
+					<Grid item md={8} lg={8}>
+						<h5 className="font-size-xl mb-1 font-weight-bold">
+							Service Areas
+						</h5>
+						<p className="text-black-50">Select areas that are eligible to play this tournament.</p>
+					</Grid>
+                    <Grid item md={12} lg={12}>
+						<AutocompleteSearchField
+							name="geo_regions"
+							inputLabel="Service Areas"
+							getOptions={handleServiceAreasAutocompleteRequest}
+							setFieldValue={setFieldValue}
+							initialOptions={resultsToData(serviceAreasData?.data?.geoRegionLists)}
+                            initialValue={values.geo_regions}
+                            multiple
+						/>
+                    </Grid>
+                </Grid>
+            </div>
         </>
     )
 }

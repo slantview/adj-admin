@@ -18,7 +18,7 @@ export default function UsersListPage() {
 
 	const [isLoading, setLoading] = React.useState(true);
     const [entries, setEntries] = React.useState(10);
-    const [setSearch] = React.useState(null);
+    const [search, setSearch] = React.useState(null);
     const [users, setUsers] = React.useState(usersData);
     const [page, setPage] = React.useState(1);
    

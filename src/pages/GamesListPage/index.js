@@ -32,7 +32,7 @@ const GamesListPage = () => {
 	const handlePageChange = (event, page) => {
 		setPage(page);
 	};
-	const [setSearch] = useState(null);
+	const [search, setSearch] = useState(null);
 	const [games, setGames] = useState(gamesData);
 	
 	const handleSearchChange = (e) => {

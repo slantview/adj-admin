@@ -19,7 +19,7 @@ export default function OrganizationListPage() {
 
 	const [isLoading, setLoading] = useState(true);
     const [entries, setEntries] = useState(10);
-    const [setSearch] = useState(null);
+    const [search, setSearch] = useState(null);
     const [organizations, setOrganizations] = useState(orgData);
     const [page, setPage] = useState(1);
    

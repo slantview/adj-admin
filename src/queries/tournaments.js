@@ -98,7 +98,7 @@ export const GET_ALL_SERIES_TOURNAMENTS = gql`
                 title
                 places_geo_regions {
                     id
-                    title
+                    name
                     type
                 }
             }
@@ -154,6 +154,15 @@ export const GET_TOURNAMENT = gql`
             bracket_format {
                 id
                 title
+            }
+            geo_regions {
+                id
+                title
+                places_geo_regions {
+                    id
+                    name
+                    type
+                }
             }
             created_at
             updated_at

@@ -17,7 +17,7 @@ export default function SiteListPage() {
 	
 	const [isLoading, setLoading] = React.useState(true);
     const [entries, setEntries] = React.useState(10);
-    const [setSearch] = React.useState(null);
+    const [search, setSearch] = React.useState(null);
     const [sites, setSites] = React.useState([]);
     const [allSites, setAllSites] = React.useState([]);
     const [page, setPage] = React.useState(1);

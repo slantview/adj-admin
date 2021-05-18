@@ -22,7 +22,7 @@ const EventsList = (props) => {
 	const handlePageChange = (event, page) => {
 		setPage(page);
 	};
-	const [setSearch] = React.useState(null);
+	const [search, setSearch] = React.useState(null);
 	
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {

@@ -30,7 +30,7 @@ const PlacesListPage = () => {
 	};
 	const [page] = useState(1);
 
-	const [setSearch] = useState(null);
+	const [search, setSearch] = useState(null);
 	const [places, setPlaces] = useState(placesData);
 
 	const handleSearchChange = (e) => {

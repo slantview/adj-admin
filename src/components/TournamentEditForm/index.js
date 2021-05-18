@@ -50,7 +50,10 @@ const TournamentEditForm = (props) => {
     const bracketFormat = tournament.bracket_format && tournament.bracket_format.length > 0
         ? tournament.bracket_format.map(b => ({ name: b.title, value: b.id }))
         : [];
-
+    const geoRegions = tournament.geo_regions && tournament.geo_regions.length > 0
+        ? tournament.geo_regions.map(g => ({ name: g.title, value: g.id }))
+        : [];
+    console.log(tournament);
     const startsAt = moment(tournament.tournament_start_time).tz(timezone).format('HH:mm');
     const registrationCutoff = moment(tournament.registration_cutoff).tz(timezone).format('HH:mm');
     
@@ -68,7 +71,8 @@ const TournamentEditForm = (props) => {
         game_platform: gamePlatform,
         bracket_format: bracketFormat,
         tournament_start_time: startsAt,
-        registration_cutoff: registrationCutoff
+        registration_cutoff: registrationCutoff,
+        geo_regions: geoRegions
     };
 
     const handleSubmit = async (values, actions) => {
@@ -87,6 +91,7 @@ const TournamentEditForm = (props) => {
         newTournament.tournament_start_time = moment('2021-03-04T' + values.tournament_start_time+':00').tz(timezone).format();
         newTournament.registration_cutoff = moment('2021-03-04T' + values.registration_cutoff+':00').tz(timezone).format();
         newTournament.registration_cap = parseInt(values.registration_cap);
+        newTournament.geo_regions = values.geo_regions.map(g => g.value);
 
         updateTournament({ variables: { id: tournament.id, data: newTournament }})
             .then((ret) => {
