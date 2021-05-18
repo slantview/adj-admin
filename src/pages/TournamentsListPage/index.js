@@ -155,7 +155,7 @@ const TournamentsListPage = (props) => {
 							</tr>
 						</thead>
 						<tbody>
-							{ tournaments.map(t => (
+							{ tournaments.slice((page-1)*entries, ((page-1)*entries)+entries).map(t => (
 								<TournamentsTableRow 
 									key={t.id} 
 									tournament={t} 
