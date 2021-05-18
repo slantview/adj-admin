@@ -53,7 +53,7 @@ const RulesEditForm = (props) => {
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully added rule: " + updatedRule.title
+                            message: "Successfully updated rule: " + updatedRule.title
                         });
                         history.push('/rules', { refresh: true });
                     });

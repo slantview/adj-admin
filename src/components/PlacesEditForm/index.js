@@ -67,7 +67,7 @@ const PlacesEditForm = (props) => {
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully added venue: " + updatedPlace.name
+                            message: "Successfully updated venue: " + updatedPlace.name
                         });
                         history.push('/places', { refresh: true });
                     });

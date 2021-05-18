@@ -162,7 +162,7 @@ const EventEditForm = (props) => {
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully added event: " + updatedEvent.title
+                            message: "Successfully updated event: " + updatedEvent.title
                         });
                         history.push('/series/view/' + updatedEvent.series_item.id);
                     });

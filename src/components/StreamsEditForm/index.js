@@ -47,7 +47,7 @@ const StreamsEditForm = (props) => {
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully added stream: " + updatedStream.name
+                            message: "Successfully updated stream: " + updatedStream.name
                         });
                         history.push('/streams', { refresh: true });
                     });
