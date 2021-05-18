@@ -129,7 +129,7 @@ const EventForm = (props) => {
 								<Field
 									component={MTextField}
 									name="starts_at"
-									type="datetime-local"
+									type="datetime"
 									label="Starts At"
 									placeholder=""
 									fullWidth
@@ -144,7 +144,7 @@ const EventForm = (props) => {
 								<Field
 									component={MTextField}
 									name="ends_at"
-									type="datetime-local"
+									type="datetime"
 									label="Ends At"
 									placeholder=""
 									fullWidth
