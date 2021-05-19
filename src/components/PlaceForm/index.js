@@ -1,7 +1,7 @@
-import { Collapse, Grid, MenuItem, Select } from '@material-ui/core';
+import { Collapse, Grid, MenuItem } from '@material-ui/core';
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import { Field } from 'formik';
-import { Switch, TextField } from 'formik-material-ui';
+import { Select, Switch, TextField } from 'formik-material-ui';
 import React from 'react';
 
 const PlaceForm = (props) => {
@@ -74,7 +74,7 @@ const PlaceForm = (props) => {
                             variant="outlined" 
                             name="type"
                             fullWidth 
-                            value={values.type}
+                            // value={values.type}
                             multiple={false}>
                                 { typeOptions.map(t => 
                                     <MenuItem value={t}>{t}</MenuItem>
