@@ -89,10 +89,10 @@ const TournamentActionMenu = (props) => {
     const handleDelete = () => {
         deleteTournament({ variables: { id: id }})
             .then(result => {
-                const updatedTournament = result.data.updateTournament.tournament;
+                const deletedTournament = result.data.deleteTournament.tournament;
                 notify({
                     type: 'success',
-                    message: `Successfully deleted tournament: ${updatedTournament.title}.`
+                    message: `Successfully deleted tournament: ${deletedTournament.title}.`
                 });
                 refreshTournaments();
             })

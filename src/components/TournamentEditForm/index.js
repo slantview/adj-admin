@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Error from 'components/Error';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import TournamentForm from 'components/TournamentForm';
 import { NotificationContext } from 'providers/NotificationProvider';
@@ -17,11 +18,15 @@ import { UPDATE_TOURNAMENT } from 'queries/tournaments';
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
     description: Yup.string().required('Description is required'),
+    registration_cutoff: Yup.string().required("Registration Cutoff is required"),
+    tournament_start_time: Yup.string().required("Starts At Time is required"),
+    registration_cap: Yup.number().required('Registration Capacity is required'),
+    fee: Yup.string().required("Tournament Fee is required"),
     game: Yup.object().required('Game is required'),
     game_mode: Yup.object().required('Game mode is required'),
-    game_rules: Yup.array().required('Game rules are required'),
     game_platform: Yup.object().required('Game platform is required'),
-    bracket_format: Yup.array().required('Bracket Format is required')
+    game_rules: Yup.array().min(1, "Game rules are required").required('Game rules are required'),
+    bracket_format: Yup.array().min(1, "Bracket Format is required").required('Bracket Format is required')
 });
 
 const TournamentEditForm = (props) => {
@@ -136,11 +141,11 @@ const TournamentEditForm = (props) => {
                                                 <div>
                                                     <TournamentForm {...FormProps} />
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                        <Button
-                                                            className="btn-primary font-weight-bold"
-                                                            type="submit">
-                                                                Update Tournament
-                                                        </Button>
+                                                        <FormSubmitButton
+                                                            showNotificationOnError={true}
+                                                            title="Update Tournament"
+                                                            errors={FormProps.errors}
+                                                        />
                                                     </div>
                                                 </div>
                                             }

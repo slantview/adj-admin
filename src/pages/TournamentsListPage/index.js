@@ -21,9 +21,6 @@ const TournamentsListPage = (props) => {
 		{ 
 			notifyOnNetworkStatusChange: true 
 		});
-	const tournamentData = loading || error ? [] : data.tournaments;
-	const [isLoading, setLoading] = useState(loading);
-
 	const [entries, setEntries] = useState(10);
 	const handleEntriesChange = (e) => {
 		setEntries(e.target.value);
@@ -33,14 +30,16 @@ const TournamentsListPage = (props) => {
 		setPage(page);
 	};
 	const [search, setSearch] = useState('');
-	const [tournaments, setTournaments] = useState(tournamentData);
+	const [tournaments, setTournaments] = useState([]);
+	const [allTournaments, setAllTournaments] = useState([]);
+	
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
-			setTournaments(tournamentData);
+			setTournaments(allTournaments);
 			setSearch('');
 		} else {
 			setSearch(e.target.value);
-			const newData = tournamentData.filter(g => {
+			const newData = allTournaments.filter(g => {
 				return g.title.toLowerCase().includes(e.target.value.toLowerCase()) || g.description.toLowerCase().includes(e.target.value);
 			})
 			setTournaments(newData);
@@ -48,8 +47,8 @@ const TournamentsListPage = (props) => {
 	};
 
 	const refreshTournaments = () => {
-		setLoading(true);
 		setTournaments([]);
+		setAllTournaments([]);
 		refetch();
 	};
 
@@ -69,11 +68,15 @@ const TournamentsListPage = (props) => {
 	}, []);
 
 	useEffect(() => {
-		if (isLoading && !loading) {
-			setLoading(loading);
-			setTournaments(tournamentData);
+		let active = true;
+		if (active) {
+			setTournaments(data?.tournaments ?? []);
+			setAllTournaments(data?.tournaments ?? []);
 		}
-	}, [loading, isLoading, tournamentData]);
+		return () => {
+			active = false;
+		}
+	}, [loading, error, data]);
 
 	if (loading) {
 		return (<Loading centerInPage={true} center={true} />);
@@ -165,7 +168,7 @@ const TournamentsListPage = (props) => {
 						</tbody>
 					</Table>
 					<div className="card-footer d-flex justify-content-between">
-						<Collapse in={tournaments.length > entries}>
+						<Collapse in={tournaments?.length > entries}>
 							<Pagination
 								className="pagination-second"
 								variant="outlined"

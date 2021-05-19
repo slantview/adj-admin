@@ -119,7 +119,6 @@ const TournamentForm = (props) => {
                                     name="title"
                                     label="Tournament Title"
                                     type="text"
-                                    value={values.title ? values.title : ''}
                                     variant="outlined"
                                 />
 
@@ -187,7 +186,6 @@ const TournamentForm = (props) => {
 							name="registration_cap"
 							label="Registration Capacity"
 							type="text"
-							value={values.registration_cap ? values.registration_cap : ''}
 							variant="outlined"
 						/>
 					</Grid>
@@ -209,7 +207,6 @@ const TournamentForm = (props) => {
 							name="fee"
 							label="Tournament Fee"
 							type="text"
-							value={values.fee ? values.fee : ''}
 							variant="outlined"
 						/>
 					</Grid>
@@ -231,7 +228,6 @@ const TournamentForm = (props) => {
 							name="matcherino_code"
 							label="Matcherino Code"
 							type="text"
-							value={values.matcherino_code ? values.matcherino_code : ''}
 							variant="outlined"
 						/>
 					</Grid>
@@ -242,7 +238,6 @@ const TournamentForm = (props) => {
 							name="matcherino_coupon_amount"
 							label="Matcherino Discount"
 							type="text"
-							value={values.matcherino_coupon_amount ? values.matcherino_coupon_amount : ''}
 							variant="outlined"
 						/>
 					</Grid>
