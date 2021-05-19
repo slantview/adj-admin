@@ -33,7 +33,7 @@ export const getSortedEvents = (allEvents, timezone) => {
             previousEvents.push(e);
         }
         
-        if (e.published_at !== null) {
+        if (e.published_at === null) {
             unpublishedEvents.push(e);
         }
     });
