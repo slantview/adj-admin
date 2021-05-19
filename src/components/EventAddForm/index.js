@@ -1,19 +1,21 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { faVenusDouble } from '@fortawesome/free-solid-svg-icons';
 import { Button, Card } from '@material-ui/core';
-import Error from 'components/Error';
-import EventForm from 'components/EventForm';
-import Loading from 'components/Loading';
 import { Form, Formik } from 'formik';
 import moment from 'moment-timezone';
-import { NotificationContext } from 'providers/NotificationProvider';
-import { CREATE_EVENT } from 'queries/events';
-import { UPLOAD_FILE } from 'queries/files';
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import slugify from 'slugify';
 import * as Yup from 'yup';
+
+import Error from 'components/Error';
+import EventForm from 'components/EventForm';
+import FormSubmitButton from 'components/FormSubmitButton';
+import Loading from 'components/Loading';
+import { NotificationContext } from 'providers/NotificationProvider';
+import { CREATE_EVENT } from 'queries/events';
+import { UPLOAD_FILE } from 'queries/files';
 
 const initialData = {
     title: '',
@@ -133,11 +135,11 @@ const EventAddForm = (props) => {
                                                 <EventForm {...FormProps} />
 
                                                 <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                    <Button
-                                                        className="btn-primary font-weight-bold"
-                                                        type="submit">
-                                                            Add Event
-                                                    </Button>
+                                                    <FormSubmitButton
+                                                        showNotificationOnError={true}
+                                                        title="Add Event"
+                                                        errors={FormProps.errors}
+                                                    />
                                                 </div>
                                             </div>
                                         )}

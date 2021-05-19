@@ -11,6 +11,7 @@ import Finished from 'components/OrganizationAddForm/Finished';
 import ServiceAreaForm from 'components/ServiceAreaForm';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { CREATE_GEO_REGION, UPDATE_GEO_REGION_LIST } from 'queries/service_areas';
+import FormSubmitButton from 'components/FormSubmitButton';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Name is required'),
@@ -117,11 +118,11 @@ const ServiceAreaEditForm = (props) => {
                                                     <ServiceAreaForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                        <Button
-                                                            className="btn-primary font-weight-bold"
-                                                            type="submit">
-                                                                Update Service Area
-                                                        </Button>
+                                                        <FormSubmitButton
+                                                            showNotificationOnError={true}
+                                                            title="Update Service Area"
+                                                            errors={FormProps.errors}
+                                                        />
                                                     </div>
                                                 </div>
                                             }

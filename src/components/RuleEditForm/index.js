@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Error from 'components/Error';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
 import RuleForm from 'components/RuleForm';
@@ -15,7 +16,7 @@ import { CREATE_GAME_RULE_LIST, UPDATE_GAME_RULE_LIST } from 'queries/rules';
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
     description: Yup.string().required('Description is required'),
-    games: Yup.array().required('Game is required')
+    games: Yup.array().min(1, "Game is required").required('Game is required')
 });
 
 const RulesEditForm = (props) => {
@@ -97,11 +98,11 @@ const RulesEditForm = (props) => {
                                                     <RuleForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                        <Button
-                                                            className="btn-primary font-weight-bold"
-                                                            type="submit">
-                                                                Update Rule
-                                                        </Button>
+                                                        <FormSubmitButton
+                                                            showNotificationOnError={true}
+                                                            title="Update Rule"
+                                                            errors={FormProps.errors}
+                                                        />
                                                     </div>
                                                 </div>
                                             }

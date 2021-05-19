@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Error from 'components/Error';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
 import ServiceAreaForm from 'components/ServiceAreaForm';
@@ -101,11 +102,11 @@ const ServiceAreaAddForm = (props) => {
                                                     <ServiceAreaForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                        <Button
-                                                            className="btn-primary font-weight-bold"
-                                                            type="submit">
-                                                                Add Service Area
-                                                        </Button>
+                                                        <FormSubmitButton
+                                                            showNotificationOnError={true}
+                                                            title="Add Service Area"
+                                                            errors={FormProps.errors}
+                                                        />
                                                     </div>
                                                 </div>
                                             }

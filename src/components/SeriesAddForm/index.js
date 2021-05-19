@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Error from 'components/Error';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
 import SeriesForm from 'components/SeriesForm';
@@ -15,6 +16,7 @@ import { CREATE_SERIES } from 'queries/series';
 
 const initialData = {
     title: '',
+    subtitle: '',
     description: '',
     cadence: '',
     header: [],
@@ -25,8 +27,8 @@ const validationSchema = Yup.object({
     subtitle: Yup.string().required('Subtitle is required'),
     cadence: Yup.string().required('Cadence is required'),
     description: Yup.string().required('Description is required'),
-    header: Yup.array().required('Header Image is required'),
-    card: Yup.array().required('Card Image is required')
+    header: Yup.array().min(1, 'Header Image is required').required('Header Image is required'),
+    card: Yup.array().min(1, 'Card Image is required').required('Card Image is required')
 });
 
 const SeriesAddForm = (props) => {
@@ -110,11 +112,11 @@ const SeriesAddForm = (props) => {
                                                     <SeriesForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                        <Button
-                                                            className="btn-primary font-weight-bold"
-                                                            type="submit">
-                                                                Add Series
-                                                        </Button>
+                                                        <FormSubmitButton
+                                                            showNotificationOnError={true}
+                                                            title="Add Series"
+                                                            errors={FormProps.errors}
+                                                        />
                                                     </div>
                                                 </div>
                                             )}

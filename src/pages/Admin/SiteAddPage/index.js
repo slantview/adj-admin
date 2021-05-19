@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import * as Yup from 'yup';
 
 import Error from 'components/Error';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import SectionHeader from 'components/SectionHeader';
 import SiteAddForm from 'components/SiteAddForm';
@@ -106,13 +107,11 @@ const SiteAddPage = (props) => {
 											</CardContent>
 											<CardActions className="px-4 py-2 mb-2">
 												{ !FormProps.isSubmitting &&
-													<Button
-														name="submit"
-														type="submit"
-														disabled={FormProps.isSubmitting}
-														className="btn btn-primary font-weight-bold">
-															Create Site
-													</Button>
+													<FormSubmitButton
+														showNotificationOnError={true}
+														title="Create Site"
+														errors={FormProps.errors}
+													/>
 												}
 											</CardActions>
 										</Card>

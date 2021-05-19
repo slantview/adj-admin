@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Error from 'components/Error';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
 import RuleForm from 'components/RuleForm';
@@ -20,7 +21,7 @@ const initialData = {
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
     description: Yup.string().required('Description is required'),
-    games: Yup.array().required('Game is required')
+    games: Yup.array().min(1, "Game is required").required('Game is required')
 });
 
 const RulesAddForm = (props) => {
@@ -88,11 +89,11 @@ const RulesAddForm = (props) => {
                                                     <RuleForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                        <Button
-                                                            className="btn-primary font-weight-bold"
-                                                            type="submit">
-                                                                Add Rule
-                                                        </Button>
+                                                        <FormSubmitButton
+                                                            showNotificationOnError={true}
+                                                            title="Add Rule"
+                                                            errors={FormProps.errors}
+                                                        />
                                                     </div>
                                                 </div>
                                             }

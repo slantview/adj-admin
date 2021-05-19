@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 
 import Error from 'components/Error';
 import EventForm from 'components/EventForm';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { UPDATE_EVENT } from 'queries/events';
@@ -212,11 +213,11 @@ const EventEditForm = (props) => {
                                                 <EventForm {...FormProps} />
 
                                                 <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                    <Button
-                                                        className="btn-primary font-weight-bold"
-                                                        type="submit">
-                                                            Update Event
-                                                    </Button>
+                                                    <FormSubmitButton
+                                                        showNotificationOnError={true}
+                                                        title="Update Event"
+                                                        errors={FormProps.errors}
+                                                    />
                                                 </div>
                                             </div>
                                         )}

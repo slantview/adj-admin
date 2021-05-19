@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import Error from 'components/Error';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import SeriesForm from 'components/SeriesForm';
 import { NotificationContext } from 'providers/NotificationProvider';
@@ -18,8 +19,8 @@ const validationSchema = Yup.object({
     subtitle: Yup.string().required('Subtitle is required'),
     cadence: Yup.string().required('Cadence is required'),
     description: Yup.string().required('Description is required'),
-    header: Yup.array().required('Header Image is required'),
-    card: Yup.array().required('Card Image is required')
+    header: Yup.array().min(1, 'Header Image is required').required('Header Image is required'),
+    card: Yup.array().min(1, 'Card Image is required').required('Card Image is required')
 });
 
 const SeriesEditForm = ({ series }) => {
@@ -138,11 +139,11 @@ const SeriesEditForm = ({ series }) => {
                                                     <SeriesForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                        <Button
-                                                            className="btn-primary font-weight-bold"
-                                                            type="submit">
-                                                                Update Series
-                                                        </Button>
+                                                        <FormSubmitButton
+                                                            showNotificationOnError={true}
+                                                            title="Update Series"
+                                                            errors={FormProps.errors}
+                                                        />
                                                         <div className="text-right">
                                                             <a
                                                                 href="#/"

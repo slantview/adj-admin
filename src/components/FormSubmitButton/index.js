@@ -35,7 +35,7 @@ const FormSubmitButton = (props) => {
     const handleClick = (e) => {
         if (showNotificationOnError && hasError) {
             const errorMap = Object.values(errorData);
-            console.log(errorMap);
+
             notify({
                 type: 'danger',
                 message: (

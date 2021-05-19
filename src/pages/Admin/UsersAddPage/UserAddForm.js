@@ -1,4 +1,5 @@
 import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@material-ui/core';
+import FormSubmitButton from 'components/FormSubmitButton';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
@@ -165,13 +166,11 @@ const RegisterPage1Form = (props) => {
                                 />
                             </div>
 
-                            <Button
-                                type="submit"
-                                size="medium"
-                                disabled={isSubmitting}
-                                className="btn-primary my-3">
-                                    Create Account
-                            </Button>
+                            <FormSubmitButton
+                                showNotificationOnError={true}
+                                title="Create Account"
+                                errors={errors}
+                            />
                             
                         </Grid>
                     </Grid>

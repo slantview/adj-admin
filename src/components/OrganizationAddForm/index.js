@@ -2,6 +2,8 @@ import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import React, { useContext, useState } from 'react';
 
+import FormSubmitButton from 'components/FormSubmitButton';
+
 import { UserContext } from '../../providers/UserProvider';
 import { createOrganization } from '../../utils/api';
 import Error from '../Error';
@@ -71,11 +73,11 @@ const OrganizationAddForm = () => {
                                                 <OrganizationForm {...FormProps} />
 
                                                 <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                    <Button
-                                                        className="btn-primary font-weight-bold"
-                                                        type="submit">
-                                                            Add Organization
-                                                    </Button>
+                                                    <FormSubmitButton
+                                                        showNotificationOnError={true}
+                                                        title="Add Organization"
+                                                        errors={FormProps.errors}
+                                                    />
                                                 </div>
                                             </div>
                                         )}

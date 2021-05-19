@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 
 import BracketForm from 'components/BracketForm';
 import Error from 'components/Error';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
 import { NotificationContext } from 'providers/NotificationProvider';
@@ -85,11 +86,11 @@ const BracketsAddForm = (props) => {
                                                     <BracketForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
-                                                        <Button
-                                                            className="btn-primary font-weight-bold"
-                                                            type="submit">
-                                                                Add Bracket Format
-                                                        </Button>
+                                                        <FormSubmitButton
+                                                            showNotificationOnError={true}
+                                                            title="Add Bracket Format"
+                                                            errors={FormProps.errors}
+                                                        />
                                                     </div>
                                                 </div>
                                             }
