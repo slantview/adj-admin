@@ -22,6 +22,16 @@ const validationSchema = Yup.object({
     places_geo_regions: Yup.array().min(1, 'Must include at least one location').required('Regions is required')
 });
 
+const validRegions = (rows) => {
+    let valid = true;
+    rows.forEach((r, i) => {
+        if (r.name === '' || r.type === '') {
+            valid = false;
+        }
+    });
+    return valid;
+}
+
 const ServiceAreaAddForm = (props) => {
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
@@ -32,6 +42,11 @@ const ServiceAreaAddForm = (props) => {
     const [error, setError] = useState(null);
 
     const handleSubmit = async (values, actions) => {
+        if (!validRegions(values.places_geo_regions)) {
+            actions.setFieldError('places_geo_regions', 'Locations must include Name and Type');
+            actions.setSubmitting(false);
+            return;
+        }
         setSubmitted(true);
         
         let newServiceArea = {

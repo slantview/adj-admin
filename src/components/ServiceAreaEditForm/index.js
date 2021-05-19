@@ -6,12 +6,12 @@ import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Error from 'components/Error';
+import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
 import ServiceAreaForm from 'components/ServiceAreaForm';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { CREATE_GEO_REGION, UPDATE_GEO_REGION_LIST } from 'queries/service_areas';
-import FormSubmitButton from 'components/FormSubmitButton';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Name is required'),

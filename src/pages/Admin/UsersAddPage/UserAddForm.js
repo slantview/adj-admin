@@ -1,8 +1,9 @@
 import { Button, Checkbox, FormControlLabel, Grid, TextField } from '@material-ui/core';
-import FormSubmitButton from 'components/FormSubmitButton';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
+
+import FormSubmitButton from 'components/FormSubmitButton';
 
 import Error from '../../../components/Error';
 
