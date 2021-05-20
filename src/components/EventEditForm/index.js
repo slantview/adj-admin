@@ -2,6 +2,7 @@ import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import _ from 'lodash';
+import moment from 'moment-timezone';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import slugify from 'slugify';
@@ -12,6 +13,7 @@ import EventForm from 'components/EventForm';
 import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import { NotificationContext } from 'providers/NotificationProvider';
+import { SiteContext } from 'providers/SiteProvider';
 import { UPDATE_EVENT } from 'queries/events';
 import { UPLOAD_FILE } from 'queries/files';
 
@@ -67,6 +69,7 @@ const EventEditForm = (props) => {
 
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
+    const siteCtx = useContext(SiteContext);
     const client = useApolloClient();
 
     // @ts-ignore
@@ -75,9 +78,9 @@ const EventEditForm = (props) => {
     const [error, setError] = useState(null);
     const [updateEvent, updateEventData] = useMutation(UPDATE_EVENT);
     const [uploadFile] = useMutation(UPLOAD_FILE);
-    
     const [eventData, setEventData] = useState(event);
     const [eventFormData, setEventFormData] = useState(eventToInitialData(event));
+    const timezone = siteCtx.getTimezone();
 
     useEffect(() => {
         if (event) {
@@ -95,17 +98,13 @@ const EventEditForm = (props) => {
             description: values.description,
             is_online: values.is_online,
             is_offline: values.is_offline,
-            starts_at: values.starts_at,
-            ends_at: values.ends_at,
+            starts_at: moment(values.starts_at).tz(timezone).format(),
+            ends_at: moment(values.ends_at).tz(timezone).format(),
             series_item: event.series_item.id,
             sign_up_link: values.sign_up_link,
             venue: values.venue.value,
             cadence: event.series_item.cadence
         };
-
-        // checkin_instructions:  // TODO
-        // stream_rules: // TODO
-        // games: [ID] // TODO
 
         // Remove cruft fields.
         delete eventPayload.id;

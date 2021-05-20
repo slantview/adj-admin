@@ -14,6 +14,7 @@ import EventForm from 'components/EventForm';
 import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import { NotificationContext } from 'providers/NotificationProvider';
+import { SiteContext } from 'providers/SiteProvider';
 import { CREATE_EVENT } from 'queries/events';
 import { UPLOAD_FILE } from 'queries/files';
 
@@ -27,7 +28,7 @@ const initialData = {
     card: [],
     streams: [],
     sign_up_link: '',
-    venue: [],
+    venue: '',
     starts_at: moment().format("YYYY-MM-DDThh:00"),
     ends_at: moment().format("YYYY-MM-DDThh:00"),
 };
@@ -48,6 +49,7 @@ const EventAddForm = (props) => {
     const { seriesId } = useParams();
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
+    const siteCtx = useContext(SiteContext);
     const client = useApolloClient();
     // @ts-ignore
     const [isSubmitted, setSubmitted] = useState(false);
@@ -55,6 +57,7 @@ const EventAddForm = (props) => {
     const [error, setError] = useState(null);
     const [createEvent, eventData] = useMutation(CREATE_EVENT);
     const [uploadFile] = useMutation(UPLOAD_FILE);
+    const timezone = siteCtx.getTimezone();
 
     const handleSubmit = async (values, actions) => {
         setError(null);
@@ -74,8 +77,8 @@ const EventAddForm = (props) => {
             stream_rules: values.stream_rules,
             venue: values.venue.value,
             tournaments: values.tournaments.map(t => t.value),
-            starts_at: values.starts_at,
-            ends_at: values.ends_at
+            starts_at: moment(values.starts_at).tz(timezone).format(),
+            ends_at: moment(values.ends_at).tz(timezone).format()
         };
 
         const headerResponse = await uploadFile({ 

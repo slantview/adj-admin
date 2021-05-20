@@ -298,7 +298,6 @@ const EventForm = (props) => {
             </div>
 			<div className="p-4">
 				<div className="divider mt-3 mb-2" />
-                
                 <Grid container spacing={2}>
 					<Grid item md={12} lg={12}>
 						<h5 className="font-size-xl mb-1 font-weight-bold">
@@ -306,16 +305,6 @@ const EventForm = (props) => {
 						</h5>
 						<p className="text-black-50 mb-4">Select the stream(s) for the event.</p>
 					</Grid>
-					{/* <Grid item md={4} lg={4}>
-						<div className="text-right">
-							<Button onClick={(e) => e.preventDefault()} size="small" className="btn-neutral-primary">
-								<span className="btn-wrapper--icon">
-									<FontAwesomeIcon icon={['fas', 'plus-circle']} />
-								</span>
-								<span className="btn-wrapper--label">Add New Stream</span>
-							</Button>
-						</div>
-					</Grid> */}
                     <Grid item md={12} lg={12}>
 						<AutocompleteSearchField
 							name="streams"
