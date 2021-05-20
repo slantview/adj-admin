@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { Grid, TextField as MTextField } from '@material-ui/core';
+import { Grid, IconButton, InputAdornment } from '@material-ui/core';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import { DateTimePicker } from "@material-ui/pickers";
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import { Field } from 'formik';
@@ -131,6 +132,17 @@ const EventForm = (props) => {
 									fullWidth
 									value={values.starts_at}
 									onChange={(e) => handleTimeFieldChange('starts_at', e)}
+									views={["date", "year", "month", "hours", "minutes"]}
+									disablePast={true}
+									InputProps={{
+										endAdornment: (
+										  <InputAdornment position="end">
+											<IconButton>
+											  <CalendarTodayIcon />
+											</IconButton>
+										  </InputAdornment>
+										),
+									}}
 								/>
                             </Grid>
                             <Grid item md={6} lg={6}>
@@ -140,6 +152,17 @@ const EventForm = (props) => {
 									fullWidth
 									value={values.ends_at}
 									onChange={(e) => handleTimeFieldChange('ends_at', e)}
+									views={["date", "year", "month", "hours", "minutes"]}
+									disablePast={true}
+									InputProps={{
+										endAdornment: (
+										  <InputAdornment position="end">
+											<IconButton>
+											  <CalendarTodayIcon />
+											</IconButton>
+										  </InputAdornment>
+										),
+									}}
 								/>
                             </Grid>
 							<Grid item md={12} lg={12} className="mt-1 pt-0">
