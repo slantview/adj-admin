@@ -1,6 +1,7 @@
 import { Button } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseTwoToneIcon from '@material-ui/icons/CloseTwoTone';
+import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
 import PhotoIcon from '@material-ui/icons/Photo';
 import PublishTwoToneIcon from '@material-ui/icons/PublishTwoTone';
 import React, { useEffect, useState } from 'react';
@@ -46,6 +47,7 @@ const ImageUpload = (props) => {
 
 	const reset = (e) => {
 		setFiles([]);
+		setThumbs([]);
 		setFieldValue(name, []);
 		e.preventDefault();
 	};
@@ -96,7 +98,6 @@ const ImageUpload = (props) => {
 									<div>
 										<div className="text-black-50 mb-2 font-size-lg font-weight-bold">{title}</div>
 										{thumbs}
-										<div><a href="#/" onClick={reset}>(clear)</a></div>
 									</div>
 								}
 
@@ -126,10 +127,17 @@ const ImageUpload = (props) => {
 									
 								</div>
 								}
+								{ thumbs.length > 0 &&
+									<Button 
+										onClick={reset}
+										className="btn-icon mx-2 mt-2 border-0 text-indent-0 d-40 badge-circle btn-primary text-white">
+										<HighlightOffTwoToneIcon />
+									</Button>
+								}
 								<Button
 									onClick={open}
-									className="btn-icon mx-5 mt-2 border-0 text-indent-0 d-40 badge-circle btn-primary text-white">
-									<PublishTwoToneIcon className="" />
+									className="btn-icon mx-2 mt-2 border-0 text-indent-0 d-40 badge-circle btn-primary text-white">
+									<PublishTwoToneIcon />
 								</Button>
 							</div>
 						</div>
