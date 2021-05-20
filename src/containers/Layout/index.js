@@ -1,7 +1,9 @@
+import MomentUtils from '@date-io/moment';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab, faDiscord, faDribbble, faFacebook, faGithub, faGoogle, faHtml5, faInstagram, faPinterest, faReact, faSlack, faTwitter, faVuejs, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faAddressCard, faBell, faBuilding, faCalendarAlt, faChartBar, faCheckCircle, faClock, faCommentDots, faComments, faDotCircle, faEnvelope, faEye, faFileAlt, faFileArchive, faFileAudio, faFileCode, faFileExcel, faFileImage, faFilePdf, faFileVideo, faFileWord, faFolder, faFolderOpen, faGem, faImages, faKeyboard, faLifeRing, faLightbulb, faMap, faObjectGroup, faQuestionCircle, far, faSquare, faThumbsUp, faTimesCircle, faTrashAlt, faUser, faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { faAlignCenter, faAngleDoubleLeft, faAngleDoubleRight, faAngleDown, faAngleLeft, faAngleRight, faAngleUp, faArrowDown, faArrowLeft, faArrowRight, faArrowsAltH, faArrowUp, faAward, faBars, faBatteryEmpty, faBatteryFull, faBirthdayCake, faBomb, faBusAlt, faCameraRetro, faCarBattery, faCaretRight, faCheck, faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faCog, faCubes, faDownload, faEllipsisH, faEllipsisV, faExclamation, faExternalLinkAlt, faEyeDropper, faFilm, faHeart, faInfoCircle, faLemon, faLink, faMapMarkedAlt, faNetworkWired, faPager, faPlayCircle, faPlus, faPlusCircle, faPrint, faQuoteRight, faReply, fas, faSave, faSearch, faShapes, faShareSquare, faSignOutAlt, faSitemap, faSlidersH, faSmile, faStar, faStarHalfAlt, faSync, faTable, faTachometerAlt, faTimes, faUnlockAlt, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/styles';
 import React, { useContext } from 'react';
 
@@ -147,15 +149,17 @@ const Layout = ({ children }) => {
 
 	return (
 		<ThemeProvider theme={MuiTheme}>
-			<div className="app-wrapper app-sidebar-fixed">
-				<Sidebar open={true} />
-				<div className="app-main">
-					<Header hidden={true} />
-					<div className="app-content">
+			<MuiPickersUtilsProvider utils={MomentUtils}>
+				<div className="app-wrapper app-sidebar-fixed">
+					<Sidebar open={true} />
+					<div className="app-main">
+						<Header hidden={true} />
+						<div className="app-content">
 							<div className="app-content--inner__wrapper">{children}</div>
+						</div>
 					</div>
 				</div>
-			</div>
+			</MuiPickersUtilsProvider>
 		</ThemeProvider>
   	)
 }

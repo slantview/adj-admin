@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Grid, TextField as MTextField } from '@material-ui/core';
+import { Grid, TextField as MTextField } from '@material-ui/core';
+import { DateTimePicker } from "@material-ui/pickers";
 import MDEditor, { commands } from '@uiw/react-md-editor';
 import { Field } from 'formik';
 import { Switch, TextField } from 'formik-material-ui';
@@ -8,13 +8,12 @@ import moment from 'moment-timezone';
 import React, { useContext, useEffect, useState } from 'react';
 
 import AutocompleteSearchField from 'components/AutocompleteSearchField';
+import ImageUpload from 'components/ImageUpload';
 import { SiteContext } from 'providers/SiteProvider';
 import { GET_ALL_PLACES_NAME_ONLY } from 'queries/places';
 import { GET_ALL_GAME_RULE_LISTS } from 'queries/rules';
 import { GET_ALL_STREAMS } from 'queries/streams';
 import { GET_ALL_TOURNAMENTS } from 'queries/tournaments';
-
-import ImageUpload from '../../components/ImageUpload';
 
 const EventForm = (props) => {
     const { 
@@ -90,8 +89,8 @@ const EventForm = (props) => {
 		}
     }
 
-	const handleTimeFieldChange = (name, e) => {
-		setFieldValue(name, moment(e.target.value).tz(timezone).format());
+	const handleTimeFieldChange = (name, value) => {
+		setFieldValue(name, value.format());
 	};
 
     return (
@@ -126,33 +125,21 @@ const EventForm = (props) => {
 								<span className="text-danger">{errors.description}</span>
                             </Grid>
                             <Grid item md={6} lg={6}>
-								<Field
-									component={MTextField}
-									name="starts_at"
-									type="datetime-local"
+								<DateTimePicker
 									label="Starts At"
-									placeholder=""
+									inputVariant="outlined"
 									fullWidth
+									value={values.starts_at}
 									onChange={(e) => handleTimeFieldChange('starts_at', e)}
-                                    value={moment(values?.starts_at).tz(timezone).format("YYYY-MM-DDTHH:mm")}
-									InputLabelProps={{
-										shrink: true,
-									}}
 								/>
                             </Grid>
                             <Grid item md={6} lg={6}>
-								<Field
-									component={MTextField}
-									name="ends_at"
-									type="datetime-local"
+								<DateTimePicker
 									label="Ends At"
-									placeholder=""
+									inputVariant="outlined"
 									fullWidth
+									value={values.ends_at}
 									onChange={(e) => handleTimeFieldChange('ends_at', e)}
-                                    value={moment(values?.ends_at).tz(timezone).format("YYYY-MM-DDTHH:mm")}
-									InputLabelProps={{
-										shrink: true,
-									}}
 								/>
                             </Grid>
 							<Grid item md={12} lg={12} className="mt-1 pt-0">
