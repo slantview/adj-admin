@@ -134,11 +134,13 @@ const ImageUpload = (props) => {
 										<HighlightOffTwoToneIcon />
 									</Button>
 								}
-								<Button
-									onClick={open}
-									className="btn-icon mx-2 mt-2 border-0 text-indent-0 d-40 badge-circle btn-primary text-white">
-									<PublishTwoToneIcon />
-								</Button>
+								{ thumbs.length === 0 &&
+									<Button
+										onClick={open}
+										className="btn-icon mx-2 mt-2 border-0 text-indent-0 d-40 badge-circle btn-primary text-white">
+										<PublishTwoToneIcon />
+									</Button>
+								}
 							</div>
 						</div>
 					</div>
