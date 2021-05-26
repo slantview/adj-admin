@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, List, ListItem, Menu } from '@material-ui/core';
+import React, { useContext, useState } from "react";
+import { useHistory } from 'react-router-dom';
+
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
-import React, { useContext, useState } from "react";
+
 import { UserContext } from '../../providers/UserProvider';
 import { deleteSite } from "../../utils/api";
 
@@ -26,7 +29,8 @@ const SiteListTableRow = (props) => {
 	const userCtx = useContext(UserContext);
     const siteCtx = useContext(SiteContext);
     const notify = useContext(NotificationContext).notify;
-
+    const history = useHistory();
+    
     const [anchorEl, setAnchorEl] = useState(null);
     
 	const handleClick = (event) => {
@@ -36,10 +40,7 @@ const SiteListTableRow = (props) => {
 		setAnchorEl(null);
 	};
 	const handleEdit = () => {
-		notify({
-			type: 'primary',
-			message: "TODO: Allow users to edit."
-		});
+		history.push('/admin/sites/edit/' + id);
 		handleClose();
     };
     const handleSuspend = () => {

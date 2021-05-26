@@ -6,6 +6,7 @@ import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-d
 
 import OrganizationAddPage from 'pages/Admin/OrganizationAddPage';
 import SiteAddPage from 'pages/Admin/SiteAddPage';
+import SiteEditPage from 'pages/Admin/SiteEditPage';
 import BracketsAddPage from 'pages/BracketAddPage';
 import BracketsEditPage from 'pages/BracketEditPage';
 import BracketsListPage from 'pages/BracketListPage';
@@ -135,6 +136,7 @@ ReactDOM.render(
 											{/* Admin Sites Pages */}
 											<Route exact path="/admin/sites"><SiteListPage /></Route>
 											<Route exact path="/admin/sites/add"><SiteAddPage /></Route>
+											<Route exact path="/admin/sites/edit/:siteId"><SiteEditPage /></Route>
 											{/* Admin Users Pages */}
 											<Route exact path="/admin/users"><AdminUsersListPage /></Route>
 											<Route exact path="/admin/users/add"><AdminUsersAddPage /></Route>

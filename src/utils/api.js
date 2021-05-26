@@ -25,6 +25,17 @@ export const createSite = async (data, token) => {
     });
 }
 
+export const updateSite = async (id, data, token) => {
+    return fetch(SITES_URL + '/' + id, {
+        method: 'put',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+}
+
 export const getSites = async (token) => {
     return fetch(SITES_URL, {
         method: 'get',

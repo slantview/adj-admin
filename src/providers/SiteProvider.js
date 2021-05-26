@@ -12,6 +12,7 @@ export const SiteContext = createContext({
     sites: [], 
     setSite: null,
     getSite: null,
+    getSiteById: null,
     getTimezone: null,
     user: null,
     onSiteChanged: null,
@@ -25,6 +26,7 @@ class SiteProvider extends Component {
         super(props);
         this.setSite = this.setSite.bind(this);
         this.getSite = this.getSite.bind(this);
+        this.getSiteById = this.getSiteById.bind(this);
         this.getTimezone = this.getTimezone.bind(this);
     }
     state = {
@@ -34,6 +36,7 @@ class SiteProvider extends Component {
         user: null,
         setSite: null,
         getSite: null,
+        getSiteById: null,
         getTimezone: null,
         siteChangedCallbacks: [],
         onSiteChanged: null,
@@ -61,6 +64,10 @@ class SiteProvider extends Component {
 
     getSite = () => {
         return _.first(this.state.sites.filter(s => s.id === this.state.selected));
+    }
+
+    getSiteById = (id) => {
+        return _.first(this.state.sites.filter(s => s.id === id));
     }
 
     getTimezone = () => {
@@ -118,6 +125,7 @@ class SiteProvider extends Component {
         this.setState({
             setSite: this.setSite,
             getSite: this.getSite,
+            getSiteById: this.getSiteById,
             getTimezone: this.getTimezone,
             onSiteChanged: this.onSiteChanged,
             refetchSites: this.refetchSites
@@ -133,6 +141,7 @@ class SiteProvider extends Component {
             user: null,
             setSite: null,
             getSite: null,
+            getSiteById: null,
             getTimezone: null,
             siteChangedCallbacks: [],
             onSiteChanged: null,
