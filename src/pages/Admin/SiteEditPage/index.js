@@ -55,8 +55,6 @@ const SiteEditPage = (props) => {
             firebase_site: values.firebase_site,
             owners: values.owners.map(o => ({id: o.value}))
         };
-
-        console.log(updateSiteData);
 		
         updateSite(siteId, updateSiteData, userCtx.token)
             .then(async response => {

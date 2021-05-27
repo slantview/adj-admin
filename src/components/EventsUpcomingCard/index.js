@@ -24,7 +24,7 @@ const EventsUpcomingCard = (props) => {
 	const timezone = siteCtx.getTimezone();
 
 	const nextStartsAt = next && timezone ? moment(next.starts_at).tz(timezone) : null;
-	const bgImage = next && next.header ? next.header.formats.large.url : headerBackground;
+	const bgImage = next && next.header ? next.header?.formats?.large?.url : headerBackground;
 	const gameImages = _.uniqBy(next?.tournaments?.flatMap(t => {
 		return {
 			title: t.game.title,

@@ -57,7 +57,7 @@ const ImageUpload = (props) => {
 			setFiles(value.map(f => {
 				if (f.__typename === 'UploadFile') {
 					return {
-						preview: f.formats.small.url
+						preview: f.formats?.small?.url
 					}
 				}
 			}));
