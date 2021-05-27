@@ -58,7 +58,6 @@ const TournamentEditForm = (props) => {
     const geoRegions = tournament.geo_regions && tournament.geo_regions.length > 0
         ? tournament.geo_regions.map(g => ({ name: g.title, value: g.id }))
         : [];
-    console.log(tournament);
     const startsAt = moment(tournament.tournament_start_time).tz(timezone).format('HH:mm');
     const registrationCutoff = moment(tournament.registration_cutoff).tz(timezone).format('HH:mm');
     

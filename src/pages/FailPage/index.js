@@ -2,10 +2,12 @@ import React from 'react';
 
 import Failure from '../../components/Failure';
 
-export default function RecoverPage() {
+const FailPage = () => {
 	return (
 			<>
 				<Failure />
 			</>
 	);
-}
+};
+
+export default FailPage;

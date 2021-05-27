@@ -69,7 +69,6 @@ const SiteEditForm = (props) => {
 		}
 		if (typeof request?.input === 'string') {
             arr && callback(arr.filter(r => {
-                console.log(r);
 				return r.name?.toLowerCase().includes(request.input?.toLowerCase());
 			}));
 		} else {
