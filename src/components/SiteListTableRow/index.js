@@ -78,7 +78,7 @@ const SiteListTableRow = (props) => {
                         <div className="d-flex align-items-center">
                             <div>
                                 <a
-                                    href={backend_url + '/dashboard'}
+                                    href={"/admin/sites/edit/" + id}
                                     target="_new"
                                     className="font-weight-bold text-black"
                                     title={name}>
