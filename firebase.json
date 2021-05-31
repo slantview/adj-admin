@@ -1,6 +1,6 @@
 {
     "hosting": {
-      "site": "beaconsgg-admin",
+      "site": "beaconsgg-dashboard",
       "public": "build",
       "ignore": [
         "firebase.json",
