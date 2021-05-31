@@ -122,7 +122,7 @@ const SeriesDetailPage = (props) => {
                 subtitle={seriesData.subtitle}
                 subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
-                backgroundImage={seriesData.header.formats.large.url}
+                backgroundImage={seriesData.header?.formats?.large?.url}
                 // linkText="Add Event"
                 // linkTo={"/events/" + seriesId + "/add"}
                 // linkIconName="plus"
