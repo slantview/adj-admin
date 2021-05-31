@@ -37,7 +37,7 @@ function SeriesListItem(props) {
         <Card className="mb-5 text-left" raised={true} style={{borderRadius: "8px"}}>
 			<CardActionArea className="m-0 p-0 btn-transition-none" onClick={handleClick}>
 				<CardMedia
-					image={header?.formats.large.url}
+					image={header?.formats?.large?.url}
 					title={title}>
 						<div className="py-0 bg-beacons-black-to-transparent w-100">
 							<CardContent className="">	
