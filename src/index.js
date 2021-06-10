@@ -12,6 +12,12 @@ import BracketsEditPage from 'pages/BracketEditPage';
 import BracketsListPage from 'pages/BracketListPage';
 import EventsEditPage from 'pages/EventsEditPage';
 import FailPage from 'pages/FailPage';
+import GamesModesAddPage from 'pages/GamesModesAddPage';
+import GamesModesEditPage from 'pages/GamesModesEditPage';
+import GamesModesListPage from 'pages/GamesModesListPage';
+import GamesPlatformsAddPage from 'pages/GamesPlatformsAddPage';
+import GamesPlatformsEditPage from 'pages/GamesPlatformsEditPage';
+import GamesPlatformsListPage from 'pages/GamesPlatformsListPage';
 import PlacesEditPage from 'pages/PlacesEditPage';
 import RulesAddPage from 'pages/RulesAddPage';
 import RulesEditPage from 'pages/RulesEditPage';
@@ -102,18 +108,24 @@ ReactDOM.render(
 											<Route exact path="/tournaments/edit/:tournamentId"><TournamentEditPage /></Route>
 											{/* Games Pages */}
 											<Route exact path="/games"><GamesListPage /></Route>
+											<Route exact path="/games/modes"><GamesModesListPage /></Route>
+											<Route exact path="/games/modes/add"><GamesModesAddPage /></Route>
+											<Route exact path="/games/modes/edit/:modeId"><GamesModesEditPage /></Route>
+											<Route exact path="/games/platforms"><GamesPlatformsListPage /></Route>
+											<Route exact path="/games/platforms/add"><GamesPlatformsAddPage /></Route>
+											<Route exact path="/games/platforms/edit/:platformId"><GamesPlatformsEditPage /></Route>
 											{/* Places Pages */}
 											<Route exact path="/places"><PlacesListPage /></Route>
 											<Route exact path="/places/add"><PlacesAddPage /></Route>
 											<Route exact path="/places/edit/:placeId"><PlacesEditPage /></Route>
 											{/* Rules Pages */}
-											<Route exact path="/rules"><RulesListPage /></Route>
-											<Route exact path="/rules/add"><RulesAddPage /></Route>
-											<Route exact path="/rules/edit/:ruleId"><RulesEditPage /></Route>
+											<Route exact path="/games/rules"><RulesListPage /></Route>
+											<Route exact path="/games/rules/add"><RulesAddPage /></Route>
+											<Route exact path="/games/rules/edit/:ruleId"><RulesEditPage /></Route>
 											{/* Bracket Pages */}
-											<Route exact path="/brackets"><BracketsListPage /></Route>
-											<Route exact path="/brackets/add"><BracketsAddPage /></Route>
-											<Route exact path="/brackets/edit/:bracketId"><BracketsEditPage /></Route>
+											<Route exact path="/tournaments/brackets"><BracketsListPage /></Route>
+											<Route exact path="/tournaments/brackets/add"><BracketsAddPage /></Route>
+											<Route exact path="/tournaments/brackets/edit/:bracketId"><BracketsEditPage /></Route>
 											{/* ServiceArea Pages */}
 											<Route exact path="/service-areas"><ServiceAreaListPage /></Route>
 											<Route exact path="/service-areas/add"><ServiceAreaAddPage /></Route>

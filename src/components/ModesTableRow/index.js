@@ -4,21 +4,21 @@ import moment from 'moment-timezone';
 import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
 
-import RuleActionMenu from 'components/RulesActionMenu';
+import ModeActionMenu from 'components/ModesActionMenu';
 import { SiteContext } from 'providers/SiteProvider';
 
-const RulesTableRow = (props) => {
+const ModesTableRow = (props) => {
     const {
-        refreshRules,
+        refreshModes,
         setLoading,
-        rule
+        mode
     } = props;
 
     const siteCtx = useContext(SiteContext);
     const timezone = siteCtx.getTimezone();
 
-    const updatedAt = moment(rule.updated_at).tz(timezone).format("M/DD/YYYY  h:mm A");
-    const gameImages = _.uniqBy(rule.games?.map(g => {
+    const updatedAt = moment(mode.updated_at).tz(timezone).format("M/DD/YYYY  h:mm A");
+    const gameImages = _.uniqBy(mode.games?.map(g => {
 		return {
 			title: g.title,
 			cover: g.cover.formats.thumbnail.url
@@ -29,10 +29,10 @@ const RulesTableRow = (props) => {
         <tr>
             <td>
                 <Link
-                    to={"/games/rules/edit/"+rule.id}
+                    to={"/games/modes/edit/"+mode.id}
                     className="font-weight-bold text-black"
-                    title={rule.title}>
-                        {rule.title}
+                    title={mode.title}>
+                        {mode.title}
                 </Link>
             </td>
             <td>
@@ -58,9 +58,9 @@ const RulesTableRow = (props) => {
             </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">
-                    <RuleActionMenu 
-                        rule={rule} 
-                        refreshRules={refreshRules} 
+                    <ModeActionMenu 
+                        mode={mode} 
+                        refreshModes={refreshModes} 
                         setLoading={setLoading} 
                         iconClassName="text-black-50" 
                     />
@@ -70,6 +70,4 @@ const RulesTableRow = (props) => {
 	);
 };
 
-export default RulesTableRow;
-
-					
+export default ModesTableRow;

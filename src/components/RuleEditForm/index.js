@@ -56,7 +56,7 @@ const RulesEditForm = (props) => {
                             type: 'success',
                             message: "Successfully updated rule: " + updatedRule.title
                         });
-                        history.push('/rules', { refresh: true });
+                        history.push('/games/rules', { refresh: true });
                     });
             }).catch(e  => {
                 setError(e.toString());

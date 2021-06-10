@@ -4,55 +4,53 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Loading from 'components/Loading';
-import RulesEditForm from 'components/RuleEditForm';
+import PlatformsEditForm from 'components/PlatformsEditForm';
 import SectionHeader from 'components/SectionHeader';
-import { GET_GAME_RULE_LIST } from 'queries/rules';
+import { GET_GAME_PLATFORM } from 'queries/platforms';
 
-const RulesEditPage = (props) => {
+const GamePlatformsEditPage = (props) => {
        // @ts-ignore
-       const { ruleId } = useParams();
+       const { platformId } = useParams();
 
        const { loading, error, data } = useQuery(
-           GET_GAME_RULE_LIST, 
+            GET_GAME_PLATFORM, 
            { 
-               variables: { id: ruleId, limit: 1 },
+               variables: { id: platformId, limit: 1 },
                notifyOnNetworkStatusChange: true 
            });
-       const [ruleData, setRuleData] = useState(null);
+       const [platformData, setPlatformData] = useState(null);
        const [isLoading, setLoading] = useState(loading);
    
        useEffect(() => {
-           if ((isLoading || !loading) && data && data.gameRuleList) {
-                setRuleData(data.gameRuleList);
+           if ((isLoading || !loading) && data && data.platform) {
+                setPlatformData(data.platform);
                 setLoading(loading);
            }
        }, [loading, data, error]);
    
-       if (isLoading || ruleData === null) {
+       if (isLoading || platformData === null) {
            return (<Loading center={true} centerInPage={true} />);
        }
     return (
         <div>
             <SectionHeader 
-                title={ruleData ? "Edit " + ruleData?.title : 'Loading...'}
+                title={platformData ? "Edit " + platformData?.title : 'Loading...'}
                 titleColor="text-white"
-                subtitle="Update game rule."
+                subtitle="Update game platform."
                 subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
                 breadcrumbs={[
                     { title: "Home", to: "/" },
-                    { title: "Rules", to: "/games/rules" },
-                    { title: 'Edit ' + ruleData?.title, to: null }
+					{ title: "Games", to: "/games" },
+                    { title: "Platforms", to: "/games/platforms" },
+                    { title: 'Edit ' + platformData?.title, to: null }
                 ]}
             />
             
             <div className="mx-4">
                 <Grid container>
                     <Grid item md={12} lg={12} xl={12}>
-                        <h3 className="text-uppercase font-weight-bolder pt-1 mb-0">Create New Rule</h3>
-                    </Grid>
-                    <Grid item md={12} lg={12} xl={12}>
-                        <RulesEditForm rule={ruleData} />
+                        <PlatformsEditForm platform={platformData} />
                     </Grid>
                 </Grid>
             </div>
@@ -60,4 +58,4 @@ const RulesEditPage = (props) => {
     );
 };
 
-export default RulesEditPage;
+export default GamePlatformsEditPage;

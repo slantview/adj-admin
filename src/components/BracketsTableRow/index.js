@@ -23,7 +23,7 @@ const BracketsTableRow = (props) => {
         <tr>
             <td>
                 <Link
-                    to={"/brackets/edit/"+bracket.id}
+                    to={"/tournaments/brackets/edit/"+bracket.id}
                     className="font-weight-bold text-black"
                     title={bracket.title}>
                         {bracket.title}

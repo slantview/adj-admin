@@ -1,56 +1,62 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import BracketForm from 'components/BracketForm';
 import Error from 'components/Error';
 import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
+import PlatformForm from 'components/PlatformForm';
 import { NotificationContext } from 'providers/NotificationProvider';
-import { UPDATE_BRACKET_FORMAT } from 'queries/bracket_format';
+import { UPDATE_GAME_PLATFORM } from 'queries/platforms';
 
 const validationSchema = Yup.object({
-    title: Yup.string().required('Title is required'),
-    description: Yup.string().required('Description is required')
+    name: Yup.string().required('Title is required'),
+    description: Yup.string().required('Description is required'),
+    games: Yup.array().min(1, "Game is required").required('Game is required')
 });
 
-const BracketsEditForm = (props) => {
+const PlatformsEditForm = (props) => {
     const {
-        bracket
+        platform
     } = props;
-  
+
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
-    const [updateBracketFormat] = useMutation(UPDATE_BRACKET_FORMAT);
+    const [updatePlatform] = useMutation(UPDATE_GAME_PLATFORM);
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
-    const initialData = {
-        title: bracket?.title,
-        description: bracket?.description
-    };
+    const games = platform?.games && platform.games.length > 0
+    ? platform?.games.map(g => ({ name: g.title, value: g.id }))
+    : [];
 
+    const initialData = {
+        name: platform?.name,
+        description: platform?.description,
+        games: games,
+    };
 
     const handleSubmit = async (values, actions) => {
         setSubmitted(true);
         
-        let newBracket = Object.assign({}, values);
+        let newPlatform = Object.assign({}, values);
+        newPlatform.games = values.games.map(g => g.value);
 
-        updateBracketFormat({ variables: { id: bracket.id, data: newBracket }})
+        updatePlatform({ variables: { id: platform.id, data: newPlatform }})
             .then((ret) => {
-                const updatedBracket = ret.data.updateBracketFormat.bracketFormat;
+                const updatedPlatform = ret.data.updatePlatform.platform;
                 client.resetStore()
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully updated bracket format: " + updatedBracket.title
+                            message: "Successfully updated platform: " + updatedPlatform.name
                         });
-                        history.push('/tournaments/brackets', { refresh: true });
+                        history.push('/games/platforms', { refresh: true });
                     });
             }).catch(e  => {
                 setError(e.toString());
@@ -61,15 +67,9 @@ const BracketsEditForm = (props) => {
         return (
             <div className="text-center m-5">
                 <Loading center={true} showTimeout={false} />
-                <h3 className="mt-3">Updating Bracket...</h3>
+                <h3 className="mt-3">Updating Platform...</h3>
             </div>
         );
-    }
-
-    if (bracket === null) {
-        <div className="text-center m-5">
-            <Loading center={true} showTimeout={false} />
-        </div>
     }
 
     return (
@@ -95,12 +95,12 @@ const BracketsEditForm = (props) => {
                                         <Form id="organization-add-form"> 
                                             { !FormProps.isSubmitting && 
                                                 <div>
-                                                    <BracketForm {...FormProps} />
+                                                    <PlatformForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
                                                         <FormSubmitButton
                                                             showNotificationOnError={true}
-                                                            title="Update Bracket"
+                                                            title="Update Platform"
                                                             errors={FormProps.errors}
                                                         />
                                                     </div>
@@ -117,4 +117,4 @@ const BracketsEditForm = (props) => {
     )
 }
 
-export default BracketsEditForm;
+export default PlatformsEditForm;

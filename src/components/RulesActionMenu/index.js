@@ -32,7 +32,7 @@ const RulesActionMenu = (props) => {
 		setAnchorEl(null);
 	};
     const handleEdit = () => {
-		history.push('/rules/edit/'+id);
+		history.push('/games/rules/edit/'+id);
 		handleClose();
     };
 

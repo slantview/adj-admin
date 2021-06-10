@@ -41,8 +41,8 @@ const RulesEditPage = (props) => {
                 backgroundStyle='bg-beacons-gradient'
                 breadcrumbs={[
                     { title: "Home", to: "/" },
-					{ title: "Tournaments", to: "/tournaments" },
-                    { title: "Rules", to: "/rules" },
+					{ title: "Games", to: "/games" },
+                    { title: "Rules", to: "/games/rules" },
                     { title: 'Edit ' + ruleData?.title, to: null }
                 ]}
             />

@@ -103,7 +103,7 @@ const BracketsListPage = (props) => {
                     <div className="text-right mr-4">
                         <Button
                             component={Link}
-                            to={'/brackets/add'}
+                            to={'/tournaments/brackets/add'}
                             size="small"
                             className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
                                 <span className="btn-wrapper--icon mr-2">

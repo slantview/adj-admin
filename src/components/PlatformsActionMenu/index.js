@@ -6,24 +6,24 @@ import { useHistory } from 'react-router-dom';
 
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
-import { DELETE_BRACKET_FORMAT } from 'queries/bracket_format';
+import { DELETE_GAME_PLATFORM } from 'queries/platforms';
 
-const BracketsActionMenu = (props) => {
+const PlatformsActionMenu = (props) => {
     const {
-        bracket,
-        refreshBrackets,
+        platform,
+        refreshPlatforms,
         iconClassName
     } = props;
 
     const {
         id,
-    } = bracket;
+    } = platform;
 
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    const [deleteGameBracket] = useMutation(DELETE_BRACKET_FORMAT);
+    const [deleteGamePlatformList] = useMutation(DELETE_GAME_PLATFORM);
     
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -32,24 +32,24 @@ const BracketsActionMenu = (props) => {
 		setAnchorEl(null);
 	};
     const handleEdit = () => {
-		history.push('/tournaments/brackets/edit/'+id);
+		history.push('/games/platforms/edit/'+id);
 		handleClose();
     };
 
     const handleDelete = () => {
-        deleteGameBracket({ variables: { id: id }})
+        deleteGamePlatformList({ variables: { id: id }})
             .then(result => {
-                const deletedGameBracket = result.data.deleteGameBracket.gameBracket;
+                const deletedGamePlatformList = result.data.deleteGamePlatformList.gamePlatformList;
                 notify({
                     type: 'success',
-                    message: `Successfully deleted bracket format: ${deletedGameBracket.title}.`
+                    message: `Successfully deleted platform: ${deletedGamePlatformList.title}.`
                 });
-                refreshBrackets();
+                refreshPlatforms();
             })
             .catch(e => {
                 notify({
                     type: 'danger',
-                    message: `Error deleting bracket format: ${e.toString()}`
+                    message: `Error deleting platform: ${e.toString()}`
                 });
             })
 		handleClose();
@@ -87,4 +87,4 @@ const BracketsActionMenu = (props) => {
     )
 }
 
-export default BracketsActionMenu;
+export default PlatformsActionMenu;

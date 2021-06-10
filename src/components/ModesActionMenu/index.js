@@ -6,24 +6,24 @@ import { useHistory } from 'react-router-dom';
 
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
-import { DELETE_BRACKET_FORMAT } from 'queries/bracket_format';
+import { DELETE_GAME_MODE } from 'queries/modes';
 
-const BracketsActionMenu = (props) => {
+const ModesActionMenu = (props) => {
     const {
-        bracket,
-        refreshBrackets,
+        mode,
+        refreshModes,
         iconClassName
     } = props;
 
     const {
         id,
-    } = bracket;
+    } = mode;
 
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    const [deleteGameBracket] = useMutation(DELETE_BRACKET_FORMAT);
+    const [deleteGameMode] = useMutation(DELETE_GAME_MODE);
     
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -32,24 +32,24 @@ const BracketsActionMenu = (props) => {
 		setAnchorEl(null);
 	};
     const handleEdit = () => {
-		history.push('/tournaments/brackets/edit/'+id);
+		history.push('/games/modes/edit/'+id);
 		handleClose();
     };
 
     const handleDelete = () => {
-        deleteGameBracket({ variables: { id: id }})
+        deleteGameMode({ variables: { id: id }})
             .then(result => {
-                const deletedGameBracket = result.data.deleteGameBracket.gameBracket;
+                const deletedGameMode = result.data.deleteGameMode.gameMode;
                 notify({
                     type: 'success',
-                    message: `Successfully deleted bracket format: ${deletedGameBracket.title}.`
+                    message: `Successfully deleted mode: ${deletedGameMode.title}.`
                 });
-                refreshBrackets();
+                refreshModes();
             })
             .catch(e => {
                 notify({
                     type: 'danger',
-                    message: `Error deleting bracket format: ${e.toString()}`
+                    message: `Error deleting mode: ${e.toString()}`
                 });
             })
 		handleClose();
@@ -87,4 +87,4 @@ const BracketsActionMenu = (props) => {
     )
 }
 
-export default BracketsActionMenu;
+export default ModesActionMenu;

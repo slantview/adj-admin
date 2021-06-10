@@ -56,7 +56,7 @@ const TournamentsTableRow = (props) => {
                     { tournament.game_rules.map((r, i) => (
                         <span key={i}>
                             <Link
-                                to={"/rules/edit/"+r.id}
+                                to={"/games/rules/edit/"+r.id}
                                 className="font-weight-bold text-black-50 font-size-xs"
                                 title={r.title}>
                                     <FontAwesomeIcon

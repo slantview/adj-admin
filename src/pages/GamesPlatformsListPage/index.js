@@ -6,22 +6,21 @@ import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import RulesTableRow from 'components/RulesTableRow';
+import Error from 'components/Error';
+import Loading from 'components/Loading';
+import PlatformsTableRow from 'components/PlatformsTableRow';
 import SectionHeader from 'components/SectionHeader';
 import { SiteContext } from 'providers/SiteProvider';
-import { GET_ALL_GAME_RULE_LISTS } from 'queries/rules';
+import { GET_ALL_GAME_PLATFORMS } from 'queries/platforms';
 
-import Error from '../../components/Error';
-import Loading from '../../components/Loading';
-
-const RulesListPage = (props) => {
+const GamesPlatformsListPage = (props) => {
 	const siteCtx = useContext(SiteContext);
 	const { loading, error, data, refetch } = useQuery(
-		GET_ALL_GAME_RULE_LISTS,
+		GET_ALL_GAME_PLATFORMS,
 		{ 
 			notifyOnNetworkStatusChange: true 
 		});
-	const gameRuleListData = loading || error ? [] : data.gameRuleLists;
+	const gamePlatformData = loading || error ? [] : data.platforms;
 	const [isLoading, setLoading] = useState(loading);
 
 	const [entries, setEntries] = useState(10);
@@ -33,23 +32,23 @@ const RulesListPage = (props) => {
 		setPage(page);
 	};
 	const [search, setSearch] = useState('');
-	const [gameRuleLists, setGameRuleLists] = useState(gameRuleListData);
+	const [gamePlatforms, setGamePlatforms] = useState(gamePlatformData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
-			setGameRuleLists(gameRuleListData);
+			setGamePlatforms(gamePlatformData);
 			setSearch('');
 		} else {
 			setSearch(e.target.value);
-			const newData = gameRuleListData.filter(g => {
+			const newData = gamePlatformData.filter(g => {
 				return g.title.toLowerCase().includes(e.target.value.toLowerCase()) || g.description.toLowerCase().includes(e.target.value);
 			})
-			setGameRuleLists(newData);
+			setGamePlatforms(newData);
 		}
 	};
 
-	const refreshRules = () => {
+	const refreshPlatforms = () => {
 		setLoading(true);
-		setGameRuleLists([]);
+		setGamePlatforms([]);
 		refetch();
 	};
 
@@ -58,7 +57,7 @@ const RulesListPage = (props) => {
 		siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
                 if (active) {
-                    refreshRules();
+                    refreshPlatforms();
                 }
 				resolve();
 			});
@@ -71,9 +70,9 @@ const RulesListPage = (props) => {
 	useEffect(() => {
 		if (isLoading && !loading) {
 			setLoading(loading);
-			setGameRuleLists(gameRuleListData);
+			setGamePlatforms(gamePlatformData);
 		}
-	}, [loading, isLoading, gameRuleListData]);
+	}, [loading, isLoading, gamePlatformData]);
 
 	if (loading) {
 		return (<Loading centerInPage={true} center={true} />);
@@ -86,15 +85,15 @@ const RulesListPage = (props) => {
 	return (
 		<div>
             <SectionHeader 
-                title="Rules"
+                title="Platforms"
                 titleColor="text-white"
-                subtitle="Manage your game rules."
+                subtitle="Manage your game platforms."
                 subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
                 breadcrumbs={[
                     { title: "Home", to: "/" },
 					{ title: "Games", to: "/games" },
-                    { title: "Rules", to: null }
+                    { title: "Platforms", to: null }
                 ]}
             >
                 <Grid container alignItems="flex-end">
@@ -111,13 +110,13 @@ const RulesListPage = (props) => {
                     <div className="text-right mr-4">
                         <Button
                             component={Link}
-                            to={'/games/rules/add'}
+                            to={'/games/platforms/add'}
                             size="small"
                             className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
                                 <span className="btn-wrapper--icon mr-2">
 									<FontAwesomeIcon icon={['fas', 'plus']} />
                                 </span>
-                                Add Rule
+                                Add Game Platform
                         </Button>
                     </div>
                 </Grid> 
@@ -154,23 +153,23 @@ const RulesListPage = (props) => {
 							</tr>
 						</thead>
 						<tbody>
-							{ gameRuleLists.map(r => (
-								<RulesTableRow 
-									key={r.id} 
-									rule={r} 
-									refreshRules={refreshRules} 
+							{ gamePlatforms.map(p => (
+								<PlatformsTableRow 
+									key={p.id} 
+									platform={p} 
+									refreshPlatforms={refreshPlatforms} 
 								/>
 							))}
 						</tbody>
 					</Table>
 					<div className="card-footer d-flex justify-content-between">
-						<Collapse in={gameRuleLists.length > entries}>
+						<Collapse in={gamePlatforms.length > entries}>
 							<Pagination
 								className="pagination-second"
 								variant="outlined"
 								page={page}
 								onChange={handlePageChange}
-								count={ Math.floor((gameRuleLists.length/entries)) + (gameRuleLists.length%entries === 0 ? 0 : 1)}
+								count={ Math.floor((gamePlatforms.length/entries)) + (gamePlatforms.length%entries === 0 ? 0 : 1)}
 							/>
 						</Collapse>
 						<div className="d-flex align-items-center">
@@ -204,4 +203,4 @@ const RulesListPage = (props) => {
 	);
 }
 
-export default RulesListPage;
+export default GamesPlatformsListPage;

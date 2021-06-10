@@ -45,7 +45,7 @@ const BracketsEditPage = (props) => {
                 breadcrumbs={[
                     { title: "Home", to: "/" },
 					{ title: "Tournaments", to: "/tournaments" },
-                    { title: "Brackets", to: "/brackets" },
+                    { title: "Brackets", to: "/tournaments/brackets" },
                     { title: 'Edit ' + bracketData?.title, to: null }
                 ]}
             />

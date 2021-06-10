@@ -1,11 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Collapse, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Collapse, ListItem } from '@material-ui/core';
 import ChevronRightTwoToneIcon from '@material-ui/icons/ChevronRightTwoTone';
 import React, { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import AdminMenu from 'pages/Admin/AdminMenu';
-import useStyles from 'theme/useStyles';
 
 import SiteSelector from '../SiteSelector';
 import Userbox from '../Userbox/index';
@@ -16,14 +15,10 @@ const ListItemLink = (props) => {
 
 const Sidebar = (props) => {
     const [currentCategory, setCurrentCategory] = React.useState('');
-    const [currentPage, setCurrentPage] = React.useState('');
 
     const handleCategoryClick = (name) => {
-        if (name === currentCategory) {
-            setCurrentCategory(null);
-        } else {
+        if (name !== currentCategory) {
             setCurrentCategory(name);
-            setCurrentPage(null);
         }
     };
 
@@ -38,6 +33,8 @@ const Sidebar = (props) => {
             const pathArr = window.location.pathname.split('/');
             if (pathArr.length <= 1) {
                 setCurrentCategory('events');
+            } else if (pathArr.length === 3) {
+                setCurrentCategory(pathArr[2]);
             } else {
                 setCurrentCategory(pathArr[1]);
             }
@@ -112,9 +109,9 @@ const Sidebar = (props) => {
                                 <NavLink
                                     activeClassName={isNavCategory('brackets') ? "active" : null} 
                                     key="brackets" 
-                                    onClick={() => handleCategoryClick('rules')}
+                                    onClick={() => handleCategoryClick('brackets')}
                                     className="nav-link-simple"
-                                    to="/brackets">
+                                    to="/tournaments/brackets">
                                         <span className="sidebar-icon ml-4">
                                             <FontAwesomeIcon icon={['fas', 'stream']} />
                                         </span>
@@ -141,18 +138,51 @@ const Sidebar = (props) => {
                                     </span>
                             </NavLink>
                         </li>
-                        <Collapse in={isNavCategory('games', false) || isNavCategory('rules')} timeout="auto" unmountOnExit>
+                        <Collapse in={isNavCategory('games', false) || isNavCategory('rules') || 
+                                      isNavCategory('modes') || isNavCategory('platforms') } timeout="auto" unmountOnExit>
                             <li>
                                 <NavLink
                                     activeClassName={isNavCategory('rules') ? "active" : null} 
                                     key="rules" 
                                     onClick={() => handleCategoryClick('rules')}
                                     className="nav-link-simple"
-                                    to="/rules">
+                                    to="/games/rules">
                                         <span className="sidebar-icon ml-4">
                                             <FontAwesomeIcon icon={['fas', 'book-open']} />
                                         </span>
                                         Rules
+                                        <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                            <ChevronRightTwoToneIcon />
+                                        </span>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    activeClassName={isNavCategory('modes') ? "active" : null} 
+                                    key="modes" 
+                                    onClick={() => handleCategoryClick('modes')}
+                                    className="nav-link-simple"
+                                    to="/games/modes">
+                                        <span className="sidebar-icon ml-4">
+                                            <FontAwesomeIcon icon={['fas', 'gamepad']} />
+                                        </span>
+                                        Modes
+                                        <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                            <ChevronRightTwoToneIcon />
+                                        </span>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    activeClassName={isNavCategory('platforms') ? "active" : null} 
+                                    key="platforms" 
+                                    onClick={() => handleCategoryClick('platforms')}
+                                    className="nav-link-simple"
+                                    to="/games/platforms">
+                                        <span className="sidebar-icon ml-4">
+                                            <FontAwesomeIcon icon={['fas', 'desktop']} />
+                                        </span>
+                                        Platforms
                                         <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
                                             <ChevronRightTwoToneIcon />
                                         </span>

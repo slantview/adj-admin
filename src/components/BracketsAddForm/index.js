@@ -44,7 +44,7 @@ const BracketsAddForm = (props) => {
                             type: 'success',
                             message: "Successfully added bracket format: " + createdBracketFormat.title
                         });
-                        history.push('/brackets', { refresh: true });
+                        history.push('/tournaments/brackets', { refresh: true });
                     });
             }).catch(e  => {
                 setError(e.toString());

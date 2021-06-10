@@ -4,21 +4,21 @@ import moment from 'moment-timezone';
 import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
 
-import RuleActionMenu from 'components/RulesActionMenu';
+import PlatformActionMenu from 'components/PlatformsActionMenu';
 import { SiteContext } from 'providers/SiteProvider';
 
-const RulesTableRow = (props) => {
+const PlatformsTableRow = (props) => {
     const {
-        refreshRules,
+        refreshModes,
         setLoading,
-        rule
+        platform
     } = props;
 
     const siteCtx = useContext(SiteContext);
     const timezone = siteCtx.getTimezone();
 
-    const updatedAt = moment(rule.updated_at).tz(timezone).format("M/DD/YYYY  h:mm A");
-    const gameImages = _.uniqBy(rule.games?.map(g => {
+    const updatedAt = moment(platform.updated_at).tz(timezone).format("M/DD/YYYY  h:mm A");
+    const gameImages = _.uniqBy(platform.games?.map(g => {
 		return {
 			title: g.title,
 			cover: g.cover.formats.thumbnail.url
@@ -29,10 +29,10 @@ const RulesTableRow = (props) => {
         <tr>
             <td>
                 <Link
-                    to={"/games/rules/edit/"+rule.id}
+                    to={"/games/platforms/edit/"+platform.id}
                     className="font-weight-bold text-black"
-                    title={rule.title}>
-                        {rule.title}
+                    title={platform.name}>
+                        {platform.name}
                 </Link>
             </td>
             <td>
@@ -58,9 +58,9 @@ const RulesTableRow = (props) => {
             </td>
             <td className="text-right">
                 <div className="d-flex align-items-center justify-content-end pr-3">
-                    <RuleActionMenu 
-                        rule={rule} 
-                        refreshRules={refreshRules} 
+                    <PlatformActionMenu 
+                        platform={platform} 
+                        refreshModes={refreshModes} 
                         setLoading={setLoading} 
                         iconClassName="text-black-50" 
                     />
@@ -70,6 +70,4 @@ const RulesTableRow = (props) => {
 	);
 };
 
-export default RulesTableRow;
-
-					
+export default PlatformsTableRow;

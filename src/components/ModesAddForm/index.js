@@ -1,56 +1,56 @@
 import { useApolloClient, useMutation } from '@apollo/client';
 import { Button, Card } from '@material-ui/core';
 import { Form, Formik } from 'formik';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import BracketForm from 'components/BracketForm';
 import Error from 'components/Error';
 import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
+import ModeForm from 'components/ModeForm';
 import Finished from 'components/OrganizationAddForm/Finished';
 import { NotificationContext } from 'providers/NotificationProvider';
-import { UPDATE_BRACKET_FORMAT } from 'queries/bracket_format';
+import { CREATE_GAME_MODE } from 'queries/modes';
 
+const initialData = {
+    title: '',
+    description: '',
+    games: []
+};
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
-    description: Yup.string().required('Description is required')
+    description: Yup.string().required('Description is required'),
+    games: Yup.array().min(1, "Game is required").required('Game is required')
 });
 
-const BracketsEditForm = (props) => {
-    const {
-        bracket
-    } = props;
-  
+const ModesAddForm = (props) => {
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const client = useApolloClient();
-    const [updateBracketFormat] = useMutation(UPDATE_BRACKET_FORMAT);
+    const [addMode] = useMutation(CREATE_GAME_MODE);
     const [isSubmitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
-
-    const initialData = {
-        title: bracket?.title,
-        description: bracket?.description
-    };
-
 
     const handleSubmit = async (values, actions) => {
         setSubmitted(true);
         
-        let newBracket = Object.assign({}, values);
+        let newMode = {
+            title: values.title,
+            description: values.description
+        }
+        newMode.games = values.games.map(g => g.value);
 
-        updateBracketFormat({ variables: { id: bracket.id, data: newBracket }})
+        addMode({ variables: { payload: { data: newMode }}})
             .then((ret) => {
-                const updatedBracket = ret.data.updateBracketFormat.bracketFormat;
+                const createdMode = ret.data.createGameMode.gameMode;
                 client.resetStore()
                     .then(() => {
                         notify({
                             type: 'success',
-                            message: "Successfully updated bracket format: " + updatedBracket.title
+                            message: "Successfully added mode: " + createdMode.title
                         });
-                        history.push('/tournaments/brackets', { refresh: true });
+                        history.push('/games/modes', { refresh: true });
                     });
             }).catch(e  => {
                 setError(e.toString());
@@ -61,15 +61,9 @@ const BracketsEditForm = (props) => {
         return (
             <div className="text-center m-5">
                 <Loading center={true} showTimeout={false} />
-                <h3 className="mt-3">Updating Bracket...</h3>
+                <h3 className="mt-3">Creating Mode...</h3>
             </div>
         );
-    }
-
-    if (bracket === null) {
-        <div className="text-center m-5">
-            <Loading center={true} showTimeout={false} />
-        </div>
     }
 
     return (
@@ -95,12 +89,12 @@ const BracketsEditForm = (props) => {
                                         <Form id="organization-add-form"> 
                                             { !FormProps.isSubmitting && 
                                                 <div>
-                                                    <BracketForm {...FormProps} />
+                                                    <ModeForm {...FormProps} />
 
                                                     <div className="card-footer mt-4 p-4 d-flex align-items-center justify-content-between bg-secondary">
                                                         <FormSubmitButton
                                                             showNotificationOnError={true}
-                                                            title="Update Bracket"
+                                                            title="Add Mode"
                                                             errors={FormProps.errors}
                                                         />
                                                     </div>
@@ -117,4 +111,4 @@ const BracketsEditForm = (props) => {
     )
 }
 
-export default BracketsEditForm;
+export default ModesAddForm;

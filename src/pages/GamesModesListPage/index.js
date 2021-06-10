@@ -6,22 +6,22 @@ import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import RulesTableRow from 'components/RulesTableRow';
+import ModesTableRow from 'components/ModesTableRow';
 import SectionHeader from 'components/SectionHeader';
 import { SiteContext } from 'providers/SiteProvider';
-import { GET_ALL_GAME_RULE_LISTS } from 'queries/rules';
+import { GET_ALL_GAME_MODES } from 'queries/modes';
 
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
 
-const RulesListPage = (props) => {
+const GamesModesListPage = (props) => {
 	const siteCtx = useContext(SiteContext);
 	const { loading, error, data, refetch } = useQuery(
-		GET_ALL_GAME_RULE_LISTS,
+		GET_ALL_GAME_MODES,
 		{ 
 			notifyOnNetworkStatusChange: true 
 		});
-	const gameRuleListData = loading || error ? [] : data.gameRuleLists;
+	const gameRuleListData = loading || error ? [] : data.gameModes;
 	const [isLoading, setLoading] = useState(loading);
 
 	const [entries, setEntries] = useState(10);
@@ -33,23 +33,23 @@ const RulesListPage = (props) => {
 		setPage(page);
 	};
 	const [search, setSearch] = useState('');
-	const [gameRuleLists, setGameRuleLists] = useState(gameRuleListData);
+	const [gameModes, setGameModes] = useState(gameRuleListData);
 	const handleSearchChange = (e) => {
 		if (e.target.data === "") {
-			setGameRuleLists(gameRuleListData);
+			setGameModes(gameRuleListData);
 			setSearch('');
 		} else {
 			setSearch(e.target.value);
 			const newData = gameRuleListData.filter(g => {
 				return g.title.toLowerCase().includes(e.target.value.toLowerCase()) || g.description.toLowerCase().includes(e.target.value);
 			})
-			setGameRuleLists(newData);
+			setGameModes(newData);
 		}
 	};
 
-	const refreshRules = () => {
+	const refreshModes = () => {
 		setLoading(true);
-		setGameRuleLists([]);
+		setGameModes([]);
 		refetch();
 	};
 
@@ -58,7 +58,7 @@ const RulesListPage = (props) => {
 		siteCtx.onSiteChanged(async () => {
 			return new Promise((resolve, reject) => {
                 if (active) {
-                    refreshRules();
+                    refreshModes();
                 }
 				resolve();
 			});
@@ -71,7 +71,7 @@ const RulesListPage = (props) => {
 	useEffect(() => {
 		if (isLoading && !loading) {
 			setLoading(loading);
-			setGameRuleLists(gameRuleListData);
+			setGameModes(gameRuleListData);
 		}
 	}, [loading, isLoading, gameRuleListData]);
 
@@ -86,15 +86,15 @@ const RulesListPage = (props) => {
 	return (
 		<div>
             <SectionHeader 
-                title="Rules"
+                title="Game Modes"
                 titleColor="text-white"
-                subtitle="Manage your game rules."
+                subtitle="Manage your game modes."
                 subtitleColor="text-white-50"
                 backgroundStyle='bg-beacons-gradient'
                 breadcrumbs={[
                     { title: "Home", to: "/" },
 					{ title: "Games", to: "/games" },
-                    { title: "Rules", to: null }
+                    { title: "Game Modes", to: null }
                 ]}
             >
                 <Grid container alignItems="flex-end">
@@ -111,13 +111,13 @@ const RulesListPage = (props) => {
                     <div className="text-right mr-4">
                         <Button
                             component={Link}
-                            to={'/games/rules/add'}
+                            to={'/games/modes/add'}
                             size="small"
                             className="p-2 px-3 mr-0 btn btn-primary font-weight-bold">
                                 <span className="btn-wrapper--icon mr-2">
 									<FontAwesomeIcon icon={['fas', 'plus']} />
                                 </span>
-                                Add Rule
+                                Add Game Mode
                         </Button>
                     </div>
                 </Grid> 
@@ -154,23 +154,23 @@ const RulesListPage = (props) => {
 							</tr>
 						</thead>
 						<tbody>
-							{ gameRuleLists.map(r => (
-								<RulesTableRow 
-									key={r.id} 
-									rule={r} 
-									refreshRules={refreshRules} 
+							{ gameModes.map(m => (
+								<ModesTableRow 
+									key={m.id} 
+									mode={m} 
+									refreshModes={refreshModes} 
 								/>
 							))}
 						</tbody>
 					</Table>
 					<div className="card-footer d-flex justify-content-between">
-						<Collapse in={gameRuleLists.length > entries}>
+						<Collapse in={gameModes.length > entries}>
 							<Pagination
 								className="pagination-second"
 								variant="outlined"
 								page={page}
 								onChange={handlePageChange}
-								count={ Math.floor((gameRuleLists.length/entries)) + (gameRuleLists.length%entries === 0 ? 0 : 1)}
+								count={ Math.floor((gameModes.length/entries)) + (gameModes.length%entries === 0 ? 0 : 1)}
 							/>
 						</Collapse>
 						<div className="d-flex align-items-center">
@@ -204,4 +204,4 @@ const RulesListPage = (props) => {
 	);
 }
 
-export default RulesListPage;
+export default GamesModesListPage;
