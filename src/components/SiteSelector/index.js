@@ -83,8 +83,8 @@ const SiteSelector = () => {
                                 onClose={handleClose}
                                 onBlur={handleClose}>
                                     <div className="dropdown-menu-lg text-center overflow-hidden p-0 font-weight-light">
-                                        <div className="app-nav-logo--text  text-primary m-1">
-                                            <b className="text-uppercase font-size-sm">Select Site</b>
+                                        <div className="app-nav-logo--text text-primary m-1">
+                                            <b className="text-uppercase font-size-xs">Select Site</b>
                                         </div>
                                         <span className="divider mb-1" />
                                         { sites.map(site => (
@@ -93,7 +93,7 @@ const SiteSelector = () => {
                                                 key={site.id}
                                                 onClick={() => handleChange(site.id)} 
                                                 dense={false} 
-                                                className="font-size-sm text-left font-weight-light" >
+                                                className="font-size-xs text-left font-weight-light" >
                                                 {site.domain}
                                             </MenuItem>
                                         ))}
@@ -107,13 +107,13 @@ const SiteSelector = () => {
                 </div>
                 <div className="mt-2">
                     { selectorDisabled ? (
-                        <span className="text-uppercase border-0 bg-primary opacity-4 text-hover-white text-white px-4 font-weight-bold">
+                        <span className="font-size-xs text-uppercase border-0 bg-primary opacity-4 text-hover-white text-white px-4 font-weight-bold">
                                 {selectedSite?.domain}
                         </span>
                     ) : (
                         <Button
                             onClick={handleClick} 
-                            className="border-0 btn-neutral-primary text-hover-white text-white-50 px-3 font-weight-bold"
+                            className="font-size-xs border-0 btn-neutral-primary text-hover-white text-white-50 px-3 font-weight-bold"
                             disableRipple>
                                 {selectedSite?.domain}
                         </Button>
