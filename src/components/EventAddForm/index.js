@@ -15,8 +15,10 @@ import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
+import { UserContext } from 'providers/UserProvider';
 import { CREATE_EVENT } from 'queries/events';
 import { UPLOAD_FILE } from 'queries/files';
+import { buildSite } from 'utils/api';
 
 const initialData = {
     title: '',
@@ -50,6 +52,7 @@ const EventAddForm = (props) => {
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
+    const userCtx = useContext(UserContext);
     const client = useApolloClient();
     // @ts-ignore
     const [isSubmitted, setSubmitted] = useState(false);
@@ -100,6 +103,7 @@ const EventAddForm = (props) => {
                 const createdEvent = ret.data.createEvent.event;
                 client.resetStore()
                     .then(() => {
+                        buildSite(siteCtx.selected, userCtx.token);
                         notify({
                             type: 'success',
                             message: "Successfully added event: " + createdEvent.title

@@ -45,6 +45,7 @@ class SiteProvider extends Component {
     };
 
     setSite = (id) => {
+        localStorage.setItem('selectedSite', id);
         this.setState({selected: id});
         this.siteDidChange();
     }
@@ -98,7 +99,8 @@ class SiteProvider extends Component {
                         if (sites.length === 0) {
                             window.location.pathname = '/failure';
                         }
-                        const selectedSiteId = this.state.selected === null ? sites[0].id : this.state.selected;
+                        const prevSelected = localStorage.getItem('selectedSite');
+                        const selectedSiteId = this.state.selected === null ? (prevSelected ? prevSelected : sites[0]) : this.state.selected;
                         const selectedSite = _.first(sites.filter(s => s.id === selectedSiteId));
                         
                         this.setState({

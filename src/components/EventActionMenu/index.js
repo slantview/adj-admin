@@ -3,12 +3,14 @@ import { Button, List, ListItem, Menu } from '@material-ui/core';
 import SettingsTwoToneIcon from '@material-ui/icons/SettingsTwoTone';
 import moment from 'moment-timezone';
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import EventCloneDialog from 'components/EventCloneDialog';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
+import { UserContext } from 'providers/UserProvider';
 import { DELETE_EVENT, UPDATE_EVENT } from 'queries/events';
-import { useHistory } from 'react-router-dom';
+import { buildSite } from 'utils/api';
 
 const EventActionMenu = (props) => {
     const {
@@ -26,6 +28,7 @@ const EventActionMenu = (props) => {
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
+    const userCtx = useContext(UserContext);
     const timezone = siteCtx.getTimezone();
     const [anchorEl, setAnchorEl] = useState(null);
     const [cloneConfirmModal, setCloneConfirmModal] = useState(false);
@@ -56,6 +59,7 @@ const EventActionMenu = (props) => {
             }})
             .then(result => {
                 const updatedEvent = result.data.updateEvent.event;
+                buildSite(siteCtx.selected, userCtx.token);
                 notify({
                     type: 'success',
                     message: `Successfully published event: ${updatedEvent.title}.`
@@ -79,6 +83,7 @@ const EventActionMenu = (props) => {
             }})
             .then(result => {
                 const updatedEvent = result.data.updateEvent.event;
+                buildSite(siteCtx.selected, userCtx.token);
                 notify({
                     type: 'success',
                     message: `Successfully unpublished event: ${updatedEvent.title}.`
@@ -97,6 +102,7 @@ const EventActionMenu = (props) => {
         deleteEvent({ variables: { id: id }})
             .then(result => {
                 const deletedEvent = result.data.deleteEvent.event;
+                buildSite(siteCtx.selected, userCtx.token);
                 notify({
                     type: 'success',
                     message: `Successfully deleted event: ${deletedEvent.title}.`

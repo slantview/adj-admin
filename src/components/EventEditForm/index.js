@@ -14,8 +14,10 @@ import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import { NotificationContext } from 'providers/NotificationProvider';
 import { SiteContext } from 'providers/SiteProvider';
+import { UserContext } from 'providers/UserProvider';
 import { UPDATE_EVENT } from 'queries/events';
 import { UPLOAD_FILE } from 'queries/files';
+import { buildSite } from 'utils/api';
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
@@ -70,6 +72,7 @@ const EventEditForm = (props) => {
     const history = useHistory();
     const notify = useContext(NotificationContext).notify;
     const siteCtx = useContext(SiteContext);
+    const userCtx = useContext(UserContext);
     const client = useApolloClient();
 
     // @ts-ignore
@@ -160,6 +163,7 @@ const EventEditForm = (props) => {
                 const updatedEvent = ret.data.updateEvent.event;
                 client.resetStore()
                     .then(() => {
+                        buildSite(siteCtx.selected, userCtx.token);
                         notify({
                             type: 'success',
                             message: "Successfully updated event: " + updatedEvent.title

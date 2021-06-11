@@ -66,6 +66,16 @@ export const getSiteMetadata = (url) => {
     });
 };
 
+export const buildSite = (id, token) => {
+    return fetch(SITES_URL + '/' + id + '/build', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+}
+
 export const getUsers = async (token) => {
     return fetch(USERS_URL, {
         method: 'get',
