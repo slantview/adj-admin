@@ -45,7 +45,7 @@ export const GET_ALL_EVENTS = gql`
                 registration_cap
                 registration_cutoff
                 tournament_start_time
-                event {
+                events {
                     id
                 }
                 fee
@@ -127,7 +127,7 @@ export const GET_EVENT = gql`
                 registration_cap
                 registration_cutoff
                 tournament_start_time
-                event {
+                events {
                     id
                 }
                 fee

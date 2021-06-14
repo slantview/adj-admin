@@ -133,7 +133,7 @@ const EventForm = (props) => {
 									value={values.starts_at}
 									onChange={(e) => handleTimeFieldChange('starts_at', e)}
 									views={["date", "year", "month", "hours", "minutes"]}
-									disablePast={true}
+									disablePast={false}
 									InputProps={{
 										endAdornment: (
 										  <InputAdornment position="end">
@@ -153,7 +153,7 @@ const EventForm = (props) => {
 									value={values.ends_at}
 									onChange={(e) => handleTimeFieldChange('ends_at', e)}
 									views={["date", "year", "month", "hours", "minutes"]}
-									disablePast={true}
+									disablePast={false}
 									InputProps={{
 										endAdornment: (
 										  <InputAdornment position="end">

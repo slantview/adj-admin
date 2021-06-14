@@ -59,7 +59,7 @@ export const GET_ALL_SERIES = gql`
                     registration_cap
                     registration_cutoff
                     tournament_start_time
-                    event {
+                    events {
                         id
                     }
                     fee
@@ -151,7 +151,7 @@ export const GET_ALL_PUBLISHED_SERIES = gql`
                     registration_cap
                     registration_cutoff
                     tournament_start_time
-                    event {
+                    events {
                         id
                     }
                     fee
@@ -253,7 +253,7 @@ export const GET_SERIES = gql`
                     registration_cap
                     registration_cutoff
                     tournament_start_time
-                    event {
+                    events {
                         id
                     }
                     fee

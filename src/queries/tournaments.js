@@ -12,7 +12,7 @@ export const GET_ALL_TOURNAMENTS = gql`
             registration_cap
             registration_cutoff
             tournament_start_time
-            event {
+            events {
                 id
                 title
                 starts_at
@@ -72,7 +72,7 @@ export const GET_ALL_SERIES_TOURNAMENTS = gql`
             registration_cap
             registration_cutoff
             tournament_start_time
-            event {
+            events {
                 id
                 title
                 starts_at
@@ -127,7 +127,7 @@ export const GET_TOURNAMENT = gql`
             registration_cap
             registration_cutoff
             tournament_start_time
-            event {
+            events {
                 id
                 title
             }

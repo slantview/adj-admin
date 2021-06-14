@@ -45,9 +45,11 @@ class SiteProvider extends Component {
     };
 
     setSite = (id) => {
-        localStorage.setItem('selectedSite', id);
-        this.setState({selected: id});
-        this.siteDidChange();
+        if (id !== "") {
+            localStorage.setItem('selectedSite', id);
+            this.setState({selected: id});
+            this.siteDidChange();
+        }
     }
 
     siteDidChange = () => {
@@ -99,8 +101,24 @@ class SiteProvider extends Component {
                         if (sites.length === 0) {
                             window.location.pathname = '/failure';
                         }
-                        const prevSelected = localStorage.getItem('selectedSite');
-                        const selectedSiteId = this.state.selected === null ? (prevSelected ? prevSelected : sites[0]) : this.state.selected;
+
+                        let selectedSiteId = "";
+
+                        if (sites.length === 1) {
+                            selectedSiteId = sites[0].id;
+                        } else {
+                            const prevSelected = localStorage.getItem('selectedSite');
+                            if (prevSelected !== "" && prevSelected !== null && typeof prevSelected !== "undefined") {
+                                selectedSiteId = prevSelected;
+                            }
+    
+                            if (this.state.selected !== "" && this.state.selected !== null && typeof this.state.selected !== "undefined") {
+                                selectedSiteId = this.state.selected;
+                            } else {
+                                selectedSiteId = sites[0].id; 
+                            }
+                        }
+                         
                         const selectedSite = _.first(sites.filter(s => s.id === selectedSiteId));
                         
                         this.setState({
