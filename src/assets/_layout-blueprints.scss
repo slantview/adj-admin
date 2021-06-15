@@ -1,4 +1,10 @@
+@import "layout-blueprints/CollapsedSidebar/base";
 // Bamburgh React Admin Dashboard with Material-UI PRO Layout Blueprints
 
 @import "layout-blueprints/LeftSidebar/base";
-@import "layout-blueprints/CollapsedSidebar/base";
+
+.modal-size {
+    width: 40%;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }

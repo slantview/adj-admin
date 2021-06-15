@@ -8,12 +8,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 const AutocompleteSearchField = (props) => {
 	const {
 		name,
+		className,
 		inputLabel,
 		getOptions,
 		setFieldValue,
 		initialOptions,
 		initialValue,
-		multiple
+		multiple,
+		inputClassNames
 	} = props;
 
 	const [value, setValue] = React.useState(initialValue);
@@ -57,6 +59,7 @@ const AutocompleteSearchField = (props) => {
 				name={name}
 				label={inputLabel}
 				variant="outlined"
+				className={inputClassNames}
 				{...params}
 			/>
 		);

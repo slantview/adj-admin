@@ -12,6 +12,7 @@ import BracketsEditPage from 'pages/BracketEditPage';
 import BracketsListPage from 'pages/BracketListPage';
 import EventsEditPage from 'pages/EventsEditPage';
 import FailPage from 'pages/FailPage';
+import GamesEditPage from 'pages/GamesEditPage';
 import GamesModesAddPage from 'pages/GamesModesAddPage';
 import GamesModesEditPage from 'pages/GamesModesEditPage';
 import GamesModesListPage from 'pages/GamesModesListPage';
@@ -108,6 +109,7 @@ ReactDOM.render(
 											<Route exact path="/tournaments/edit/:tournamentId"><TournamentEditPage /></Route>
 											{/* Games Pages */}
 											<Route exact path="/games"><GamesListPage /></Route>
+											<Route exact path="/games/edit/:gameId"><GamesEditPage /></Route>
 											<Route exact path="/games/modes"><GamesModesListPage /></Route>
 											<Route exact path="/games/modes/add"><GamesModesAddPage /></Route>
 											<Route exact path="/games/modes/edit/:modeId"><GamesModesEditPage /></Route>

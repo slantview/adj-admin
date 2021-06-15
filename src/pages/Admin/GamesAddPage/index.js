@@ -8,7 +8,7 @@ const RulesAddPage = (props) => {
     return (
         <div>
             <SectionHeader 
-                title="Add Game"
+                title="Add Game Rules"
                 titleColor="text-white"
                 subtitle="Create new game rules."
                 subtitleColor="text-white-50"
