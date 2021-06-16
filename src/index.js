@@ -19,6 +19,8 @@ import GamesModesListPage from 'pages/GamesModesListPage';
 import GamesPlatformsAddPage from 'pages/GamesPlatformsAddPage';
 import GamesPlatformsEditPage from 'pages/GamesPlatformsEditPage';
 import GamesPlatformsListPage from 'pages/GamesPlatformsListPage';
+import PagesEditPage from 'pages/PagesEditPage';
+import PagesListPage from 'pages/PagesListPage';
 import PlacesEditPage from 'pages/PlacesEditPage';
 import RulesAddPage from 'pages/RulesAddPage';
 import RulesEditPage from 'pages/RulesEditPage';
@@ -136,6 +138,9 @@ ReactDOM.render(
 											<Route exact path="/streams"><StreamsListPage /></Route>
 											<Route exact path="/streams/add"><StreamsAddPage /></Route>
 											<Route exact path="/streams/edit/:streamId"><StreamsEditPage /></Route>
+											{/* Pages (for sites) */}
+											<Route exact path="/pages"><PagesListPage /></Route>
+											<Route exact path="/pages/edit/:pageId"><PagesEditPage /></Route>
 											{/* Account Pages */}
 											<Route exact path="/user/account"><MyAccountPage /></Route>
 											<Route exact path="/user/profile"><ProfileSettings /></Route>

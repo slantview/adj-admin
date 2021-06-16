@@ -1,17 +1,17 @@
 import { useApolloClient, useMutation } from '@apollo/client';
-import { Button, Card } from '@material-ui/core';
-import { Form, Formik } from 'formik';
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import * as Yup from 'yup';
-
+import { Card } from '@material-ui/core';
 import Error from 'components/Error';
 import FormSubmitButton from 'components/FormSubmitButton';
 import Loading from 'components/Loading';
 import Finished from 'components/OrganizationAddForm/Finished';
 import RuleForm from 'components/RuleForm';
+import { Form, Formik } from 'formik';
 import { NotificationContext } from 'providers/NotificationProvider';
-import { CREATE_GAME_RULE_LIST, UPDATE_GAME_RULE_LIST } from 'queries/rules';
+import { UPDATE_GAME_RULE_LIST } from 'queries/rules';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
+
 
 const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),

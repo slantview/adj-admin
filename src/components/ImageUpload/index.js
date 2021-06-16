@@ -53,18 +53,36 @@ const ImageUpload = (props) => {
 	};
 
 	useEffect(() => {
-		if (files && files.length === 0 && value && value.length === 1) {
+		if (typeof value === 'object' && !Array.isArray(value)) {
+			if (value.__typename === 'UploadFile') {
+				setFiles([
+					{
+						name: "header",
+						id: value.id,
+						__typename: value.__typename,
+						preview: value.formats?.large?.url
+					}
+				])
+			}
+			
+		} else if (Array.isArray(value) && value.length === 1) {
 			setFiles(value.map(f => {
 				if (f.__typename === 'UploadFile') {
 					return {
-						preview: f.formats?.small?.url
+						id: f.id,
+						name: f.name,
+						__typename: f.__typename,
+						preview: f.formats?.large?.url
 					}
 				}
 			}));
 		}
-		if (thumbs.length !== files.length && files.length > 0) {
+	}, [value])
+
+	useEffect(() => {
+		if (thumbs.length !== files?.length && files?.length > 0) {
 			let i=0;
-			const newThumbs = files ? files.map((file) => {
+			const newThumbs = files ? files?.map((file) => {
 				return (
 					<div
 						key={file.name+i}
@@ -82,7 +100,7 @@ const ImageUpload = (props) => {
 			setThumbs(newThumbs);
 		}
 		
-	}, [error, files, value])
+	}, [error, files])
 
 
 	return (

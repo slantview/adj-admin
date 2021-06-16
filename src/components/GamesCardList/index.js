@@ -7,7 +7,7 @@ const GamesCardList = (props) => {
     const {
         games
     } = props;
-    console.log()
+    
     return (
         <div>
             <Grid container spacing={2} alignItems="stretch">

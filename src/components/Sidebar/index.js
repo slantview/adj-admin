@@ -237,6 +237,22 @@ const Sidebar = (props) => {
                                     </span>
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink
+                                activeClassName={isNavCategory('pages') ? "active" : null} 
+                                key="pages" 
+                                onClick={() => handleCategoryClick('pages')}
+                                className="nav-link-simple"
+                                to="/pages">
+                                    <span className="sidebar-icon">
+                                        <FontAwesomeIcon icon={['far', 'window-maximize']} />
+                                    </span>
+                                    Pages
+                                    <span className="sidebar-icon-indicator sidebar-icon-indicator-right">
+                                        <ChevronRightTwoToneIcon />
+                                    </span>
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>
