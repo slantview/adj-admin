@@ -18,7 +18,7 @@ const GameCard = (props) => {
 						&nbsp;
 					</div>
 
-					<img alt={game.title} className="card-img-top" src={game.cover.formats.small.url} />
+					<img alt={game.title} className="card-img-top" src={game.cover?.formats?.small?.url} />
 
 					<CardContent className="px-2">
 						<h5 className="card-title font-weight-bold font-size-sm">
