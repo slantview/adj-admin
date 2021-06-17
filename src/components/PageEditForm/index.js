@@ -10,8 +10,7 @@ import Finished from 'components/OrganizationAddForm/Finished';
 import PageForm from './PageForm';
 
 const validationSchema = Yup.object({
-    title: Yup.string().required(),
-    description: Yup.string().required()
+    title: Yup.string().required()
 })
 
 const PageEditForm = (props) => {
