@@ -202,9 +202,7 @@ const PagesEditPage = (props) => {
         case 'games-list-page':
             PAGE_GET_QUERY = GET_GAMES_LIST_PAGE;
             handleSubmit = handleGamesListPageSubmit;
-        default:
-            PAGE_GET_QUERY = GET_HOME_PAGE;
-            handleSubmit = handleHomePageSubmit;
+            break;
     }
 
     const { loading, error, data, refetch } = useQuery(
