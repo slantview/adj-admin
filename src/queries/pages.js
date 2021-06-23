@@ -205,7 +205,7 @@ export const GET_GAMES_LIST_PAGE = gql`
 `
 
 export const UPDATE_GAMES_LIST_PAGE = gql`
-    mutation UpdateGamesListPage($id: ID!, $data: editGamesListPageInput!) {
+    mutation UpdateGamesListPage($data: editGamesListPageInput!) {
         updateGamesListPage(input: { 
             data: $data
         }) {
