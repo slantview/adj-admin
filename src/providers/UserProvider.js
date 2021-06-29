@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import moment from 'moment';
 import React, { Component, createContext } from "react";
+import history from 'utils/history';
 
 export const UserContext = createContext({ user: null, token: null, admin: false, expires: null });
 class UserProvider extends Component {
@@ -35,6 +36,14 @@ class UserProvider extends Component {
             const token = await userAuth.getIdToken();
             const { claims, expirationTime } = await userAuth.getIdTokenResult();
             
+            // @ts-ignore
+            window.analytics.identify({
+                id: userAuth.uid,
+                isAdmin: claims.admin,
+                email: userAuth.email,
+                displayName: userAuth.displayName
+            });
+
             this.setState({ 
                 user: userAuth, 
                 token: token, 
@@ -51,6 +60,13 @@ class UserProvider extends Component {
             if (userAuth) {
                 const token = await userAuth.getIdToken();
                 const { claims, expirationTime } = await userAuth.getIdTokenResult();
+
+                // @ts-ignore
+                window.analytics.identify(userAuth.uid, {
+                    isAdmin: claims.admin,
+                    email: userAuth.email,
+                    name: userAuth.displayName
+                });
 
                 this.setState({
                     user: userAuth, 

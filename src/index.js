@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
-import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 
 import OrganizationAddPage from 'pages/Admin/OrganizationAddPage';
 import SiteAddPage from 'pages/Admin/SiteAddPage';
@@ -61,6 +62,7 @@ import BackendProvider from './providers/BackendProvider';
 import SiteProvider from './providers/SiteProvider';
 import UserProvider from './providers/UserProvider';
 import store from './state/store.js';
+import history from './utils/history';
 
 const pageVariants = {
     initial: {
@@ -72,16 +74,16 @@ const pageVariants = {
     out: {
       opacity: 0
     }
-  };
+};
 
-  const pageTransition = {
-    type: 'tween',
-    ease: 'linear',
-    duration: 0.3
-  };
+const pageTransition = {
+	type: 'tween',
+	ease: 'linear',
+	duration: 0.3
+};
 
 ReactDOM.render(
-	<Router>
+	<Router history={history}>
 		<Provider store={store}>
 			<NotificationProvider>
 				<AnimatePresence>
